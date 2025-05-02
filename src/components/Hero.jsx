@@ -1,9 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import { Calendar, MapPin, Users, ArrowRight } from "lucide-react"
+import { Calendar, MapPin, Users, ArrowRight,  } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GeometricShapesCSS } from "./geometric-shapes"
+import Link from "next/link"
 
 export default function ConferenceHero() {
   return (
@@ -15,17 +16,17 @@ export default function ConferenceHero() {
      
       {/* Hero Content */}
       <div className="relative z-10 container mx-auto px-4 pt-16">
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-            Join us in the conference for
+        <div className="text-center max-w-xl md:max-w-5xl mx-auto mb-16">
+          <h1 className="text-2xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+            Join us at International Conference on 
             <span className="relative inline-block mx-2 ml-8">
-              <span className="relative z-10">sustainability</span>
+              <span className="relative z-10">Sustainability,Innovation and Future Technologies</span>
               <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-2 scale-110 z-0"></span>
             </span>
              
           </h1>
           <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
-            International Conference on Sustainability, Innovation and Future Technologies bringing together experts and
+         ICSIFT bringing together experts and
             enthusiasts from around the world.
           </p>
         </div>
@@ -53,30 +54,31 @@ export default function ConferenceHero() {
                 <div className="inline-block bg-[#d3e4c5] rounded-full px-3 py-1 text-sm font-medium text-[#1a2e1a] mb-4">
                   Hybrid Conference
                 </div>
-                <h3 className="text-xl font-bold mb-2">Conference Details</h3>
+                <h3 className="text-2xl md:text-4xl  font-bold mb-2">Conference Details</h3>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center">
-                  <Calendar className="w-5 h-5 mr-3 text-[#4d724d]" />
-                  <span>December 26-27, 2024</span>
+                  <Calendar className="w-7 h-7 mr-3  text-[#4d724d]" />
+                  <span className="text-lg md:text-2xl font-medium">December 26<sup>th</sup >- 27<sup>th</sup>, 2025</span>
                 </div>
                 <div className="flex items-center">
-                  <MapPin className="w-5 h-5 mr-3 text-[#4d724d]" />
-                  <span>Bangkok, Thailand</span>
+                  <MapPin className="w-7 h-7 mr-3 text-[#4d724d]" />
+                  <span  className="text-xl md:text-xl font-medium">Bangkok, Thailand</span>
                 </div>
                 <div className="flex items-center">
-                  <Users className="w-5 h-5 mr-3 text-[#4d724d]" />
-                  <span>In-person & Virtual</span>
+                  <Users className="w-7 h-7 mr-3 text-[#4d724d]" />
+                  <span  className="text-xl md:text-xl font-medium">In-person & Virtual</span>
                 </div>
               </div>
             </div>
-
+            <Link href="/about-conference">
             <div className="bg-[#d3e4c5] rounded-3xl p-6 shadow-sm flex items-center justify-between">
               <span className="font-medium">Learn More</span>
-              <Button variant="ghost" size="icon" className="rounded-full bg-white h-10 w-10">
-                <ArrowRight className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="rounded-full bg-white drop-shadow-2xl h-10 w-10">
+                <ArrowRight className="h-5 w-5  " />
               </Button>
             </div>
+            </Link>
           </div>
         </div>
 

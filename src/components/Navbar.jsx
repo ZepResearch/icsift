@@ -94,8 +94,8 @@ export default function ConferenceNavbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-transparent"
+      className={`sticky top-0 z-50 w-full transition-all duration-300 py-2 ${
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm " : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -103,11 +103,11 @@ export default function ConferenceNavbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="bg-[#4d724d]/10 rounded-full p-2">
-              <div className="w-12 h-12 relative">
+              <div className="w-16 h-16  relative">
                 <Image src="/singleLogo.svg?height=32&width=32" alt="ICSIFT Logo" fill className="object-contain" />
               </div>
             </div>
-            <span className="font-bold text-lg md:text-xl text-[#1a2e1a]">ICSIFT </span>
+            <span className="font-bold text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-teal-700 to-lime-500">ICSIFT </span>
           </Link>
 
           {/* Desktop Navigation */}

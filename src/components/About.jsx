@@ -4,6 +4,7 @@ import Image from "next/image"
 import { ArrowRight, FileText, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
 
 export default function AboutConference() {
   const downloadMaterials = [
@@ -63,12 +64,14 @@ export default function AboutConference() {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
+                 <Link href="/about-conference">      
                 <Button
                   variant="ghost"
                   className="text-[#1a2e1a] hover:bg-white/50 border border-[#1a2e1a] rounded-full"
                 >
                   Details <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+                </Link>
               </div>
             </div>
 
