@@ -3,6 +3,7 @@
 import { Check, Target, Lightbulb, Network, Globe, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
+import Link from "next/link"
 
 export default function ConferenceObjectives() {
   // State to store dot positions
@@ -157,15 +158,19 @@ export default function ConferenceObjectives() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
+              <Link href="/submission">
               <Button className="bg-white hover:bg-[#f0f5eb] text-[#1a2e1a] rounded-full whitespace-nowrap">
                 Submit Paper
               </Button>
+              </Link> 
+              <Link href="/papers-format">
               <Button
                 variant="outline"
                 className="border-white text-white hover:bg-white/10 rounded-full whitespace-nowrap"
               >
                 View Guidelines
               </Button>
+              </Link>
             </div>
           </div>
         </div>

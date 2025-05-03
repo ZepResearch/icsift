@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Twitter, Linkedin, Globe, Users, Award, GraduationCap,Sparkles } from "lucide-react"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { pb } from "@/lib/pocketbase"
+import Link from "next/link"
 
 export default function CommitteePage() {
   // Mock committee data since we don't have a real database connection
@@ -271,9 +272,11 @@ export default function CommitteePage() {
                 </p>
 
                 <div className="inline-block">
+                  <Link href="/contact" >
                   <button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300">
                     Express Interest
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>

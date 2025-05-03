@@ -101,10 +101,11 @@ export default function AboutConferencePage() {
                 <span>500+ Global Participants</span>
               </div>
             </div>
-
+            <Link href={"/registration"} >
             <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full px-8 py-6 text-lg">
               Register Now
             </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -202,9 +203,11 @@ export default function AboutConferencePage() {
               Join us in Bangkok from December 26-27, 2025, to be part of a global movement dedicated to sustainability,
               innovation, and the technologies of tomorrow!
             </p>
-            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
+            <Link href="/schedule" >
+            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full text-lg py-6">
               View Conference Schedule
             </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -293,7 +296,7 @@ export default function AboutConferencePage() {
                 </p>
               </div>
               <Link
-                href="/register"
+                href="/registration"
                 className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 flex items-center whitespace-nowrap"
               >
                 Register Now <ArrowRight className="ml-2 h-4 w-4" />

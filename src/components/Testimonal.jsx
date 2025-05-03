@@ -140,7 +140,7 @@ export default function ConferenceTestimonials() {
           </div>
           <div className="bg-white rounded-3xl p-8 text-center shadow-sm">
             <div className="text-4xl font-bold text-[#1a2e1a] mb-2">32</div>
-            <p className="text-[#4d724d]">Countries represented by speakers and attendees at ICSIFT 2024</p>
+            <p className="text-[#4d724d]">Countries represented by speakers and attendees at ICSIFT 2025</p>
           </div>
           <div className="bg-white rounded-3xl p-8 text-center shadow-sm">
             <div className="text-4xl font-bold text-[#1a2e1a] mb-2">87%</div>
@@ -152,7 +152,7 @@ export default function ConferenceTestimonials() {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at ICSIFT 2024</h3>
+          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at ICSIFT 2025</h3>
           <p className="text-[#4d724d] max-w-2xl mx-auto mb-8">
             Be part of the global conversation on sustainability, innovation, and future technologies.
           </p>

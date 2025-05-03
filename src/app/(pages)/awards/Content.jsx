@@ -361,10 +361,14 @@ export default function AwardsPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/submission">
+
                   <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
                     Submit Your Paper
                   </Button>
-                  <Link href="/register">
+                  </Link>
+
+                  <Link href="/registration">
                     <Button variant="outline" className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full">
                       Register Now <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

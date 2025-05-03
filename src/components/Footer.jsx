@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Calendar, MapPin } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Calendar, MapPin, Youtube } from "lucide-react"
 
 export default function ConferenceFooter() {
   const [showScrollTop, setShowScrollTop] = useState(false)
@@ -40,8 +40,8 @@ export default function ConferenceFooter() {
       links: [
         { href: "/contact", label: "Contact" },
         { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
-        { href: "/faq", label: "FAQ" },
-        { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/registration", label: "Registration" },
+        // { href: "/privacy-policy", label: "Privacy Policy" },
       ],
     },
   ]
@@ -49,23 +49,27 @@ export default function ConferenceFooter() {
   // Conference information cards
   const conferenceCards = [
     {
-      title: "ICSIFT 2024",
-      logo: "/placeholder.svg?height=40&width=40",
-      location: "Bangkok, Thailand",
-      date: "December 26-27, 2024",
+      title: "NextGen-Synergy 2025",
+      logo: "/conf/nextgen.ico?height=40&width=40",
+      location: "Delhi, India",
+      date: "August 21st -22nd , 2025",
+      href: "https://www.thenextgensynergy.com/",
     },
     {
-      title: "ICSIFT 2023",
-      logo: "/placeholder.svg?height=40&width=40",
-      location: "Singapore",
-      date: "December 18-19, 2023",
+      title: "Wfcces 2025",
+      logo: "/conf/wfcces.png?height=40&width=40",
+      location: "Kuala Lumpur, Malaysia",
+      date: "May 22nd - 23rd, 2025",
+      href: "https://www.wfcces.com/",
     },
     {
-      title: "ICSIFT 2022",
-      logo: "/placeholder.svg?height=40&width=40",
-      location: "Virtual Conference",
-      date: "December 20-21, 2022",
+      title: "ICEMSS 2025",
+      logo: "/conf/icemss.ico?height=40&width=40",
+      location: "Goa, India",
+      date: "December 22-23, 2025",
+      href: "https://www.icemss.in",
     },
+    
   ]
 
   // Handle scroll to top button visibility
@@ -155,34 +159,40 @@ export default function ConferenceFooter() {
               <span className="font-bold text-3xl text-white">ICSIFT</span>
             </div>
             <p className="text-white/80 mb-6 max-w-xl">
-              International Conference on Sustainability, Innovation, and Future Technologies. Join us December 26-27,
-              2024 in Bangkok, Thailand for a transformative experience bringing together experts, researchers, and
+              International Conference on Sustainability, Innovation, and Future Technologies. Join us December 26th - 27th,
+              2025 in Bangkok, Thailand for a transformative experience bringing together experts, researchers, and
               industry leaders to explore groundbreaking advancements in sustainability and innovation.
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61561809783777"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
               >
                 <Facebook size={18} />
               </a>
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Twitter size={18} />
-              </a>
-              <a
-                href="#"
+                href="https://www.instagram.com/zepresearch/"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
               >
                 <Instagram size={18} />
               </a>
               <a
-                href="#"
+                href="https://x.com/Zepresearch"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <Twitter size={18} />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/zep-research/"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
               >
                 <Linkedin size={18} />
+              </a>
+              <a
+                href="https://www.youtube.com/@Zepresearch"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              >
+                <Youtube size={18} />
               </a>
             </div>
           </div>
@@ -217,7 +227,7 @@ export default function ConferenceFooter() {
                 </div>
                 <div className="mt-3 pt-2 border-t border-white/10">
                   <Link
-                    href={`/archive/${card.title.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`${card.href}`}
                     className="text-[#d3e4c5] hover:text-white text-sm flex items-center group-hover:underline"
                   >
                     View Details

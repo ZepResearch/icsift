@@ -134,12 +134,14 @@ export default function ConferenceVenue() {
                     <Navigation className="mr-2 h-5 w-5" />
                     Get Directions
                   </Button>
+                  <Link href="/venue">
                   <Button
                     variant="outline"
                     className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full"
                   >
                     Detail Info
                   </Button>
+                  </Link>
                 </div>
               </div>
             </div>

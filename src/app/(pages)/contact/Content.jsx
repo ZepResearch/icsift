@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { ArrowRight, Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Globe } from "lucide-react"
+import { ArrowRight, Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Globe, YoutubeIcon } from "lucide-react"
 import "react-phone-number-input/style.css"
 import PhoneInput from "react-phone-number-input"
 import { GeometricShapesCSS } from "@/components/geometric-shapes"
@@ -144,7 +144,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-sm text-[#4d724d]/70">Address</p>
                         <p className="text-[#1a2e1a] font-medium">
-                          Queen Sirikit National Convention Center, Bangkok, Thailand
+                        DCB-330, 3rd Floor, DLF Cyber City, Patia, Bhubaneswar, ODISHA - 751024 India
                         </p>
                       </div>
                     </div>
@@ -154,7 +154,7 @@ export default function ContactPage() {
                     <h3 className="text-lg font-medium text-[#1a2e1a] mb-4">Connect With Us</h3>
                     <div className="flex gap-4">
                       <a
-                        href="#"
+                        href="https://www.facebook.com/profile.php?id=61561809783777"
                         className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
                       >
                         <svg
@@ -172,7 +172,7 @@ export default function ContactPage() {
                         </svg>
                       </a>
                       <a
-                        href="#"
+                        href="https://www.instagram.com/zepresearch/"
                         className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
                       >
                         <svg
@@ -192,7 +192,7 @@ export default function ContactPage() {
                         </svg>
                       </a>
                       <a
-                        href="#"
+                        href="https://x.com/Zepresearch"
                         className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
                       >
                         <svg
@@ -210,7 +210,7 @@ export default function ContactPage() {
                         </svg>
                       </a>
                       <a
-                        href="#"
+                        href="https://www.linkedin.com/company/zep-research/"
                         className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
                       >
                         <svg
@@ -230,7 +230,13 @@ export default function ContactPage() {
                         </svg>
                       </a>
                       <a
-                        href="#"
+                        href="https://www.youtube.com/@Zepresearch"
+                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
+                      >
+                       <YoutubeIcon/>
+                      </a>
+                      <a
+                        href="https://www.zepresearch.com/"
                         className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
                       >
                         <Globe className="h-5 w-5" />

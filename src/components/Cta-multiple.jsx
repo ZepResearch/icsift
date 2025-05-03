@@ -111,14 +111,14 @@ export default function ConferenceCTACards() {
         {/* Bottom CTA */}
         <div className="mt-12 bg-[#edf6e1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0">
-            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2024?</h3>
+            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2025?</h3>
             <p className="text-[#4d724d] max-w-xl">
               Register now to secure your spot at the premier conference on sustainability, innovation, and future
               technologies.
             </p>
           </div>
           <Link
-            href="/register"
+            href="/registration"
             className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 flex items-center"
           >
             Register Now <ArrowRight className="ml-2 h-4 w-4" />

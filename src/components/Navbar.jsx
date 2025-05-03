@@ -149,7 +149,9 @@ export default function ConferenceNavbar() {
 
           {/* Register Button */}
           <div className="hidden lg:block">
+            <Link href="/registration" >
             <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
+            </Link>
             
           </div>
 
@@ -202,8 +204,9 @@ export default function ConferenceNavbar() {
               ))}
             </nav>
             <div className="mt-6 pt-6 border-t border-[#edf6e1]">
-              
+            <Link href="/registration" >
               <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
+            </Link>
             </div>
           </div>
         </div>
