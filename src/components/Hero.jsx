@@ -5,6 +5,7 @@ import { Calendar, MapPin, Users, ArrowRight,  } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { GeometricShapesCSS } from "./geometric-shapes"
 import Link from "next/link"
+import { ReserveButton } from "./reserve-button"
 
 export default function ConferenceHero() {
   return (
@@ -79,6 +80,11 @@ export default function ConferenceHero() {
               </Button>
             </div>
             </Link>
+            <ReserveButton/>
+
+          
+           
+              
           </div>
         </div>
 
