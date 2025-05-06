@@ -106,17 +106,12 @@ export default function AboutOrganizersPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-3xl overflow-hidden h-[400px]">
               <Image
-                src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                src="/gallery/ICSIFT_03.jpg"
                 alt="Zep Research Team"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="bg-white/90 backdrop-blur-sm rounded-full py-3 px-6 inline-flex items-center">
-                  <span className="text-[#1a2e1a] font-medium">Advancing Academic Excellence</span>
-                </div>
-              </div>
+             
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">About Zep Research</h2>

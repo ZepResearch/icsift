@@ -64,56 +64,31 @@ export default function AboutConference() {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                 <Link href="/about-conference">      
-                <Button
-                  variant="ghost"
-                  className="text-[#1a2e1a] hover:bg-white/50 border border-[#1a2e1a] rounded-full"
-                >
-                  Details <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                <Link href="/about-conference">      
+                  <Button
+                    variant="ghost"
+                    className="text-[#1a2e1a] hover:bg-white/50 border border-[#1a2e1a] rounded-full"
+                  >
+                    Details <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </Link>
               </div>
             </div>
 
-            {/* Right Content */}
-            <div className="relative bg-white rounded-3xl overflow-hidden shadow-sm">
+            {/* Right Content - Image Only */}
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-sm drop-shadow-2xl">
               <div className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-sm z-10">
                 <FileText className="h-5 w-5 text-[#1a2e1a]" />
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-                {/* Image */}
-                <div className="relative h-64 md:h-full">
-                  <Image
-                    src="https://images.unsplash.com/photo-1536147116438-62679a5e01f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80"
-                    alt="Sustainable Materials"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                {/* Stats */}
-                <div className="p-6 flex flex-col justify-center">
-                  <div className="mb-6">
-                    <h3 className="text-sm font-medium text-[#4d724d] mb-2">Sustainability Impact</h3>
-                    <div className="relative h-36 w-36 mx-auto">
-                      <div className="absolute inset-0 rounded-full border-8 border-[#e9d5ff]/30"></div>
-                      <div
-                        className="absolute inset-0 rounded-full border-8 border-[#e9d5ff]"
-                        style={{
-                          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-                          transform: "rotate(90deg)",
-                        }}
-                      ></div>
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-3xl font-bold">85%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <Button className="bg-white text-[#1a2e1a] hover:bg-[#f0f5eb] border border-[#d3e4c5] rounded-full self-end">
-                    Explore More
-                  </Button>
-                </div>
+              
+              {/* Full-width Image */}
+              <div className="relative h-80 md:h-96 w-full">
+                <Image
+                  src="/gallery/ICSIFT_09.jpg"
+                  alt="Sustainable Materials"
+                  fill
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
