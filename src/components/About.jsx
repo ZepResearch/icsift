@@ -1,20 +1,61 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { ArrowRight, FileText, Download } from "lucide-react"
+import { ArrowRight, FileText, Download, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
+import PocketBase from 'pocketbase'
 
 export default function AboutConference() {
-  const downloadMaterials = [
-    { name: "Conference Brochure", file: "#" },
-    { name: "Copyright Form", file: "#" },
-    { name: "Abstract Template", file: "#" },
-    { name: "Manuscript Template", file: "#" },
-    { name: "Registration Form", file: "#" },
-    { name: "Conference Poster", file: "#" },
-  ]
+  const [downloadMaterials, setDownloadMaterials] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      try {
+        setIsLoading(true)
+        const pb = new PocketBase('https://conference.pockethost.io')
+        
+        // Fetch all download materials sorted by creation date
+        const records = await pb.collection('ICSIFT_download_material').getFullList({
+          sort: '-created',
+        })
+        
+        // Transform records to include proper download URLs
+        const materials = records.map(record => ({
+          name: record.title,
+          file: pb.files.getUrl(record, record.file),
+          id: record.id
+        }))
+        
+        setDownloadMaterials(materials)
+      } catch (err) {
+        console.error("Error fetching materials:", err)
+        setError("Failed to load download materials")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchMaterials()
+  }, [])
+
+  // Function to handle file download
+  const handleDownload = (fileUrl, fileName) => {
+    // Create a temporary anchor element
+    const link = document.createElement('a')
+    link.href = fileUrl
+    link.setAttribute('download', fileName)
+    link.setAttribute('target', '_blank')
+    
+    // Append to the document, click it, and remove it
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 
   return (
     <div className="w-full py-16 px-4 md:px-8 lg:px-16 bg-[#f8faf5]">
@@ -49,18 +90,40 @@ export default function AboutConference() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className="bg-white text-[#1a2e1a] hover:bg-[#f0f5eb] border border-[#d3e4c5] rounded-full">
-                      <Download className="mr-2 h-4 w-4" /> Download Materials
+                      {isLoading ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <Download className="mr-2 h-4 w-4" />
+                      )}
+                      Download Materials
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="w-56 bg-amber-50">
-                    {downloadMaterials.map((item, index) => (
-                      <DropdownMenuItem key={index} asChild>
-                        <a href={item.file} className="flex items-center cursor-pointer ">
+                    {isLoading ? (
+                      <DropdownMenuItem disabled>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <span>Loading materials...</span>
+                      </DropdownMenuItem>
+                    ) : error ? (
+                      <DropdownMenuItem disabled>
+                        <span className="text-red-500">{error}</span>
+                      </DropdownMenuItem>
+                    ) : downloadMaterials.length === 0 ? (
+                      <DropdownMenuItem disabled>
+                        <span>No materials available</span>
+                      </DropdownMenuItem>
+                    ) : (
+                      downloadMaterials.map((item, index) => (
+                        <DropdownMenuItem 
+                          key={item.id || index} 
+                          onClick={() => handleDownload(item.file, item.name)}
+                          className="flex items-center cursor-pointer"
+                        >
                           <FileText className="mr-2 h-4 w-4" />
                           <span>{item.name}</span>
-                        </a>
-                      </DropdownMenuItem>
-                    ))}
+                        </DropdownMenuItem>
+                      ))
+                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
 
