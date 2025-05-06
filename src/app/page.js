@@ -5,6 +5,8 @@ import ConferenceCTACards from "@/components/Cta-multiple";
 import ConferenceVenue from "@/components/Venue-cta";
 import ConferenceTestimonials from "@/components/Testimonal";
 import ConferenceFAQ from "@/components/Faq";
+import { ConferenceTimeline } from "@/components/conference-timeline";
+import { SpeakerSection } from "@/components/speaker-section";
 
 export default function Home() {
   return (
@@ -13,6 +15,8 @@ export default function Home() {
         <ConferenceHero/>
         <AboutConference/>
         <ConferenceObjectives/>
+        <ConferenceTimeline/>
+        <SpeakerSection/>
         <ConferenceCTACards/>
         <ConferenceVenue/>
         <ConferenceFAQ/>

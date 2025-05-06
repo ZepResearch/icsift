@@ -5,6 +5,7 @@ const nextConfig = {
       'res.cloudinary.com',
       'images.unsplash.com',
       'plus.unsplash.com',
+      'conference.pockethost.io',
       'zep-research.pockethost.io',
     ],
   },
