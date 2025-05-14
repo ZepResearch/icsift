@@ -5,9 +5,9 @@
 import React from 'react'
 
 import PaymentFailedPage from './Content'
-// import { paymentMetadataFailed } from '@/components/metadata'
+import { paymentMetadataFailed } from '@/components/metadata'
 
-// export const metadata = paymentMetadataFailed
+export const metadata = paymentMetadataFailed
 function Content() {
   return (
     <div>

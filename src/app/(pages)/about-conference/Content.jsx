@@ -77,14 +77,14 @@ export default function AboutConferencePage() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
               About
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">ICSIFT</span>
+              <span className="relative inline-block mx-2 ml-4">
+                <span className="relative z-10 ">2<sup>nd</sup>ICSIFT</span>
                 <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
               </span>
               2025
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              International Conference on Sustainability, Innovation, and Future Technologies
+              2<sup>nd</sup> International Conference on Sustainability, Innovation, and Future Technologies
             </p>
 
             <div className="flex flex-wrap justify-center gap-6 mb-12">
@@ -117,7 +117,7 @@ export default function AboutConferencePage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">About the Conference</h2>
               <p className="text-[#4d724d] mb-4">
-                The International Conference on Sustainability, Innovation, and Future Technologies 2025, taking place in
+                The 2<sup>nd</sup>International Conference on Sustainability, Innovation, and Future Technologies 2025, taking place in
                 the vibrant city of Bangkok, Thailand, aims to engage in discussions and identify how and where
                 sustainability, technological innovation, and industrial futures intersect.
               </p>
@@ -216,7 +216,7 @@ export default function AboutConferencePage() {
       <section className="py-16 bg-[#f8faf5]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Why Attend ICSIFT 2025</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Why Attend 2<sup>nd</sup>ICSIFT 2025</h2>
             <p className="text-[#4d724d]">
               The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is the ideal
               platform for exploring transformative solutions and advancing sustainable technologies.
@@ -289,7 +289,7 @@ export default function AboutConferencePage() {
           <div className="bg-white rounded-3xl p-8 shadow-sm">
             <div className="flex flex-col md:flex-row items-center justify-between">
               <div className="mb-6 md:mb-0 md:mr-6">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2025?</h3>
+                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join 2<sup>nd</sup>ICSIFT 2025?</h3>
                 <p className="text-[#4d724d] max-w-xl">
                   Register now to secure your spot at the premier conference on sustainability, innovation, and future
                   technologies.

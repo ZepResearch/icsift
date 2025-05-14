@@ -63,7 +63,7 @@ export default function AboutConference() {
         {/* Main Card */}
         <div className="bg-[#edf6e1] rounded-3xl p-6 md:p-10 overflow-hidden relative">
           {/* Navigation Dots */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col gap-3 hidden md:flex">
+          <div className="absolute left-6 top-1/2 -translate-y-1/2  flex-col gap-3 hidden md:flex">
             <div className="w-2 h-2 rounded-full bg-[#4d724d]/40"></div>
             <div className="w-2 h-2 rounded-full bg-[#4d724d]/80"></div>
             <div className="w-2 h-2 rounded-full bg-[#4d724d]/40"></div>
@@ -76,7 +76,7 @@ export default function AboutConference() {
                 About ICSIFT
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">
-                International Conference on Sustainability, Innovation, and Future Technologies
+               2<sup>nd</sup> International Conference on Sustainability, Innovation, and Future Technologies
               </h2>
               <p className="text-[#4d724d] mb-6">
                 The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is a

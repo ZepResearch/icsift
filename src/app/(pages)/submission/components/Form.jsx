@@ -81,7 +81,7 @@ export default function PaperSubmissionPage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Share your research at ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
+              Share your research at 2<sup>nd</sup>ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
               Technologies
             </p>
           </div>

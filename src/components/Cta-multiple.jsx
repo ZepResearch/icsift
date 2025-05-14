@@ -1,9 +1,14 @@
 "use client"
 
-import { ArrowRight, Award, MapPin, Users, Calendar, BookOpen, Handshake } from "lucide-react"
+import { useState } from "react"
+import { ArrowRight, Award, MapPin, Users, Calendar, BookOpen, Handshake, Play } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 export default function ConferenceCTACards() {
+  const [videoOpen, setVideoOpen] = useState(false)
+
   const ctaCards = [
     {
       title: "Awards",
@@ -80,33 +85,91 @@ export default function ConferenceCTACards() {
               key={index}
               className="group relative overflow-hidden rounded-3xl transition-all duration-300 hover:shadow-lg"
             >
-                  <Link
-                  href={card.link}>
-              {/* Card Background with Gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-90`}></div>
+              <Link href={card.link}>
+                {/* Card Background with Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-90`}></div>
 
-              {/* Content */}
-              
-              <div className="relative p-8 h-full flex flex-col text-white">
-                <div className="mb-4">{card.icon}</div>
-                <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
-                <p className="text-white/80 mb-6 flex-grow">{card.description}</p>
+                {/* Content */}
+                <div className="relative p-8 h-full flex flex-col text-white">
+                  <div className="mb-4">{card.icon}</div>
+                  <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
+                  <p className="text-white/80 mb-6 flex-grow">{card.description}</p>
 
-                <span
-                  href={card.link}
-                  className="inline-flex items-center text-white font-medium mt-auto group-hover:underline w-full py-2"
-                >
-                  Learn more <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
+                  <span className="inline-flex items-center text-white font-medium mt-auto group-hover:underline w-full py-2">
+                    Learn more <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
 
-              {/* Decorative Elements */}
-              <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10 opacity-50"></div>
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-white/10 opacity-30"></div>
+                {/* Decorative Elements */}
+                <div className="absolute top-4 right-4 w-20 h-20 rounded-full bg-white/10 opacity-50"></div>
+                <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-white/10 opacity-30"></div>
               </Link>
             </div>
           ))}
         </div>
+
+        {/* YouTube Video Section */}
+        <div className="mt-16 mb-12">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl md:text-3xl font-bold text-[#1a2e1a] mb-3">
+              Watch Our Conference Highlights
+              {/* <span className="relative inline-block mx-2">
+                <span className="relative z-10"></span>
+                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
+              </span>
+               */}
+            </h3>
+            <p className="text-[#4d724d] max-w-2xl mx-auto">
+              Get a glimpse of what to expect at ICSIFT 2024 through our previous conference highlights.
+            </p>
+          </div>
+
+          {/* Video Thumbnail */}
+          <div
+            className="relative mx-auto max-w-4xl rounded-2xl overflow-hidden cursor-pointer group"
+            onClick={() => setVideoOpen(true)}
+          >
+            <div className="aspect-video relative">
+              <Image
+                src="/preview.jpg"
+                alt="Conference Highlights Video Thumbnail"
+                width={1280}
+                height={720}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                <div className="w-20 h-20 rounded-full bg-[#4d724d]/90 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                  <Play className="w-8 h-8 text-white fill-white ml-1" />
+                </div>
+              </div>
+
+              {/* Video Title Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                <h4 className="text-white text-xl font-bold">ICSIFT 2024: Sustainability Innovation Highlights</h4>
+                <p className="text-white/80">
+                  Experience the groundbreaking ideas and solutions from our previous conference
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Modal */}
+        <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
+          <DialogContent className="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] xl:max-w-5xl p-0 bg-black border-none overflow-hidden">
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+              <iframe
+                src={`https://www.youtube.com/embed/DTUzRphTBWA?autoplay=1&si=k-g8jPTEEUMfGtxM`}
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute top-0 left-0 w-full h-full"
+              ></iframe>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Bottom CTA */}
         <div className="mt-12 bg-[#edf6e1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between">

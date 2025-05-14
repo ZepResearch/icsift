@@ -56,7 +56,7 @@ export default function ConferenceFAQ() {
             </span>
           </h2>
           <p className="text-[#4d724d] max-w-2xl mx-auto">
-            Find answers to common questions about ICSIFT 2025. If you don't see your question here, please contact us.
+            Find answers to common questions about 2<sup>nd</sup>ICSIFT 2025. If you don't see your question here, please contact us.
           </p>
         </div>
 

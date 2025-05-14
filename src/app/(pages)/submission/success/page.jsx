@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, ArrowRight, ArrowLeft, Calendar } from "lucide-react"
+import { submissionSuccessMetadata } from "@/components/metadata"
 
+
+export const metadata = submissionSuccessMetadata;
 export default function SubmissionSuccess() {
   return (
     <main className="bg-[#f8faf5]">

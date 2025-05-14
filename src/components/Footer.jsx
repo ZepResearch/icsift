@@ -1,9 +1,21 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Calendar, MapPin, Youtube } from "lucide-react"
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  ArrowUp,
+  Calendar,
+  MapPin,
+  Youtube,
+  Mail,
+  Contact
+} from "lucide-react"
 
 export default function ConferenceFooter() {
   const [showScrollTop, setShowScrollTop] = useState(false)
@@ -69,7 +81,6 @@ export default function ConferenceFooter() {
       date: "December 22-23, 2025",
       href: "https://www.icemss.in",
     },
-    
   ]
 
   // Handle scroll to top button visibility
@@ -103,21 +114,23 @@ export default function ConferenceFooter() {
           className="absolute -right-20 -bottom-40 w-80 h-80 rounded-full bg-gradient-to-br from-[#4d724d]/20 to-transparent"
           style={{ filter: "blur(40px)" }}
         ></div>
-
+        
         {/* Small floating circles */}
         <div
           className="absolute left-1/4 top-1/4 w-16 h-16 rounded-full bg-[#d3e4c5]/10 animate-float-slow"
           style={{ animationDelay: "0s" }}
         ></div>
+        
         <div
           className="absolute right-1/3 top-1/2 w-12 h-12 rounded-full bg-[#d3e4c5]/10 animate-float"
           style={{ animationDelay: "-2s" }}
         ></div>
+        
         <div
           className="absolute left-1/2 bottom-1/4 w-20 h-20 rounded-full bg-[#d3e4c5]/10 animate-float-slow"
           style={{ animationDelay: "-1s" }}
         ></div>
-
+        
         {/* Geometric shapes */}
         <div
           className="absolute left-10 bottom-10 w-32 h-32 bg-[#d3e4c5]/5"
@@ -126,6 +139,7 @@ export default function ConferenceFooter() {
             transform: "rotate(15deg)",
           }}
         ></div>
+        
         <div
           className="absolute right-1/4 top-10 w-24 h-24 bg-[#d3e4c5]/5"
           style={{
@@ -133,7 +147,7 @@ export default function ConferenceFooter() {
             transform: "rotate(-10deg)",
           }}
         ></div>
-
+        
         {/* Subtle grid lines */}
         <div className="absolute inset-0 opacity-5">
           <div className="h-px w-full bg-white absolute top-1/4"></div>
@@ -240,7 +254,42 @@ export default function ConferenceFooter() {
         </div>
 
         {/* Navigation Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-16">
+          {/* Contact Information */}
+          <div>
+            <h4 className="font-bold text-lg mb-4">Contact Us</h4>
+            <ul className="space-y-4">
+              <li>
+                <div className="space-y-1">
+                  
+                  <a
+                    href="mailto:info@icsift.com"
+                    className="inline-flex gap-4 text-white/70 hover:text-white transition-colors hover:underline "
+                  >
+                   <Mail/> info@icsift.com
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div className="space-y-1">
+                  {/* <p className="text-[#d3e4c5] text-sm">Phone</p> */}
+                  <a
+                    href="tel:+917848854815"
+                    className="inline-flex gap-2 text-white/70 hover:text-white transition-colors hover:underline "
+                  >
+                    <Contact/>+91 78488 54815
+                  </a>
+                </div>
+              </li>
+              <li>
+                <div className="space-y-1">
+                  <p className="text-white/70 inline-flex gap-2">
+                   <MapPin/> Bangkok, Thailand
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
           {footerLinks.map((group, index) => (
             <div key={index}>
               <h4 className="font-bold text-lg mb-4">{group.title}</h4>
@@ -285,7 +334,7 @@ export default function ConferenceFooter() {
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/60 text-sm mb-4 md:mb-0">
-            © 2024 ICSIFT. All rights reserved. Designed with sustainability in mind.
+            © 2025 ICSIFT. All rights reserved. Designed with sustainability in mind.
           </p>
           <div className="flex space-x-6">
             <Link href="/terms" className="text-white/60 text-sm hover:text-white transition-colors">
@@ -304,7 +353,7 @@ export default function ConferenceFooter() {
       {/* Scroll to top button */}
       <button
         onClick={scrollToTop}
-        className={`fixed right-6 bottom-6 w-12 h-12 rounded-full bg-[#d3e4c5] text-[#1a2e1a] flex items-center justify-center shadow-lg transition-all duration-300 z-50 ${
+        className={`fixed right-28 bottom-6 w-12 h-12 rounded-full bg-[#d3e4c5] text-[#1a2e1a] flex items-center justify-center shadow-lg transition-all duration-300 z-50 ${
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         }`}
       >

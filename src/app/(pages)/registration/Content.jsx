@@ -164,7 +164,7 @@ export default function RegistrationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#d3e4c5]/30 px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-              <span>ICSIFT 2025</span>
+              <span>2<sup>nd</sup>ICSIFT 2025</span>
               <ChevronRight className="ml-1 h-4 w-4" />
             </div>
 
@@ -354,7 +354,7 @@ export default function RegistrationPage() {
               <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
 
               <div className="relative">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join ICSIFT 2025?</h3>
+                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join 2<sup>nd</sup>ICSIFT 2025?</h3>
                 <p className="text-[#4d724d] mb-6">
                   Register now to secure your spot at the International Conference on Sustainable Innovation in Food
                   Technology.

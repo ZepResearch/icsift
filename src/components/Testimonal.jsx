@@ -50,7 +50,7 @@ export default function ConferenceTestimonials() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-[#1a2e1a] mb-6">
-            Sustainability{" "}
+            Why {" "}
             {/* <span className="relative inline-block mx-1">
               <Image
                 src="https://images.unsplash.com/photo-1470137237906-d8a4f71e1966?q=80&w=1000&auto=format&fit=crop"
@@ -60,7 +60,7 @@ export default function ConferenceTestimonials() {
                 className="rounded-xl object-cover"
               />
             </span>{" "} */}
-            & innovation{" "}
+            They  {" "}
             {/* <span className="relative inline-block mx-1">
               <Image
                 src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1000&auto=format&fit=crop"
@@ -70,8 +70,8 @@ export default function ConferenceTestimonials() {
                 className="rounded-xl object-cover"
               />
             </span>{" "} */}
-            is our <span className="relative inline-block mx-2">
-              <span className="relative z-10">mission</span>
+          Choose <span className="relative inline-block mx-2">
+              <span className="relative z-10">ICSIFT</span>
               <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
             </span>.
           </h2>
@@ -152,7 +152,7 @@ export default function ConferenceTestimonials() {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at ICSIFT 2025</h3>
+          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at 2<sup>nd</sup>  ICSIFT 2025</h3>
           <p className="text-[#4d724d] max-w-2xl mx-auto mb-8">
             Be part of the global conversation on sustainability, innovation, and future technologies.
           </p>

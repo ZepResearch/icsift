@@ -66,7 +66,7 @@ export default function VenuePage() {
                     <p>
                       The Queen Sirikit National Convention Center (QSNCC) is Bangkok's premier convention venue.
                       Recently renovated and reopened, this state-of-the-art facility offers world-class amenities and
-                      an ideal environment for ICSIFT 2025.
+                      an ideal environment for 2<sup>nd</sup>ICSIFT 2025.
                     </p>
 
                     <div className="space-y-4">
@@ -150,8 +150,8 @@ export default function VenuePage() {
 
                     {/* Venue name overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-bold text-white mb-1">Queen Sirikit National Convention Center</h3>
-                      <p className="text-white/90">Bangkok's premier convention and exhibition venue</p>
+                      {/* <h3 className="text-2xl font-bold text-white mb-1">Declare soon</h3> */}
+                      {/* <p className="text-white/90">Bangkok's premier convention and exhibition venue</p> */}
                     </div>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function VenuePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Nearby Attractions</h2>
             <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore Bangkok during your visit to ICSIFT 2025</p>
+            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore Bangkok during your visit to 2<sup>nd</sup>ICSIFT 2025</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -399,7 +399,7 @@ export default function VenuePage() {
               <div className="relative">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join Us?</h3>
                 <p className="text-[#4d724d] mb-6">
-                  Register for ICSIFT 2025 today and experience our world-class venue in the heart of Bangkok.
+                  Register for 2<sup>nd</sup>ICSIFT 2025 today and experience our world-class venue in the heart of Bangkok.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

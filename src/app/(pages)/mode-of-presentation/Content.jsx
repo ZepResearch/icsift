@@ -46,7 +46,7 @@ export default function ModeOfPresentationPage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Learn about the different ways to present your research at ICSIFT 2025
+              Learn about the different ways to present your research at 2<sup>nd</sup>ICSIFT 2025
             </p>
           </div>
         </div>
@@ -58,7 +58,7 @@ export default function ModeOfPresentationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-3xl overflow-hidden h-[400px]">
               <Image
-                src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                src="https://plus.unsplash.com/premium_photo-1705267935935-53ee91453a52?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Oral Presentation"
                 fill
                 className="object-cover"
@@ -174,7 +174,7 @@ export default function ModeOfPresentationPage() {
             </div>
             <div className="relative rounded-3xl overflow-hidden h-[400px] order-1 lg:order-2">
               <Image
-                src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                src="https://plus.unsplash.com/premium_photo-1661587798846-2b2bdbe5abc0?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Poster Presentation"
                 fill
                 className="object-cover"
@@ -196,7 +196,7 @@ export default function ModeOfPresentationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-3xl overflow-hidden h-[400px]">
               <Image
-                src="https://images.unsplash.com/photo-1609921212029-bb5a28e60960?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                src="https://plus.unsplash.com/premium_photo-1661483130874-527d2f9e5746?q=80&w=2135&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Virtual Presentation"
                 fill
                 className="object-cover"
@@ -295,7 +295,7 @@ export default function ModeOfPresentationPage() {
               <div className="mb-6 md:mb-0 md:mr-6">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to present your research?</h3>
                 <p className="text-[#4d724d] max-w-xl">
-                  Choose your preferred presentation mode and submit your proposal for ICSIFT 2025.
+                  Choose your preferred presentation mode and submit your proposal for 2<sup>nd</sup>ICSIFT 2025.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
