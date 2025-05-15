@@ -337,14 +337,14 @@ export default function ConferenceFooter() {
             © 2025 ICSIFT. All rights reserved. Designed with sustainability in mind.
           </p>
           <div className="flex space-x-6">
-            <Link href="/terms" className="text-white/60 text-sm hover:text-white transition-colors">
+            <Link href="/terms-and-conditions" className="text-white/60 text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
-            <Link href="/privacy" className="text-white/60 text-sm hover:text-white transition-colors">
+            <Link href="/privacy-policy" className="text-white/60 text-sm hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/cookies" className="text-white/60 text-sm hover:text-white transition-colors">
-              Cookie Policy
+            <Link href="/cancellation-policy" className="text-white/60 text-sm hover:text-white transition-colors">
+              Cancellation Policy
             </Link>
           </div>
         </div>
