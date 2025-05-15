@@ -94,7 +94,7 @@ export default function ConferenceHero() {
               {/* <span className="inline-block py-1 px-4 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-[#bfe99d] text-sm font-medium mb-6 border border-green-500/20">
                 DECEMBER 26-27, 2025 • BANGKOK, THAILAND
               </span> */}
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold  mb-6">
                 <span className=" text-white">
                 2<sup>nd</sup>  International Conference 
                 </span>
@@ -102,8 +102,7 @@ export default function ConferenceHero() {
                 <span className=" text-transparent bg-clip-text bg-[#bfe99d]"> on Sustainability, Innovation and Future Technologies</span>
               </h1>
               <p className="text-green-200/80 text-xl max-w-2xl">
-                ICSIFT bringing together experts and enthusiasts from around the world to shape a sustainable future
-                through innovation.
+               Shaping a Sustainable Future Through Innovation and Emerging Technologies.
               </p>
             </motion.div>
 
@@ -219,7 +218,7 @@ export default function ConferenceHero() {
         </div>
 
         {/* Stats Cards */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
@@ -239,7 +238,7 @@ export default function ConferenceHero() {
             <h3 className="text-3xl font-bold text-[#bfe99d] mb-2">500+</h3>
             <p className="text-green-100/80">Expected attendees from around the world</p>
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Bottom Banner */}
         <motion.div
