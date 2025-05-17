@@ -66,8 +66,8 @@ export default function RootLayout({ children }) {
         <ConferenceNavbar/>
         {children}
         <ConferenceFooter/>
-        <TawkToChat/>
-      </body>
+         <TawkToChat/>     
+           </body>
     </html>
   );
 }

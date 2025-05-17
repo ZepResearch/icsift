@@ -128,7 +128,7 @@ export default function ConferenceHero() {
               transition={{ duration: 0.7, delay: 0.4 }}
             >
               {/* <p className="text-green-300/60 text-sm mb-4">Endorsed by</p> */}
-               <div className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden max-w-3xl">
+               <div className="backdrop-blur-xl bg-white/20 border border-white/10 rounded-3xl overflow-hidden max-w-3xl">
               <div className="p-8">
               <div className="flex flex-wrap items-center gap-6">
                 <Image

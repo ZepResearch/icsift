@@ -20,53 +20,10 @@ const iconMapping = {
 }
 
 // Fallback timeline data in case API fails
-const fallbackTimelineData = [
-  {
-    id: "1",
-    name: "Abstract Submission Deadline",
-    description: "Last date to submit your abstract for review",
-    date: "February 15, 2026",
-    type: "abstract",
-  },
-  {
-    id: "2",
-    name: "Abstract Acceptance Notification",
-    description: "Notification of abstract acceptance decisions",
-    date: "March 10, 2026",
-    type: "notification",
-  },
-  {
-    id: "3",
-    name: "Early Bird Registration",
-    description: "Register early for discounted rates",
-    date: "April 1, 2026",
-    type: "early-bird",
-  },
-  {
-    id: "4",
-    name: "Full Paper Submission",
-    description: "Deadline for full paper submissions",
-    date: "May 20, 2026",
-    type: "full-paper",
-  },
-  {
-    id: "5",
-    name: "Registration Deadline",
-    description: "Last date to register for the conference",
-    date: "July 30, 2026",
-    type: "registration",
-  },
-  {
-    id: "6",
-    name: "Conference Dates",
-    description: "ICSIFT 2026 Conference",
-    date: "August 18-20, 2026",
-    type: "conference",
-  },
-]
+
 
 export function ConferenceTimeline() {
-  const [timelineData, setTimelineData] = useState(fallbackTimelineData)
+  const [timelineData, setTimelineData] = useState()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [hoveredItem, setHoveredItem] = useState(null)
@@ -113,7 +70,7 @@ export function ConferenceTimeline() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section header */}
         <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">
             Conference
             <span className="relative inline-block mx-2 ml-4">
               <span className="relative z-10"> Important Dates</span>
@@ -153,29 +110,29 @@ export function ConferenceTimeline() {
 
         {/* Timeline */}
         {!loading && (
-          <div className="relative">
-            {/* Timeline center line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#4d724d]/50 via-[#4d724d]/50 to-[#1a2e1a]/50 rounded-full"></div>
+          <div className="relative max-w-5xl mx-auto">
+            {/* Timeline container with left line and right content */}
+            <div className="flex flex-col">
+              {/* Timeline vertical line */}
+              <div className="absolute left-0 md:left-16 top-6 bottom-6 w-1 bg-gradient-to-b from-[#4d724d]/50 via-[#4d724d]/50 to-[#1a2e1a]/50 rounded-full"></div>
 
-            {/* Timeline items */}
-            {timelineData.map((item, index) => {
-              const IconComponent = iconMapping[item.type] || iconMapping.default
-              const isEven = index % 2 === 0
-              const isHovered = hoveredItem === item.id
+              {/* Timeline items */}
+              {timelineData.map((item, index) => {
+                const IconComponent = iconMapping[item.type] || iconMapping.default
+                const isHovered = hoveredItem === item.id
 
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative mb-16 last:mb-0"
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
-                >
-                  <div className={`flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} items-center`}>
-                    {/* Timeline node */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 z-10">
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="relative mb-12 last:mb-0 pl-8 md:pl-32"
+                    onMouseEnter={() => setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                  >
+                    {/* Timeline node with icon */}
+                    <div className="absolute left-0 md:left-16 transform -translate-x-1/2 top-6 z-10">
                       <motion.div
                         animate={{
                           scale: isHovered ? 1.1 : 1,
@@ -200,32 +157,33 @@ export function ConferenceTimeline() {
                     </div>
 
                     {/* Content card */}
-                    <div className={`w-full md:w-[calc(50%-2rem)] ${isEven ? "md:pr-12" : "md:pl-12"} mt-12 md:mt-0`}>
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        className="relative backdrop-blur-sm bg-white rounded-xl border border-[#d3e4c5] overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5"
-                      >
-                        {/* Decorative elements */}
-                        <div
-                          className={`absolute -inset-px rounded-xl bg-gradient-to-r ${isEven ? "from-[#d3e4c5]/20 via-transparent to-transparent" : "from-transparent via-transparent to-[#d3e4c5]/20"} opacity-50`}
-                        ></div>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="relative backdrop-blur-sm bg-white rounded-xl border border-[#d3e4c5] overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5"
+                    >
+                      {/* Decorative gradient */}
+                      <div
+                        className="absolute -inset-px rounded-xl bg-gradient-to-r from-[#d3e4c5]/20 via-transparent to-transparent opacity-50"
+                      ></div>
 
-                        <div className="relative">
-                          <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{item.name}</h3>
-                          <p className="text-[#4d724d] mb-3">{item.description}</p>
-                          <div
-                            className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${isEven ? "bg-[#d3e4c5]/50 text-[#1a2e1a] border border-[#d3e4c5]" : "bg-[#d3e4c5]/30 text-[#1a2e1a] border border-[#d3e4c5]/70"}`}
-                          >
-                            <Calendar className="mr-1.5 h-3.5 w-3.5" />
-                            <span>{item.date}</span>
-                          </div>
+                      <div className="relative">
+                        <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{item.name}</h3>
+                        <p className="text-[#4d724d] mb-3">{item.description}</p>
+                        <div
+                          className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-[#d3e4c5]/40 text-[#1a2e1a] border border-[#d3e4c5]/70"
+                        >
+                          <Calendar className="mr-1.5 h-3.5 w-3.5" />
+                          <span>{item.date}</span>
                         </div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
+                      </div>
+                    </motion.div>
+
+                    {/* Connector line (optional) */}
+                    <div className="absolute left-0 md:left-16 top-6 h-0.5 w-8 bg-[#4d724d]/40 transform -translate-x-0 md:translate-x-1/2"></div>
+                  </motion.div>
+                )
+              })}
+            </div>
           </div>
         )}
       </div>

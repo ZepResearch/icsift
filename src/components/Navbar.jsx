@@ -56,10 +56,10 @@ export default function ConferenceNavbar() {
       title: "SUBMISSION",
       href: "/submission",
     },
-    // {
-    //   title: "JOURNALS",
-    //   href: "/journals",
-    // },
+    {
+      title: "GALLERY",
+      href: "/gallery",
+    },
     {
       title: "VENUE",
       href: "/venue",
