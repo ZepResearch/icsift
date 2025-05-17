@@ -133,22 +133,25 @@ export default function RegistrationPage() {
     setIsPaymentFormOpen(false)
   }
 
-  const handlePaymentFormSubmit = async (formData) => {
+ const handlePaymentFormSubmit = async (formData) => {
     setIsLoading(true)
     try {
       // Combine ticket data with form data
       const paymentData = {
         ...formData,
-        order_id: `ICSIFT-${Date.now()}`,
+        order_id: `ORDER-${Date.now()}`,
         currency: selectedTicket.currency,
         amount: selectedTicket.totalAmount,
+        redirect_url: `${window.location.origin}/api/ccavenue/handle`,
+        cancel_url: `${window.location.origin}/api/ccavenue/handle`,
+        language: "EN",
         ticket_type: selectedTicket.type,
         ticket_category: selectedTicket.category,
         ticket_name: selectedTicket.name,
       }
 
       // Send notification email
-      const response = await fetch("/api/payment-notification", {
+      await fetch("/api/payment-notification", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -156,12 +159,42 @@ export default function RegistrationPage() {
         body: JSON.stringify(paymentData),
       })
 
-      if (response.ok) {
-        // Redirect to success page
-        router.push("/registration/success")
-      } else {
-        throw new Error("Failed to process payment")
-      }
+      // Get encrypted order data
+      const encResponse = await fetch("/api/ccavenue/encrypt", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentData),
+      })
+
+      const { encRequest } = await encResponse.json()
+
+      // Create and submit form to CCAvenue
+      const form = document.createElement("form")
+      form.method = "post"
+      // Use the exact CCAvenue URL with the command parameter
+      form.action = "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
+      form.style.display = "none"
+
+      const encRequestInput = document.createElement("input")
+      encRequestInput.name = "encRequest"
+      encRequestInput.value = encRequest
+      form.appendChild(encRequestInput)
+
+      const accessCodeInput = document.createElement("input")
+      accessCodeInput.name = "access_code"
+      accessCodeInput.value = process.env.NEXT_PUBLIC_CCAVENUE_ACCESS_CODE
+      form.appendChild(accessCodeInput)
+
+      // Add merchant_id as well
+      const merchantIdInput = document.createElement("input")
+      merchantIdInput.name = "merchant_id"
+      merchantIdInput.value = process.env.NEXT_PUBLIC_CCAVENUE_MERCHANT_ID
+      form.appendChild(merchantIdInput)
+
+      document.body.appendChild(form)
+      form.submit()
     } catch (error) {
       console.error("Payment processing error:", error)
       setIsLoading(false)
