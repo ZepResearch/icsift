@@ -154,7 +154,7 @@ export default function AboutConferencePage() {
       <section className="py-16 bg-[#edf6e1]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Our Mission</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Our Mission</h3>
             <p className="text-xl text-[#4d724d] mb-8">
               The Conference on Sustainable Development aims to bring together leading researchers, policymakers, and
               industry experts to share knowledge, discuss challenges, and forge partnerships that will drive forward the

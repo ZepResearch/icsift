@@ -137,7 +137,7 @@ export default function AboutOrganizersPage() {
       <section className="py-16 bg-[#edf6e1]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Our Mission</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Our Mission</h3>
             <p className="text-xl text-[#4d724d] mb-8">
               At ZEP Research, our mission for the ICSIFT Conference is to ignite innovation, foster cross-disciplinary
               collaboration, and accelerate breakthroughs that shape the future. We believe that the most transformative

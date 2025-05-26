@@ -752,7 +752,9 @@ export default function RegistrationPage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/submission">
                   <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Submit Your Paper</Button>
+                  </Link>
                   <Link href="/contact">
                     <Button
                       variant="outline"

@@ -10,6 +10,7 @@ const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute in milliseconds
 const MAX_REQUESTS_PER_WINDOW = 100 // Maximum requests per IP per window
 
 export function middleware(request) {
+  const path = request.nextUrl.pathname
   const response = NextResponse.next()
   
   // Add security headers
@@ -64,6 +65,20 @@ export function middleware(request) {
       )
     }
     
+    if (path.startsWith("/api/chat")) {
+      // Check for a valid referer to prevent API abuse
+      const referer = request.headers.get("referer")
+
+      // If no referer or referer is not from your domain, block the request
+      // Adjust the domain check based on your actual domain
+      if (!referer || !referer.includes(process.env.NEXT_PUBLIC_SITE_URL || "")) {
+        return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        })
+      }
+    }
+    
     // Add rate limit headers to response
     response.headers.set('X-RateLimit-Limit', MAX_REQUESTS_PER_WINDOW.toString())
     response.headers.set('X-RateLimit-Remaining', Math.max(0, MAX_REQUESTS_PER_WINDOW - ipData.count).toString())
@@ -77,6 +92,6 @@ export function middleware(request) {
 export const config = {
   matcher: [
     // Apply to all API routes
-    '/api/:path*',
+    '/api/:path*'
   ],
 }

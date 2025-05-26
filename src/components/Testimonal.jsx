@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { QuoteIcon } from "lucide-react"
+import { Link, QuoteIcon } from "lucide-react"
 
 export default function ConferenceTestimonials() {
   const testimonials = [
@@ -156,9 +156,11 @@ export default function ConferenceTestimonials() {
           <p className="text-[#4d724d] max-w-2xl mx-auto mb-8">
             Be part of the global conversation on sustainability, innovation, and future technologies.
           </p>
+          <Link href="/registration">
           <button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300">
             Register Now
           </button>
+          </Link>
         </div>
       </div>
     </div>

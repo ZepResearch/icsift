@@ -80,10 +80,10 @@ export default function PaperSubmissionPage() {
                 <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
               </span>
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
+            <h2 className="text-xl text-[#4d724d] mb-8">
               Share your research at 2<sup>nd</sup>ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
               Technologies
-            </p>
+            </h2>
           </div>
         </div>
       </section>

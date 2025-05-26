@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowRight, Award, MapPin, Users, Calendar, BookOpen, Handshake, Play } from "lucide-react"
+import { ArrowRight, Award, MapPin, Users, Calendar, BookOpen, Handshake, Play, GalleryThumbnails } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
@@ -31,7 +31,7 @@ export default function ConferenceCTACards() {
       description:
         "Partner with ICSIFT to showcase your organization's commitment to sustainability innovation and gain visibility among industry leaders.",
       icon: <Handshake className="w-10 h-10 text-purple-400" />,
-      link: "/sponsorship",
+      link: "/exhibit-and-sponsor",
       gradient: "from-purple-500 to-indigo-600",
     },
     {
@@ -51,11 +51,11 @@ export default function ConferenceCTACards() {
       gradient: "from-cyan-500 to-teal-600",
     },
     {
-      title: "Journal",
+      title: "Gallery",
       description:
-        "Access peer-reviewed publications and research papers on sustainability innovations and technologies from our conference proceedings.",
-      icon: <BookOpen className="w-10 h-10 text-lime-400" />,
-      link: "/journals",
+        "our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, and memorable moments from past conferences.",
+      icon: <GalleryThumbnails className="w-10 h-10 text-lime-400" />,
+      link: "/gallery",
       gradient: "from-lime-500 to-teal-600",
     },
   ]

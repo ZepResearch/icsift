@@ -251,7 +251,7 @@ export default function ConferenceHero() {
             <p className="text-green-200/60 max-w-md mb-4 md:mb-0">
               The conference has carried out many successful projects for sustainability and innovation.
             </p>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">We strive to build a sustainable future.</h2>
+            <h3 className="text-2xl md:text-3xl font-bold text-white">We strive to build a sustainable future.</h3>
           </div>
         </motion.div>
       </div>
