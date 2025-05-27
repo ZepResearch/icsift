@@ -2,8 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
-import TawkToChat from "@/components/TawkToChat";
-import { ChatButton } from "@/components/chat-button";
+// import TawkToChat from "@/components/TawkToChat";
+// import { ChatButton } from "@/components/chat-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
         {children}
         <ConferenceFooter/>
          {/* <TawkToChat/>      */}
-      <ChatButton/>
+      {/* <ChatButton/> */}
            </body>
     </html>
   );
