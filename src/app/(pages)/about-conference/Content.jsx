@@ -90,7 +90,7 @@ export default function AboutConferencePage() {
             <div className="flex flex-wrap justify-center gap-6 mb-12">
               <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
                 <Calendar className="h-5 w-5 text-[#4d724d] mr-2" />
-                <span>December 26-27, 2025</span>
+                <span>December 27-28, 2025</span>
               </div>
               <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
                 <MapPin className="h-5 w-5 text-[#4d724d] mr-2" />
@@ -122,7 +122,7 @@ export default function AboutConferencePage() {
                 sustainability, technological innovation, and industrial futures intersect.
               </p>
               <p className="text-[#4d724d] mb-4">
-                From December 26 to 27, 2025, ICSIFT will gather experts from every sphere to speak on innovative
+                From December 27 to 28, 2025, ICSIFT will gather experts from every sphere to speak on innovative
                 research, eco-friendly solutions, and technological advancement.
               </p>
               <p className="text-[#4d724d]">
@@ -200,7 +200,7 @@ export default function AboutConferencePage() {
 
           <div className="mt-16 text-center">
             <p className="text-xl text-[#4d724d] mb-6">
-              Join us in Bangkok from December 26-27, 2025, to be part of a global movement dedicated to sustainability,
+              Join us in Bangkok from December 27-28, 2025, to be part of a global movement dedicated to sustainability,
               innovation, and the technologies of tomorrow!
             </p>
             <Link href="/schedule" >

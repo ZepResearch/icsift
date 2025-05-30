@@ -414,7 +414,7 @@ export default function ContactPage() {
                   </h3>
                   <p className="text-[#4d724d]">
                     ICSIFT 2025: International Conference on Sustainability, Innovation, and Future Technologies will
-                    take place on December 26-27, 2025 at the Queen Sirikit National Convention Center in Bangkok,
+                    take place on December 27-28, 2025 at the Queen Sirikit National Convention Center in Bangkok,
                     Thailand.
                   </p>
                 </div>

@@ -37,7 +37,7 @@ export default function VenuePage() {
                 <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
               </span>
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">Join us at Bangkok, Thailand</p>
+            <p className="text-xl text-[#4d724d] mb-8">Join us at Radisson Suites Bangkok Sukhumvit</p>
           </div>
         </div>
       </section>
@@ -64,9 +64,7 @@ export default function VenuePage() {
 
                   <div className="space-y-6 text-[#4d724d]">
                     <p>
-                      The Queen Sirikit National Convention Center (QSNCC) is Bangkok's premier convention venue.
-                      Recently renovated and reopened, this state-of-the-art facility offers world-class amenities and
-                      an ideal environment for 2<sup>nd</sup>ICSIFT 2025.
+                      Radisson Suites Bangkok Sukhumvit offers a modern, comfortable, and centrally located venue for 2<sup>nd</sup>ICSIFT 2025. Situated in the vibrant Sukhumvit district, the hotel provides excellent conference facilities, luxury accommodation, and easy access to Bangkok's top attractions.
                     </p>
 
                     <div className="space-y-4">
@@ -77,37 +75,37 @@ export default function VenuePage() {
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>Over 78,500 sq.m of event space</span>
+                          <span>Flexible conference and meeting rooms with modern AV technology</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>Main Plenary Hall with seating for 3,000 attendees</span>
+                          <span>On-site international dining and rooftop bar</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>Multiple breakout rooms for parallel sessions</span>
+                          <span>Complimentary high-speed WiFi throughout the venue</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>Spacious networking areas and exhibition spaces</span>
+                          <span>Fitness center, outdoor pool, and wellness amenities</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>High-speed WiFi and advanced presentation technology</span>
+                          <span>Walking distance to BTS Skytrain and MRT stations</span>
                         </li>
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
-                          <span>Sustainable design with LEED certification</span>
+                          <span>Central location near shopping, dining, and entertainment</span>
                         </li>
                       </ul>
                     </div>
@@ -118,7 +116,7 @@ export default function VenuePage() {
                         <h3 className="text-lg font-medium text-[#1a2e1a]">Address</h3>
                       </div>
                       <p className="text-[#4d724d]">
-                       [Declare Soon]
+                        23/2 Soi Sukhumvit 13, Khwaeng Khlong Toei Nuea, Khlong Toei, Bangkok 10110, Thailand
                       </p>
                     </div>
                   </div>
@@ -134,8 +132,8 @@ export default function VenuePage() {
                 <div>
                   <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-[#d3e4c5]">
                     <Image
-                      src="https://images.unsplash.com/photo-1503933166348-a1a86c17b3a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="Queen Sirikit National Convention Center"
+                      src="/venue.webp"
+                      alt="Radisson Suites Bangkok Sukhumvit"
                       fill
                       className="object-cover"
                     />
@@ -174,8 +172,7 @@ export default function VenuePage() {
 
             <div className="relative rounded-2xl overflow-hidden h-[500px] w-full">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.9376366079!2d100.55990807495936!3d13.722995186959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2b72c78175%3A0xbe0e5ef798f39b1e!2sQueen%20Sirikit%20National%20Convention%20Center!5e0!3m2!1sen!2sth!4v1682345678901!5m2!1sen!2sth"
-                width="100%"
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5767660119773!2d100.55510911107883!3d13.74405478659131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ee677aa7f5b%3A0x297e4d6053920063!2sRadisson%20Suites%20Bangkok%20Sukhumvit!5e0!3m2!1sen!2sth!4v1748598948056!5m2!1sen!2sth"                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
@@ -187,33 +184,30 @@ export default function VenuePage() {
           </div>
 
           <div className="max-w-3xl mx-auto mt-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 shadow-sm">
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="h-5 w-5 text-[#4d724d]" />
-                  <h3 className="text-lg font-medium text-[#1a2e1a]">From Airport</h3>
+            <div className="bg-white rounded-3xl border border-[#d3e4c5] p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">Getting Around</h2>
+              <div className="space-y-6 text-[#4d724d]">
+                <div>
+                  <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">From Airport:</h3>
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li><strong>Suvarnabhumi International Airport (BKK):</strong> Approximately 30-45 minutes by taxi. You can also take the Airport Rail Link to Makkasan Station, and then transfer to the MRT (subway) or a short taxi ride to the hotel.</li>
+                    <li>The hotel also offers paid airport transfer services.</li>
+                  </ul>
                 </div>
-                <p className="text-[#4d724d]">
-                  30-45 minutes from Suvarnabhumi International Airport (BKK) by taxi or Airport Rail Link + MRT
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 shadow-sm">
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="h-5 w-5 text-[#4d724d]" />
-                  <h3 className="text-lg font-medium text-[#1a2e1a]">MRT Access</h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">MRT/BTS Access:</h3>
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li>The hotel provides a complimentary tuk-tuk shuttle service to nearby Nana BTS Station (Skytrain) and Asoke BTS Station / Sukhumvit MRT Station.</li>
+                    <li>Nana BTS Station is about an 8-minute walk from the hotel.</li>
+                    <li>Sukhumvit MRT Station is about a 13-minute walk from the hotel.</li>
+                  </ul>
                 </div>
-                <p className="text-[#4d724d]">
-                  Direct access from Queen Sirikit National Convention Centre MRT Station
-                </p>
-              </div>
-
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 shadow-sm">
-                <div className="flex items-center gap-2 mb-3">
-                  <MapPin className="h-5 w-5 text-[#4d724d]" />
-                  <h3 className="text-lg font-medium text-[#1a2e1a]">Parking</h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">Parking:</h3>
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li>Free on-site parking is available for guests. (This is generally a plus for hotels in Bangkok!)</li>
+                  </ul>
                 </div>
-                <p className="text-[#4d724d]">Ample parking available for conference attendees</p>
               </div>
             </div>
           </div>
@@ -339,48 +333,21 @@ export default function VenuePage() {
                 </div>
 
                 <div className="space-y-6 text-[#4d724d]">
-                  <p>
-                    Bangkok is world-renowned for its diverse culinary scene, from street food to fine dining. While the
-                    conference will provide catered lunches and refreshments, you may want to explore these dining
-                    options for dinner or additional meals.
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                    <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-5">
-                      <h3 className="text-lg font-medium text-[#1a2e1a] mb-3">Venue Dining</h3>
-                      <ul className="space-y-2">
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>QSNCC Food Hall - variety of Thai and international options</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>Café Amazon - coffee, tea, and light refreshments</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>Various restaurants in the connected retail zone</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-5">
-                      <h3 className="text-lg font-medium text-[#1a2e1a] mb-3">Nearby Restaurants</h3>
-                      <ul className="space-y-2">
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>EmQuartier Food Hall (5-min walk) - diverse dining options</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>Sukhumvit Soi 24 (10-min walk) - local Thai restaurants</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="h-2 w-2 rounded-full bg-[#4d724d] mt-2"></div>
-                          <span>Phrom Phong area (15-min walk) - international cuisine</span>
-                        </li>
-                      </ul>
-                    </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-[#1a2e1a] mb-2">Venue Dining at Radisson Suites Bangkok Sukhumvit:</h3>
+                    <ul className="list-disc pl-6 space-y-1">
+                      <li><strong>Mauve Restaurant:</strong> Offers international cuisine.</li>
+                      <li><strong>Rooftop Bar:</strong> Perfect for drinks and light bites with a view.</li>
+                      <li><strong>24-hour room service:</strong> Enjoy dining in the comfort of your suite at any time.</li>
+                    </ul>
+                  </div>
+                  <div className="mt-6">
+                    <h3 className="text-xl font-semibold text-[#1a2e1a] mb-2">Nearby Restaurants:</h3>
+                    <ul className="list-disc pl-6 space-y-1">
+                      <li><strong>EmQuartier Food Hall (5-min walk):</strong> A diverse array of dining options, from local to international.</li>
+                      <li><strong>Sukhumvit Soi 24 (10-min walk):</strong> Explore various local Thai restaurants.</li>
+                      <li><strong>Phrom Phong area (15-min walk):</strong> Known for its wide selection of international cuisine.</li>
+                    </ul>
                   </div>
                 </div>
               </div>

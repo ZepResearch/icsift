@@ -16,12 +16,16 @@ import {
   Calendar,
   Info,
   ArrowRight,
+  Globe,
+  MapPin,
 } from "lucide-react"
-import { PaymentForm } from "./components/payment-form"
+import Link from "next/link"
 import { GeometricShapes } from "./components/geometric-shapes"
+import { PaymentForm } from "./components/payment-form"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Link from "next/link"
+import ExtraContentBelowTabs from "./components/ExtraContentBelowTabs"
+import ExtraContentAboveCard from "./components/ExtraContentAboveCard"
 
 export default function RegistrationPage() {
   const router = useRouter()
@@ -29,63 +33,153 @@ export default function RegistrationPage() {
   const [isPaymentFormOpen, setIsPaymentFormOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [customAmount, setCustomAmount] = useState("")
-  const [activeTab, setActiveTab] = useState("presenter")
+  const [activeTab, setActiveTab] = useState("physical")
 
-  // Ticket data
-  const tickets = [
-    {
-      name: "Virtual TICKET",
-      price: 219,
-      period: "month",
-      type: "Presenter",
-      features: [
-        "Full conference access",
-        "Networking sessions",
-        "Workshop materials",
-        "Online Q&A sessions",
-        "Digital certificate of attendance",
+  // Updated ticket data based on the pricing structure
+  const pricingData = {
+    physical: {
+      foreign: [
+        {
+          category: "Academicians",
+          earlyBird: { price: 319, currency: "USD" },
+          regular: { price: 359, currency: "USD" },
+          scopusQ3Q4: { price: 859, currency: "USD" },
+          scopusQ1Q2: { price: 1399, currency: "USD" },
+          features: [
+            "Full conference access",
+            "VIP networking dinner",
+            "Priority seating",
+            "Exclusive roundtable sessions",
+            "Physical workshop materials",
+            "Certificate of participation"
+          ]
+        },
+        {
+          category: "Students",
+          earlyBird: { price: 219, currency: "USD" },
+          regular: { price: 259, currency: "USD" },
+          scopusQ3Q4: { price: 759, currency: "USD" },
+          scopusQ1Q2: { price: 1299, currency: "USD" },
+          features: [
+            "Full conference access",
+            "Student networking sessions",
+            "Workshop materials",
+            "Lunch and refreshments",
+            "Certificate of participation",
+            "Career guidance sessions"
+          ]
+        },
+        {
+          category: "Listeners",
+          earlyBird: { price: 169, currency: "USD" },
+          regular: { price: 199, currency: "USD" },
+          scopusQ3Q4: null,
+          scopusQ1Q2: null,
+          features: [
+            "Conference access",
+            "Networking opportunities",
+            "Lunch and refreshments",
+            "Certificate of attendance",
+            "Access to presentation materials"
+          ]
+        }
       ],
+      indian: [
+        {
+          category: "Academicians",
+          earlyBird: { price: 9500, currency: "INR" },
+          regular: { price: 10000, currency: "INR" },
+          scopusQ3Q4: { price: 40000, currency: "INR" },
+          scopusQ1Q2: { price: 100000, currency: "INR" },
+          features: [
+            "Full conference access",
+            "VIP networking dinner",
+            "Priority seating",
+            "Exclusive roundtable sessions",
+            "Physical workshop materials",
+            "Certificate of participation"
+          ]
+        },
+        {
+          category: "Students",
+          earlyBird: { price: 8500, currency: "INR" },
+          regular: { price: 9000, currency: "INR" },
+          scopusQ3Q4: { price: 38000, currency: "INR" },
+          scopusQ1Q2: { price: 98000, currency: "INR" },
+          features: [
+            "Full conference access",
+            "Student networking sessions",
+            "Workshop materials",
+            "Lunch and refreshments",
+            "Certificate of participation",
+            "Career guidance sessions"
+          ]
+        },
+        {
+          category: "Listeners",
+          earlyBird: { price: 3000, currency: "INR" },
+          regular: { price: 4000, currency: "INR" },
+          scopusQ3Q4: null,
+          scopusQ1Q2: null,
+          features: [
+            "Conference access",
+            "Networking opportunities",
+            "Lunch and refreshments",
+            "Certificate of attendance",
+            "Access to presentation materials"
+          ]
+        }
+      ]
     },
-    {
-      name: "Physical TICKET",
-      price: 319,
-      period: "month",
-      type: "Presenter",
-      features: [
-        "All Virtual Presenter benefits",
-        "VIP networking dinner",
-        "Priority seating",
-        "Exclusive roundtable sessions",
-        "1-year membership access",
-      ],
-    },
-    {
-      name: "Virtual TICKET",
-      price: 99,
-      period: "month",
-      type: "Listener",
-      features: [
-        "Full conference access",
-        "Online networking sessions",
-        "Digital workshop materials",
-        "Access to recorded sessions",
-        "Digital certificate of attendance",
-      ],
-    },
-    {
-      name: "Physical TICKET",
-      price: 199,
-      period: "month",
-      type: "Listener",
-      features: [
-        "All Virtual Listener benefits",
-        "In-person networking opportunities",
-        "Physical workshop materials",
-        "Lunch and refreshments",
-        "Guided tour of conference venue",
-      ],
-    },
-  ]
+    virtual: {
+      foreign: [
+        {
+          category: "Students",
+          earlyBird: { price: 149, currency: "USD" },
+          regular: { price: 169, currency: "USD" },
+          scopusQ3Q4: { price: 669, currency: "USD" },
+          scopusQ1Q2: { price: 1199, currency: "USD" },
+          features: [
+            "Full virtual conference access",
+            "Online networking sessions",
+            "Digital workshop materials",
+            "Recorded session access",
+            "Digital certificate",
+            "Q&A participation"
+          ]
+        },
+        {
+          category: "Academicians",
+          earlyBird: { price: 199, currency: "USD" },
+          regular: { price: 219, currency: "USD" },
+          scopusQ3Q4: { price: 719, currency: "USD" },
+          scopusQ1Q2: { price: 1099, currency: "USD" },
+          features: [
+            "Full virtual conference access",
+            "Premium networking sessions",
+            "Digital workshop materials",
+            "Recorded session access",
+            "Digital certificate",
+            "Priority Q&A access"
+          ]
+        },
+        {
+          category: "Listeners",
+          earlyBird: { price: 99, currency: "USD" },
+          regular: { price: 119, currency: "USD" },
+          scopusQ3Q4: null,
+          scopusQ1Q2: null,
+          features: [
+            "Virtual conference access",
+            "Online networking",
+            "Digital materials",
+            "Recorded sessions",
+            "Digital certificate"
+          ]
+        }
+      ]
+    }
+  }
 
   const handleTicketSelect = (ticket) => {
     // Recalculate tax and total to ensure consistency
@@ -98,7 +192,6 @@ export default function RegistrationPage() {
       taxRate: 0.06,
       taxAmount: taxAmount,
       totalAmount: totalAmount,
-      currency: "USD",
     })
     setIsPaymentFormOpen(true)
   }
@@ -133,7 +226,7 @@ export default function RegistrationPage() {
     setIsPaymentFormOpen(false)
   }
 
- const handlePaymentFormSubmit = async (formData) => {
+  const handlePaymentFormSubmit = async (formData) => {
     setIsLoading(true)
     try {
       // Combine ticket data with form data
@@ -202,104 +295,148 @@ export default function RegistrationPage() {
     }
   }
 
-  // Filter tickets by type
-  const presenterTickets = tickets.filter((ticket) => ticket.type === "Presenter")
-  const listenerTickets = tickets.filter((ticket) => ticket.type === "Listener")
+  const createTicketFromPricing = (categoryData, priceType, participantType, presentationType) => {
+    const priceInfo = categoryData[priceType]
+    if (!priceInfo) return null
 
-  return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <GeometricShapes />
+    return {
+      name: `${priceType.charAt(0).toUpperCase() + priceType.slice(1)} Registration`,
+      price: priceInfo.price,
+      currency: priceInfo.currency,
+      type: categoryData.category,
+      category: categoryData.category,
+      participantType: participantType,
+      presentationType: presentationType,
+      priceType: priceType,
+      features: categoryData.features
+    }
+  }
 
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 z-0 opacity-10"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #4d724d 1px, transparent 1px), linear-gradient(to bottom, #4d724d 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        ></div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#d3e4c5]/30 px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-              <span>ICSIFT 2025</span>
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Conference
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">Registration</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
+  const renderPricingCard = (categoryData, participantType, presentationType) => {
+    const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
+    
+    return (
+      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all">
+        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex items-center space-x-2">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
+                {categoryData.category}
               </span>
-            </h1>
-
-            <p className="text-xl text-[#4d724d] mb-8">
-              Join us at the International Conference on Sustainability, Innovation and Future Technologies
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Registration Process Section */}
-     
-
-      {/* Registration Options Section */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="max-w-3xl mx-auto text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                    <Users className="h-8 w-8 text-[#4d724d]" />
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">Select Your Registration Type</h2>
-
-                <div className="space-y-6 text-[#4d724d]">
-                  <p>
-                    Choose the registration option that best suits your needs. All registrations include access to
-                    keynote presentations, panel discussions, and networking opportunities.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4 flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center mr-4">
-                      <Presentation className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="text-left">
-                      <h3 className="text-[#1a2e1a] font-medium">Presenter Registration</h3>
-                      <p className="text-[#4d724d] text-sm">For those presenting research papers</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4 flex items-center">
-                    <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center mr-4">
-                      <Headphones className="h-5 w-5 text-white" />
-                    </div>
-                    <div className="text-left">
-                      <h3 className="text-[#1a2e1a] font-medium">Listener Registration</h3>
-                      <p className="text-[#4d724d] text-sm">For those attending without presenting</p>
-                    </div>
-                  </div>
-                </div>
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#4d724d] text-white">
+                {participantType === "foreign" ? "International" : "Indian"}
+              </span>
+            </div>
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
+                {presentationType === "physical" ? 
+                  <Presentation className="h-5 w-5 text-[#4d724d]" /> :
+                  <Globe className="h-5 w-5 text-[#4d724d]" />
+                }
               </div>
             </div>
           </div>
+          
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-[#4d724d]">Early Bird:</span>
+              <span className="text-lg font-bold text-[#1a2e1a]">
+                {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-[#4d724d]">Regular:</span>
+              <span className="text-lg font-bold text-[#1a2e1a]">
+                {getCurrencySymbol(categoryData.regular.currency)}{categoryData.regular.price}
+              </span>
+            </div>
+            {categoryData.scopusQ3Q4 && (
+              <>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-[#4d724d]">Scopus Q3/Q4:</span>
+                  <span className="text-lg font-bold text-[#1a2e1a]">
+                    {getCurrencySymbol(categoryData.scopusQ3Q4.currency)}{categoryData.scopusQ3Q4.price}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-[#4d724d]">Scopus Q1/Q2:</span>
+                  <span className="text-lg font-bold text-[#1a2e1a]">
+                    {getCurrencySymbol(categoryData.scopusQ1Q2.currency)}{categoryData.scopusQ1Q2.price}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </section>
 
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-[#1a2e1a] mb-4">Features</h3>
+          <ul className="space-y-3 mb-6">
+            {categoryData.features.map((feature, i) => (
+              <li key={i} className="flex items-start">
+                <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
+                  <svg
+                    className="h-3 w-3 text-[#4d724d]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <span className="text-[#4d724d] text-sm">{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="space-y-2">
+            <Button
+              onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, presentationType))}
+              className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
+            >
+              <CreditCard className="mr-2 h-4 w-4 text-white" />
+              Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
+            </Button>
+            <Button
+              onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "regular", participantType, presentationType))}
+              className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
+            >
+              <CreditCard className="mr-2 h-4 w-4 text-white" />
+              Regular - {getCurrencySymbol(categoryData.regular.currency)}{categoryData.regular.price}
+            </Button>
+            {categoryData.scopusQ3Q4 && (
+              <>
+                <Button
+                  onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "scopusQ3Q4", participantType, presentationType))}
+                  className="w-full  bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
+                >
+                  <Sparkles className="mr-2 h-4 w-4 text-white" />
+                  Scopus Q3/Q4 - {getCurrencySymbol(categoryData.scopusQ3Q4.currency)}{categoryData.scopusQ3Q4.price}
+                </Button>
+                <Button
+                  onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "scopusQ1Q2", participantType, presentationType))}
+                  className="w-full  bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
+                >
+                  <Sparkles className="mr-2 h-4 w-4 text-white" />
+                  Scopus Q1/Q2 - {getCurrencySymbol(categoryData.scopusQ1Q2.currency)}{categoryData.scopusQ1Q2.price}
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <main className="bg-[#f8faf5]">
+      <ExtraContentAboveCard/>
+      
       {/* Registration Cards */}
       <section className="py-16 bg-[#f8faf5]">
         <div className="container mx-auto px-4">
@@ -308,163 +445,87 @@ export default function RegistrationPage() {
             <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
           </div>
 
-          <Tabs defaultValue="presenter" className="w-full" onValueChange={setActiveTab}>
+          <Tabs defaultValue="physical" className="w-full" onValueChange={setActiveTab}>
             <div className="flex justify-center mb-10">
               <TabsList className="bg-[#edf6e1] p-1 rounded-full">
                 <TabsTrigger
-                  value="presenter"
+                  value="physical"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
                 >
-                  Presenter Tickets
+                  <MapPin className="mr-2 h-4 w-4" />
+                  Physical Presentation
                 </TabsTrigger>
                 <TabsTrigger
-                  value="listener"
+                  value="virtual"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
                 >
-                  Listener Tickets
+                  <Globe className="mr-2 h-4 w-4" />
+                  Virtual Presentation
                 </TabsTrigger>
                 <TabsTrigger
                   value="custom"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
                 >
+                  <DollarSign className="mr-2 h-4 w-4" />
                   Custom Payment
                 </TabsTrigger>
               </TabsList>
             </div>
 
-            <TabsContent value="presenter" className="mt-0">
+            <TabsContent value="physical" className="mt-0">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Presenter Registration Options</h3>
+                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Physical Presentation Registration</h3>
                 <p className="text-[#4d724d] max-w-2xl mx-auto">
-                  Select from our presenter options to share your research at the conference
+                  Join us in person for the full conference experience with networking opportunities
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {presenterTickets.map((ticket, index) => (
-                  <div key={`presenter-${index}`} className="h-full">
-                    <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full shadow-sm hover:shadow-md transition-all">
-                      <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
-                        <div className="flex justify-between items-center">
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
-                            {ticket.name}
-                          </span>
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                            <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                              <Presentation className="h-5 w-5 text-[#4d724d]" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <span className="text-3xl font-bold text-[#1a2e1a]">${ticket.price}</span>
-                          <span className="text-[#4d724d] ml-1">+ 6% tax</span>
-                        </div>
-                      </div>
+              {/* Foreign Participants */}
+              <div className="mb-12">
+                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
+                  <Globe className="inline mr-2 h-5 w-5" />
+                  International Participants
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {pricingData.physical.foreign.map((categoryData) => 
+                    renderPricingCard(categoryData, "foreign", "physical")
+                  )}
+                </div>
+              </div>
 
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-[#1a2e1a] mb-4">Features</h3>
-                        <ul className="space-y-3 mb-6">
-                          {ticket.features.map((feature, i) => (
-                            <li key={i} className="flex items-start">
-                              <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                                <svg
-                                  className="h-3 w-3 text-[#4d724d]"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </div>
-                              <span className="text-[#4d724d]">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <Button
-                          onClick={() => handleTicketSelect(ticket)}
-                          className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-                        >
-                          <CreditCard className="mr-2 h-4 w-4 text-white" />
-                          Register Now
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {/* Indian Participants */}
+              <div>
+                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
+                  <MapPin className="inline mr-2 h-5 w-5" />
+                  Indian Participants
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {pricingData.physical.indian.map((categoryData) => 
+                    renderPricingCard(categoryData, "indian", "physical")
+                  )}
+                </div>
               </div>
             </TabsContent>
 
-            <TabsContent value="listener" className="mt-0">
+            <TabsContent value="virtual" className="mt-0">
               <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Listener Registration Options</h3>
+                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Virtual Presentation Registration</h3>
                 <p className="text-[#4d724d] max-w-2xl mx-auto">
-                  Select from our listener options to attend and learn at the conference
+                  Participate remotely with full access to sessions and networking opportunities
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {listenerTickets.map((ticket, index) => (
-                  <div key={`listener-${index}`} className="h-full">
-                    <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full shadow-sm hover:shadow-md transition-all">
-                      <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
-                        <div className="flex justify-between items-center">
-                          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
-                            {ticket.name}
-                          </span>
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                            <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                              <Headphones className="h-5 w-5 text-[#4d724d]" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <span className="text-3xl font-bold text-[#1a2e1a]">${ticket.price}</span>
-                          <span className="text-[#4d724d] ml-1">+ 6% tax</span>
-                        </div>
-                      </div>
-
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold text-[#1a2e1a] mb-4">Features</h3>
-                        <ul className="space-y-3 mb-6">
-                          {ticket.features.map((feature, i) => (
-                            <li key={i} className="flex items-start">
-                              <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                                <svg
-                                  className="h-3 w-3 text-[#4d724d]"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M5 13l4 4L19 7"
-                                  />
-                                </svg>
-                              </div>
-                              <span className="text-[#4d724d]">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-
-                        <Button
-                          onClick={() => handleTicketSelect(ticket)}
-                          className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-                        >
-                          <CreditCard className="mr-2 h-4 w-4 text-white" />
-                          Register Now
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+              {/* Foreign Participants */}
+              <div>
+                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
+                  <Globe className="inline mr-2 h-5 w-5" />
+                  International Participants
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {pricingData.virtual.foreign.map((categoryData) => 
+                    renderPricingCard(categoryData, "foreign", "virtual")
+                  )}
+                </div>
               </div>
             </TabsContent>
 
@@ -549,226 +610,8 @@ export default function RegistrationPage() {
           </Tabs>
         </div>
       </section>
-      {/* Paymentm process Modal */}
- <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Registration Process</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 max-w-5xl mx-auto">
-            {/* Step 1 */}
-            <div className="relative">
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 h-full flex flex-col items-center text-center">
-                <div className="h-16 w-16 rounded-full bg-[#4d724d] flex items-center justify-center mb-4">
-                  <Ticket className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">Select Ticket</h3>
-                <p className="text-[#4d724d]">Choose the ticket type that suits your needs.</p>
-              </div>
-              <div className="hidden md:block absolute -right-9 top-1/2 transform -translate-y-1/2 z-10">
-                <ArrowRight className="h-8 w-8 text-[#4d724d]   " />
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="relative">
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 h-full flex flex-col items-center text-center">
-                <div className="h-16 w-16 rounded-full bg-[#4d724d] flex items-center justify-center mb-4">
-                  <CreditCard className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">Payment</h3>
-                <p className="text-[#4d724d]">Securely pay for your selected ticket.</p>
-              </div>
-              <div className="hidden md:block absolute -right-9 top-1/2 transform -translate-y-1/2 z-10">
-                <ArrowRight className="h-8 w-8 text-[#4d724d]" />
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="relative">
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 h-full flex flex-col items-center text-center">
-                <div className="h-16 w-16 rounded-full bg-[#4d724d] flex items-center justify-center mb-4">
-                  <Mail className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">Confirmation</h3>
-                <p className="text-[#4d724d]">Receive a confirmation email with your ticket details.</p>
-              </div>
-              <div className="hidden md:block absolute -right-9 top-1/2 transform -translate-y-1/2 z-10">
-                <ArrowRight className="h-8 w-8 text-[#4d724d]" />
-              </div>
-            </div>
-
-            {/* Step 4 */}
-            <div>
-              <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 h-full flex flex-col items-center text-center">
-                <div className="h-16 w-16 rounded-full bg-[#4d724d] flex items-center justify-center mb-4">
-                  <Calendar className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">Event Day</h3>
-                <p className="text-[#4d724d]">Attend the event and enjoy your experience!</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      {/* Cancellation Policy Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-[#edf6e1]/50 border border-[#4d724d]/20 rounded-3xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-
-              <div className="relative">
-                <div className="flex items-center mb-6">
-                  <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center mr-4">
-                    <Info className="h-5 w-5 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-[#1a2e1a]">Cancellation Policy</h3>
-                </div>
-
-                <p className="text-[#4d724d] mb-6">
-                  We understand that plans can change. Our cancellation policy is designed to be fair and flexible:
-                </p>
-
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-start">
-                    <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                      <svg className="h-3 w-3 text-[#4d724d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-[#4d724d]">Full refund if cancelled 60+ days before the event</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                      <svg className="h-3 w-3 text-[#4d724d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-[#4d724d]">50% refund if cancelled 30-59 days before the event</span>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                      <svg className="h-3 w-3 text-[#4d724d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <span className="text-[#4d724d]">No refund if cancelled 30 days or less before the event</span>
-                  </li>
-                </ul>
-
-                <p className="text-[#4d724d] mb-6">
-                  All cancellations must be made in writing. Transfer of tickets to another person is allowed up to 7
-                  days before the event.
-                </p>
-
-                <Link href="/cancellation-policy">
-                  <Button
-                    variant="outline"
-                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full"
-                  >
-                    Read Full Policy
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Conference Benefits Section */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Registration Benefits</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm group hover:shadow-md transition-all">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-0 group-hover:opacity-50 transition-opacity"></div>
-
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#4d724d] p-0.5 mb-4">
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                    <FileText className="h-6 w-6 text-[#4d724d]" />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-semibold text-[#1a2e1a] mb-3">Conference Materials</h3>
-                <p className="text-[#4d724d]">
-                  Access to all conference proceedings, papers, and presentation materials
-                </p>
-              </div>
-            </div>
-
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm group hover:shadow-md transition-all">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-0 group-hover:opacity-50 transition-opacity"></div>
-
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#4d724d] p-0.5 mb-4">
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                    <Users className="h-6 w-6 text-[#4d724d]" />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-semibold text-[#1a2e1a] mb-3">Networking Opportunities</h3>
-                <p className="text-[#4d724d]">Connect with researchers and professionals from around the world</p>
-              </div>
-            </div>
-
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm group hover:shadow-md transition-all">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-0 group-hover:opacity-50 transition-opacity"></div>
-
-              <div className="relative">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#4d724d] p-0.5 mb-4">
-                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                    <Sparkles className="h-6 w-6 text-[#4d724d]" />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-semibold text-[#1a2e1a] mb-3">Interactive Sessions</h3>
-                <p className="text-[#4d724d]">Participate in workshops, panel discussions, and Q&A sessions</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden p-8 shadow-sm">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join ICSIFT 2025?</h3>
-                <p className="text-[#4d724d] mb-6">
-                  Register now to secure your spot at the International Conference on Sustainability, Innovation and
-                  Future Technologies.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/submission">
-                  <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Submit Your Paper</Button>
-                  </Link>
-                  <Link href="/contact">
-                    <Button
-                      variant="outline"
-                      className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full"
-                    >
-                      Contact Us <ChevronRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ExtraContentBelowTabs/>
 
       {/* Payment Form Dialog */}
       <PaymentForm

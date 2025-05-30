@@ -58,7 +58,7 @@ export default function ConferenceSchedule() {
               </span>
             </h1>
             <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
-              Join us December 26-27, 2025 for two days of cutting-edge insights and networking on sustainability and
+              Join us December 27-28, 2025 for two days of cutting-edge insights and networking on sustainability and
               innovation. Reserve your spot today!
             </p>
           </div>

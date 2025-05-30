@@ -173,7 +173,7 @@ export default function ConferenceHero() {
                     <div>
                       <p className="text-green-200/60 text-sm">Date</p>
                       <p className="text-white text-lg font-medium">
-                        December 26<sup>th</sup> - 27<sup>th</sup>, 2025
+                        December 27<sup>th</sup> - 28<sup>th</sup>, 2025
                       </p>
                     </div>
                   </div>

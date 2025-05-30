@@ -34,7 +34,7 @@ export function PaymentForm({ isOpen, onClose, ticketName, amount, taxRate, curr
     onSubmit(formData)
   }
 
-  const currencySymbol = currency === "USD" ? "$" : "€"
+  const currencySymbol = currency === "USD" ? "$" : currency === "INR" ? "₹" : "€";
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -171,7 +171,7 @@ export function PaymentForm({ isOpen, onClose, ticketName, amount, taxRate, curr
           </div>
 
           <div>
-            <Label htmlFor="billing_tel" className="text-[#4d724d]">
+            <Label htm  lFor="billing_tel" className="text-[#4d724d]">
               Phone Number
             </Label>
             <Input

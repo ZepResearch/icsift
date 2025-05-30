@@ -946,7 +946,7 @@ export const registrationMetadata = {
 export const scheduleMetadata = {
   title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
   description:
-    "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 26-27, 2025.",
+    "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
   keywords: [
     "ICSIFT schedule",
     "Bangkok conference program",
@@ -964,7 +964,7 @@ export const scheduleMetadata = {
     url: "https://www.icsift.com/schedule",
     title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
     description:
-      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 26-27, 2025.",
+      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
     siteName: "ICSIFT",
     images: [
       {
@@ -980,7 +980,7 @@ export const scheduleMetadata = {
     card: "summary_large_image",
     title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
     description:
-      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 26-27, 2025.",
+      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
     images: ["https://www.icsift.com/opengraph.png"],
   },
 
@@ -996,7 +996,7 @@ export const scheduleMetadata = {
       "@type": "WebPage",
       name: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
       description:
-        "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 26-27, 2025.",
+        "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
       url: "https://www.icsift.com/schedule",
       mainEntity: {
         "@type": "Schedule",

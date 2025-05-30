@@ -60,13 +60,13 @@ export default function ConferenceFooter() {
 
   // Conference information cards
   const conferenceCards = [
-    {
-      title: "NextGen-Synergy 2025",
-      logo: "/conf/nextgen.ico?height=40&width=40",
-      location: "Delhi, India",
-      date: "August 21st -22nd , 2025",
-      href: "https://www.thenextgensynergy.com/",
-    },
+    // {
+    //   title: "NextGen-Synergy 2025",
+    //   logo: "/conf/nextgen.ico?height=40&width=40",
+    //   location: "Delhi, India",
+    //   date: "August 21st -22nd , 2025",
+    //   href: "https://www.thenextgensynergy.com/",
+    // },
     {
       title: "Wfcces 2025",
       logo: "/conf/wfcces.png?height=40&width=40",
@@ -173,7 +173,7 @@ export default function ConferenceFooter() {
               <span className="font-bold text-3xl text-white">ICSIFT</span>
             </div>
             <p className="text-white/80 mb-6 max-w-xl">
-              International Conference on Sustainability, Innovation, and Future Technologies. Join us December 26th - 27th,
+              International Conference on Sustainability, Innovation, and Future Technologies. Join us December 27th - 28th,
               2025 in Bangkok, Thailand for a transformative experience bringing together experts, researchers, and
               industry leaders to explore groundbreaking advancements in sustainability and innovation.
             </p>

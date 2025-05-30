@@ -397,7 +397,7 @@ export default function PaperSubmissionPage() {
                     <li>• Full Paper Submission Deadline: November 1, 2025</li>
                     <li>• Notification of Paper Acceptance: November 15, 2025</li>
                     <li>• Camera-Ready Paper Submission: December 1, 2025</li>
-                    <li>• Conference Dates: December 26-27, 2025</li>
+                    <li>• Conference Dates: December 27-28, 2025</li>
                   </ul>
                 </div>
               </div>

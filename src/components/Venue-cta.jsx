@@ -77,7 +77,7 @@ export default function ConferenceVenue() {
                     </div>
                     <div>
                       <p className="text-sm text-[#4d724d]">Date</p>
-                      <p className="text-[#1a2e1a] font-medium">December 26<sup>th</sup> - 27<sup>th</sup>, 2025</p>
+                      <p className="text-[#1a2e1a] font-medium">December 27<sup>th</sup> - 28<sup>th</sup>, 2025</p>
                       <p className="text-sm text-[#4d724d]">2 Days of Sustainability Innovation</p>
                     </div>
                   </div>
@@ -99,8 +99,8 @@ export default function ConferenceVenue() {
                     </div>
                     <div>
                       <p className="text-sm text-[#4d724d]">Address</p>
-                      <p className="text-[#1a2e1a] font-medium">Declare soon</p>
-                      {/* <p className="text-[#1a2e1a]">Ratchadaphisek Road, Bangkok 10110, Thailand</p> */}
+                      {/* <p className="text-[#1a2e1a] font-medium">Declare soon</p> */}
+                      <p className="text-[#1a2e1a]">Radisson Suites Bangkok Sukhumvit. Address- 23/2 Soi Sukhumvit 13, Khwaeng Khlong Toei Nuea, Khlong Toei, Bangkok 10110, Thailand</p>
                     </div>
                   </div>
                 </div>

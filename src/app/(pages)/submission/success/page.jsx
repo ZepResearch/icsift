@@ -104,7 +104,7 @@ export default function SubmissionSuccess() {
 
                   <div className="flex items-center justify-center gap-4 mt-8">
                     <Calendar className="h-5 w-5 text-[#4d724d]" />
-                    <span>Mark your calendar: ICSIFT will take place on December 26-27, 2025</span>
+                    <span>Mark your calendar: ICSIFT will take place on December 27-28, 2025</span>
                   </div>
                 </div>
 

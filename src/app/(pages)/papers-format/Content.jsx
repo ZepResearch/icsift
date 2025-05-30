@@ -11,7 +11,7 @@ export default function PapersFormatPage() {
     "Abstract submissions should not exceed 300 words",
     "Full papers should be between 8-12 pages, including figures, tables, and references",
     "Poster presentations should follow the A0 format (841 × 1189 mm) in portrait orientation",
-    "All submissions must be in PDF format",
+    "All submissions must be in Word file type format",
   ]
 
   const templates = [

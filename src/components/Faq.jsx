@@ -10,32 +10,32 @@ export default function ConferenceFAQ() {
     {
       question: "How can I register for the conference?",
       answer:
-        "Registration for ICSIFT 2024 is available through our online portal. Early bird registration is open until September 30, 2024. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.",
+        "Registration for ICSIFT 2025 is available through our online portal. Early bird registration is open until December 27-28, 2025. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.",
     },
     {
       question: "What are the submission guidelines for papers?",
       answer:
-        "Papers should be 6-8 pages in length following the provided template. All submissions must be original work not previously published or currently under review elsewhere. Topics should align with the conference themes of sustainability, innovation, or future technologies. The submission deadline is August 15, 2024.",
+        "Papers should be 6-8 pages in length following the provided template. All submissions must be original work not previously published or currently under review elsewhere. Topics should align with the conference themes of sustainability, innovation, or future technologies.",
     },
     {
       question: "Is there financial support available for students?",
       answer:
-        "Yes, ICSIFT offers a limited number of student grants covering registration fees and partial travel support. To apply, students must submit their academic credentials, a recommendation letter from their advisor, and a brief statement explaining how attending the conference will benefit their research. Applications for financial support close on October 1, 2024.",
+        "Yes, ICSIFT offers special student pricing for the conference on December 27-28, 2025. Student registration is available at a significantly reduced rate compared to regular registration. To qualify for student pricing, you must provide valid student ID and proof of enrollment. This discounted rate makes the conference more accessible for students while maintaining the same high-quality experience.",
     },
     {
       question: "What accommodation options are available?",
       answer:
-        "We have negotiated special rates with several hotels near the conference venue. These include sustainable and eco-friendly options at various price points. Booking information will be provided in your registration confirmation email. We recommend booking early as December is a popular tourist season in Bangkok.",
+        "Accommodation arrangements may vary depending on the venue availability. While we aim to provide accommodation options, we cannot guarantee availability. If you require assistance with accommodation, please contact us at info@icsift.com for more information and potential recommendations.",
     },
     {
       question: "How can I become a sponsor?",
       answer:
-        "We offer various sponsorship packages designed to provide visibility and engagement opportunities for organizations committed to sustainability and innovation. Benefits include exhibition space, speaking opportunities, logo placement, and complimentary registrations. Please contact our sponsorship team at sponsors@icsift.org for a detailed prospectus.",
+        "We offer various sponsorship packages designed to provide visibility and engagement opportunities for organizations committed to sustainability and innovation. Benefits include exhibition space, speaking opportunities, logo placement, and complimentary registrations. Please contact our sponsorship team at info@icsift.com for a detailed prospectus.",
     },
     {
       question: "Is the conference venue accessible?",
       answer:
-        "Yes, the Queen Sirikit National Convention Center is fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.",
+        "Yes, the Radisson Suites Bangkok Sukhumvit is fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.",
     },
   ]
 
