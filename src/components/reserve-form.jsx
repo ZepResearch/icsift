@@ -73,7 +73,9 @@ export function ReserveForm({ isOpen, onClose, onSubmitSuccess }) {
         <DialogHeader className="bg-gradient-to-r from-[#4d724d] to-emerald-600 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
           <DialogTitle className="text-xl font-semibold text-white">Reserve Your Seat</DialogTitle>
           <DialogDescription className="text-green-50">
-            International Conference on Sustainable Innovation  and Future  Technologies
+         
+2<sup>nd</sup> International Conference
+on Sustainability, Innovation and Future Technologies
           </DialogDescription>
         </DialogHeader>
         <div className="relative">
