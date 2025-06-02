@@ -161,7 +161,7 @@ export default function ConferenceFooter() {
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         {/* Top Section with Logo/Description on left and Conference Cards on right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 mb-16">
           {/* Left Side - Logo, Name, Description, Social Links */}
           <div>
             <div className="flex items-center space-x-3 mb-6">
@@ -212,7 +212,7 @@ export default function ConferenceFooter() {
           </div>
 
           {/* Right Side - Conference Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {conferenceCards.map((card, index) => (
               <div
                 key={index}
@@ -250,11 +250,11 @@ export default function ConferenceFooter() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
+          </div> */}
+        
 
         {/* Navigation Links */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 ">
           {/* Contact Information */}
           <div>
             <h4 className="font-bold text-lg mb-4">Contact Us</h4>
@@ -304,6 +304,7 @@ export default function ConferenceFooter() {
               </ul>
             </div>
           ))}
+        </div>
         </div>
 
         {/* Contact Information */}

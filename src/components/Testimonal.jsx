@@ -1,7 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { Link, QuoteIcon } from "lucide-react"
+import {  QuoteIcon } from "lucide-react"
+import Link from "next/link"
 
 export default function ConferenceTestimonials() {
   const testimonials = [
