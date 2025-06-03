@@ -162,7 +162,7 @@ export default function ConferenceVenue() {
             <div>
               <p className="text-sm font-medium text-[#4d724d] mb-2">Public Transportation</p>
               <p className="text-[#1a2e1a]/80">
-                The venue is easily accessible via Bangkok MRT. Queen Sirikit National Convention Centre MRT Station is
+                The venue is easily accessible via Bangkok MRT.Khwaeng Khlong Toei Nuea  is
                 directly connected to the venue via an underground walkway.
               </p>
             </div>

@@ -118,8 +118,8 @@ export default function ConferenceSchedule() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Venue</h3>
-                <p className="text-[#4d724d] mb-2">Queen Sirikit National Convention Center</p>
-                <p className="text-[#">Ratchadaphisek Road, Bangkok 10110, Thailand</p>
+                <p className="text-[#4d724d] mb-2">Radisson Suites Bangkok Sukhumvit. Address- 23/2 Soi Sukhumvit 13, </p>
+                <p className="text-[#">Khwaeng Khlong Toei Nuea, Khlong Toei, Bangkok 10110, Thailand</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Registration</h3>

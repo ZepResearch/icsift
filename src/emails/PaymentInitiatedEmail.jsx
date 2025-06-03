@@ -247,7 +247,7 @@ const RegistrationEmailTemplate = (data) => {
             <p>The <strong>International Conference on Sustainability, Innovation and Future Technologies (ICSIFT)</strong> brings together industry leaders, researchers, and professionals to explore cutting-edge developments in sustainable technology solutions.</p>
             
             <div class="highlight">
-              <p>The conference will take place on <strong>December 26th-27th, 2025</strong> at  <strong>Bangkok, Thailand</strong>.</p>
+              <p>The conference will take place on <strong>December 27th-28th, 2025</strong> at  <strong>Bangkok, Thailand</strong>.</p>
             </div>
             
             <div class="section-title" style="margin-top: 20px;">What's Next?</div>
