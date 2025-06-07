@@ -53,8 +53,7 @@ export default function RegistrationSuccessPage() {
                       <div>
                         <h3 className="text-[#1a2e1a] font-medium">Mark Your Calendar</h3>
                         <p className="text-[#4d724d]">
-                          The conference will take place on October 10-12, 2023 at the Queen Sirikit National Convention
-                          Center in Bangkok, Thailand.
+                          The conference will take place on The conference will take place on  Bangkok, Thailand And Exact detail will br share to you via Mail.
                         </p>
                       </div>
                     </div>
