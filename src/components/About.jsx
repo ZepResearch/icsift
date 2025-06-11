@@ -87,7 +87,7 @@ export default function AboutConference() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className="bg-white text-[#1a2e1a] hover:bg-[#f0f5eb] border border-[#d3e4c5] rounded-full">
                       {isLoading ? (
@@ -125,7 +125,7 @@ export default function AboutConference() {
                       ))
                     )}
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
 
                 <Link href="/about-conference">      
                   <Button
