@@ -3,7 +3,8 @@ import "./globals.css";
 import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
-// import { ChatButton } from "@/components/chat-button";
+ import { ChatButton } from "@/components/chat-button";
+import { FloatingContactButton } from "@/components/floating-contact-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,7 +68,8 @@ export default function RootLayout({ children }) {
         <ConferenceNavbar/>
         {children}
         <ConferenceFooter/>
-         <TawkToChat/>     
+<FloatingContactButton/>
+         {/* <TawkToChat/>      */}
       {/* <ChatButton/> */}
            </body>
     </html>

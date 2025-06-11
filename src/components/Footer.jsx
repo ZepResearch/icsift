@@ -352,14 +352,14 @@ export default function ConferenceFooter() {
       </div>
 
       {/* Scroll to top button */}
-      <button
+      {/* <button
         onClick={scrollToTop}
         className={`fixed right-28 bottom-6 w-12 h-12 rounded-full bg-[#d3e4c5] text-[#1a2e1a] flex items-center justify-center shadow-lg transition-all duration-300 z-50 ${
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         }`}
       >
         <ArrowUp size={20} />
-      </button>
+      </button> */}
     </footer>
   )
 }

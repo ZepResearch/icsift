@@ -198,7 +198,7 @@ export default function CommitteePage() {
                       <div className="absolute inset-0 rounded-full bg-[#4d724d] blur-md opacity-50"></div>
                       <Avatar className="h-full w-full border-2 border-white">
                         <AvatarImage
-                        src={`http://${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${member.collectionId}/${member.id}/${member.img}`}
+                        src={`${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${member.collectionId}/${member.id}/${member.img}`}
                           alt={member.name}
                           className="object-cover bg-[#edf6e1]"
                         />

@@ -28,7 +28,7 @@ const SpeakerCard = ({ speaker, onMoreInfo }) => {
         {/* Speaker image */}
         <div className="relative h-[280px] w-full rounded-lg overflow-hidden mb-4">
           <Image 
-            src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
+                src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
             alt={speaker.name} 
             fill 
             className="object-contain" 
