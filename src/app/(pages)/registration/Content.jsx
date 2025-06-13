@@ -494,7 +494,7 @@ export default function RegistrationPage() {
               </div>
 
               {/* Indian Participants */}
-              <div>
+              {/* <div>
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
                   <MapPin className="inline mr-2 h-5 w-5" />
                   Indian Participants
@@ -504,7 +504,7 @@ export default function RegistrationPage() {
                     renderPricingCard(categoryData, "indian", "physical")
                   )}
                 </div>
-              </div>
+              </div> */}
             </TabsContent>
 
             <TabsContent value="virtual" className="mt-0">
