@@ -8,6 +8,7 @@ import ConferenceFAQ from "@/components/Faq";
 import { ConferenceTimeline } from "@/components/conference-timeline";
 import { SpeakerSection } from "@/components/speaker-section";
 import Buttons from "@/components/buttons";
+import SDGS from "@/components/SDGS";;
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <ConferenceTimeline/>
         <SpeakerSection/>
         <ConferenceCTACards/>
+        <SDGS/>
         <ConferenceVenue/>
         <ConferenceFAQ/>
         <ConferenceTestimonials/>

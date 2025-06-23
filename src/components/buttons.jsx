@@ -98,7 +98,7 @@ export default function Buttons() {
           {materials.map((material) => (
             <motion.a
               key={material.id}
-              href={`https://conference.pockethost.io/api/files/ICSIFT_download_material/${material.id}/${material.file}`}
+              href={`https://conference.pockethost.io/api/files/${material.collectionName}/${material.id}/${material.file}`}
               className="bg-[#4d724d] hover:bg-[#4d724d]/90 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors duration-300 text-sm sm:text-sm text-center drop-shadow-sm"
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
