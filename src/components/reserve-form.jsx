@@ -71,7 +71,7 @@ export function ReserveForm({ isOpen, onClose, onSubmitSuccess }) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md border-green-600/20 shadow-lg bg-white">
         <DialogHeader className="bg-gradient-to-r from-[#4d724d] to-emerald-600 -mx-6 -mt-6 px-6 py-4 rounded-t-lg">
-          <DialogTitle className="text-xl font-semibold text-white">Reserve Your Seat</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-white">Pre-book your slot !</DialogTitle>
           <DialogDescription className="text-green-50">
          
 2<sup>nd</sup> International Conference
