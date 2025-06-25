@@ -316,8 +316,8 @@ export default function RegistrationPage() {
     const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
     
     return (
-      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all">
-        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
+      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6 h-60">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center space-x-2">
               <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
@@ -369,9 +369,10 @@ export default function RegistrationPage() {
           </div>
         </div>
 
-        <div className="p-6">
-          <h3 className="text-xl font-bold text-[#1a2e1a] mb-4">Features</h3>
-          <ul className="space-y-3 mb-6">
+       <div className="p-6 flex flex-col flex-1">
+    <div className="flex-1">
+      <h3 className="text-xl font-bold text-black mb-4">deliverables</h3>
+        <ul className="space-y-3 mb-6">
             {categoryData.features.map((feature, i) => (
               <li key={i} className="flex items-start">
                 <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -393,7 +394,7 @@ export default function RegistrationPage() {
               </li>
             ))}
           </ul>
-
+</div>
           <div className="space-y-2">
             <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, presentationType))}
