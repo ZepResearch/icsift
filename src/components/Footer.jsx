@@ -274,10 +274,10 @@ export default function ConferenceFooter() {
                 <div className="space-y-1">
                   {/* <p className="text-[#d3e4c5] text-sm">Phone</p> */}
                   <a
-                    href="tel:+917848854815"
+                    href="tel:+918260684845"
                     className="inline-flex gap-2 text-white/70 hover:text-white transition-colors hover:underline "
                   >
-                    <Contact/>+91 78488 54815
+                    <Contact/>+91 82606 84845
                   </a>
                 </div>
               </li>

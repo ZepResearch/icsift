@@ -284,7 +284,7 @@ export function SpeakerSection() {
               ) : (
                 <div className="col-span-3 py-12 text-center">
                   <div className="relative bg-white rounded-3xl border border-[#d3e4c5] p-6 max-w-md mx-auto">
-                    <p className="text-[#4d724d]">No speakers found in this category</p>
+                    <p className="text-[#4d724d]">speakers would be added soon</p>
                   </div>
                 </div>
               )}
