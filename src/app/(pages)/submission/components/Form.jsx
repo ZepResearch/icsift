@@ -7,6 +7,7 @@ import "react-phone-number-input/style.css"
 import PhoneInput from "react-phone-number-input"
 import { FileText, Upload, ChevronDown, Send } from "lucide-react"
 import { GeometricShapesCSS } from "./geometric-shapes-css"
+import AbstractSubmissionGuidelines from "./SubmitGuidline"
 
 export default function PaperSubmissionPage() {
   const router = useRouter()
@@ -84,6 +85,8 @@ export default function PaperSubmissionPage() {
               Share your research at 2<sup>nd</sup>ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
               Technologies
             </h2>
+             <a href="#guid" className="scroll-smooth transition-all py-2 px-3 bg-gradient-to-tl from-[#4d724d] via-[#606b58] to-[#4d724d] rounded-4xl text-white font-semibold hover:drop-shadow-2xl hover:bg-orange-500/90">
+             Read Submission Guidelines before submitting </a>
           </div>
         </div>
       </section>
@@ -361,6 +364,9 @@ export default function PaperSubmissionPage() {
                 </form>
               </div>
             </div>
+          </div>
+          <div id="guid" className="mt-12 scroll-smooth ">
+          <AbstractSubmissionGuidelines />
           </div>
         </div>
       </section>
