@@ -130,26 +130,21 @@ export default function VenuePage() {
                 </div>
 
                 <div>
-                  <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-[#d3e4c5]">
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-[#d3e4c5]">
                     <Image
                       src="/venue.webp"
                       alt="Radisson Suites Bangkok Sukhumvit"
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 to-transparent"></div>
 
                     {/* Floating elements */}
-                    <div className="absolute top-1/4 right-1/4 h-12 w-12 rounded-full bg-[#d3e4c5] blur-xl opacity-70 animate-pulse"></div>
-                    <div
-                      className="absolute bottom-1/3 left-1/3 h-16 w-16 rounded-full bg-[#b9d4a3] blur-xl opacity-70 animate-pulse"
-                      style={{ animationDelay: "1s" }}
-                    ></div>
+                  
 
                     {/* Venue name overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      {/* <h3 className="text-2xl font-bold text-white mb-1">Declare soon</h3> */}
-                      {/* <p className="text-white/90">Bangkok's premier convention and exhibition venue</p> */}
+                      <h3 className="text-2xl font-bold text-white mb-1">Radisson Suites Bangkok Sukhumvit </h3> 
+                      <p className="text-white/90 text-sm drop-shadow-2xl">23/2 Soi Sukhumvit 13, Khwaeng Khlong Toei Nuea, Khlong Toei, Bangkok 10110, Thailand</p>
                     </div>
                   </div>
                 </div>
@@ -281,7 +276,7 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.5767660119773!2d
                 <div className="absolute -inset-px rounded-2xl bg-[#d3e4c5]/20 opacity-0 transition-opacity group-hover:opacity-100"></div>
 
                 <div className="relative">
-                  <div className="h-48 w-full overflow-hidden">
+                  <div className="h-80 w-full overflow-hidden">
                     <Image
                       src={attraction.image || "/placeholder.svg"}
                       alt={attraction.title}
