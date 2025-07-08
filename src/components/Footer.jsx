@@ -27,6 +27,10 @@ export default function ConferenceFooter() {
       links: [
         { href: "/about-conference", label: "About Conference" },
         { href: "/about-organizers", label: "About Organizers" },
+        { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
+        { href: "/schedule", label: "Conference Schedule" },
+      
+
       ],
     },
     {
@@ -35,7 +39,8 @@ export default function ConferenceFooter() {
         { href: "/theme-and-topics", label: "Themes and Topics" },
         { href: "/papers-format", label: "Paper Formats" },
         { href: "/mode-of-presentation", label: "Mode of Presentation" },
-        { href: "/schedule", label: "Conference Schedule" },
+        { href: "/registration", label: "Registration" },
+
       ],
     },
     {
@@ -45,15 +50,20 @@ export default function ConferenceFooter() {
         { href: "/submission", label: "Submission" },
         { href: "/venue", label: "Venue" },
         { href: "/awards", label: "Awards" },
+        { href: "/contact", label: "Contact" },
+
+
       ],
     },
     {
-      title: "Connect",
+      title: "Policy",
       links: [
-        { href: "/contact", label: "Contact" },
-        { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
-        { href: "/registration", label: "Registration" },
-        // { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/cancellation-policy", label: "Cancellation Policy" },
+        { href: "/terms-and-conditions", label: "Terms and Conditions" },
+        { href: "/complaints-policy", label: "Complaints Policy" },
+
+
       ],
     },
   ]
