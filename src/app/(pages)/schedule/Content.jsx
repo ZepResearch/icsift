@@ -42,7 +42,7 @@ const scheduleData = [
 ]
 
 export default function ConferenceSchedule() {
-  const startDate = new Date(2025, 11, 26) // December 26, 2025
+  const startDate = new Date(2025, 11, 27) // December 26, 2025
   const [selectedDates, setSelectedDates] = useState([startDate, addDays(startDate, 1)])
 
   return (
