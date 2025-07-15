@@ -9,7 +9,7 @@ import { addDays } from "date-fns"
 
 const scheduleData = [
   {
-    date: "December 26 | Day 1",
+    date: "December 27 | Day 1",
     items: [
       { time: "8:00AM - 9:15AM", title: "Registration" },
       { time: "9:15AM - 9:30AM", title: "Inaugural Function" },
@@ -24,7 +24,7 @@ const scheduleData = [
     ],
   },
   {
-    date: "December 27 | Day 2",
+    date: "December 28 | Day 2",
     items: [
       { time: "8:30AM - 9:00AM", title: "Registration" },
       { time: "9:00AM - 9:30AM", title: "Day 2 Opening Remarks" },
