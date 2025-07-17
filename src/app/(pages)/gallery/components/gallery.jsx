@@ -8,18 +8,18 @@ const firstConferenceImages = [
     src: "/gallery/ICSIFT_09.jpg?height=600&width=800",
     alt: "2nd Conference - Opening Ceremony",
   },
-  {
-    src: "/gallery/ICSIFT_01.jpg?height=600&width=800",
-    alt: "2nd Conference - Keynote Speaker",
-  },
+  // {
+  //   src: "/gallery/ICSIFT_01.jpg?height=600&width=800",
+  //   alt: "2nd Conference - Keynote Speaker",
+  // },
   {
     src: "/gallery/ICSIFT_02.jpg?height=600&width=800",
     alt: "2nd Conference - Panel Discussion",
   },
-  {
-    src: "/gallery/ICSIFT_03.jpg?height=600&width=800",
-    alt: "2nd Conference - Award Ceremony",
-  },
+  // {
+  //   src: "/gallery/ICSIFT_03.jpg?height=600&width=800",
+  //   alt: "2nd Conference - Award Ceremony",
+  // },
   {
     src: "/gallery/ICSIFT_04.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
@@ -32,13 +32,29 @@ const firstConferenceImages = [
     src: "/gallery/ICSIFT_06.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
   },
-  {
-    src: "/gallery/ICSIFT_07.jpg?height=600&width=800",
-    alt: "2nd Conference - Award Ceremony",
+  // {
+  //   src: "/gallery/ICSIFT_07.jpg?height=600&width=800",
+  //   alt: "2nd Conference - Award Ceremony",
     
-  },
+  // },
   {
     src: "/gallery/ICSIFT_08.jpg?height=600&width=800",
+    alt: "2nd Conference - Award Ceremony",
+  },
+  {
+    src: "/gallery/ICSIFT_09.jpg?height=600&width=800",
+    alt: "2nd Conference - Award Ceremony",
+  },
+  {
+    src: "/gallery/ICSIFT_10.jpg?height=600&width=800",
+    alt: "2nd Conference - Award Ceremony",
+  },
+  {
+    src: "/gallery/ICSIFT_11.jpg?height=600&width=800",
+    alt: "2nd Conference - Award Ceremony",
+  },
+  {
+    src: "/gallery/ICSIFT_12.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
   },
 ]
