@@ -10,10 +10,11 @@ import { pb } from "@/lib/pocketbase"
 
 // Speaker categories
 const speakerCategories = [
-  { id: "Guest Speaker", title: "Guest Speaker" },
-  { id: "Keynote Speaker", title: "Keynote Speaker" },
+  // { id: "Guest Speaker", title: "Guest Speaker" },
+  { id: "Organizing Secretary", title: "Organizing Secretary" },
   { id: "Conference Chair", title: "Conference Chair" },
   { id: "Conference Co-Chair", title: "Conference Co-Chair" },
+  { id: "Keynote Speaker", title: "Keynote Speaker" },
   { id: "Session Chair", title: "Session Chair" },
 ];
 
@@ -28,7 +29,7 @@ const SpeakerCard = ({ speaker, onMoreInfo }) => {
         {/* Speaker image */}
         <div className="relative h-[280px] w-full rounded-lg overflow-hidden mb-4">
           <Image 
-            src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
+                src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
             alt={speaker.name} 
             fill 
             className="object-contain" 
@@ -137,7 +138,7 @@ const SpeakerDrawer = ({ isOpen, onClose, speaker }) => (
 )
 
 export function SpeakerSection() {
-  const [activeCategory, setActiveCategory] = useState("Guest Speaker")
+  const [activeCategory, setActiveCategory] = useState("Organizing Secretary")
   const [selectedSpeaker, setSelectedSpeaker] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [speakers, setSpeakers] = useState()
