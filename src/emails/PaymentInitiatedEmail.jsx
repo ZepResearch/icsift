@@ -235,7 +235,7 @@ const RegistrationEmailTemplate = (data) => {
             isAdmin
               ? `
           <div class="highlight">
-            <p>This is a notification of a new registration payment initiated for the International Conference on Sustainability, Innovation and Future Technologies (ICSIFT), December 26th-27th, 2025, Bangkok, Thailand.</p>
+            <p>This is a notification of a new registration payment initiated for the International Conference on Sustainability, Innovation and Future Technologies (ICSIFT), December 27th-28th, 2025, Bangkok, Thailand.</p>
           </div>
           `
               : `
