@@ -158,9 +158,7 @@ const RegistrationEmailTemplate = (data) => {
       <body class="grid-pattern">
         <div class="container">
           <div class="header">
-            <div class="logo">
-              <img src="https://icsift.com/singleLogo.svg" alt="ICSIFT Logo" width="180" height="60">
-            </div>
+            
             <div class="title">
               ${isAdmin ? "New Registration Payment Initiated" : "Your Registration Payment Initiated"}
             </div>

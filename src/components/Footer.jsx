@@ -347,7 +347,7 @@ export default function ConferenceFooter() {
           <p className="text-white/60 text-sm mb-4 md:mb-0">
             © 2025 ICSIFT. All rights reserved. Designed with sustainability in mind.
           </p>
-          <div className="flex space-x-6">
+          <div className="grid md:grid-cols-4 grid-cols-2  gap-8 text-center">
             <Link href="/terms-and-conditions" className="text-white/60 text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
@@ -357,19 +357,34 @@ export default function ConferenceFooter() {
             <Link href="/cancellation-policy" className="text-white/60 text-sm hover:text-white transition-colors">
               Cancellation Policy
             </Link>
+                  <Link href="/complaints-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Complaints Policy
+            </Link>
+
+
+
+            <Link href="/disability-discrimination-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors ">
+             Disability Discrimination Policy
+            </Link>
+            <Link href="/health-and-safety-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Health and Safety Policy
+            </Link>
+            <Link href="/equal-treatment-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Equal Treatment Policy
+            </Link>
           </div>
         </div>
       </div>
 
       {/* Scroll to top button */}
-      <button
+      {/* <button
         onClick={scrollToTop}
         className={`fixed right-28 bottom-6 w-12 h-12 rounded-full bg-[#d3e4c5] text-[#1a2e1a] flex items-center justify-center shadow-lg transition-all duration-300 z-50 ${
           showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
         }`}
       >
         <ArrowUp size={20} />
-      </button>
+      </button> */}
     </footer>
   )
 }

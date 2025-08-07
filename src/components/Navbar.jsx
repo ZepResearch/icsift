@@ -67,6 +67,9 @@ export default function ConferenceNavbar() {
     {
       title: "AWARDS",
       href: "/awards",
+    },{
+      title: "JOURNAL",
+      href: "/journals",
     },
     {
       title: "CONTACT",
