@@ -88,16 +88,7 @@ const UserEmailTemplate = ({ name }) => {
         <Body className="bg-[#f8faf5] text-[#1a2e1a] font-sans grid-pattern">
           {/* Outer container */}
           <Container className="max-w-xl mx-auto my-10">
-            {/* Header with logo */}
-            <Section className="text-center mb-4">
-              <Img
-                src="https://icsift.com/singleLogo.svg"
-                width="180"
-                height="60"
-                alt="ICSIFT Logo"
-                className="mx-auto"
-              />
-            </Section>
+           
 
             {/* Main content container */}
             <Container className="p-8 bg-white rounded-2xl shadow-lg border border-[#d3e4c5] green-border green-glow">
