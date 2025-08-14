@@ -200,7 +200,7 @@ export default function CommitteePage() {
                         <AvatarImage
                         src={`${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${member.collectionId}/${member.id}/${member.img}`}
                           alt={member.name}
-                          className="object-cover bg-[#edf6e1]"
+                          className="object-contain bg-[#edf6e1]"
                         />
                         <AvatarFallback className="bg-[#4d724d] text-white text-2xl">
                           {member.name
