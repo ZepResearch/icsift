@@ -63,7 +63,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        
         <script
           async
           src="https://analytics.zepresearch.com/script.js"
