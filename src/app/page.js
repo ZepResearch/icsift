@@ -8,13 +8,15 @@ import ConferenceFAQ from "@/components/Faq";
 import { ConferenceTimeline } from "@/components/conference-timeline";
 import { SpeakerSection } from "@/components/speaker-section";
 import Buttons from "@/components/buttons";
-import SDGS from "@/components/SDGS";;
+import SDGS from "@/components/SDGS";import Organizer from "@/components/Organizer";
+;
 
 export default function Home() {
   return (
    
       <main className="min-h-screen bg-[#f8faf5]">
         <ConferenceHero/>
+        <Organizer/>
         <AboutConference/>
         <Buttons/>
         <ConferenceObjectives/>
