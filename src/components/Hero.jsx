@@ -138,13 +138,13 @@ export default function ConferenceHero() {
                   height={40}
                   className="h-12 w-auto object-contain "
                 />
-                <Image
+                {/* <Image
                   src={"/assets/cpd.png"}
                   alt="PASUC"
                   width={100}
                   height={40}
                   className="h-28 w-auto object-contain "
-                />
+                /> */}
                 <Image
                   src={"/assets/clarivate.png"}
                   alt="Clarivate"

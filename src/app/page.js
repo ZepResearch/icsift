@@ -9,6 +9,7 @@ import { ConferenceTimeline } from "@/components/conference-timeline";
 import { SpeakerSection } from "@/components/speaker-section";
 import Buttons from "@/components/buttons";
 import SDGS from "@/components/SDGS";import Organizer from "@/components/Organizer";
+import CPD from "@/components/cpd";
 ;
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
    
       <main className="min-h-screen bg-[#f8faf5]">
         <ConferenceHero/>
+        <CPD/>
         <Organizer/>
         <AboutConference/>
         <Buttons/>
