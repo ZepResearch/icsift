@@ -138,7 +138,7 @@ export default function RegistrationPage() {
           earlyBird: { price: 149, currency: "USD" },
           regular: { price: 169, currency: "USD" },
           scopusQ3Q4: { price: 669, currency: "USD" },
-          scopusQ1Q2: { price: 1199, currency: "USD" },
+          scopusQ1Q2: { price: 1099, currency: "USD" },
           features: [
             "Full virtual conference access",
             "Online networking sessions",
@@ -153,7 +153,7 @@ export default function RegistrationPage() {
           earlyBird: { price: 199, currency: "USD" },
           regular: { price: 219, currency: "USD" },
           scopusQ3Q4: { price: 719, currency: "USD" },
-          scopusQ1Q2: { price: 1099, currency: "USD" },
+          scopusQ1Q2: { price: 1199, currency: "USD" },
           features: [
             "Full virtual conference access",
             "Premium networking sessions",
