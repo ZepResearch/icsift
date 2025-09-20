@@ -60,6 +60,7 @@ export default function ThemeAndTopicsPage() {
         "Youth Empowerment & Eco-Innovation",
         "Migration, Climate Change & Global Mobility",
         "Sustainable Development Goals Implementation",
+        "Tourism and Hospitality Management"
       ],
     },
   ]
