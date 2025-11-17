@@ -19,9 +19,6 @@ const iconMapping = {
   default: Clock,
 }
 
-// Fallback timeline data in case API fails
-
-
 export function ConferenceTimeline() {
   const [timelineData, setTimelineData] = useState()
   const [loading, setLoading] = useState(true)
@@ -120,6 +117,7 @@ export function ConferenceTimeline() {
               {timelineData.map((item, index) => {
                 const IconComponent = iconMapping[item.type] || iconMapping.default
                 const isHovered = hoveredItem === item.id
+                const isExpired = index === 0 // First card is expired
 
                 return (
                   <motion.div
@@ -138,18 +136,25 @@ export function ConferenceTimeline() {
                           scale: isHovered ? 1.1 : 1,
                           boxShadow: isHovered ? "0 0 20px rgba(77, 114, 77, 0.5)" : "0 0 10px rgba(77, 114, 77, 0.2)",
                         }}
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#4d724d] to-[#1a2e1a] p-0.5 shadow-lg shadow-[#4d724d]/20"
+                        className={cn(
+                          "flex h-12 w-12 items-center justify-center rounded-full p-0.5 shadow-lg shadow-[#4d724d]/20",
+                          isExpired 
+                            ? "bg-gradient-to-br from-gray-400 to-gray-600" 
+                            : "bg-gradient-to-br from-[#4d724d] to-[#1a2e1a]"
+                        )}
                       >
                         <div
                           className={cn(
                             "flex h-full w-full items-center justify-center rounded-full transition-colors duration-300",
-                            isHovered ? "bg-[#1a2e1a]" : "bg-white",
+                            isHovered ? (isExpired ? "bg-gray-600" : "bg-[#1a2e1a]") : "bg-white",
                           )}
                         >
                           <IconComponent
                             className={cn(
                               "h-5 w-5 transition-colors duration-300",
-                              isHovered ? "text-[#d3e4c5]" : "text-[#4d724d]",
+                              isHovered 
+                                ? (isExpired ? "text-gray-300" : "text-[#d3e4c5]") 
+                                : (isExpired ? "text-gray-400" : "text-[#4d724d]"),
                             )}
                           />
                         </div>
@@ -159,18 +164,50 @@ export function ConferenceTimeline() {
                     {/* Content card */}
                     <motion.div
                       whileHover={{ scale: 1.02 }}
-                      className="relative backdrop-blur-sm bg-white rounded-xl border border-[#d3e4c5] overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5"
+                      className={cn(
+                        "relative backdrop-blur-sm rounded-xl border overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5",
+                        isExpired 
+                          ? "bg-gray-50 border-gray-300 opacity-60" 
+                          : "bg-white border-[#d3e4c5]"
+                      )}
                     >
                       {/* Decorative gradient */}
                       <div
-                        className="absolute -inset-px rounded-xl bg-gradient-to-r from-[#d3e4c5]/20 via-transparent to-transparent opacity-50"
+                        className={cn(
+                          "absolute -inset-px rounded-xl bg-gradient-to-r opacity-50",
+                          isExpired 
+                            ? "from-gray-300/20 via-transparent to-transparent" 
+                            : "from-[#d3e4c5]/20 via-transparent to-transparent"
+                        )}
                       ></div>
 
                       <div className="relative">
-                        <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{item.name}</h3>
-                        <p className="text-[#4d724d] mb-3">{item.description}</p>
+                        {/* Expired badge */}
+                        {isExpired && (
+                          <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                            EXPIRED
+                          </div>
+                        )}
+                        
+                        <h3 className={cn(
+                          "text-xl font-bold mb-2",
+                          isExpired ? "text-gray-500 line-through" : "text-[#1a2e1a]"
+                        )}>
+                          {item.name}
+                        </h3>
+                        <p className={cn(
+                          "mb-3",
+                          isExpired ? "text-gray-400 line-through" : "text-[#4d724d]"
+                        )}>
+                          {item.description}
+                        </p>
                         <div
-                          className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-[#d3e4c5]/40 text-[#1a2e1a] border border-[#d3e4c5]/70"
+                          className={cn(
+                            "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium border",
+                            isExpired 
+                              ? "bg-gray-200/40 text-gray-500 border-gray-300/70 line-through" 
+                              : "bg-[#d3e4c5]/40 text-[#1a2e1a] border-[#d3e4c5]/70"
+                          )}
                         >
                           <Calendar className="mr-1.5 h-3.5 w-3.5" />
                           <span>{item.date}</span>
@@ -178,8 +215,11 @@ export function ConferenceTimeline() {
                       </div>
                     </motion.div>
 
-                    {/* Connector line (optional) */}
-                    <div className="absolute left-0 md:left-16 top-6 h-0.5 w-8 bg-[#4d724d]/40 transform -translate-x-0 md:translate-x-1/2"></div>
+                    {/* Connector line */}
+                    <div className={cn(
+                      "absolute left-0 md:left-16 top-6 h-0.5 w-8 transform -translate-x-0 md:translate-x-1/2",
+                      isExpired ? "bg-gray-400/40" : "bg-[#4d724d]/40"
+                    )}></div>
                   </motion.div>
                 )
               })}
