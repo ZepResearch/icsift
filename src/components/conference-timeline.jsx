@@ -182,18 +182,18 @@ export function ConferenceTimeline() {
                       ></div>
 
                       <div className="relative">
-                        {/* Expired badge */}
-                        {isExpired && (
-                          <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                            EXPIRED
-                          </div>
-                        )}
-                        
                         <h3 className={cn(
-                          "text-xl font-bold mb-2",
-                          isExpired ? "text-gray-500 line-through" : "text-[#1a2e1a]"
+                          "text-xl font-bold mb-2 flex items-center gap-2 flex-wrap",
+                          isExpired ? "text-gray-500" : "text-[#1a2e1a]"
                         )}>
-                          {item.name}
+                          <span className={isExpired ? "line-through" : ""}>
+                            {item.name}
+                          </span>
+                          {isExpired && (
+                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                              EXPIRED
+                            </span>
+                          )}
                         </h3>
                         <p className={cn(
                           "mb-3",
