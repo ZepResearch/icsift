@@ -6,6 +6,7 @@ import { Toaster, toast } from "react-hot-toast"
 import "react-phone-number-input/style.css"
 import PhoneInput from "react-phone-number-input"
 import { FileText, Upload, ChevronDown, Send } from "lucide-react"
+import ReCAPTCHA from "react-google-recaptcha"
 import { GeometricShapesCSS } from "./geometric-shapes-css"
 import AbstractSubmissionGuidelines from "./SubmitGuidline"
 
@@ -15,11 +16,24 @@ export default function PaperSubmissionPage() {
   const [error, setError] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const [phoneNumber, setPhoneNumber] = useState()
+  const [recaptchaToken, setRecaptchaToken] = useState(null)
+
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError(null)
+
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setError("Please complete the reCAPTCHA verification")
+      toast.error("Please complete the reCAPTCHA verification")
+      setIsSubmitting(false)
+      return
+    }
 
     try {
       const formData = new FormData(e.currentTarget)
@@ -33,6 +47,9 @@ export default function PaperSubmissionPage() {
       if (selectedFile) {
         formData.set("file", selectedFile)
       }
+
+      // Add reCAPTCHA token
+      formData.set("recaptcha_token", recaptchaToken)
 
       const response = await fetch("/api/submit-paper", {
         method: "POST",
@@ -69,9 +86,6 @@ export default function PaperSubmissionPage() {
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-     
-
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
@@ -85,15 +99,16 @@ export default function PaperSubmissionPage() {
               Share your research at 2<sup>nd</sup>ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
               Technologies
             </h2>
-             <a href="#guid" className="scroll-smooth transition-all py-2 px-3 bg-gradient-to-tl from-[#4d724d] via-[#606b58] to-[#4d724d] rounded-4xl text-white font-semibold hover:drop-shadow-2xl hover:bg-orange-500/90">
-             Read Submission Guidelines before submitting </a>
+            <a href="#guid" className="scroll-smooth transition-all py-2 px-3 bg-gradient-to-tl from-[#4d724d] via-[#606b58] to-[#4d724d] rounded-4xl text-white font-semibold hover:drop-shadow-2xl hover:bg-orange-500/90">
+              Read Submission Guidelines before submitting
+            </a>
           </div>
         </div>
       </section>
 
       {/* Form Section */}
-      <section className="pb-12 ">
-      <GeometricShapesCSS />
+      <section className="pb-12">
+        <GeometricShapesCSS />
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
@@ -298,7 +313,7 @@ export default function PaperSubmissionPage() {
                     {/* File Upload */}
                     <div className="space-y-2">
                       <label htmlFor="file" className="block text-sm font-medium text-[#1a2e1a]">
-                        Upload Paper ( DOC, DOCX) *
+                        Upload Paper (DOC, DOCX) *
                       </label>
                       <div className="relative">
                         <input
@@ -336,6 +351,15 @@ export default function PaperSubmissionPage() {
                     ></textarea>
                   </div>
 
+                  {/* reCAPTCHA */}
+                  <div className="flex justify-center">
+                    <ReCAPTCHA
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                      onChange={handleRecaptchaChange}
+                      theme="light"
+                    />
+                  </div>
+
                   {/* Submit Button */}
                   <div className="flex justify-center pt-4">
                     <button
@@ -365,52 +389,11 @@ export default function PaperSubmissionPage() {
               </div>
             </div>
           </div>
-          <div id="guid" className="mt-12 scroll-smooth ">
-          <AbstractSubmissionGuidelines />
+          <div id="guid" className="mt-12 scroll-smooth">
+            <AbstractSubmissionGuidelines />
           </div>
         </div>
       </section>
-
-      {/* Guidelines Section */}
-      {/* <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-[#1a2e1a] mb-8 text-center">Submission Guidelines</h2>
-
-            <div className="bg-white rounded-3xl p-8 shadow-sm">
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Paper Format</h3>
-                  <p className="text-[#4d724d]">
-                    All submissions must follow the ICSIFT template. Papers should be 6-8 pages in length, including
-                    figures, tables, and references. Please use the template provided on our website.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Review Process</h3>
-                  <p className="text-[#4d724d]">
-                    All submissions will undergo a double-blind peer review process. Please ensure that your paper does
-                    not contain any identifying information about the authors.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Important Dates</h3>
-                  <ul className="space-y-2 text-[#4d724d]">
-                    <li>• Abstract Submission Deadline: September 15, 2025</li>
-                    <li>• Notification of Abstract Acceptance: October 1, 2025</li>
-                    <li>• Full Paper Submission Deadline: November 1, 2025</li>
-                    <li>• Notification of Paper Acceptance: November 15, 2025</li>
-                    <li>• Camera-Ready Paper Submission: December 1, 2025</li>
-                    <li>• Conference Dates: December 27-28, 2025</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </main>
   )
 }

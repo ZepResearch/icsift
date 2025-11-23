@@ -1,17 +1,53 @@
-import {  NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import PocketBase from "pocketbase"
 import { resend } from "@/lib/resend"
-import { getUserEmailTemplate, getAdminEmailTemplate} from "@/emails/email-templates"
+import { getUserEmailTemplate, getAdminEmailTemplate } from "@/emails/email-templates"
 
 export async function POST(request) {
   try {
     const formData = await request.formData()
+    
+    // Get reCAPTCHA token
+    const recaptchaToken = formData.get("recaptcha_token")
+
+    // Verify reCAPTCHA
+    if (!recaptchaToken) {
+      return NextResponse.json(
+        { success: false, message: "reCAPTCHA token is missing" },
+        { status: 400 }
+      )
+    }
+
+    // Verify reCAPTCHA with Google
+    const verifyResponse = await fetch(
+      "https://www.google.com/recaptcha/api/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      }
+    )
+
+    const verifyData = await verifyResponse.json()
+
+    // Check if reCAPTCHA verification failed
+    if (!verifyData.success) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          message: "reCAPTCHA verification failed. Please try again." 
+        },
+        { status: 400 }
+      )
+    }
 
     // Initialize PocketBase
     const pb = new PocketBase("https://conference.pockethost.io")
 
     // Extract file if present
-    const file = formData.get("file") 
+    const file = formData.get("file")
     let fileUrl = ""
 
     // Create data object for PocketBase
@@ -35,7 +71,7 @@ export async function POST(request) {
 
     // Add all fields to PocketBase FormData
     Object.entries(data).forEach(([key, value]) => {
-      pbFormData.append(key, value )
+      pbFormData.append(key, value)
     })
 
     // Add file if present
@@ -48,19 +84,15 @@ export async function POST(request) {
 
     // Get file URL if a file was uploaded
     if (record.file && record.file.length > 0) {
-        // Use the URL method as per latest documentation
-        fileUrl = pb.files.getURL(record, record.file),{'download': 1};
-        
-        // If you need to add download parameter
-        // fileUrl = pb.files.getURL(record, record.file[0], {'download': 1});
-      }
+      // Use the URL method as per latest documentation
+      fileUrl = pb.files.getURL(record, record.file, { download: 1 })
+    }
 
     // Send confirmation email to user
     await resend.emails.send({
       from: "Conference <info@icsift.com>",
       to: data.email,
-      subject:
-        "Paper Submission Confirmation - ICSIFT 2025",
+      subject: "Paper Submission Confirmation - ICSIFT 2025",
       html: getUserEmailTemplate(data),
     })
 
@@ -78,7 +110,21 @@ export async function POST(request) {
     })
   } catch (error) {
     console.error("Error submitting paper:", error)
-    return NextResponse.json({ success: false, message: "Failed to submit paper" }, { status: 500 })
+    
+    // Provide more specific error messages
+    let errorMessage = "Failed to submit paper"
+    
+    if (error.message.includes("reCAPTCHA")) {
+      errorMessage = "reCAPTCHA verification failed"
+    } else if (error.message.includes("PocketBase")) {
+      errorMessage = "Database error occurred"
+    } else if (error.message.includes("email")) {
+      errorMessage = "Email sending failed"
+    }
+    
+    return NextResponse.json(
+      { success: false, message: errorMessage },
+      { status: 500 }
+    )
   }
 }
-

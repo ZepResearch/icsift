@@ -448,7 +448,7 @@ export default function RegistrationPage() {
 
           <Tabs defaultValue="physical" className="w-full" onValueChange={setActiveTab}>
             <div className="flex justify-center mb-10">
-              <TabsList className="bg-[#edf6e1] p-1 rounded-full">
+              <TabsList className="bg-[#edf6e1] p-1 rounded-full flex flex-col md:flex-row gap-4">
                 <TabsTrigger
                   value="physical"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
