@@ -157,24 +157,49 @@ export function ConferenceTimeline() {
                     </div>
 
                     {/* Content card */}
+                {/* Content card */}
                     <motion.div
                       whileHover={{ scale: 1.02 }}
-                      className="relative backdrop-blur-sm bg-white rounded-xl border border-[#d3e4c5] overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5"
+                      className={cn(
+                        "relative backdrop-blur-sm rounded-xl border overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5",
+                        index === 0 
+                          ? "bg-gray-100/80 border-gray-300 opacity-75" 
+                          : "bg-white border-[#d3e4c5]"
+                      )}
                     >
                       {/* Decorative gradient */}
                       <div
-                        className="absolute -inset-px rounded-xl bg-gradient-to-r from-[#d3e4c5]/20 via-transparent to-transparent opacity-50"
+                        className={cn(
+                          "absolute -inset-px rounded-xl bg-gradient-to-r from-[#d3e4c5]/20 via-transparent to-transparent",
+                          index === 0 ? "opacity-20" : "opacity-50"
+                        )}
                       ></div>
 
                       <div className="relative">
-                        <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{item.name}</h3>
-                        <p className="text-[#4d724d] mb-3">{item.description}</p>
+                        <h3 className={cn(
+                          "text-xl font-bold mb-2",
+                          index === 0 ? "text-gray-500 line-through" : "text-[#1a2e1a]"
+                        )}>
+                          {item.name}
+                        </h3>
+                        <p className={cn(
+                          "mb-3",
+                          index === 0 ? "text-gray-400 line-through" : "text-[#4d724d]"
+                        )}>
+                          {item.description}
+                        </p>
                         <div
-                          className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-[#d3e4c5]/40 text-[#1a2e1a] border border-[#d3e4c5]/70"
+                          className={cn(
+                            "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium border",
+                            index === 0 
+                              ? "bg-gray-200/40 text-gray-500 border-gray-300/70 line-through" 
+                              : "bg-[#d3e4c5]/40 text-[#1a2e1a] border-[#d3e4c5]/70"
+                          )}
                         >
                           <Calendar className="mr-1.5 h-3.5 w-3.5" />
                           <span>{item.date}</span>
                         </div>
+                        
                       </div>
                     </motion.div>
 
