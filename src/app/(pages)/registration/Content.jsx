@@ -338,12 +338,12 @@ export default function RegistrationPage() {
           </div>
           
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            {/* <div className="flex justify-between items-center">
               <span className="text-sm text-[#4d724d]">Early Bird:</span>
               <span className="text-lg font-bold text-[#1a2e1a]">
                 {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
               </span>
-            </div>
+            </div> */}
             <div className="flex justify-between items-center">
               <span className="text-sm text-[#4d724d]">Regular:</span>
               <span className="text-lg font-bold text-[#1a2e1a]">
@@ -396,13 +396,13 @@ export default function RegistrationPage() {
           </ul>
 </div>
           <div className="space-y-2">
-            <Button
+            {/* <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, presentationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
             >
               <CreditCard className="mr-2 h-4 w-4 text-white" />
               Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-            </Button>
+            </Button> */}
             <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "regular", participantType, presentationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
