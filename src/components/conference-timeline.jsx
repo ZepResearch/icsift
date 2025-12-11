@@ -19,9 +19,6 @@ const iconMapping = {
   default: Clock,
 }
 
-// Fallback timeline data in case API fails
-
-
 export function ConferenceTimeline() {
   const [timelineData, setTimelineData] = useState()
   const [loading, setLoading] = useState(true)
@@ -120,6 +117,7 @@ export function ConferenceTimeline() {
               {timelineData.map((item, index) => {
                 const IconComponent = iconMapping[item.type] || iconMapping.default
                 const isHovered = hoveredItem === item.id
+                const isExpired = index === 0 // First card is expired
 
                 return (
                   <motion.div
@@ -138,18 +136,25 @@ export function ConferenceTimeline() {
                           scale: isHovered ? 1.1 : 1,
                           boxShadow: isHovered ? "0 0 20px rgba(77, 114, 77, 0.5)" : "0 0 10px rgba(77, 114, 77, 0.2)",
                         }}
-                        className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#4d724d] to-[#1a2e1a] p-0.5 shadow-lg shadow-[#4d724d]/20"
+                        className={cn(
+                          "flex h-12 w-12 items-center justify-center rounded-full p-0.5 shadow-lg shadow-[#4d724d]/20",
+                          isExpired 
+                            ? "bg-gradient-to-br from-gray-400 to-gray-600" 
+                            : "bg-gradient-to-br from-[#4d724d] to-[#1a2e1a]"
+                        )}
                       >
                         <div
                           className={cn(
                             "flex h-full w-full items-center justify-center rounded-full transition-colors duration-300",
-                            isHovered ? "bg-[#1a2e1a]" : "bg-white",
+                            isHovered ? (isExpired ? "bg-gray-600" : "bg-[#1a2e1a]") : "bg-white",
                           )}
                         >
                           <IconComponent
                             className={cn(
                               "h-5 w-5 transition-colors duration-300",
-                              isHovered ? "text-[#d3e4c5]" : "text-[#4d724d]",
+                              isHovered 
+                                ? (isExpired ? "text-gray-300" : "text-[#d3e4c5]") 
+                                : (isExpired ? "text-gray-400" : "text-[#4d724d]"),
                             )}
                           />
                         </div>
@@ -203,8 +208,11 @@ export function ConferenceTimeline() {
                       </div>
                     </motion.div>
 
-                    {/* Connector line (optional) */}
-                    <div className="absolute left-0 md:left-16 top-6 h-0.5 w-8 bg-[#4d724d]/40 transform -translate-x-0 md:translate-x-1/2"></div>
+                    {/* Connector line */}
+                    <div className={cn(
+                      "absolute left-0 md:left-16 top-6 h-0.5 w-8 transform -translate-x-0 md:translate-x-1/2",
+                      isExpired ? "bg-gray-400/40" : "bg-[#4d724d]/40"
+                    )}></div>
                   </motion.div>
                 )
               })}
