@@ -3,6 +3,46 @@ import PocketBase from "pocketbase"
 // Initialize PocketBase
 export const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL)
 
+
+export function getPocketBaseClient() {
+  // For server-side rendering, always create a fresh instance
+  if (typeof window === "undefined") {
+    const pb = new PocketBase("https://zep-research.pockethost.io")
+    pb.autoCancellation(false)
+    return pb
+  }
+}
+export async function getJournals() {
+  try {
+    const pb = getPocketBaseClient()
+
+    // Get the start and end dates for 2025
+    const startDate = '2025-01-01 00:00:00'
+    const endDate = '2025-12-31 23:59:59'
+
+    // Fetch journals from 2025 only, sorted by creation date (newest first)
+    const records = await pb.collection("Journals").getFullList({
+      sort: "-created",
+      filter: `created >= '${startDate}' && created <= '${endDate}'`
+    })
+
+    return records
+  } catch (error) {
+    console.error("Error fetching journals:", error)
+    return []
+  }
+}
+
+export async function getJournalById(id) {
+  try {
+    const pb = getPocketBaseClient()
+    const record = await pb.collection("Journals").getOne(id)
+    return record
+  } catch (error) {
+    console.error(`Error fetching journal with ID ${id}:`, error)
+    return null
+  }
+}
 // Cache mechanism to prevent excessive API calls
 const CACHE_DURATION = 1000 * 60 * 15 // 15 minutes
 let cachedData = null

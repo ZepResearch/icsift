@@ -134,7 +134,7 @@ export default function AboutConferencePage() {
             </div>
             <div className="relative rounded-3xl overflow-hidden h-[400px]">
               <Image
-                src="/gallery/ICSIFT_07.jpg"
+                src="/gallery/ICSIFT_12.jpg"
                 alt="Conference"
                 fill
                 className="object-cover"

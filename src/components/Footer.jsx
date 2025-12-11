@@ -27,6 +27,10 @@ export default function ConferenceFooter() {
       links: [
         { href: "/about-conference", label: "About Conference" },
         { href: "/about-organizers", label: "About Organizers" },
+        { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
+        { href: "/schedule", label: "Conference Schedule" },
+      
+
       ],
     },
     {
@@ -35,7 +39,8 @@ export default function ConferenceFooter() {
         { href: "/theme-and-topics", label: "Themes and Topics" },
         { href: "/papers-format", label: "Paper Formats" },
         { href: "/mode-of-presentation", label: "Mode of Presentation" },
-        { href: "/schedule", label: "Conference Schedule" },
+        { href: "/registration", label: "Registration" },
+
       ],
     },
     {
@@ -45,15 +50,20 @@ export default function ConferenceFooter() {
         { href: "/submission", label: "Submission" },
         { href: "/venue", label: "Venue" },
         { href: "/awards", label: "Awards" },
+        { href: "/contact", label: "Contact" },
+
+
       ],
     },
     {
-      title: "Connect",
+      title: "Policy",
       links: [
-        { href: "/contact", label: "Contact" },
-        { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
-        { href: "/registration", label: "Registration" },
-        // { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/cancellation-policy", label: "Cancellation Policy" },
+        { href: "/terms-and-conditions", label: "Terms and Conditions" },
+        { href: "/complaints-policy", label: "Complaints Policy" },
+
+
       ],
     },
   ]
@@ -274,10 +284,10 @@ export default function ConferenceFooter() {
                 <div className="space-y-1">
                   {/* <p className="text-[#d3e4c5] text-sm">Phone</p> */}
                   <a
-                    href="tel:+917848854815"
+                    href="tel:+918260684845"
                     className="inline-flex gap-2 text-white/70 hover:text-white transition-colors hover:underline "
                   >
-                    <Contact/>+91 78488 54815
+                    <Contact/>+91 82606 84845
                   </a>
                 </div>
               </li>
@@ -337,7 +347,7 @@ export default function ConferenceFooter() {
           <p className="text-white/60 text-sm mb-4 md:mb-0">
             © 2025 ICSIFT. All rights reserved. Designed with sustainability in mind.
           </p>
-          <div className="flex space-x-6">
+          <div className="grid md:grid-cols-4 grid-cols-2  gap-8 text-center">
             <Link href="/terms-and-conditions" className="text-white/60 text-sm hover:text-white transition-colors">
               Terms of Service
             </Link>
@@ -346,6 +356,21 @@ export default function ConferenceFooter() {
             </Link>
             <Link href="/cancellation-policy" className="text-white/60 text-sm hover:text-white transition-colors">
               Cancellation Policy
+            </Link>
+                  <Link href="/complaints-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Complaints Policy
+            </Link>
+
+
+
+            <Link href="/disability-discrimination-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors ">
+             Disability Discrimination Policy
+            </Link>
+            <Link href="/health-and-safety-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Health and Safety Policy
+            </Link>
+            <Link href="/equal-treatment-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
+             Equal Treatment Policy
             </Link>
           </div>
         </div>

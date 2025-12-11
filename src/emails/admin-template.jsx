@@ -67,7 +67,7 @@ const AdminEmailTemplate = ({ name, email, subject, message, phoneNumber }) => {
           {/* Outer container with background pattern */}
           <Container className="max-w-xl mx-auto my-10">
             {/* Header with logo */}
-            <Section className="text-center mb-4">
+            {/* <Section className="text-center mb-4">
               <Img
                 src="https://icsift.com/singleLogo.svg"
                 width="180"
@@ -75,7 +75,7 @@ const AdminEmailTemplate = ({ name, email, subject, message, phoneNumber }) => {
                 alt="ICSIFT Logo"
                 className="mx-auto"
               />
-            </Section>
+            </Section> */}
 
             {/* Main content container */}
             <Container className="p-8 bg-white rounded-2xl shadow-lg border border-[#d3e4c5] green-border green-glow">

@@ -138,7 +138,7 @@ export default function RegistrationPage() {
           earlyBird: { price: 149, currency: "USD" },
           regular: { price: 169, currency: "USD" },
           scopusQ3Q4: { price: 669, currency: "USD" },
-          scopusQ1Q2: { price: 1199, currency: "USD" },
+          scopusQ1Q2: { price: 1099, currency: "USD" },
           features: [
             "Full virtual conference access",
             "Online networking sessions",
@@ -153,7 +153,7 @@ export default function RegistrationPage() {
           earlyBird: { price: 199, currency: "USD" },
           regular: { price: 219, currency: "USD" },
           scopusQ3Q4: { price: 719, currency: "USD" },
-          scopusQ1Q2: { price: 1099, currency: "USD" },
+          scopusQ1Q2: { price: 1199, currency: "USD" },
           features: [
             "Full virtual conference access",
             "Premium networking sessions",
@@ -316,8 +316,8 @@ export default function RegistrationPage() {
     const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
     
     return (
-      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all">
-        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
+      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
+        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6 h-60">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center space-x-2">
               <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
@@ -338,12 +338,12 @@ export default function RegistrationPage() {
           </div>
           
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            {/* <div className="flex justify-between items-center">
               <span className="text-sm text-[#4d724d]">Early Bird:</span>
               <span className="text-lg font-bold text-[#1a2e1a]">
                 {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
               </span>
-            </div>
+            </div> */}
             <div className="flex justify-between items-center">
               <span className="text-sm text-[#4d724d]">Regular:</span>
               <span className="text-lg font-bold text-[#1a2e1a]">
@@ -369,9 +369,10 @@ export default function RegistrationPage() {
           </div>
         </div>
 
-        <div className="p-6">
-          <h3 className="text-xl font-bold text-[#1a2e1a] mb-4">Features</h3>
-          <ul className="space-y-3 mb-6">
+       <div className="p-6 flex flex-col flex-1">
+    <div className="flex-1">
+      <h3 className="text-xl font-bold text-black mb-4">deliverables</h3>
+        <ul className="space-y-3 mb-6">
             {categoryData.features.map((feature, i) => (
               <li key={i} className="flex items-start">
                 <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
@@ -393,15 +394,15 @@ export default function RegistrationPage() {
               </li>
             ))}
           </ul>
-
+</div>
           <div className="space-y-2">
-            <Button
+            {/* <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, presentationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
             >
               <CreditCard className="mr-2 h-4 w-4 text-white" />
               Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-            </Button>
+            </Button> */}
             <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "regular", participantType, presentationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
@@ -447,7 +448,7 @@ export default function RegistrationPage() {
 
           <Tabs defaultValue="physical" className="w-full" onValueChange={setActiveTab}>
             <div className="flex justify-center mb-10">
-              <TabsList className="bg-[#edf6e1] p-1 rounded-full">
+              <TabsList className="bg-[#edf6e1] p-1 rounded-full flex flex-col md:flex-row gap-4">
                 <TabsTrigger
                   value="physical"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
@@ -494,7 +495,7 @@ export default function RegistrationPage() {
               </div>
 
               {/* Indian Participants */}
-              <div>
+              {/* <div>
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
                   <MapPin className="inline mr-2 h-5 w-5" />
                   Indian Participants
@@ -504,7 +505,7 @@ export default function RegistrationPage() {
                     renderPricingCard(categoryData, "indian", "physical")
                   )}
                 </div>
-              </div>
+              </div> */}
             </TabsContent>
 
             <TabsContent value="virtual" className="mt-0">

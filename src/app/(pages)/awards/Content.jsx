@@ -44,59 +44,97 @@ export default function AwardsPage() {
         </div>
       </section>
 
-      {/* Awards Introduction */}
+      {/* Awards Scholarship */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+      <div className="container mx-auto px-4">
+        <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="max-w-3xl mx-auto text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                    <Award className="h-8 w-8 text-[#4d724d]" />
-                  </div>
+          <div className="relative p-8 md:p-12 lg:p-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
+                  <GraduationCap className="h-8 w-8 text-[#4d724d]" />
+                </div>
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">
+                About Zep Research's Grants and Scholarships
+              </h2>
+
+              <div className="space-y-6 text-[#4d724d] text-left max-w-3xl mx-auto">
+                <p>
+                  Zep Research is dedicated to helping young scholars achieve their research and academic goals, while
+                  encouraging them to apply the principles of interdisciplinary study to their work.
+                </p>
+
+                <p>
+                  Zep Research offers full or partial scholarships covering conference registration fees to select
+                  postgraduate students and early career academics who might not otherwise have the financial resources
+                  to attend our academic conferences.
+                </p>
+
+                <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 mt-8">
+                  <h3 className="text-xl font-semibold text-[#1a2e1a] mb-4 flex items-center">
+                    <Users className="h-5 w-5 mr-2" />
+                    Who can receive Zep Research's grant or scholarship?
+                  </h3>
+                  <p className="text-[#4d724d]">
+                    Awards are based on the appropriateness of the educational opportunity in relation to the
+                    applicant's field of study, financial need, and contributions to their community and to Zep
+                    Research's mission of interdisciplinarity. Scholarships will be awarded based on the availability of
+                    funds from Zep Research and will vary with each conference.
+                  </p>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">Excellence in Research</h2>
-
-                <div className="space-y-6 text-[#4d724d]">
-                  <p>
-                    ICSIFT 2025 is proud to recognize outstanding contributions to sustainability, innovation, and
-                    future technologies research. Our awards celebrate innovative approaches, rigorous methodology, and
-                    effective communication of complex ideas that address pressing environmental and technological
-                    challenges.
+                <div className="bg-white rounded-xl border border-[#d3e4c5] p-6">
+                  <h3 className="text-xl font-semibold text-[#1a2e1a] mb-4 flex items-center">
+                    <Award className="h-5 w-5 mr-2" />
+                    How are recipients selected?
+                  </h3>
+                  <p className="text-[#4d724d] mb-4">
+                    The Conference Program Committee of The 2nd ICSIFT will award scholarships to eligible applicants
+                    who have submitted exceptional abstracts that have passed the blind peer review process and been
+                    accepted for presentation at the conference.
                   </p>
-
-                  <p>
-                    Winners will be announced during the closing ceremony on December 27, 2025. All conference
-                    participants are eligible for consideration, with special categories for student researchers.
+                  <p className="text-[#4d724d]">
+                    Another chance to get the scholarship is for those who presented their research work exceptionally
+                    in the conference.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">3</div>
-                    <div className="text-[#4d724d]">Award Categories</div>
-                  </div>
+                <div className="bg-gradient-to-r from-[#4d724d] to-[#6b8e6b] rounded-xl p-6 text-white">
+                  <h3 className="text-xl font-semibold mb-4">Details of Scholarship</h3>
+                  <p className="text-lg">
+                    A <span className="font-bold">50% fee refund</span> will be provided to the best paper and best
+                    paper presenters.
+                  </p>
+                </div>
+              </div>
 
-                  {/* <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">$5,000</div>
-                    <div className="text-[#4d724d]">Total Prize Value</div>
-                  </div> */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
+                  <div className="text-3xl font-bold text-[#4d724d] mb-1">50%</div>
+                  <div className="text-[#4d724d]">Fee Refund</div>
+                </div>
 
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">5</div>
-                    <div className="text-[#4d724d]">Expert Judges</div>
-                  </div>
+                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
+                  <div className="text-3xl font-bold text-[#4d724d] mb-1">1</div>
+                  <div className="text-[#4d724d]">Award Categories</div>
+                </div>
+
+                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
+                  <div className="text-3xl font-bold text-[#4d724d] mb-1">100%</div>
+                  <div className="text-[#4d724d]">Merit Based</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Award Categories */}
       <section className="py-16 bg-[#f8faf5]">
@@ -123,7 +161,7 @@ export default function AwardsPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">Best Talk Award</h3>
+                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">BEST PAPER PRESENTATION AWARD</h3>
 
                   <div className="space-y-4 text-[#4d724d] flex-grow">
                     <p>
@@ -174,7 +212,7 @@ export default function AwardsPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">Top Paper Award</h3>
+                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">BEST PAPER AWARD</h3>
 
                   <div className="space-y-4 text-[#4d724d] flex-grow">
                     <p>
@@ -225,7 +263,7 @@ export default function AwardsPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">Best Student Award</h3>
+                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4 uppercase">Best International student presentation Award</h3>
 
                   <div className="space-y-4 text-[#4d724d] flex-grow">
                     <p>

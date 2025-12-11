@@ -10,10 +10,11 @@ import { pb } from "@/lib/pocketbase"
 
 // Speaker categories
 const speakerCategories = [
-  { id: "Guest Speaker", title: "Guest Speaker" },
-  { id: "Keynote Speaker", title: "Keynote Speaker" },
+  // { id: "Guest Speaker", title: "Guest Speaker" },
+  { id: "Organizing Secretary", title: "Organizing Secretary" },
   { id: "Conference Chair", title: "Conference Chair" },
   { id: "Conference Co-Chair", title: "Conference Co-Chair" },
+  { id: "Keynote Speaker", title: "Keynote Speaker" },
   { id: "Session Chair", title: "Session Chair" },
 ];
 
@@ -33,14 +34,18 @@ const SpeakerCard = ({ speaker, onMoreInfo }) => {
             fill 
             className="object-contain" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 via-[#1a2e1a]/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/10 via-[#1a2e1a]/10 to-transparent"></div>
         </div>
 
         {/* Speaker info */}
         <div className="p-4">
           <h3 className="text-xl font-bold text-[#1a2e1a] mb-1">{speaker.name}</h3>
           <p className="text-[#4d724d] font-medium mb-1">{speaker.role}</p>
-          <div className="flex items-center gap-1.5 text-[#4d724d]/70 text-sm mb-4">
+           <div className="flex items-center gap-2 text-[#4d724d] text-sm mb-1 mt-2">
+              <UniversityIcon className="h-4 w-4" />
+              <span>{speaker.college}</span>
+            </div>
+          <div className="flex items-center gap-1.5 text-[#4d724d] text-sm mb-4">
             <MapPin className="h-3.5 w-3.5" />
             <span>{speaker.country}</span>
           </div>
@@ -95,7 +100,7 @@ const SpeakerDrawer = ({ isOpen, onClose, speaker }) => (
                 fill 
                 className="object-contain" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 via-[#1a2e1a]/40 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/10 via-[#1a2e1a]/10 to-transparent"></div>
             </div>
 
             {/* Speaker info */}
@@ -133,7 +138,7 @@ const SpeakerDrawer = ({ isOpen, onClose, speaker }) => (
 )
 
 export function SpeakerSection() {
-  const [activeCategory, setActiveCategory] = useState("Guest Speaker")
+  const [activeCategory, setActiveCategory] = useState("Organizing Secretary")
   const [selectedSpeaker, setSelectedSpeaker] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [speakers, setSpeakers] = useState()
@@ -284,7 +289,7 @@ export function SpeakerSection() {
               ) : (
                 <div className="col-span-3 py-12 text-center">
                   <div className="relative bg-white rounded-3xl border border-[#d3e4c5] p-6 max-w-md mx-auto">
-                    <p className="text-[#4d724d]">No speakers found in this category</p>
+                    <p className="text-[#4d724d]">speakers would be added soon</p>
                   </div>
                 </div>
               )}

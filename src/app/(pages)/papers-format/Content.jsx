@@ -17,19 +17,19 @@ export default function PapersFormatPage() {
   const templates = [
     {
       title: "Abstract Format",
-      description: "Template for 300-word abstract submissions",
+      description: "The abstract should be a concise summary of your research, not exceeding 300 words. It should include the research objectives, methodology, results, and conclusions. Use clear, concise language and avoid jargon or acronyms.",
       file: "/templates/Abstract_Template.docx",
       icon: <FileText className="h-6 w-6 text-[#4d724d]" />,
     },
     {
       title: "Full Paper Format",
-      description: "Template for 8-12 page full paper submissions",
+      description: "Full papers should be between 3000-5000 words, excluding references and appendices. Use Times New Roman, 12-point font, double-spaced. Include an abstract, keywords, introduction, methodology, results, discussion, conclusion, and references. Follow APA 7th edition for citations and references.",
       file: "/templates/Fullpaper_Template.doc",
       icon: <FileText className="h-6 w-6 text-[#4d724d]" />,
     },
     {
       title: "Poster Format",
-      description: "Template for A0 poster presentations",
+      description: "Posters should be designed in A0 size (841 x 1189 mm) in portrait orientation. Use a clear, readable font (at least 24-point for body text, larger for headings). Include a title, authors, affiliation, introduction, methods, results, conclusions, and key references. Use graphics, charts, and images to convey your research visually.",
       file: "/templates/poster.jpg",
       icon: <FileText className="h-6 w-6 text-[#4d724d]" />,
     },
@@ -194,7 +194,7 @@ export default function PapersFormatPage() {
       </section>
 
       {/* Submission Tips Section */}
-      <section className="py-16 bg-[#f8faf5]">
+      {/* <section className="py-16 bg-[#f8faf5]">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-12 text-center">Submission Tips</h2>
@@ -255,7 +255,7 @@ export default function PapersFormatPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16 bg-[#edf6e1]">

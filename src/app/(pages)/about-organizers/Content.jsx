@@ -106,7 +106,7 @@ export default function AboutOrganizersPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="relative rounded-3xl overflow-hidden h-[400px]">
               <Image
-                src="/gallery/ICSIFT_03.jpg"
+                src="/gallery/ICSIFT_10.jpg"
                 alt="Zep Research Team"
                 fill
                 className="object-cover"

@@ -3,8 +3,8 @@ import "./globals.css";
 import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
- import { ChatButton } from "@/components/chat-button";
-import { FloatingContactButton } from "@/components/floating-contact-button";
+import FloatingWhatsApp from "@/components/FloatingWhatsapp";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,15 +62,22 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        
+        <script
+          async
+          src="https://analytics.zepresearch.com/script.js"
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+        ></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ConferenceNavbar/>
         {children}
         <ConferenceFooter/>
-{/* <FloatingContactButton/> */}
-         <TawkToChat/>     
-      {/* <ChatButton/> */}
+         <TawkToChat/> 
+         <FloatingWhatsApp/>    
            </body>
     </html>
   );

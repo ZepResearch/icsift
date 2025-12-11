@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { ArrowRight, Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Globe, YoutubeIcon } from "lucide-react"
 import "react-phone-number-input/style.css"
 import PhoneInput from "react-phone-number-input"
+import ReCAPTCHA from "react-google-recaptcha"
 import { GeometricShapesCSS } from "@/components/geometric-shapes"
 
 export default function ContactPage() {
@@ -18,6 +19,8 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
   const [errorMessage, setErrorMessage] = useState("")
+  const [recaptchaToken, setRecaptchaToken] = useState(null)
+  const recaptchaRef = useRef(null)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -29,8 +32,20 @@ export default function ContactPage() {
     setFormData((prev) => ({ ...prev, phoneNumber }))
   }, [phoneNumber])
 
+  const onRecaptchaChange = (token) => {
+    setRecaptchaToken(token)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Validate reCAPTCHA
+    if (!recaptchaToken) {
+      setSubmitStatus("error")
+      setErrorMessage("Please complete the reCAPTCHA verification")
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus(null)
 
@@ -40,7 +55,10 @@ export default function ContactPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          recaptchaToken,
+        }),
       })
 
       const data = await response.json()
@@ -58,9 +76,21 @@ export default function ContactPage() {
         phoneNumber: "",
       })
       setPhoneNumber(undefined)
+      setRecaptchaToken(null)
+      
+      // Reset reCAPTCHA
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset()
+      }
     } catch (error) {
       setSubmitStatus("error")
       setErrorMessage(error instanceof Error ? error.message : "An unknown error occurred")
+      
+      // Reset reCAPTCHA on error
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset()
+      }
+      setRecaptchaToken(null)
     } finally {
       setIsSubmitting(false)
     }
@@ -131,7 +161,7 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <p className="text-sm text-[#4d724d]/70">Phone</p>
-                        <p className="text-[#1a2e1a] font-medium">+91 78488 54815</p>
+                        <p className="text-[#1a2e1a] font-medium">+91 82606 84845</p>
                       </div>
                     </div>
 
@@ -364,11 +394,20 @@ export default function ContactPage() {
                       ></textarea>
                     </div>
 
+                    {/* reCAPTCHA */}
+                    <div className="flex justify-center">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={onRecaptchaChange}
+                      />
+                    </div>
+
                     {/* Submit Button */}
                     <div className="flex justify-end pt-4">
                       <button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !recaptchaToken}
                         className="relative px-8 py-4 bg-[#4d724d] hover:bg-[#3c5c3c] text-white font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:ring-offset-2 focus:ring-offset-[#edf6e1] disabled:opacity-50 disabled:cursor-not-allowed group overflow-hidden"
                       >
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -396,105 +435,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* FAQ Section */}
-      {/* <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#1a2e1a] mb-6">Frequently Asked Questions</h2>
-              <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            </div>
-
-            <div className="space-y-6">
-              <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm">
-                <div className="relative">
-                  <h3 className="text-lg font-medium text-[#1a2e1a] mb-2">
-                    When is the ICSIFT conference taking place?
-                  </h3>
-                  <p className="text-[#4d724d]">
-                    ICSIFT 2025: International Conference on Sustainability, Innovation, and Future Technologies will
-                    take place on December 27-28, 2025 at the Queen Sirikit National Convention Center in Bangkok,
-                    Thailand.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm">
-                <div className="relative">
-                  <h3 className="text-lg font-medium text-[#1a2e1a] mb-2">How can I register for the conference?</h3>
-                  <p className="text-[#4d724d]">
-                    Registration is available through our website. Visit the Registration page to secure your spot.
-                    Early bird registration ends on September 30, 2025.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm">
-                <div className="relative">
-                  <h3 className="text-lg font-medium text-[#1a2e1a] mb-2">How can I submit a paper?</h3>
-                  <p className="text-[#4d724d]">
-                    You can submit your paper through our online submission system. Visit the Submission page for
-                    detailed guidelines and templates. The submission deadline is September 15, 2025.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-6 shadow-sm">
-                <div className="relative">
-                  <h3 className="text-lg font-medium text-[#1a2e1a] mb-2">Will sessions be recorded?</h3>
-                  <p className="text-[#4d724d]">
-                    Yes, all keynote presentations and panel discussions will be recorded and available to registered
-                    participants for 30 days after the event. Some interactive workshops may not be recorded.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Map Section */}
-      {/* <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#1a2e1a] mb-6">Find Us</h2>
-              <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            </div>
-
-            <div className="bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-              <div className="relative h-[400px] w-full">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.9376366079!2d100.55990807495936!3d13.722995186959!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f2b72c78175%3A0xbe0e5ef798f39b1e!2sQueen%20Sirikit%20National%20Convention%20Center!5e0!3m2!1sen!2sth!4v1682345678901!5m2!1sen!2sth"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="absolute inset-0"
-                ></iframe>
-              </div>
-              <div className="p-6 flex flex-col md:flex-row justify-between items-center">
-                <div className="mb-4 md:mb-0">
-                  <h3 className="text-xl font-bold text-[#1a2e1a]">Queen Sirikit National Convention Center</h3>
-                  <p className="text-[#4d724d]">Ratchadaphisek Road, Bangkok 10110, Thailand</p>
-                </div>
-                <a
-                  href="https://goo.gl/maps/JQJKsZ8JZ6Y2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-6 py-3 rounded-full transition-colors"
-                >
-                  Get Directions
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </main>
   )
 }

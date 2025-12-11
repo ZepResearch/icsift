@@ -14,8 +14,8 @@ export default function CancellationPolicy() {
 
   const cancellationFees = [
     { period: "60+ days before the conference", refund: "100% refund (minus processing fee)" },
-    { period: "30-59 days before the conference", refund: "50% refund" },
-    { period: "Less than 30 days before the conference", refund: "No refund" },
+    // { period: "30-59 days before the conference", refund: "50% refund" },
+    { period: "Less than 60 days before the conference", refund: "No refund" },
   ]
 
   return (

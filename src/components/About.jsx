@@ -87,7 +87,7 @@ export default function AboutConference() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <DropdownMenu>
+                {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className="bg-white text-[#1a2e1a] hover:bg-[#f0f5eb] border border-[#d3e4c5] rounded-full">
                       {isLoading ? (
@@ -125,7 +125,7 @@ export default function AboutConference() {
                       ))
                     )}
                   </DropdownMenuContent>
-                </DropdownMenu>
+                </DropdownMenu> */}
 
                 <Link href="/about-conference">      
                   <Button
@@ -147,7 +147,7 @@ export default function AboutConference() {
               {/* Full-width Image */}
               <div className="relative h-80 md:h-96 w-full">
                 <Image
-                  src="/gallery/ICSIFT_09.jpg"
+                  src="/gallery/ICSIFT_11.jpg"
                   alt="Sustainable Materials"
                   fill
                   className="object-cover"
