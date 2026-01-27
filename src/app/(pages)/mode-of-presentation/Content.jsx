@@ -46,7 +46,7 @@ export default function ModeOfPresentationPage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Learn about the different ways to present your research at 2<sup>nd</sup>ICSIFT 2025
+              Learn about the different ways to present your research at 3<sup>rd</sup>ICSIFT 2026
             </p>
           </div>
         </div>
@@ -295,7 +295,7 @@ export default function ModeOfPresentationPage() {
               <div className="mb-6 md:mb-0 md:mr-6">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to present your research?</h3>
                 <p className="text-[#4d724d] max-w-xl">
-                  Choose your preferred presentation mode and submit your proposal for 2<sup>nd</sup>ICSIFT 2025.
+                  Choose your preferred presentation mode and submit your proposal for 3<sup>rd</sup>ICSIFT 2026.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">

@@ -95,7 +95,7 @@ export default function AwardsPage() {
                     How are recipients selected?
                   </h3>
                   <p className="text-[#4d724d] mb-4">
-                    The Conference Program Committee of The 2nd ICSIFT will award scholarships to eligible applicants
+                    The Conference Program Committee of The 3rd ICSIFT will award scholarships to eligible applicants
                     who have submitted exceptional abstracts that have passed the blind peer review process and been
                     accepted for presentation at the conference.
                   </p>
@@ -322,7 +322,7 @@ export default function AwardsPage() {
 
                 <div className="space-y-6 text-[#4d724d]">
                   <p>
-                    All submissions and presentations at ICSIFT 2025 will be evaluated by our panel of expert judges,
+                    All submissions and presentations at ICSIFT 2026 will be evaluated by our panel of expert judges,
                     comprising leading researchers, industry professionals, and academic leaders in sustainability,
                     innovation, and future technologies.
                   </p>
@@ -373,7 +373,7 @@ export default function AwardsPage() {
                       <div>
                         <h3 className="text-xl font-medium text-[#1a2e1a] mb-2">Award Ceremony</h3>
                         <p className="text-[#4d724d]">
-                          Winners are announced and recognized during the closing ceremony on December 27, 2025.
+                          Winners are announced and recognized during the closing ceremony on August 20-21, 2026.
                         </p>
                       </div>
                     </div>
@@ -395,7 +395,7 @@ export default function AwardsPage() {
               <div className="relative">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Showcase Your Research?</h3>
                 <p className="text-[#4d724d] mb-6">
-                  Submit your paper and register for ICSIFT 2025 to be considered for our prestigious awards.
+                  Submit your paper and register for ICSIFT 2026 to be considered for our prestigious awards.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

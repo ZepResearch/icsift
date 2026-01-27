@@ -247,7 +247,7 @@ function ExtraContentBelowTabs() {
           <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
 
           <div className="relative">
-            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join ICSIFT 2025?</h3>
+            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join ICSIFT 2026?</h3>
             <p className="text-[#4d724d] mb-6">
               Register now to secure your spot at the International Conference on Sustainability, Innovation and
               Future Technologies.

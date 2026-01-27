@@ -103,7 +103,7 @@ export default function PapersFormatPage() {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Paper Format Guidelines</h2>
               <p className="text-[#4d724d] mb-4">
-                All submissions to 2<sup>nd</sup>ICSIFT 2025 must follow our formatting guidelines to ensure consistency and
+                All submissions to 3<sup>rd</sup>ICSIFT 2026 must follow our formatting guidelines to ensure consistency and
                 readability. We provide templates for different types of submissions to make this process easier.
               </p>
               <p className="text-[#4d724d] mb-6">
@@ -137,7 +137,7 @@ export default function PapersFormatPage() {
             <div>
               <h2 className="text-3xl font-bold text-[#1a2e1a] mb-6">Citation Style</h2>
               <p className="text-[#4d724d] mb-4">
-                2<sup>nd</sup>ICSIFT 2025 uses the IEEE citation style for all submissions. Please ensure that your references are
+                3<sup>rd</sup>ICSIFT 2026 uses the IEEE citation style for all submissions. Please ensure that your references are
                 formatted according to this style. The templates provided include examples of how to format different
                 types of references.
               </p>
@@ -265,7 +265,7 @@ export default function PapersFormatPage() {
               <div className="mb-6 md:mb-0 md:mr-6">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to submit your paper?</h3>
                 <p className="text-[#4d724d] max-w-xl">
-                  Download the appropriate template and prepare your submission for 2<sup>nd</sup>ICSIFT 2025.
+                  Download the appropriate template and prepare your submission for 3<sup>rd</sup>ICSIFT 2026.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">

@@ -10,7 +10,7 @@ export default function ConferenceFAQ() {
     {
       question: "How can I register for the conference?",
       answer:
-        "Registration for ICSIFT 2025 is available through our online portal. Early bird registration is open until December 27-28, 2025. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.",
+        "Registration for ICSIFT 2026 is available through our online portal. Early bird registration is open until August 21 - 22 , 2026. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.",
     },
     {
       question: "What are the submission guidelines for papers?",
@@ -20,7 +20,7 @@ export default function ConferenceFAQ() {
     {
       question: "Is there financial support available for students?",
       answer:
-        "Yes, ICSIFT offers special student pricing for the conference on December 27-28, 2025. Student registration is available at a significantly reduced rate compared to regular registration. To qualify for student pricing, you must provide valid student ID and proof of enrollment. This discounted rate makes the conference more accessible for students while maintaining the same high-quality experience.",
+        "Yes, ICSIFT offers special student pricing for the conference on August 21 - 22 , 2026. Student registration is available at a significantly reduced rate compared to regular registration. To qualify for student pricing, you must provide valid student ID and proof of enrollment. This discounted rate makes the conference more accessible for students while maintaining the same high-quality experience.",
     },
     {
       question: "What accommodation options are available?",
@@ -56,7 +56,7 @@ export default function ConferenceFAQ() {
             </span>
           </h2>
           <p className="text-[#4d724d] max-w-2xl mx-auto">
-            Find answers to common questions about 2<sup>nd</sup>ICSIFT 2025. If you don't see your question here, please contact us.
+            Find answers to common questions about the 3<sup>rd</sup> ICSIFT 2026. If you don't see your question here, please contact us.
           </p>
         </div>
 

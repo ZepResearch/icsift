@@ -183,8 +183,8 @@ export default function ConferenceFooter() {
               <span className="font-bold text-3xl text-white">ICSIFT</span>
             </div>
             <p className="text-white/80 mb-6 max-w-xl">
-              International Conference on Sustainability, Innovation, and Future Technologies. Join us December 27th - 28th,
-              2025 in Bangkok, Thailand for a transformative experience bringing together experts, researchers, and
+              International Conference on Sustainability, Innovation, and Future Technologies. Join us August 20th - 21st ,
+              2026 in Boracay, philippines for a transformative experience bringing together experts, researchers, and
               industry leaders to explore groundbreaking advancements in sustainability and innovation.
             </p>
             <div className="flex space-x-4">
@@ -294,7 +294,7 @@ export default function ConferenceFooter() {
               <li>
                 <div className="space-y-1">
                   <p className="text-white/70 inline-flex gap-2">
-                   <MapPin/> Bangkok, Thailand
+                   <MapPin/> Boracay, philippines
                   </p>
                 </div>
               </li>
@@ -345,7 +345,7 @@ export default function ConferenceFooter() {
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/60 text-sm mb-4 md:mb-0">
-            © 2025 ICSIFT. All rights reserved. Designed with sustainability in mind.
+            © 2026 ICSIFT. All rights reserved. Designed with sustainability in mind.
           </p>
           <div className="grid md:grid-cols-4 grid-cols-2  gap-8 text-center">
             <Link href="/terms-and-conditions" className="text-white/60 text-sm hover:text-white transition-colors">

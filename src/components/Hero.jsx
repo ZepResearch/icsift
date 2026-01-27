@@ -90,7 +90,7 @@ export default function ConferenceHero() {
             >
               <h1 className="text-4xl md:text-6xl lg:text-6xl font-bold mb-6">
                 <span className="text-white">
-                  2<sup>nd</sup> International Conference
+                  3<sup>rd</sup> International Conference
                 </span>
                 <br />
                 <span className="text-transparent bg-clip-text bg-[#bfe99d]">
@@ -234,7 +234,7 @@ export default function ConferenceHero() {
                       <div>
                         <p className="text-green-200/60 text-sm">Date</p>
                         <p className="text-white text-lg font-medium">
-                          December 27<sup>th</sup> - 28<sup>th</sup>, 2025
+                          August  20<sup>th</sup> - 21<sup>st</sup>, 2026
                         </p>
                       </div>
                     </div>
@@ -245,7 +245,7 @@ export default function ConferenceHero() {
                       </div>
                       <div>
                         <p className="text-green-200/60 text-sm">Location</p>
-                        <p className="text-white text-lg font-medium">Bangkok, Thailand</p>
+                        <p className="text-white text-lg font-medium">Boracay, philippines</p>
                       </div>
                     </div>
 

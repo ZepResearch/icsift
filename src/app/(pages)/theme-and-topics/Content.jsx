@@ -124,7 +124,7 @@ export default function ThemeAndTopicsPage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Explore the research areas and themes for 2<sup>nd</sup>ICSIFT 2025
+              Explore the research areas and themes for 3<sup>rd</sup>ICSIFT 2026
             </p>
           </div>
         </div>
@@ -142,7 +142,7 @@ export default function ThemeAndTopicsPage() {
                 "Sustainable Innovation: Bridging Technology and Environmental Stewardship"
               </h2>
               <p className="text-[#4d724d] mb-4">
-                2<sup>nd</sup>ICSIFT 2025 explores how innovative technologies are revolutionizing our approach to sustainability and
+                3<sup>rd</sup>ICSIFT 2026 explores how innovative technologies are revolutionizing our approach to sustainability and
                 environmental challenges. As traditional boundaries between technology and sustainability continue to
                 blur, new innovations are enabling unprecedented opportunities for addressing climate change,
                 resource scarcity, and environmental degradation.

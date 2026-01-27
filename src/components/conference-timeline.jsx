@@ -117,7 +117,7 @@ export function ConferenceTimeline() {
               {timelineData.map((item, index) => {
                 const IconComponent = iconMapping[item.type] || iconMapping.default
                 const isHovered = hoveredItem === item.id
-                const isExpired = index === 0 // First card is expired
+                const isExpired = index === -1 // First card is expired
 
                 return (
                   <motion.div
@@ -167,7 +167,7 @@ export function ConferenceTimeline() {
                       whileHover={{ scale: 1.02 }}
                       className={cn(
                         "relative backdrop-blur-sm rounded-xl border overflow-hidden p-6 shadow-lg shadow-[#4d724d]/5",
-                        index === 0 
+                        index === -1 
                           ? "bg-gray-100/80 border-gray-300 opacity-75" 
                           : "bg-white border-[#d3e4c5]"
                       )}
@@ -176,27 +176,27 @@ export function ConferenceTimeline() {
                       <div
                         className={cn(
                           "absolute -inset-px rounded-xl bg-gradient-to-r from-[#d3e4c5]/20 via-transparent to-transparent",
-                          index === 0 ? "opacity-20" : "opacity-50"
+                          index === -1 ? "opacity-20" : "opacity-50"
                         )}
                       ></div>
 
                       <div className="relative">
                         <h3 className={cn(
                           "text-xl font-bold mb-2",
-                          index === 0 ? "text-gray-500 line-through" : "text-[#1a2e1a]"
+                          index === -1 ? "text-gray-500 line-through" : "text-[#1a2e1a]"
                         )}>
                           {item.name}
                         </h3>
                         <p className={cn(
                           "mb-3",
-                          index === 0 ? "text-gray-400 line-through" : "text-[#4d724d]"
+                          index === -1 ? "text-gray-400 line-through" : "text-[#4d724d]"
                         )}>
                           {item.description}
                         </p>
                         <div
                           className={cn(
                             "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium border",
-                            index === 0 
+                            index === -1 
                               ? "bg-gray-200/40 text-gray-500 border-gray-300/70 line-through" 
                               : "bg-[#d3e4c5]/40 text-[#1a2e1a] border-[#d3e4c5]/70"
                           )}

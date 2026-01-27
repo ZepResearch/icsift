@@ -36,7 +36,7 @@ function ExtraContentAboveCard() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#d3e4c5]/30 px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-            <span>ICSIFT 2025</span>
+            <span>ICSIFT 2026</span>
             <ChevronRight className="ml-1 h-4 w-4" />
           </div>
 

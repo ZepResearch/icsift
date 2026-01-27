@@ -8,6 +8,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 
 export default function ConferenceCTACards() {
   const [videoOpen, setVideoOpen] = useState(false)
+  const [currentVideoId, setCurrentVideoId] = useState("")
 
   const ctaCards = [
     {
@@ -60,6 +61,27 @@ export default function ConferenceCTACards() {
     },
   ]
 
+  const conferenceVideos = [
+    {
+      id: "DTUzRphTBWA",
+      thumbnail: "/preview.jpg",
+      title: "ICSIFT 2024: Sustainability Innovation Highlights",
+      description: "Experience the groundbreaking ideas and solutions from our previous conference",
+    },
+    {
+      id: "r1GcUCVStsc",
+      thumbnail: "/gallery/ICSIFT_11.jpg", // Add your second video thumbnail
+      title: "The 2nd ICSIFT 2025 | Successfully Concluded in Bangkok",
+      description: "Watch inspiring talks from world-renowned sustainability leaders",
+    },
+    // Add more videos as needed
+  ]
+
+  const handleVideoClick = (videoId) => {
+    setCurrentVideoId(videoId)
+    setVideoOpen(true)
+  }
+
   return (
     <div className="w-full py-16 px-4 md:px-8 lg:px-16 bg-[#f8faf5]">
       <div className="max-w-7xl mx-auto">
@@ -73,7 +95,7 @@ export default function ConferenceCTACards() {
             </span>
           </h2>
           <p className="text-[#4d724d] max-w-2xl mx-auto">
-            Explore the key features of ICSIFT 2025 and discover opportunities to engage with the global sustainability
+            Explore the key features of ICSIFT 2026 and discover opportunities to engage with the global sustainability
             community.
           </p>
         </div>
@@ -111,48 +133,46 @@ export default function ConferenceCTACards() {
         {/* YouTube Video Section */}
         <div className="mt-16 mb-12">
           <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-[#1a2e1a] mb-3">
+            <h3 className="text-2xl md:text-4xl font-bold text-[#1a2e1a] mb-3">
               Watch Our Conference Highlights
-              {/* <span className="relative inline-block mx-2">
-                <span className="relative z-10"></span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
-               */}
             </h3>
             <p className="text-[#4d724d] max-w-2xl mx-auto">
               Get a glimpse of what to expect at ICSIFT 2024 through our previous conference highlights.
             </p>
           </div>
 
-          {/* Video Thumbnail */}
-          <div
-            className="relative mx-auto max-w-4xl rounded-2xl overflow-hidden cursor-pointer group"
-            onClick={() => setVideoOpen(true)}
-          >
-            <div className="aspect-video relative">
-              <Image
-                src="/preview.jpg"
-                alt="Conference Highlights Video Thumbnail"
-                width={1280}
-                height={720}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
+          {/* Video Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {conferenceVideos.map((video, index) => (
+              <div
+                key={index}
+                className="relative rounded-2xl overflow-hidden cursor-pointer group"
+                onClick={() => handleVideoClick(video.id)}
+              >
+                <div className="aspect-video relative">
+                  <Image
+                    src={video.thumbnail}
+                    alt={video.title}
+                    width={1280}
+                    height={720}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
 
-              {/* Play Button Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-                <div className="w-20 h-20 rounded-full bg-[#4d724d]/90 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  <Play className="w-8 h-8 text-white fill-white ml-1" />
+                  {/* Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
+                    <div className="w-20 h-20 rounded-full bg-[#4d724d]/90 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                      <Play className="w-8 h-8 text-white fill-white ml-1" />
+                    </div>
+                  </div>
+
+                  {/* Video Title Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                    <h4 className="text-white text-xl font-bold">{video.title}</h4>
+                    <p className="text-white/80 text-sm">{video.description}</p>
+                  </div>
                 </div>
               </div>
-
-              {/* Video Title Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                <h4 className="text-white text-xl font-bold">ICSIFT 2024: Sustainability Innovation Highlights</h4>
-                <p className="text-white/80">
-                  Experience the groundbreaking ideas and solutions from our previous conference
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -161,7 +181,7 @@ export default function ConferenceCTACards() {
           <DialogContent className="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] xl:max-w-5xl p-0 bg-black border-none overflow-hidden">
             <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe
-                src={`https://www.youtube.com/embed/DTUzRphTBWA?autoplay=1&si=k-g8jPTEEUMfGtxM`}
+                src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1&si=k-g8jPTEEUMfGtxM`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -174,7 +194,7 @@ export default function ConferenceCTACards() {
         {/* Bottom CTA */}
         <div className="mt-12 bg-[#edf6e1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0">
-            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2025?</h3>
+            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2026?</h3>
             <p className="text-[#4d724d] max-w-xl">
               Register now to secure your spot at the premier conference on sustainability, innovation, and future
               technologies.

@@ -84,7 +84,7 @@ export default function VideoSection({ videos }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {videos.map((video) => (
           <div key={video.id} className="group cursor-pointer" onClick={() => openVideo(video)}>
             <div className="relative aspect-video overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]">

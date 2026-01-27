@@ -136,7 +136,7 @@ export default function ContactPage() {
                   <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">Get In Touch</h2>
 
                   <p className="text-[#4d724d] mb-8">
-                    Have questions about 2<sup>nd</sup>ICSIFT 2025? Our team is here to help. Reach out to us using the contact
+                    Have questions about 3<sup>rd</sup>ICSIFT 2026? Our team is here to help. Reach out to us using the contact
                     information below or fill out the form.
                   </p>
 
@@ -174,7 +174,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-sm text-[#4d724d]/70">Address</p>
                         <p className="text-[#1a2e1a] font-medium">
-                        DCB-330, 3rd Floor, DLF Cyber City, Patia, Bhubaneswar, ODISHA - 751024 India
+                       Flat No: 202 Plot.no.2028/2044, Sai Aarti Enclave, Behind Tanishq Chandasekharpur, Bhubaneshwar, India
                         </p>
                       </div>
                     </div>

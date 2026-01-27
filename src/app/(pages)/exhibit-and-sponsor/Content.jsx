@@ -181,7 +181,7 @@ export default function ExhibitAndSponsorPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center rounded-full border border-[#d3e4c5] bg-[#edf6e1] px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-              <span>2<sup>nd</sup>ICSIFT 2025</span>
+              <span>3<sup>rd</sup>ICSIFT 2026</span>
               <ChevronRight className="ml-1 h-4 w-4" />
             </div>
 
@@ -220,7 +220,7 @@ export default function ExhibitAndSponsorPage() {
 
                 <div className="space-y-6 text-[#4d724d]">
                   <p>
-                    2<sup>nd</sup>ICSIFT 2025 offers a unique opportunity to connect with leading researchers, academics, and industry
+                    3<sup>rd</sup>ICSIFT 2026 offers a unique opportunity to connect with leading researchers, academics, and industry
                     professionals in sustainability, innovation, and future technologies. By sponsoring our conference,
                     you'll gain visibility among a diverse audience of innovators and decision-makers.
                   </p>

@@ -8,18 +8,12 @@ const firstConferenceImages = [
     src: "/gallery/ICSIFT_09.jpg?height=600&width=800",
     alt: "2nd Conference - Opening Ceremony",
   },
-  // {
-  //   src: "/gallery/ICSIFT_01.jpg?height=600&width=800",
-  //   alt: "2nd Conference - Keynote Speaker",
-  // },
+ 
   {
     src: "/gallery/ICSIFT_02.jpg?height=600&width=800",
     alt: "2nd Conference - Panel Discussion",
   },
-  // {
-  //   src: "/gallery/ICSIFT_03.jpg?height=600&width=800",
-  //   alt: "2nd Conference - Award Ceremony",
-  // },
+  
   {
     src: "/gallery/ICSIFT_04.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
@@ -32,11 +26,7 @@ const firstConferenceImages = [
     src: "/gallery/ICSIFT_06.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
   },
-  // {
-  //   src: "/gallery/ICSIFT_07.jpg?height=600&width=800",
-  //   alt: "2nd Conference - Award Ceremony",
-    
-  // },
+  
   {
     src: "/gallery/ICSIFT_08.jpg?height=600&width=800",
     alt: "2nd Conference - Award Ceremony",
@@ -59,36 +49,39 @@ const firstConferenceImages = [
   },
 ]
 
-// const secondConferenceImages = [
-//   {
-//     src: "/gallery/2nd_ICSIFT_05.jpg?height=600&width=800",
-//     alt: "1st Conference - Opening Ceremony",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_02.jpg?height=600&width=800",
-//     alt: "1st Conference - Keynote Speaker",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_03.jpg?height=600&width=800",
-//     alt: "1st Conference - Workshop Session",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_04.jpg?height=600&width=800",
-//     alt: "1st Conference - Networking Event",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_01.jpg?height=600&width=800",
-//     alt: "1st Conference - Networking Event",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_06.jpg?height=600&width=800",
-//     alt: "1st Conference - Networking Event",
-//   },
-//   {
-//     src: "/gallery/2nd_ICSIFT_07.jpg?height=600&width=800",
-//     alt: "1st Conference - Networking Event",
-//   },
-// ]
+const secondConferenceImages = [
+  {
+    src: "/gallery/2nd-ICSIFT_05.jpg?height=600&width=800",
+    alt: "1st Conference - Opening Ceremony",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_02.jpg?height=600&width=800",
+    alt: "1st Conference - Keynote Speaker",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_03.jpg?height=600&width=800",
+    alt: "1st Conference - Workshop Session",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_04.jpg?height=600&width=800",
+    alt: "1st Conference - Networking Event",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_01.jpg?height=600&width=800",
+    alt: "1st Conference - Networking Event",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_06.jpg?height=600&width=800",
+    alt: "1st Conference - Networking Event",
+  },
+  {
+    src: "/gallery/2nd-ICSIFT_07.jpg?height=600&width=800",
+    alt: "1st Conference - Networking Event",
+  },{
+    src: "/gallery/2nd-ICSIFT_08.jpg?height=600&width=800",
+    alt: "1st Conference - Networking Event",
+  },
+]
 
 // Sample video data
 const conferenceVideos = [
@@ -98,12 +91,12 @@ const conferenceVideos = [
     thumbnail: "/preview.jpg?height=400&width=600",
     videoUrl: "https://www.youtube.com/embed/DTUzRphTBWA",
   },
-  // {
-  //   id: "video2",
-  //   title: "ICSIFT Highlights || International Conference || Delhi || India",
-  //   thumbnail: "/gallery/thubnail2.jpg?height=400&width=600",
-  //   videoUrl: "https://www.youtube.com/embed/B49Gm3b9VgA",
-  // },
+  {
+    id: "video2",
+    title: "The 2nd ICSIFT 2025 | Successfully Concluded in Bangkok",
+    thumbnail: "/gallery/2nd-ICSIFT_07.jpg",
+    videoUrl: "https://www.youtube.com/embed/r1GcUCVStsc",
+  },
 ]
 
 export default function Gallery() {
@@ -123,7 +116,7 @@ export default function Gallery() {
           </span>
         </h1>
 
-        <div className="space-y-16 max-w-4xl mx-auto">
+        <div className="space-y-16 max-w-7xl mx-auto">
           {/* First Conference Section */}
           <section className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-emerald-400/20">
             <div>
@@ -143,7 +136,7 @@ export default function Gallery() {
           </section>
 
           {/* Second Conference Section */}
-          {/* <section className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-emerald-400/20">
+          <section className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-emerald-400/20">
             <div>
               <div className="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-emerald-900 bg-emerald-200 rounded-full">
                 FOLLOW-UP EVENT
@@ -157,8 +150,8 @@ export default function Gallery() {
               </p>
             </div>
 
-            <ImageCarousel images={firstConferenceImages} />
-          </section> */}
+            <ImageCarousel images={secondConferenceImages} />
+          </section>
 
           {/* Video Section */}
           <section className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-emerald-400/20">
@@ -176,6 +169,7 @@ export default function Gallery() {
 
             <VideoSection videos={conferenceVideos} />
           </section>
+          
         </div>
 
         <footer className="mt-20 text-center text-emerald-200 opacity-80">

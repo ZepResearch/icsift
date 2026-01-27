@@ -112,7 +112,7 @@ export default function CommitteePage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Meet the experts behind 2<sup>nd</sup>ICSIFT 2025: International Conference on Sustainability, Innovation, and Future
+              Meet the experts behind 3<sup>rd</sup>ICSIFT 2026: International Conference on Sustainability, Innovation, and Future
               Technologies
             </p>
           </div>

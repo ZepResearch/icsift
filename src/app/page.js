@@ -16,8 +16,7 @@ export default function Home() {
   return (
    
       <main className="min-h-screen bg-[#f8faf5]">
-        <ConferenceHero/>
-       
+        <ConferenceHero/>       
         <Organizer/>
         <AboutConference/>
         <Buttons/>

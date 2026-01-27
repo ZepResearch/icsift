@@ -76,7 +76,7 @@ export default function AboutConference() {
                 About ICSIFT
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">
-               2<sup>nd</sup> International Conference on Sustainability, Innovation, and Future Technologies
+              3<sup>rd</sup> International Conference on Sustainability, Innovation, and Future Technologies
               </h2>
               <p className="text-[#4d724d] mb-6">
                 The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is a
