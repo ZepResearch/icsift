@@ -147,7 +147,7 @@ export default function AboutConference() {
               {/* Full-width Image */}
               <div className="relative h-80 md:h-96 w-full">
                 <Image
-                  src="/gallery/ICSIFT_11.jpg"
+                  src="/gallery/2nd-ICSIFT_03.jpg"
                   alt="Sustainable Materials"
                   fill
                   className="object-cover"

@@ -22,7 +22,7 @@ export default function ConferenceTestimonials() {
       role: "Sustainability Director",
       image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1887&auto=format&fit=crop",
       category: "INDUSTRY PARTNER",
-      color: "bg-green-600",
+      color: "bg-[#4d724d]",
       textColor: "text-white",
     },
     {
@@ -158,7 +158,7 @@ export default function ConferenceTestimonials() {
             Be part of the global conversation on sustainability, innovation, and future technologies.
           </p>
           <Link href="/registration">
-          <button className="bg-green-500 hover:bg-green-500/90 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300">
+          <button className="bg-[#4d724d] hover:bg-[#4d724d]/90 text-white px-8 py-3 rounded-full font-medium transition-colors duration-300">
             Register Now
           </button>
           </Link>

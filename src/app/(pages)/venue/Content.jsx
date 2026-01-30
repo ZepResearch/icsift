@@ -117,7 +117,7 @@ export default function VenuePage() {
                         <h3 className="text-lg font-medium text-[#1a2e1a]">Address</h3>
                       </div>
                       <p className="text-[#4d724d]">
-                       Declared Soon
+                      Boracay, philippines
                       </p>
                     </div>
                   </div>

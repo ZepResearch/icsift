@@ -100,7 +100,7 @@ export default function ConferenceVenue() {
                     <div>
                       <p className="text-sm text-[#4d724d]">Address</p>
                       {/* <p className="text-[#1a2e1a] font-medium">Declare soon</p> */}
-                      <p className="text-[#1a2e1a]">Declared Soon</p>
+                      <p className="text-[#1a2e1a]">Boracay, philippines</p>
                     </div>
                   </div>
                 </div>
@@ -149,25 +149,29 @@ export default function ConferenceVenue() {
         </div>
 
         {/* Transportation info */}
-        <div className="bg-white rounded-3xl p-8 shadow-sm mb-12">
-          <h4 className="text-xl font-medium text-[#1a2e1a] mb-6">Transportation</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <p className="text-sm font-medium text-[#4d724d] mb-2">From Airport</p>
-              <p className="text-[#1a2e1a]/80">
-                Suvarnabhumi International Airport (BKK) is 30 km from the venue. Airport Rail Link, taxis, and
-                ride-sharing services are available with an average travel time of 45-60 minutes depending on traffic.
-              </p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-[#4d724d] mb-2">Public Transportation</p>
-              <p className="text-[#1a2e1a]/80">
-                The venue is easily accessible via Bangkok MRT.Khwaeng Khlong Toei Nuea  is
-                directly connected to the venue via an underground walkway.
-              </p>
-            </div>
-          </div>
-        </div>
+     <div className="bg-white rounded-3xl p-8 shadow-sm mb-12">
+  <h4 className="text-xl font-medium text-[#1a2e1a] mb-6">Transportation</h4>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <p className="text-sm font-medium text-[#4d724d] mb-2">From Airport</p>
+      <p className="text-[#1a2e1a]/80">
+        Boracay is accessible via Caticlan Airport (MPH) or Kalibo International Airport (KLO).
+        From Caticlan Airport, a short tricycle ride followed by a boat transfer will take you to
+        Boracay Island, with a total travel time of around 30–45 minutes. From Kalibo Airport,
+        land transfers and boat rides take approximately 2–3 hours.
+      </p>
+    </div>
+    <div>
+      <p className="text-sm font-medium text-[#4d724d] mb-2">Local Transportation</p>
+      <p className="text-[#1a2e1a]/80">
+        Transportation within Boracay is mainly via electric tricycles (e-trikes), which are the
+        primary mode of public transport on the island. Walking is also convenient, especially
+        along White Beach, where most hotels, venues, and attractions are located.
+      </p>
+    </div>
+  </div>
+</div>
+
 
         {/* Venue Features */}
         {/* <div className="mb-12">

@@ -104,11 +104,11 @@ export default function ConferenceObjectives() {
         </div>
 
         {/* Main Objectives Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="flex flex-wrap justify-center gap-6 mb-16">
           {objectives.map((objective, index) => (
             <div
               key={index}
-              className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden group"
+              className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden group w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
             >
               {/* Decorative corner accent */}
               <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#d3e4c5]/20 rounded-full transition-transform duration-300 group-hover:scale-150"></div>
@@ -148,7 +148,7 @@ export default function ConferenceObjectives() {
         </div>
 
         {/* Call to Action */}
-        <div className="bg-green-600 text-white rounded-3xl p-8 shadow-sm">
+        <div className="bg-[#4d724d] text-white rounded-3xl p-8 shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
               <h3 className="text-2xl font-bold mb-2">Ready to contribute?</h3>

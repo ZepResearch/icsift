@@ -101,59 +101,52 @@ export default function FutureOpportunities() {
       {/* Main Content */}
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-            Future
-            <span className="relative inline-block mx-2 ml-5">
-              <span className="relative z-10 mx-2">Opportunities</span>
-              <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform rotate-1 scale-110 z-0"></span>
-            </span>
-          </h2>
-          <p className="text-[#4d724d] text-lg max-w-3xl mx-auto leading-relaxed">
-            The International Conference on Sustainability, Innovation and Future Technologies serves as a dynamic
-            platform to shape the future of sustainable development through interdisciplinary collaboration and
-            technological advancement. As global challenges continue to evolve, the conference opens new avenues for
-            innovation, research, and impactful partnerships.
-          </p>
-        </div>
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-6">
+              Future
+              <span className="relative inline-block mx-2 ml-5">
+                <span className="relative z-10 mx-2">Opportunities</span>
+                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform rotate-1 scale-110 z-0"></span>
+              </span>
+            </h2>
+            <p className="text-[#4d724d] text-lg max-w-3xl mx-auto leading-relaxed">
+              The International Conference on Sustainability, Innovation and Future Technologies serves as a dynamic
+              platform to shape the future of sustainable development through interdisciplinary collaboration and
+              technological advancement. As global challenges continue to evolve, the conference opens new avenues for
+              innovation, research, and impactful partnerships.
+            </p>
+          </div>
 
-        {/* Alternating Layout for Opportunities */}
-        <div className="space-y-8 mb-16">
-          {opportunities.map((opportunity, index) => (
-            <div
-              key={index}
-              className={`flex flex-col ${
-                index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-              } items-center gap-8 bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 group`}
-            >
-              {/* Icon Section */}
-              <div className="flex-shrink-0">
-                <div className="relative">
-                  {/* Decorative background circle */}
-                  <div className="absolute inset-0 bg-[#4d724d] rounded-3xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
-                  <div className="relative bg-[#4d724d] rounded-3xl p-8 transform group-hover:scale-105 transition-transform duration-300">
-                    {opportunity.icon}
-                  </div>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="flex-1 text-center lg:text-left">
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 text-[#1a2e1a] group-hover:text-[#4d724d] transition-colors duration-300">
-                  {opportunity.title}
-                </h3>
-                <p className="text-[#4d724d] text-lg leading-relaxed">{opportunity.description}</p>
-              </div>
-
-              {/* Decorative Arrow (hidden on mobile) */}
-              <div className="hidden lg:block flex-shrink-0">
-                <ArrowRight className="h-6 w-6 text-[#d3e4c5] group-hover:text-[#4d724d] group-hover:translate-x-2 transition-all duration-300" />
+          {/* Grid Layout for Opportunities */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {opportunities.map((opportunity, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center gap-6 bg-white rounded-3xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 group text-center"
+              >
+                {/* Icon Section */}
+                <div className="flex-shrink-0">
+            <div className="relative">
+              {/* Decorative background circle */}
+              <div className="absolute inset-0 bg-[#4d724d] rounded-3xl transform rotate-6 group-hover:rotate-12 transition-transform duration-300"></div>
+              <div className="relative bg-[#4d724d] rounded-3xl p-8 transform group-hover:scale-105 transition-transform duration-300">
+                {opportunity.icon}
               </div>
             </div>
-          ))}
-        </div>
+                </div>
 
-        {/* Key Areas Banner */}
+                {/* Content Section */}
+                <div className="flex-1">
+            <h3 className="text-lg md:text-xl font-bold mb-4 text-[#1a2e1a] group-hover:text-[#4d724d] transition-colors duration-300">
+              {opportunity.title}
+            </h3>
+            <p className="text-[#4d724d] text-lg leading-relaxed">{opportunity.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Key Areas Banner */}
         <div className="bg-gradient-to-r from-[#4d724d] to-[#5d8a5d] text-white rounded-3xl p-8 md:p-12 shadow-lg mb-16 relative overflow-hidden">
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>

@@ -19,9 +19,8 @@ export default function Home() {
    
       <main className="min-h-screen bg-[#f8faf5]">
         <ConferenceHero/>       
-        <Organizer/>
+        {/* <Organizer/> */}
         <AboutConference/>
-        <FutureOpportunities/>
         <Buttons/>
         <ConferenceObjectives/>
         <ConferenceTimeline/>
@@ -30,6 +29,7 @@ export default function Home() {
         <WhyAttendConference/>
         <SDGS/>
         <ConferenceVenue/>
+        <FutureOpportunities/>
         <ConferenceFAQ/>
         <ConferenceTestimonials/>
   
