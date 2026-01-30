@@ -133,7 +133,7 @@ export default function VenuePage() {
                 <div>
                   <div className="relative h-full w-full rounded-2xl overflow-hidden border border-[#d3e4c5]">
                     <Image
-                      src="/venue.webp"
+                      src="https://images.unsplash.com/photo-1729391512126-c799d8d3f378?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="Radisson Suites Bangkok Sukhumvit"
                       fill
                       className="object-cover"
@@ -144,8 +144,8 @@ export default function VenuePage() {
 
                     {/* Venue name overlay */}
                     <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-bold text-white mb-1">Radisson Suites Bangkok Sukhumvit </h3> 
-                      <p className="text-white/90 text-sm drop-shadow-2xl">23/2 Soi Sukhumvit 13, Khwaeng Khlong Toei Nuea, Khlong Toei, Bangkok 10110, Thailand</p>
+                      <h3 className="text-2xl font-bold text-white mb-1"> </h3> 
+                      <p className="text-white/90 text-sm drop-shadow-2xl"></p>
                     </div>
                   </div>
                 </div>
