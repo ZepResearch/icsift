@@ -10,6 +10,7 @@ import { SpeakerSection } from "@/components/speaker-section";
 import Buttons from "@/components/buttons";
 import SDGS from "@/components/SDGS";import Organizer from "@/components/Organizer";
 import CPD from "@/components/cpd";
+import WhyAttendConference from "@/components/WhyAttend";
 ;
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
         <ConferenceTimeline/>
         <SpeakerSection/>
         <ConferenceCTACards/>
+        <WhyAttendConference/>
         <SDGS/>
         <ConferenceVenue/>
         <ConferenceFAQ/>

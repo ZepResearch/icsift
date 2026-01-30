@@ -34,19 +34,29 @@ export default function ConferenceHero() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  // Extract YouTube video ID from URL
+  const youtubeUrl = "https://www.youtube.com/embed/r1GcUCVStsc?si=vi0TnjuuYqS0iJBh"
+  const videoId = youtubeUrl.split('/').pop()?.split('?')[0] || ""
+
   return (
     <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-[#0a1f0a] via-[#0d2b0d] to-[#071807] text-white">
-      {/* Background Elements */}
-      <div
-        className="absolute inset-0 z-0 opacity-70"
-        style={{
-          backgroundImage: `url('https://plus.unsplash.com/premium_photo-1713829608602-abfcfde350ce?q=80&w=2016&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "brightness(0.4) contrast(1.2)",
-          transform: `translateY(${scrollY * 0.2}px)`,
-        }}
-      />
+      {/* YouTube Video Background */}
+      <div className="absolute inset-0 z-0">
+        <iframe
+          className="absolute top-1/2 left-1/2 w-[100vw] h-[100vh] pointer-events-none"
+          style={{
+            minWidth: '100vw',
+            minHeight: '100vh',
+            transform: 'translate(-50%, -50%) scale(1.2)',
+          }}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
+          title="Background Video"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/60"></div>
+      </div>
 
       {/* Aurora Effect */}
       <div className="absolute inset-0 z-[1] opacity-40">
@@ -93,11 +103,11 @@ export default function ConferenceHero() {
                   3<sup>rd</sup> International Conference
                 </span>
                 <br />
-                <span className="text-transparent bg-clip-text bg-[#bfe99d]">
+                <span className="text-transparent bg-clip-text bg-green-500">
                   on Sustainability, Innovation and Future Technologies
                 </span>
               </h1>
-              <p className="text-green-200/80 text-xl max-w-2xl">
+              <p className="text-green-50 text-xl max-w-2xl">
                 Shaping a Sustainable Future Through Innovation and Emerging Technologies.
               </p>
             </motion.div>

@@ -64,9 +64,9 @@ export default function AboutConference() {
         <div className="bg-[#edf6e1] rounded-3xl p-6 md:p-10 overflow-hidden relative">
           {/* Navigation Dots */}
           <div className="absolute left-6 top-1/2 -translate-y-1/2  flex-col gap-3 hidden md:flex">
-            <div className="w-2 h-2 rounded-full bg-[#4d724d]/40"></div>
-            <div className="w-2 h-2 rounded-full bg-[#4d724d]/80"></div>
-            <div className="w-2 h-2 rounded-full bg-[#4d724d]/40"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500/40"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500/80"></div>
+            <div className="w-2 h-2 rounded-full bg-green-500/40"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">

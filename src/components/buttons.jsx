@@ -84,7 +84,7 @@ export default function Buttons() {
     <section className="py-4 max-w-7xl mx-auto">
       <div className="container max-w-7xl mx-auto px-4">
         <div className="flex justify-center items-center mx-auto">
-          <h1 className="text-center text-2xl pb-6 inline-flex justify-center items-center gap-3 font-medium text-green-800">
+          <h1 className="text-center text-2xl pb-6 inline-flex justify-center items-center gap-3 font-medium text-green-950">
             Download Conference Materials <DownloadCloudIcon />
           </h1>
         </div>
@@ -99,7 +99,7 @@ export default function Buttons() {
             <motion.a
               key={material.id}
               href={`https://conference.pockethost.io/api/files/${material.collectionName}/${material.id}/${material.file}`}
-              className="bg-[#4d724d] hover:bg-[#4d724d]/90 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors duration-300 text-sm sm:text-sm text-center drop-shadow-sm"
+              className="bg-green-500 bg-green-500/90 text-white font-bold py-3 px-6 rounded-lg shadow-md transition-colors duration-300 text-sm sm:text-sm text-center drop-shadow-sm"
               variants={itemVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

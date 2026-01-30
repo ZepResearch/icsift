@@ -148,7 +148,7 @@ export default function ConferenceObjectives() {
         </div>
 
         {/* Call to Action */}
-        <div className="bg-[#4d724d] text-white rounded-3xl p-8 shadow-sm">
+        <div className="bg-green-600 text-white rounded-3xl p-8 shadow-sm">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:mr-6">
               <h3 className="text-2xl font-bold mb-2">Ready to contribute?</h3>
