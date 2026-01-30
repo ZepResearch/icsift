@@ -11,6 +11,7 @@ import Buttons from "@/components/buttons";
 import SDGS from "@/components/SDGS";import Organizer from "@/components/Organizer";
 import CPD from "@/components/cpd";
 import WhyAttendConference from "@/components/WhyAttend";
+import FutureOpportunities from "@/components/FutureOpportunities";
 ;
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
         <ConferenceHero/>       
         <Organizer/>
         <AboutConference/>
+        <FutureOpportunities/>
         <Buttons/>
         <ConferenceObjectives/>
         <ConferenceTimeline/>
