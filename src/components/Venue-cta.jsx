@@ -52,7 +52,7 @@ export default function ConferenceVenue() {
             {/* Left side - Venue image */}
             <div className="relative h-[300px] lg:h-full">
               <Image
-                src="https://images.unsplash.com/photo-1578167635648-df79e1565908?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="https://images.unsplash.com/photo-1729391512126-c799d8d3f378?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="ICSIFT Conference Venue - Bangkok International Convention Center"
                 fill
                 className="object-cover"
@@ -62,7 +62,7 @@ export default function ConferenceVenue() {
               {/* Venue name overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="bg-white/90 backdrop-blur-sm rounded-full py-3 px-6 inline-block">
-                  <span className="text-[#1a2e1a] font-medium">Bangkok International Convention Center</span>
+                  <span className="text-[#1a2e1a] font-medium">Boracay, philippines</span>
                 </div>
               </div>
             </div>

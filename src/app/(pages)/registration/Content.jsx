@@ -38,43 +38,23 @@ export default function RegistrationPage() {
   // Updated ticket data based on the pricing structure
   const pricingData = {
     physical: {
-      foreign: [
+      // LOCAL Participants
+      local: [
         {
-          category: "Academicians",
-          earlyBird: { price: 319, currency: "USD" },
-          regular: { price: 359, currency: "USD" },
-          scopusQ3Q4: { price: 859, currency: "USD" },
-          scopusQ1Q2: { price: 1399, currency: "USD" },
+          category: "Presenter",
+          regular: { price: 250, currency: "USD" },
           features: [
             "Full conference access",
-            "VIP networking dinner",
-            "Priority seating",
-            "Exclusive roundtable sessions",
-            "Physical workshop materials",
+            "Networking opportunities",
+            "Presentation slot",
+            "Workshop materials",
+            "Lunch and refreshments",
             "Certificate of participation"
           ]
         },
         {
-          category: "Students",
-          earlyBird: { price: 219, currency: "USD" },
-          regular: { price: 259, currency: "USD" },
-          scopusQ3Q4: { price: 759, currency: "USD" },
-          scopusQ1Q2: { price: 1299, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Student networking sessions",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Career guidance sessions"
-          ]
-        },
-        {
-          category: "Listeners",
-          earlyBird: { price: 169, currency: "USD" },
-          regular: { price: 199, currency: "USD" },
-          scopusQ3Q4: null,
-          scopusQ1Q2: null,
+          category: "Listener",
+          regular: { price: 200, currency: "USD" },
           features: [
             "Conference access",
             "Networking opportunities",
@@ -84,101 +64,107 @@ export default function RegistrationPage() {
           ]
         }
       ],
-      indian: [
+      // INTERNATIONAL Participants
+      international: [
         {
-          category: "Academicians",
-          earlyBird: { price: 9500, currency: "INR" },
-          regular: { price: 10000, currency: "INR" },
-          scopusQ3Q4: { price: 40000, currency: "INR" },
-          scopusQ1Q2: { price: 100000, currency: "INR" },
+          category: "Presenter",
+          regular: { price: 350, currency: "USD" },
           features: [
             "Full conference access",
-            "VIP networking dinner",
-            "Priority seating",
-            "Exclusive roundtable sessions",
-            "Physical workshop materials",
+            "International networking",
+            "Presentation slot",
+            "Workshop materials",
+            "Lunch and refreshments",
             "Certificate of participation"
           ]
         },
         {
-          category: "Students",
-          earlyBird: { price: 8500, currency: "INR" },
-          regular: { price: 9000, currency: "INR" },
-          scopusQ3Q4: { price: 38000, currency: "INR" },
-          scopusQ1Q2: { price: 98000, currency: "INR" },
-          features: [
-            "Full conference access",
-            "Student networking sessions",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Career guidance sessions"
-          ]
-        },
-        {
-          category: "Listeners",
-          earlyBird: { price: 3000, currency: "INR" },
-          regular: { price: 4000, currency: "INR" },
-          scopusQ3Q4: null,
-          scopusQ1Q2: null,
+          category: "Listener",
+          regular: { price: 300, currency: "USD" },
           features: [
             "Conference access",
-            "Networking opportunities",
+            "International networking",
             "Lunch and refreshments",
             "Certificate of attendance",
             "Access to presentation materials"
           ]
         }
-      ]
-    },
-    virtual: {
-      foreign: [
+      ],
+      // CO-HOST PARTNER Participants
+      cohost: [
         {
-          category: "Students",
-          earlyBird: { price: 149, currency: "USD" },
-          regular: { price: 169, currency: "USD" },
-          scopusQ3Q4: { price: 669, currency: "USD" },
-          scopusQ1Q2: { price: 1099, currency: "USD" },
+          category: "Delegates",
+          regular: { price: 150, currency: "USD" },
           features: [
-            "Full virtual conference access",
-            "Online networking sessions",
-            "Digital workshop materials",
-            "Recorded session access",
-            "Digital certificate",
-            "Q&A participation"
+            "Conference access",
+            "Co-host partner benefits",
+            "Networking opportunities",
+            "Lunch and refreshments",
+            "Certificate of attendance"
           ]
         },
         {
-          category: "Academicians",
-          earlyBird: { price: 199, currency: "USD" },
-          regular: { price: 219, currency: "USD" },
-          scopusQ3Q4: { price: 719, currency: "USD" },
-          scopusQ1Q2: { price: 1199, currency: "USD" },
+          category: "Presenter",
+          regular: { price: 200, currency: "USD" },
           features: [
-            "Full virtual conference access",
-            "Premium networking sessions",
-            "Digital workshop materials",
-            "Recorded session access",
-            "Digital certificate",
-            "Priority Q&A access"
-          ]
-        },
-        {
-          category: "Listeners",
-          earlyBird: { price: 99, currency: "USD" },
-          regular: { price: 119, currency: "USD" },
-          scopusQ3Q4: null,
-          scopusQ1Q2: null,
-          features: [
-            "Virtual conference access",
-            "Online networking",
-            "Digital materials",
-            "Recorded sessions",
-            "Digital certificate"
+            "Full conference access",
+            "Co-host partner benefits",
+            "Presentation slot",
+            "Networking opportunities",
+            "Certificate of participation"
           ]
         }
       ]
     }
+    // VIRTUAL SECTION - COMMENTED OUT
+    // virtual: {
+    //   foreign: [
+    //     {
+    //       category: "Students",
+    //       earlyBird: { price: 149, currency: "USD" },
+    //       regular: { price: 169, currency: "USD" },
+    //       scopusQ3Q4: { price: 669, currency: "USD" },
+    //       scopusQ1Q2: { price: 1099, currency: "USD" },
+    //       features: [
+    //         "Full virtual conference access",
+    //         "Online networking sessions",
+    //         "Digital workshop materials",
+    //         "Recorded session access",
+    //         "Digital certificate",
+    //         "Q&A participation"
+    //       ]
+    //     },
+    //     {
+    //       category: "Academicians",
+    //       earlyBird: { price: 199, currency: "USD" },
+    //       regular: { price: 219, currency: "USD" },
+    //       scopusQ3Q4: { price: 719, currency: "USD" },
+    //       scopusQ1Q2: { price: 1199, currency: "USD" },
+    //       features: [
+    //         "Full virtual conference access",
+    //         "Premium networking sessions",
+    //         "Digital workshop materials",
+    //         "Recorded session access",
+    //         "Digital certificate",
+    //         "Priority Q&A access"
+    //       ]
+    //     },
+    //     {
+    //       category: "Listeners",
+    //       earlyBird: { price: 99, currency: "USD" },
+    //       regular: { price: 119, currency: "USD" },
+    //       scopusQ3Q4: null,
+    //       scopusQ1Q2: null,
+    //       features: [
+    //         "Virtual conference access",
+    //         "Online networking",
+    //         "Digital materials",
+    //         "Recorded sessions",
+    //         "Digital certificate"
+    //       ]
+    //     }
+    //   ]
+    // }
   }
 
   const handleTicketSelect = (ticket) => {
@@ -300,7 +286,7 @@ export default function RegistrationPage() {
     if (!priceInfo) return null
 
     return {
-      name: `${priceType.charAt(0).toUpperCase() + priceType.slice(1)} Registration`,
+      name: `${categoryData.category} - ${participantType.charAt(0).toUpperCase() + participantType.slice(1)}`,
       price: priceInfo.price,
       currency: priceInfo.currency,
       type: categoryData.category,
@@ -317,61 +303,36 @@ export default function RegistrationPage() {
     
     return (
       <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
-        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6 h-60">
+        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6 h-48">
           <div className="flex justify-between items-center mb-4">
             <div className="flex items-center space-x-2">
               <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
                 {categoryData.category}
               </span>
               <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#4d724d] text-white">
-                {participantType === "foreign" ? "International" : "Indian"}
+                {participantType === "local" ? "Local" : participantType === "international" ? "International" : "Co-Host Partner"}
               </span>
             </div>
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
               <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                {presentationType === "physical" ? 
-                  <Presentation className="h-5 w-5 text-[#4d724d]" /> :
-                  <Globe className="h-5 w-5 text-[#4d724d]" />
-                }
+                <Presentation className="h-5 w-5 text-[#4d724d]" />
               </div>
             </div>
           </div>
           
           <div className="space-y-2">
-            {/* <div className="flex justify-between items-center">
-              <span className="text-sm text-[#4d724d]">Early Bird:</span>
-              <span className="text-lg font-bold text-[#1a2e1a]">
-                {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-              </span>
-            </div> */}
             <div className="flex justify-between items-center">
-              <span className="text-sm text-[#4d724d]">Regular:</span>
-              <span className="text-lg font-bold text-[#1a2e1a]">
+              <span className="text-sm text-[#4d724d]">Registration Fee:</span>
+              <span className="text-2xl font-bold text-[#1a2e1a]">
                 {getCurrencySymbol(categoryData.regular.currency)}{categoryData.regular.price}
               </span>
             </div>
-            {categoryData.scopusQ3Q4 && (
-              <>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#4d724d]">Scopus Q3/Q4:</span>
-                  <span className="text-lg font-bold text-[#1a2e1a]">
-                    {getCurrencySymbol(categoryData.scopusQ3Q4.currency)}{categoryData.scopusQ3Q4.price}
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#4d724d]">Scopus Q1/Q2:</span>
-                  <span className="text-lg font-bold text-[#1a2e1a]">
-                    {getCurrencySymbol(categoryData.scopusQ1Q2.currency)}{categoryData.scopusQ1Q2.price}
-                  </span>
-                </div>
-              </>
-            )}
           </div>
         </div>
 
        <div className="p-6 flex flex-col flex-1">
     <div className="flex-1">
-      <h3 className="text-xl font-bold text-black mb-4">deliverables</h3>
+      <h3 className="text-xl font-bold text-black mb-4">Deliverables</h3>
         <ul className="space-y-3 mb-6">
             {categoryData.features.map((feature, i) => (
               <li key={i} className="flex items-start">
@@ -396,38 +357,13 @@ export default function RegistrationPage() {
           </ul>
 </div>
           <div className="space-y-2">
-            {/* <Button
-              onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, presentationType))}
-              className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-            >
-              <CreditCard className="mr-2 h-4 w-4 text-white" />
-              Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-            </Button> */}
             <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "regular", participantType, presentationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
             >
               <CreditCard className="mr-2 h-4 w-4 text-white" />
-              Regular - {getCurrencySymbol(categoryData.regular.currency)}{categoryData.regular.price}
+              Register - {getCurrencySymbol(categoryData.regular.currency)}{categoryData.regular.price}
             </Button>
-            {categoryData.scopusQ3Q4 && (
-              <>
-                <Button
-                  onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "scopusQ3Q4", participantType, presentationType))}
-                  className="w-full  bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-                >
-                  <Sparkles className="mr-2 h-4 w-4 text-white" />
-                  Scopus Q3/Q4 - {getCurrencySymbol(categoryData.scopusQ3Q4.currency)}{categoryData.scopusQ3Q4.price}
-                </Button>
-                <Button
-                  onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "scopusQ1Q2", participantType, presentationType))}
-                  className="w-full  bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-                >
-                  <Sparkles className="mr-2 h-4 w-4 text-white" />
-                  Scopus Q1/Q2 - {getCurrencySymbol(categoryData.scopusQ1Q2.currency)}{categoryData.scopusQ1Q2.price}
-                </Button>
-              </>
-            )}
           </div>
         </div>
       </div>
@@ -456,13 +392,14 @@ export default function RegistrationPage() {
                   <MapPin className="mr-2 h-4 w-4" />
                   Physical Presentation
                 </TabsTrigger>
-                <TabsTrigger
+                {/* VIRTUAL TAB - COMMENTED OUT */}
+                {/* <TabsTrigger
                   value="virtual"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
                 >
                   <Globe className="mr-2 h-4 w-4" />
                   Virtual Presentation
-                </TabsTrigger>
+                </TabsTrigger> */}
                 <TabsTrigger
                   value="custom"
                   className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
@@ -481,34 +418,48 @@ export default function RegistrationPage() {
                 </p>
               </div>
 
-              {/* Foreign Participants */}
+              {/* Local Participants */}
+              <div className="mb-12">
+                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
+                  <MapPin className="inline mr-2 h-5 w-5" />
+                  Local Participants
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  {pricingData.physical.local.map((categoryData) => 
+                    renderPricingCard(categoryData, "local", "physical")
+                  )}
+                </div>
+              </div>
+
+              {/* International Participants */}
               <div className="mb-12">
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
                   <Globe className="inline mr-2 h-5 w-5" />
                   International Participants
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physical.foreign.map((categoryData) => 
-                    renderPricingCard(categoryData, "foreign", "physical")
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  {pricingData.physical.international.map((categoryData) => 
+                    renderPricingCard(categoryData, "international", "physical")
                   )}
                 </div>
               </div>
 
-              {/* Indian Participants */}
-              {/* <div>
+              {/* Co-Host Partner Participants */}
+              <div>
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
-                  <MapPin className="inline mr-2 h-5 w-5" />
-                  Indian Participants
+                  <Users className="inline mr-2 h-5 w-5" />
+                  Co-Host Partner
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physical.indian.map((categoryData) => 
-                    renderPricingCard(categoryData, "indian", "physical")
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  {pricingData.physical.cohost.map((categoryData) => 
+                    renderPricingCard(categoryData, "cohost", "physical")
                   )}
                 </div>
-              </div> */}
+              </div>
             </TabsContent>
 
-            <TabsContent value="virtual" className="mt-0">
+            {/* VIRTUAL TAB CONTENT - COMMENTED OUT */}
+            {/* <TabsContent value="virtual" className="mt-0">
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Virtual Presentation Registration</h3>
                 <p className="text-[#4d724d] max-w-2xl mx-auto">
@@ -516,7 +467,6 @@ export default function RegistrationPage() {
                 </p>
               </div>
 
-              {/* Foreign Participants */}
               <div>
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
                   <Globe className="inline mr-2 h-5 w-5" />
@@ -528,7 +478,7 @@ export default function RegistrationPage() {
                   )}
                 </div>
               </div>
-            </TabsContent>
+            </TabsContent> */}
 
             <TabsContent value="custom" className="mt-0">
               <div className="text-center mb-8">
