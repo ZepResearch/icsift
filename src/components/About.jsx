@@ -152,7 +152,7 @@ export default function AboutConference() {
                 variants={itemVariants}
                 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4"
               >
-                3<sup>rd</sup> International Conference on Sustainability, Innovation, and Future Technologies
+                International Conference on Sustainability, Innovation, and Future Technologies
               </motion.h2>
               
               <motion.p 
