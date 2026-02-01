@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import PocketBase from 'pocketbase'
+import { motion } from "framer-motion"
 
 export default function AboutConference() {
   const [downloadMaterials, setDownloadMaterials] = useState([])
@@ -57,36 +58,118 @@ export default function AboutConference() {
     document.body.removeChild(link)
   }
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const imageVariants = {
+    hidden: { opacity: 0, scale: 0.9, x: 50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const dotVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    visible: (custom) => ({
+      scale: 1,
+      opacity: 1,
+      transition: {
+        delay: custom * 0.15,
+        duration: 0.4,
+        ease: "easeOut"
+      }
+    })
+  }
+
   return (
     <div className="w-full py-16 px-4 md:px-8 lg:px-16 bg-[#f8faf5]">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-screen-2xl mx-auto">
         {/* Main Card */}
-        <div className="bg-[#edf6e1] rounded-3xl p-6 md:p-10 overflow-hidden relative">
+        <motion.div 
+          className="bg-[#edf6e1] rounded-3xl p-6 md:p-10 overflow-hidden relative"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+        >
           {/* Navigation Dots */}
-          <div className="absolute left-6 top-1/2 -translate-y-1/2  flex-col gap-3 hidden md:flex">
-            <div className="w-2 h-2 rounded-full bg-green-500/40"></div>
-            <div className="w-2 h-2 rounded-full bg-green-500/80"></div>
-            <div className="w-2 h-2 rounded-full bg-green-500/40"></div>
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 flex-col gap-3 hidden md:flex">
+            <motion.div 
+              custom={0}
+              variants={dotVariants}
+              className="w-2 h-2 rounded-full bg-green-500/40"
+            />
+            <motion.div 
+              custom={1}
+              variants={dotVariants}
+              className="w-2 h-2 rounded-full bg-green-500/80"
+            />
+            <motion.div 
+              custom={2}
+              variants={dotVariants}
+              className="w-2 h-2 rounded-full bg-green-500/40"
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Left Content */}
             <div className="md:pl-8">
-              <div className="inline-block border border-[#1a2e1a] rounded-full px-4 py-1 text-sm mb-6">
+              <motion.div 
+                variants={itemVariants}
+                className="inline-block border border-[#1a2e1a] rounded-full px-4 py-1 text-sm mb-6"
+              >
                 About ICSIFT
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">
-              3<sup>rd</sup> International Conference on Sustainability, Innovation, and Future Technologies
-              </h2>
-              <p className="text-[#4d724d] mb-6">
+              </motion.div>
+              
+              <motion.h2 
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4"
+              >
+                3<sup>rd</sup> International Conference on Sustainability, Innovation, and Future Technologies
+              </motion.h2>
+              
+              <motion.p 
+                variants={itemVariants}
+                className="text-[#4d724d] mb-6"
+              >
                 The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is a
                 premier global event bringing together experts, researchers, and industry leaders to explore
                 groundbreaking advancements. The conference focuses on sustainable development, cutting-edge
                 innovations, and transformative technologies shaping the future. ICSIFT aims to inspire collaboration,
                 foster innovation, and drive actionable solutions for a sustainable and technologically advanced world.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap gap-4">
+              <motion.div 
+                variants={itemVariants}
+                className="flex flex-wrap gap-4"
+              >
                 {/* <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button className="bg-white text-[#1a2e1a] hover:bg-[#f0f5eb] border border-[#d3e4c5] rounded-full">
@@ -135,27 +218,46 @@ export default function AboutConference() {
                     Details <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
             </div>
 
             {/* Right Content - Image Only */}
-            <div className="relative bg-white rounded-3xl overflow-hidden shadow-sm drop-shadow-2xl">
-              <div className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-sm z-10">
+            <motion.div 
+              variants={imageVariants}
+              className="relative bg-white rounded-3xl overflow-hidden shadow-sm drop-shadow-2xl"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div 
+                initial={{ scale: 0, rotate: -180 }}
+                whileInView={{ scale: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
+                className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-sm z-10"
+              >
                 <FileText className="h-5 w-5 text-[#1a2e1a]" />
-              </div>
+              </motion.div>
               
               {/* Full-width Image */}
-              <div className="relative h-80 md:h-96 w-full">
-                <Image
-                  src="/gallery/2nd-ICSIFT_03.jpg"
-                  alt="Sustainable Materials"
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative h-80 md:h-96 w-full overflow-hidden">
+                <motion.div
+                  initial={{ scale: 1.2 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="w-full h-full"
+                >
+                  <Image
+                    src="/gallery/2nd-ICSIFT_03.jpg"
+                    alt="Sustainable Materials"
+                    fill
+                    className="object-cover"
+                  />
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   )
