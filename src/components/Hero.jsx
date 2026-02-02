@@ -113,7 +113,7 @@ const HeroSection = React.forwardRef(
                       <Link href="/submission" >
                       <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full ">Submit Paper</Button>
                     </Link>
-                    <ReserveButton className={'bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full'}/>
+                    {/* <ReserveButton className={'bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full'}/> */}
                       </div>
 
                   </motion.main>
@@ -178,8 +178,8 @@ const HeroSection = React.forwardRef(
           />
           
           {/* Gradient Overlay on edges for better visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black md:from-black" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50 md:from-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
         </motion.div>
       </motion.section>
     );
