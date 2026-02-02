@@ -35,7 +35,7 @@ export default function ConferenceFAQ() {
     {
       question: "Is the conference venue accessible?",
       answer:
-        "Yes, the Radisson Suites Bangkok Sukhumvit is fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.",
+        "Yes, the venues in Boracay, Philippines are fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.",
     },
   ]
 
