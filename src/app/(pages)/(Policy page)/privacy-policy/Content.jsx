@@ -214,7 +214,8 @@ export default function PrivacyPolicy() {
                   >
                     info@icsift.com
                   </a>{" "}
-                  or call us at +91 78488 54815.
+                  <br />
+                  or call us at +91 82600 80050.
                 </p>
                 <p className="text-sm text-[#4d724d]/80">Last updated: {new Date().toLocaleDateString()}</p>
               </div>

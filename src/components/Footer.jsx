@@ -287,7 +287,7 @@ export default function ConferenceFooter() {
                     href="tel:+918260684845"
                     className="inline-flex gap-2 text-white/70 hover:text-white transition-colors hover:underline "
                   >
-                    <Contact/>+91 82606 84845
+                    <Contact/>+91 82600 80050
                   </a>
                 </div>
               </li>

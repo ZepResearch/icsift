@@ -119,7 +119,7 @@ export default function ComplaintsPolicy() {
                 </div>
                 <div className="flex items-center space-x-3 text-[#4d724d]">
                   <Phone className="w-5 h-5" />
-                  <span>+91 82606 84845</span>
+                  <span>+91 82600 80050</span>
                 </div>
                 <div className="flex items-center space-x-3 text-[#4d724d]">
                   <MapPin className="w-5 h-5" />

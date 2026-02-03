@@ -182,7 +182,7 @@ export default function CancellationPolicy() {
                 <p className="text-[#4d724d]">
                   <strong className="text-[#1a2e1a]">Email:</strong> info@icsift.com
                   <br />
-                  <strong className="text-[#1a2e1a]">Phone:</strong> +91 78488 54815
+                  <strong className="text-[#1a2e1a]">Phone:</strong> +91 82600 80050
                 </p>
 
                 <div className="mt-6 text-center">
