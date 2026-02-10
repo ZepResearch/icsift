@@ -39,7 +39,7 @@ export default function Home() {
           text: "JOIN US TO EXPLORE",
           href: "#explore",
         }}
-        videoUrl="https://www.youtube.com/watch?v=r1GcUCVStsc" // Replace with your YouTube video URL
+        videoUrl="https://www.youtube.com/watch?v=WrYrSB41BPg" // Replace with your YouTube video URL
         contactInfo={{
             website: "yourwebsite.com",
             phone: "+1 (555) 123-4567",

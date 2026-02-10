@@ -65,7 +65,8 @@ export default function VenuePage() {
                   <div className="space-y-6 text-[#4d724d]">
                     {/* change the content below */}
                     <p>
-                 Boracay, philippines  offers a modern, comfortable, and centrally located venue for 3<sup>rd</sup>ICSIFT 2026. Situated in the vibrant Sukhumvit district, the hotel provides excellent conference facilities, luxury accommodation, and easy access to Bangkok's top attractions.
+                 Boracay, philippines  offers a modern, comfortable, and centrally located venue for 3<sup>rd</sup>ICSIFT 2026. Situated in the vibrant Sukhumvit district, the hotel provides excellent conference facilities, luxury accommodation, and easy access to top
+                 attractions.
                     </p>
 
                     <div className="space-y-4">

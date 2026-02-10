@@ -154,7 +154,7 @@ const HeroSection = React.forwardRef(
                       </div>
                       <div className="flex items-center">
                           <InfoIcon type="calender" />
-                          <span>August 20<sup>th</sup> - 21<sup>st</sup>, 2026</span>
+                          <span>August 21<sup>st</sup> - 22<sup>nd</sup>, 2026</span>
                       </div>
                   </div>
               </motion.footer>

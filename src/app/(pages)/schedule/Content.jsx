@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const scheduleData = [
   {
-    date: "August  20 | Day 1",
+    date: "August  21 | Day 1",
     items: [
       { time: "8:00AM - 9:15AM", title: "Registration" },
       { time: "9:15AM - 9:30AM", title: "Inaugural Function" },
@@ -23,7 +23,7 @@ const scheduleData = [
     ],
   },
   {
-    date: "August 21 | Day 2",
+    date: "August 22 | Day 2",
     items: [
       { time: "8:30AM - 9:00AM", title: "Registration" },
       { time: "9:00AM - 9:30AM", title: "Day 2 Opening Remarks" },
@@ -137,7 +137,7 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
 }
 
 export default function ConferenceSchedule() {
-  const [selectedDates, setSelectedDates] = useState([20, 21])
+  const [selectedDates, setSelectedDates] = useState([21, 22])
   
   const handleSelectDate = (day) => {
     if (selectedDates.includes(day)) {
@@ -160,7 +160,7 @@ export default function ConferenceSchedule() {
               </span>
             </h1>
             <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
-              Join us   August 20th -21st , 2026 for two days of cutting-edge insights and networking on sustainability and
+              Join us   August 21st - 22nd, 2026 for two days of cutting-edge insights and networking on sustainability and
               innovation. Reserve your spot today!
             </p>
           </div>

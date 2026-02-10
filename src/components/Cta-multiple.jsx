@@ -175,7 +175,20 @@ export default function ConferenceCTACards() {
             ))}
           </div>
         </div>
-
+ <div className="mb-16">
+          <div className="grid grid-cols-1 gap-6">
+            <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <Image
+              height={400}
+              width={420}
+                src="/assets/a4.jpeg"
+                alt="Conference highlight 1"
+                className="w-full h-64 md:h-130 object-contain"
+              />
+            </div>
+            
+          </div>
+        </div>
         {/* Video Modal */}
         <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
           <DialogContent className="sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] xl:max-w-5xl p-0 bg-black border-none overflow-hidden">

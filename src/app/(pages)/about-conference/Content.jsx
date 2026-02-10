@@ -90,7 +90,7 @@ export default function AboutConferencePage() {
             <div className="flex flex-wrap justify-center gap-6 mb-12">
               <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
                 <Calendar className="h-5 w-5 text-[#4d724d] mr-2" />
-                <span> August 20th - 21st, 2026</span>
+                <span> August 21st - 22nd, 2026</span>
               </div>
               <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
                 <MapPin className="h-5 w-5 text-[#4d724d] mr-2" />
@@ -200,7 +200,7 @@ export default function AboutConferencePage() {
 
           <div className="mt-16 text-center">
             <p className="text-xl text-[#4d724d] mb-6">
-              Join us in Boracay from August 20th - 21st, 2026, to be part of a global movement dedicated to sustainability,
+              Join us in Boracay from August 21st - 22nd, 2026, to be part of a global movement dedicated to sustainability,
               innovation, and the technologies of tomorrow!
             </p>
             <Link href="/schedule" >
@@ -238,7 +238,20 @@ export default function AboutConferencePage() {
       <section className="py-16 bg-[#edf6e1]">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-12 text-center">Who Can Attend</h2>
-
+<div className="mb-16">
+          <div className="grid grid-cols-1 gap-6">
+            <div className="rounded-3xl overflow-hidden rounded-3xl">
+              <Image
+              height={400}
+              width={420}
+                src="/assets/a5.jpeg"
+                alt="Conference highlight 1"
+                className="w-full h-64 md:h-130 object-contain"
+              />
+            </div>
+            
+          </div>
+        </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Academicians & Researchers</h3>

@@ -4,6 +4,7 @@ import { Check, Target, Lightbulb, Network, Globe, BookOpen } from "lucide-react
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function ConferenceObjectives() {
   // State to store dot positions
@@ -120,6 +121,30 @@ export default function ConferenceObjectives() {
               </div>
             </div>
           ))}
+        </div>
+        
+        {/* Image Gallery Section */}
+        <div className="mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <Image
+              height={400}
+              width={420}
+                src="/assets/a3.jpeg"
+                alt="Conference highlight 1"
+                className="w-full h-64 md:h-100 object-contain"
+              />
+            </div>
+            <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <Image
+              height={400}
+              width={420}
+                src="/assets/a2.jpeg"
+                alt="Conference highlight 2"
+                className="w-full h-64 md:h-100 object-contain"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Key Focus Areas */}
