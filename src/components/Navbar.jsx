@@ -24,6 +24,10 @@ export default function ConferenceNavbar() {
           href: "/about-organizers",
           title: "About Organizers",
         },
+        {
+          href: "/about-co-organizers",
+          title: "About Co-Organizers",
+        },
       ],
     },
     {
