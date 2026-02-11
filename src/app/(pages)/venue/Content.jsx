@@ -65,8 +65,7 @@ export default function VenuePage() {
                   <div className="space-y-6 text-[#4d724d]">
                     {/* change the content below */}
                     <p>
-                 Boracay, philippines  offers a modern, comfortable, and centrally located venue for 3<sup>rd</sup>ICSIFT 2026. Situated in the vibrant Sukhumvit district, the hotel provides excellent conference facilities, luxury accommodation, and easy access to top
-                 attractions.
+                 Boracay, Philippines offers a modern, comfortable, and centrally appealing venue for 3rd ICSIFT 2026. Renowned worldwide for its pristine white-sand beaches, clear turquoise waters, and vibrant island atmosphere, Boracay provides an inspiring setting for international academic exchange
                     </p>
 
                     <div className="space-y-4">
@@ -238,7 +237,7 @@ export default function VenuePage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Nearby Attractions</h2>
             <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore Bangkok during your visit to 2<sup>nd</sup>ICSIFT 2025</p>
+            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore Boracay, Philippines during your visit to ICSIFT </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -411,7 +410,7 @@ export default function VenuePage() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/register">
+                  <Link href="/registration">
                     <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
                   </Link>
                   <Link href="/contact">

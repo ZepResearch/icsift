@@ -54,7 +54,7 @@ export default function ConferenceCTACards() {
     {
       title: "Gallery",
       description:
-        "our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, and memorable moments from past conferences.",
+        "Our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, and memorable moments from past conferences.",
       icon: <GalleryThumbnails className="w-10 h-10 text-lime-400" />,
       link: "/gallery",
       gradient: "from-lime-500 to-teal-600",
@@ -70,7 +70,7 @@ export default function ConferenceCTACards() {
     },
     {
       id: "r1GcUCVStsc",
-      thumbnail: "/gallery/ICSIFT_11.jpg", // Add your second video thumbnail
+      thumbnail: "/gallery/2nd-ICSIFT_07.jpg", // Add your second video thumbnail
       title: "The 2nd ICSIFT 2025 | Successfully Concluded in Bangkok",
       description: "Watch inspiring talks from world-renowned sustainability leaders",
     },
@@ -137,7 +137,7 @@ export default function ConferenceCTACards() {
               Watch Our Conference Highlights
             </h3>
             <p className="text-[#4d724d] max-w-2xl mx-auto">
-              Get a glimpse of what to expect at ICSIFT 2024 through our previous conference highlights.
+              Get a glimpse of what to expect at ICSIFT  through our previous conference highlights.
             </p>
           </div>
 
