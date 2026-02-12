@@ -263,7 +263,7 @@ export default function AwardsPage() {
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4 uppercase">Best International student presentation Award</h3>
+                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4 uppercase">OUTSTANDING CONTRIBUTOR AWARD</h3>
 
                   <div className="space-y-4 text-[#4d724d] flex-grow">
                     <p>
