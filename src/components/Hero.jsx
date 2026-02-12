@@ -104,8 +104,7 @@ const HeroSection = React.forwardRef(
                       </motion.h1>
                       <motion.div className="my-2 h-1 w-20 bg-primary" variants={itemVariants}></motion.div>
                       <motion.p className="mb-8 max-w-md text-base  text-white sm:text-black  " variants={itemVariants}>
-                         The conference focuses on sustainable development, cutting-edge innovations, and transformative technologies shaping the future
-                      </motion.p>
+                        Sustainable Innovation: Bridging Technology and Environmental Stewardship                      </motion.p>
                       <div className='flex flex-col sm:flex-row gap-3'>
                      <Link href="/registration" >
                       <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full">Register Now</Button>
