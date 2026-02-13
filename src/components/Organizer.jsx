@@ -1,7 +1,6 @@
 import React from 'react';
 
-const umm = '/organizer/org-logo.png'; // Update with your image path
-const rit = '/organizer/rit.png'; // Update with your image path
+const sulu = '/co-org/sulu.png'; // Update with your image path
 
 function Organizer() {
     return (
@@ -12,7 +11,7 @@ function Organizer() {
              <div className='grid grid-cols-1 sm:grid-cols-1 gap-8'>
           
             <img
-                src={rit}
+                src={sulu}
                 alt="Organizing Partner Logo"
                 className="max-w-xl w-auto h-[250px] rounded-lg   p-4 mx-auto"
             />
