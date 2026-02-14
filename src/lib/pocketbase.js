@@ -21,9 +21,10 @@ export async function getJournals() {
     const endDate = new Date().toISOString().split('T')[0] + ' 23:59:59'
 
     // Fetch journals from 2025 only, sorted by creation date (newest first)
+    // Exclude journals where not_visible is true
     const records = await pb.collection("Journals").getFullList({
       sort: "-created",
-      filter: `created >= '${startDate}' && created <= '${endDate}'`
+      filter: `created >= '${startDate}' && created <= '${endDate}' && not_visible != true`
     })
 
     return records
@@ -32,7 +33,6 @@ export async function getJournals() {
     return []
   }
 }
-
 export async function getJournalById(id) {
   try {
     const pb = getPocketBaseClient()
