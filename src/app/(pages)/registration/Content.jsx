@@ -45,7 +45,7 @@ export default function RegistrationPage() {
           category: "Academician",
           physical: { price: 249, currency: "USD" },
           virtual: { price: 169, currency: "USD" },
-          earlyBird: { price: 229, currency: "USD" },
+          earlyBird: { price: 199, currency: "USD" },
           features: [
             "Full conference access",
             "Networking opportunities",
@@ -59,7 +59,7 @@ export default function RegistrationPage() {
           category: "Student",
           physical: { price: 199, currency: "USD" },
           virtual: { price: 129, currency: "USD" },
-          earlyBird: { price: 179, currency: "USD" },
+          earlyBird: { price: 159, currency: "USD" },
           features: [
             "Conference access",
             "Networking opportunities",
@@ -142,9 +142,9 @@ export default function RegistrationPage() {
         },
         {
           category: "Delegate",
-          physical: { price: 199, currency: "USD" },
+          physical: { price: 219, currency: "USD" },
           virtual: { price: 129, currency: "USD" },
-          earlyBird: { price: 169, currency: "USD" },
+          earlyBird: { price: 199, currency: "USD" },
           features: [
             "Conference access",
             "International networking",

@@ -161,6 +161,7 @@ export default function ConferenceObjectives() {
               "Water Resource Management",
               "Green Technology Innovation",
               "Sustainable Development Goals",
+              "Sustainable in Management",
             ].map((area, index) => (
               <div key={index} className="flex items-center">
                 <div className="bg-[#d3e4c5] rounded-full p-1 mr-3">
