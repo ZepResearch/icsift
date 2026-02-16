@@ -19,6 +19,7 @@ import {
   Globe,
   MapPin,
   Home,
+  Zap,
 } from "lucide-react"
 import Link from "next/link"
 import { GeometricShapes } from "./components/geometric-shapes"
@@ -36,7 +37,7 @@ export default function RegistrationPage() {
   const [customAmount, setCustomAmount] = useState("")
   const [activeTab, setActiveTab] = useState("physical-no-accommodation")
 
-  // Updated pricing structure
+  // Updated pricing structure with Early Bird pricing
   const pricingData = {
     physicalNoAccommodation: {
       local: [
@@ -44,6 +45,7 @@ export default function RegistrationPage() {
           category: "Academician",
           physical: { price: 249, currency: "USD" },
           virtual: { price: 169, currency: "USD" },
+          earlyBird: { price: 329, currency: "USD" },
           features: [
             "Full conference access",
             "Networking opportunities",
@@ -57,6 +59,7 @@ export default function RegistrationPage() {
           category: "Student",
           physical: { price: 199, currency: "USD" },
           virtual: { price: 129, currency: "USD" },
+          earlyBird: { price: 179, currency: "USD" },
           features: [
             "Conference access",
             "Networking opportunities",
@@ -70,6 +73,7 @@ export default function RegistrationPage() {
           category: "Delegate",
           physical: { price: 169, currency: "USD" },
           virtual: { price: 79, currency: "USD" },
+          earlyBird: { price: 159, currency: "USD" },
           features: [
             "Conference access",
             "Networking opportunities",
@@ -82,6 +86,7 @@ export default function RegistrationPage() {
           category: "With Scopus Q3 & Q4",
           physical: { price: 1049, currency: "USD" },
           virtual: { price: 949, currency: "USD" },
+          earlyBird: { price: 999, currency: "USD" },
           features: [
             "Full conference access",
             "Scopus Q3 & Q4 publication",
@@ -95,6 +100,7 @@ export default function RegistrationPage() {
           category: "With Scopus Q1 & Q2",
           physical: { price: 1749, currency: "USD" },
           virtual: { price: 1649, currency: "USD" },
+          earlyBird: { price: 1699, currency: "USD" },
           features: [
             "Full conference access",
             "Scopus Q1 & Q2 publication",
@@ -110,6 +116,7 @@ export default function RegistrationPage() {
           category: "Academician",
           physical: { price: 299, currency: "USD" },
           virtual: { price: 229, currency: "USD" },
+          earlyBird: { price: 249, currency: "USD" },
           features: [
             "Full conference access",
             "International networking",
@@ -123,6 +130,7 @@ export default function RegistrationPage() {
           category: "Student",
           physical: { price: 249, currency: "USD" },
           virtual: { price: 169, currency: "USD" },
+          earlyBird: { price: 219, currency: "USD" },
           features: [
             "Conference access",
             "International networking",
@@ -136,6 +144,7 @@ export default function RegistrationPage() {
           category: "Delegate",
           physical: { price: 199, currency: "USD" },
           virtual: { price: 129, currency: "USD" },
+          earlyBird: { price: 169, currency: "USD" },
           features: [
             "Conference access",
             "International networking",
@@ -148,6 +157,7 @@ export default function RegistrationPage() {
           category: "With Scopus Q3 & Q4",
           physical: { price: 1099, currency: "USD" },
           virtual: { price: 999, currency: "USD" },
+          earlyBird: { price: 1049, currency: "USD" },
           features: [
             "Full conference access",
             "Scopus Q3 & Q4 publication",
@@ -161,6 +171,7 @@ export default function RegistrationPage() {
           category: "With Scopus Q1 & Q2",
           physical: { price: 1799, currency: "USD" },
           virtual: { price: 1699, currency: "USD" },
+          earlyBird: { price: 1749, currency: "USD" },
           features: [
             "Full conference access",
             "Scopus Q1 & Q2 publication",
@@ -177,6 +188,7 @@ export default function RegistrationPage() {
         {
           category: "Academician",
           physical: { price: 399, currency: "USD" },
+          earlyBird: { price: 349, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -189,6 +201,7 @@ export default function RegistrationPage() {
         {
           category: "Student",
           physical: { price: 349, currency: "USD" },
+          earlyBird: { price: 299, currency: "USD" },
           features: [
             "Conference access",
             "Accommodation included",
@@ -201,6 +214,7 @@ export default function RegistrationPage() {
         {
           category: "Delegate",
           physical: { price: 319, currency: "USD" },
+          earlyBird: { price: 279, currency: "USD" },
           features: [
             "Conference access",
             "Accommodation included",
@@ -212,6 +226,7 @@ export default function RegistrationPage() {
         {
           category: "With Scopus Q3 & Q4",
           physical: { price: 1199, currency: "USD" },
+          earlyBird: { price: 1149, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -224,6 +239,7 @@ export default function RegistrationPage() {
         {
           category: "With Scopus Q1 & Q2",
           physical: { price: 1899, currency: "USD" },
+          earlyBird: { price: 1849, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -238,6 +254,7 @@ export default function RegistrationPage() {
         {
           category: "Academician",
           physical: { price: 449, currency: "USD" },
+          earlyBird: { price: 399, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -250,6 +267,7 @@ export default function RegistrationPage() {
         {
           category: "Student",
           physical: { price: 399, currency: "USD" },
+          earlyBird: { price: 349, currency: "USD" },
           features: [
             "Conference access",
             "Accommodation included",
@@ -262,6 +280,7 @@ export default function RegistrationPage() {
         {
           category: "Delegate",
           physical: { price: 349, currency: "USD" },
+          earlyBird: { price: 299, currency: "USD" },
           features: [
             "Conference access",
             "Accommodation included",
@@ -273,6 +292,7 @@ export default function RegistrationPage() {
         {
           category: "With Scopus Q3 & Q4",
           physical: { price: 1299, currency: "USD" },
+          earlyBird: { price: 1249, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -285,6 +305,7 @@ export default function RegistrationPage() {
         {
           category: "With Scopus Q1 & Q2",
           physical: { price: 1949, currency: "USD" },
+          earlyBird: { price: 1899, currency: "USD" },
           features: [
             "Full conference access",
             "Accommodation included",
@@ -414,8 +435,11 @@ export default function RegistrationPage() {
     const priceInfo = categoryData[priceType]
     if (!priceInfo) return null
 
+    const priceTypeName = priceType === 'earlyBird' ? 'Early Bird' : 
+                          priceType === 'physical' ? 'Physical' : 'Virtual'
+
     return {
-      name: `${categoryData.category} - ${participantType.charAt(0).toUpperCase() + participantType.slice(1)} (${priceType === 'physical' ? 'Physical' : 'Virtual'})`,
+      name: `${categoryData.category} - ${participantType.charAt(0).toUpperCase() + participantType.slice(1)} (${priceTypeName})`,
       price: priceInfo.price,
       currency: priceInfo.currency,
       type: categoryData.category,
@@ -430,6 +454,7 @@ export default function RegistrationPage() {
   const renderPricingCard = (categoryData, participantType, accommodationType) => {
     const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
     const hasVirtual = categoryData.virtual !== undefined
+    const hasEarlyBird = categoryData.earlyBird !== undefined
     
     return (
       <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
@@ -451,6 +476,17 @@ export default function RegistrationPage() {
           </div>
           
           <div className="space-y-3">
+            {hasEarlyBird && (
+              <div className="flex justify-between items-center bg-yellow-50 border border-yellow-200 rounded-lg p-2 -mx-2">
+                <div className="flex items-center">
+                  <Zap className="h-4 w-4 text-yellow-600 mr-1" />
+                  <span className="text-sm font-semibold text-yellow-700">Early Bird:</span>
+                </div>
+                <span className="text-xl font-bold text-yellow-700">
+                  {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
+                </span>
+              </div>
+            )}
             <div className="flex justify-between items-center">
               <span className="text-sm text-[#4d724d]">Physical:</span>
               <span className="text-2xl font-bold text-[#1a2e1a]">
@@ -496,6 +532,15 @@ export default function RegistrationPage() {
           </div>
           
           <div className="space-y-2">
+            {hasEarlyBird && (
+              <Button
+                onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, accommodationType))}
+                className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-full shadow-md"
+              >
+                <Zap className="mr-2 h-4 w-4 text-white" />
+                Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
+              </Button>
+            )}
             <Button
               onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "physical", participantType, accommodationType))}
               className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
@@ -565,31 +610,42 @@ export default function RegistrationPage() {
                 </p>
               </div>
 
-              {/* Local Participants */}
-              <div className="mb-12">
-                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
-                  <MapPin className="inline mr-2 h-5 w-5" />
-                  Local Participants
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physicalNoAccommodation.local.map((categoryData) => 
-                    renderPricingCard(categoryData, "local", "no-accommodation")
-                  )}
+              <Tabs defaultValue="local-no-accommodation" className="w-full">
+                <div className="flex justify-center mb-8">
+                  <TabsList className="bg-[#edf6e1] p-1 rounded-full">
+                    <TabsTrigger
+                      value="local-no-accommodation"
+                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
+                    >
+                      <MapPin className="mr-2 h-4 w-4" />
+                      Local Participants
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="international-no-accommodation"
+                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
+                    >
+                      <Globe className="mr-2 h-4 w-4" />
+                      International Participants
+                    </TabsTrigger>
+                  </TabsList>
                 </div>
-              </div>
 
-              {/* International Participants */}
-              <div>
-                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
-                  <Globe className="inline mr-2 h-5 w-5" />
-                  International Participants
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physicalNoAccommodation.international.map((categoryData) => 
-                    renderPricingCard(categoryData, "international", "no-accommodation")
-                  )}
-                </div>
-              </div>
+                <TabsContent value="local-no-accommodation" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {pricingData.physicalNoAccommodation.local.map((categoryData) => 
+                      renderPricingCard(categoryData, "local", "no-accommodation")
+                    )}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="international-no-accommodation" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {pricingData.physicalNoAccommodation.international.map((categoryData) => 
+                      renderPricingCard(categoryData, "international", "no-accommodation")
+                    )}
+                  </div>
+                </TabsContent>
+              </Tabs>
             </TabsContent>
 
             <TabsContent value="physical-with-accommodation" className="mt-0">
@@ -600,31 +656,42 @@ export default function RegistrationPage() {
                 </p>
               </div>
 
-              {/* Local Participants */}
-              <div className="mb-12">
-                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
-                  <MapPin className="inline mr-2 h-5 w-5" />
-                  Local Participants
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physicalWithAccommodation.local.map((categoryData) => 
-                    renderPricingCard(categoryData, "local", "with-accommodation")
-                  )}
+              <Tabs defaultValue="local-with-accommodation" className="w-full">
+                <div className="flex justify-center mb-8">
+                  <TabsList className="bg-[#edf6e1] p-1 rounded-full">
+                    <TabsTrigger
+                      value="local-with-accommodation"
+                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
+                    >
+                      <MapPin className="mr-2 h-4 w-4" />
+                      Local Participants
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="international-with-accommodation"
+                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
+                    >
+                      <Globe className="mr-2 h-4 w-4" />
+                      International Participants
+                    </TabsTrigger>
+                  </TabsList>
                 </div>
-              </div>
 
-              {/* International Participants */}
-              <div>
-                <h4 className="text-xl font-bold text-[#1a2e1a] mb-6 text-center">
-                  <Globe className="inline mr-2 h-5 w-5" />
-                  International Participants
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {pricingData.physicalWithAccommodation.international.map((categoryData) => 
-                    renderPricingCard(categoryData, "international", "with-accommodation")
-                  )}
-                </div>
-              </div>
+                <TabsContent value="local-with-accommodation" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {pricingData.physicalWithAccommodation.local.map((categoryData) => 
+                      renderPricingCard(categoryData, "local", "with-accommodation")
+                    )}
+                  </div>
+                </TabsContent>
+
+                <TabsContent value="international-with-accommodation" className="mt-0">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {pricingData.physicalWithAccommodation.international.map((categoryData) => 
+                      renderPricingCard(categoryData, "international", "with-accommodation")
+                    )}
+                  </div>
+                </TabsContent>
+              </Tabs>
 
               {/* Important Note */}
               <div className="mt-12 max-w-3xl mx-auto">
