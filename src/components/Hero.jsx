@@ -140,6 +140,59 @@ const HeroSection = React.forwardRef(
                 className="h-8 drop-shadow-lg"
               />
             </div>
+           
+{/* Early Bird Discount Box */}
+<motion.div 
+  className="mt-4 relative max-w-xl overflow-hidden rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 p-1 shadow-lg"
+  variants={itemVariants}
+  animate={{
+    boxShadow: [
+      "0 0 20px rgba(251, 191, 36, 0.5)",
+      "0 0 30px rgba(251, 191, 36, 0.8)",
+      "0 0 20px rgba(251, 191, 36, 0.5)",
+    ],
+  }}
+  transition={{
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut"
+  }}
+>
+  <div className="bg-white rounded-xl p-4 relative">
+    {/* Decorative corner element */}
+    <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">
+      LIMITED
+    </div>
+    
+    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex-1">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="text-2xl">🔥</span>
+          <h3 className="text-lg font-bold text-gray-900">Early Bird Discount Active!</h3>
+        </div>
+        <p className="text-sm text-gray-600">
+          Save up to <span className="font-bold text-orange-600">$150</span> on registration
+        </p>
+      </div>
+      
+      <Link href="/registration">
+        <Button 
+          className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
+        >
+          Claim Now →
+        </Button>
+      </Link>
+    </div>
+    
+    {/* Countdown or expiry text */}
+    <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>Offer expires soon • Limited spots available</span>
+    </div>
+  </div>
+</motion.div>
               {/* Bottom Section: Footer Info */}
               <motion.footer className="mt-6 w-full" variants={itemVariants}>
                   <div className="flex flex-col text-white sm:text-black sm:flex-row items-start md:items-center gap-6 text-xs text-muted-foreground ">

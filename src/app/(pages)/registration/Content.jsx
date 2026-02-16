@@ -45,7 +45,7 @@ export default function RegistrationPage() {
           category: "Academician",
           physical: { price: 249, currency: "USD" },
           virtual: { price: 169, currency: "USD" },
-          earlyBird: { price: 329, currency: "USD" },
+          earlyBird: { price: 229, currency: "USD" },
           features: [
             "Full conference access",
             "Networking opportunities",
