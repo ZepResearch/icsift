@@ -174,7 +174,7 @@ export default function ContactPage() {
                       <div>
                         <p className="text-sm text-[#4d724d]/70">Address</p>
                         <p className="text-[#1a2e1a] font-medium">
-                       Flat No: 202 Plot.no.2028/2044, Sai Aarti Enclave, Behind Tanishq Chandasekharpur, Bhubaneshwar, India
+                          Boracay, Philippines
                         </p>
                       </div>
                     </div>

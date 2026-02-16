@@ -161,21 +161,21 @@ export default function AboutConferencePage() {
               global sustainability agenda.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
               <div className="bg-white rounded-3xl p-6 shadow-sm">
                 <h3 className="text-3xl font-bold text-[#1a2e1a]">500+</h3>
                 <p className="text-[#4d724d]">Global Participants</p>
               </div>
 
               <div className="bg-white rounded-3xl p-6 shadow-sm">
-                <h3 className="text-3xl font-bold text-[#1a2e1a]">3</h3>
-                <p className="text-[#4d724d]">Focus Areas: Climate Change, Renewable Energy, Circular Economy</p>
+                <h3 className="text-3xl font-bold text-[#1a2e1a]">15+</h3>
+                <p className="text-[#4d724d]">Country</p>
               </div>
 
-              <div className="bg-white rounded-3xl p-6 shadow-sm">
+              {/* <div className="bg-white rounded-3xl p-6 shadow-sm">
                 <h3 className="text-3xl font-bold text-[#1a2e1a]">1</h3>
                 <p className="text-[#4d724d]">Goal: Actionable Strategies for a Sustainable Future</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
