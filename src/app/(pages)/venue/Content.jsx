@@ -96,12 +96,12 @@ export default function VenuePage() {
                           </div>
                           <span>Fitness center, outdoor pool, and wellness amenities</span>
                         </li>
-                        <li className="flex items-start gap-3">
+                        {/* <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
                           </div>
                           <span>Walking distance to BTS Skytrain and MRT stations</span>
-                        </li>
+                        </li> */}
                         <li className="flex items-start gap-3">
                           <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
                             <span className="text-xs font-bold text-white">✓</span>
