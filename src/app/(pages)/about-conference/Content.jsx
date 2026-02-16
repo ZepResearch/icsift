@@ -122,7 +122,7 @@ export default function AboutConferencePage() {
                 sustainability, technological innovation, and industrial futures intersect.
               </p>
               <p className="text-[#4d724d] mb-4">
-                From August 20th to 21st, 2026, ICSIFT will gather experts from every sphere to speak on innovative
+                From August 21st to 22nd, 2026, ICSIFT will gather experts from every sphere to speak on innovative
                 research, eco-friendly solutions, and technological advancement.
               </p>
               <p className="text-[#4d724d]">
