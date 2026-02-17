@@ -171,7 +171,7 @@ const HeroSection = React.forwardRef(
           <h3 className="text-lg font-bold text-gray-900">Early Bird Discount Active!</h3>
         </div>
         <p className="text-sm text-gray-600">
-          Save up to <span className="font-bold text-orange-600">%20</span> on registration
+          Save up to <span className="font-bold text-orange-600">20%</span> on registration
         </p>
       </div>
       
