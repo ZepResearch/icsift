@@ -8,41 +8,50 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const scheduleData = [
   {
-    date: "August  21 | Day 1",
+    date: "August 21 | Day 1",
     items: [
-      { time: "8:00AM - 9:15AM", title: "Registration" },
-      { time: "9:15AM - 9:30AM", title: "Inaugural Function" },
-      { time: "9:30AM - 10:00AM", title: "Keynote Speech (Session 1)" },
-      { time: "10:00AM - 10:15AM", title: "Coffee Break" },
-      { time: "10:15AM - 10:30AM", title: "Introduction to the Session Chairs" },
-      { time: "10:30AM - 01:00PM", title: "1st Session: Sustainable Innovation" },
-      { time: "01:00PM - 02:00PM", title: "Lunch Break" },
-      { time: "02:00PM - 02:30PM", title: "Keynote Speech: Future of Green Technology" },
-      { time: "2:30PM - 5:00PM", title: "2nd Session: Climate Change Solutions" },
-      { time: "5:00PM - 6:30PM", title: "Welcome Reception & Networking" },
+      { time: "8:30AM - 9:00AM", title: "Registration" },
+      { time: "9:00AM - 9:20AM", title: "Introduction by Moderator" },
+      { time: "9:20AM - 9:25AM", title: "Book Release" },
+      { time: "9:25AM - 9:35AM", title: "Welcome Speech by Organizing Secretary" },
+      { time: "9:35AM - 9:45AM", title: "Speech by Conference Co-Chair" },
+      { time: "9:45AM - 9:55AM", title: "Speech by Conference Chair" },
+      { time: "9:55AM - 10:40AM", title: "Keynote Speaker" },
+      { time: "10:40AM - 10:50AM", title: "☕ Tea Break" },
+      { time: "10:50AM - 12:00PM", title: "Technical Session 1 (Sustainability)" },
+      { time: "12:00PM - 1:00PM", title: "🍽️ Lunch Break" },
+      { time: "1:00PM - 2:30PM", title: "Technical Session 2 (Innovation)" },
+      { time: "2:30PM - 3:30PM", title: "Technical Session 3 (Future Technology)" },
+      { time: "3:30PM - 4:00PM", title: "☕ Tea Break" },
+      { time: "4:00PM - 4:30PM", title: "Panel Discussion" },
+      { time: "4:30PM onwards", title: "Valedictory Function & End of Day 1" },
     ],
   },
   {
     date: "August 22 | Day 2",
     items: [
       { time: "8:30AM - 9:00AM", title: "Registration" },
-      { time: "9:00AM - 9:30AM", title: "Day 2 Opening Remarks" },
-      { time: "9:30AM - 10:00AM", title: "Keynote Speech: Circular Economy" },
-      { time: "10:00AM - 10:15AM", title: "Coffee Break" },
-      { time: "10:15AM - 10:30AM", title: "Introduction to the Session Chairs" },
-      { time: "10:30AM - 01:00PM", title: "3rd Session: Renewable Energy Innovations" },
-      { time: "01:00PM - 02:00PM", title: "Lunch Break" },
-      { time: "02:00PM - 03:30PM", title: "Panel Discussion: Future of Sustainability" },
-      { time: "3:30PM - 4:00PM", title: "Coffee Break" },
-      { time: "4:00PM - 5:00PM", title: "Awards Ceremony & Closing Remarks" },
-      { time: "5:00PM - 6:30PM", title: "Farewell Reception" },
+      { time: "9:00AM - 9:20AM", title: "Introduction by Moderator" },
+      { time: "9:20AM - 9:25AM", title: "Book Release" },
+      { time: "9:25AM - 9:35AM", title: "Welcome Speech by Organizing Secretary" },
+      { time: "9:35AM - 9:45AM", title: "Speech by Conference Co-Chair" },
+      { time: "9:45AM - 9:55AM", title: "Speech by Conference Chair" },
+      { time: "9:55AM - 10:40AM", title: "Keynote Speaker" },
+      { time: "10:40AM - 10:50AM", title: "☕ Tea Break" },
+      { time: "10:50AM - 12:00PM", title: "Technical Session 1 (Sustainability)" },
+      { time: "12:00PM - 1:00PM", title: "🍽️ Lunch Break" },
+      { time: "1:00PM - 2:30PM", title: "Technical Session 2 (Innovation)" },
+      { time: "2:30PM - 3:30PM", title: "Technical Session 3 (Future Technology)" },
+      { time: "3:30PM - 4:00PM", title: "☕ Tea Break" },
+      { time: "4:00PM - 4:30PM", title: "Panel Discussion" },
+      { time: "4:30PM onwards", title: "Valedictory Function & End of Conference" },
     ],
   },
 ]
 
 // Custom Calendar Component
 function CustomCalendar({ selectedDates, onSelectDate }) {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 7)) // December 2025
+  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 7)) // August 2026
   
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -58,12 +67,10 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
     
     const days = []
     
-    // Add empty cells for days before month starts
     for (let i = 0; i < firstDay; i++) {
       days.push(null)
     }
     
-    // Add actual days
     for (let i = 1; i <= daysInMonth; i++) {
       days.push(i)
     }
@@ -77,7 +84,6 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
   
   return (
     <div className="w-full">
-      {/* Month Navigation */}
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
@@ -96,7 +102,6 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
         </button>
       </div>
       
-      {/* Day Names */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {dayNames.map((day) => (
           <div key={day} className="text-center text-xs font-medium text-[#4d724d] py-2">
@@ -105,7 +110,6 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
         ))}
       </div>
       
-      {/* Calendar Days */}
       <div className="grid grid-cols-7 gap-1">
         {days.map((day, index) => {
           if (day === null) {
@@ -160,7 +164,7 @@ export default function ConferenceSchedule() {
               </span>
             </h1>
             <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
-              Join us   August 21st - 22nd, 2026 for two days of cutting-edge insights and networking on sustainability and
+              Join us August 21st - 22nd, 2026 for two days of cutting-edge insights and networking on sustainability and
               innovation. Reserve your spot today!
             </p>
           </div>
@@ -168,17 +172,17 @@ export default function ConferenceSchedule() {
           <div className="grid gap-8 md:grid-cols-[320px_1fr]">
             <Card className="border-[#4d724d] rounded-3xl shadow-sm overflow-hidden h-fit">
               <CardHeader className="bg-[#4d724d] text-white">
-                <CardTitle> August 2026</CardTitle>
+                <CardTitle>August 2026</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <CustomCalendar selectedDates={selectedDates} onSelectDate={handleSelectDate} />
               </CardContent>
             </Card>
 
-            <ScrollArea className="h-[600px]">
+            <ScrollArea className="h-[600px] ">
               <div className="space-y-8">
                 {scheduleData.map((day, index) => (
-                  <Card key={index} className="border-[#d3e4c5] rounded-3xl shadow-sm overflow-hidden">
+                  <Card key={index} className="bg-white border-[#d3e4c5] rounded-3xl shadow-sm overflow-hidden">
                     <CardHeader className="bg-[#edf6e1]">
                       <CardTitle className="text-[#1a2e1a]">{day.date}</CardTitle>
                     </CardHeader>
@@ -188,7 +192,7 @@ export default function ConferenceSchedule() {
                           <div
                             key={itemIndex}
                             className={cn(
-                              "grid grid-cols-[140px_1fr] gap-4 p-3 rounded-lg",
+                              "grid grid-cols-[160px_1fr] gap-4 p-3 rounded-lg",
                               "bg-[#f8faf5] hover:bg-[#d3e4c5]/30 transition-colors",
                             )}
                           >
@@ -210,12 +214,12 @@ export default function ConferenceSchedule() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Venue</h3>
-                <p className="text-[#4d724d] mb-2">Declare Soon </p>
-                <p className="text-[#4d724d]">Boracay, philippines</p>
+                <p className="text-[#4d724d] mb-2">Declare Soon</p>
+                <p className="text-[#4d724d]">Boracay, Philippines</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Registration</h3>
-                <p className="text-[#4d724d] mb-2">Registration opens at 8:00 AM on Day 1 and 8:30 AM on Day 2.</p>
+                <p className="text-[#4d724d] mb-2">Registration opens at 8:30 AM on both days.</p>
                 <p className="text-[#4d724d]">
                   Please bring your confirmation email and ID for a smooth check-in process.
                 </p>

@@ -267,9 +267,8 @@ export default function AwardsPage() {
 
                   <div className="space-y-4 text-[#4d724d] flex-grow">
                     <p>
-                      Celebrating outstanding research contributions from student participants. This award recognizes
-                      emerging scholars who demonstrate exceptional promise, innovative thinking, and high-quality
-                      research in sustainability while still pursuing their academic degrees.
+                     Celebrating exceptional contributions from Advisory Committee members.
+This award recognizes committee members who actively fulfill their responsibilities by bringing research papers, participants, presenters, and listeners, and who significantly contribute to the overall success of the conference.
                     </p>
 
                     <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-4 space-y-3">
@@ -279,10 +278,12 @@ export default function AwardsPage() {
                       </div>
 
                       <ul className="space-y-2 pl-7">
-                        <li className="list-disc text-[#4d724d]">Quality of research</li>
-                        <li className="list-disc text-[#4d724d]">Independence of work</li>
-                        <li className="list-disc text-[#4d724d]">Presentation skills</li>
-                        <li className="list-disc text-[#4d724d]">Potential impact of research</li>
+                   
+                        <li className="list-disc text-[#4d724d]">Number and quality of papers facilitated</li>
+                        <li className="list-disc text-[#4d724d]">Participant registrations generated</li>
+                        <li className="list-disc text-[#4d724d]">Contribution in bringing presenters and attendees</li>
+                        <li className="list-disc text-[#4d724d]">Overall engagement and commitment</li>
+                        <li className="list-disc text-[#4d724d]">Outstanding contributors will receive special recognition along with a 10% remuneration per registration received through their contribution.</li>
                       </ul>
                     </div>
                   </div>
