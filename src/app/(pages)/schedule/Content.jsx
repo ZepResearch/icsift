@@ -23,8 +23,8 @@ const scheduleData = [
       { time: "1:00PM - 2:30PM", title: "Technical Session 2 (Innovation)" },
       { time: "2:30PM - 3:30PM", title: "Technical Session 3 (Future Technology)" },
       { time: "3:30PM - 4:00PM", title: "☕ Tea Break" },
-      { time: "4:00PM - 4:30PM", title: "Panel Discussion" },
-      { time: "4:30PM onwards", title: "Valedictory Function & End of Day 1" },
+      { time: "3:30PM - 4:30PM", title: "Panel Discussion" },
+      { time: "", title: "Valedictory Function" },
     ],
   },
   {
@@ -43,12 +43,10 @@ const scheduleData = [
       { time: "1:00PM - 2:30PM", title: "Technical Session 2 (Innovation)" },
       { time: "2:30PM - 3:30PM", title: "Technical Session 3 (Future Technology)" },
       { time: "3:30PM - 4:00PM", title: "☕ Tea Break" },
-      { time: "4:00PM - 4:30PM", title: "Panel Discussion" },
-      { time: "4:30PM onwards", title: "Valedictory Function & End of Conference" },
+      { time: "3:30PM - 4:30PM", title: "Panel Discussion" },
     ],
   },
 ]
-
 // Custom Calendar Component
 function CustomCalendar({ selectedDates, onSelectDate }) {
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 7)) // August 2026

@@ -90,15 +90,15 @@ export default function ExhibitAndSponsorPage() {
   }
 
   // Sponsorship packages data
-  const sponsorshipPackages = [
+const sponsorshipPackages = [
     {
       title: "Platinum",
-      price: 10000,
+      price: 6000,
       color: "from-[#4d724d] to-[#3c5c3c]",
       icon: <Award className="h-8 w-8 text-[#4d724d]" />,
       benefits: [
         "1 VIP participating in the conference",
-        "Complementary registration for 12 Students and 5 Faculties",
+        "Complementary registration for 6 Students and 2 Faculties",
         "Stage honor to the Sponsor Party",
         "Full Page add on the conference proceeding book",
         "Brand carried in all website and promotional activities",
@@ -110,12 +110,12 @@ export default function ExhibitAndSponsorPage() {
     },
     {
       title: "Diamond",
-      price: 7000,
+      price: 4000,
       color: "from-[#5d8a5d] to-[#4d724d]",
       icon: <Sparkles className="h-8 w-8 text-[#5d8a5d]" />,
       benefits: [
         "1 Session Chair participating from the sponsor side",
-        "Complementary registration for 10 Students and 3 Faculties",
+        "Complementary registration for 5 Students",
         "Full Page add on the conference proceeding book",
         "Brand carried in all website and promotional activities",
         "Public announcement recognizing the Sponsor",
@@ -127,11 +127,11 @@ export default function ExhibitAndSponsorPage() {
     },
     {
       title: "Gold",
-      price: 5000,
+      price: 2000,
       color: "from-[#b9d4a3] to-[#8fb573]",
       icon: <Star className="h-8 w-8 text-[#b9d4a3]" />,
       benefits: [
-        "Complementary registration for 8 Students and 2 Faculties",
+        "Complementary registration for 3 Students",
         "Full page add on conference proceedings",
         "Announcement recognition of the sponsor during valedictory",
         "Logos used in all promotional materials",
@@ -142,11 +142,11 @@ export default function ExhibitAndSponsorPage() {
     },
     {
       title: "Silver",
-      price: 3000,
+      price: 1000,
       color: "from-[#d3e4c5] to-[#b9d4a3]",
       icon: <Zap className="h-8 w-8 text-[#d3e4c5]" />,
       benefits: [
-        "Complementary registration for 5 Students and 1 Faculty",
+        "Complementary registration for 1 Student",
         "2 volunteers at the registration desk from the sponsor side",
         "Half page add on Conference proceeding book",
         "Brand carried out in few promotional activities",
