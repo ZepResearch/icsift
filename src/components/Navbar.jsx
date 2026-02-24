@@ -6,6 +6,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import GoogleTranslateMenu from "./GoogleTranslate"
 
 export default function ConferenceNavbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -155,11 +156,11 @@ export default function ConferenceNavbar() {
           </nav>
 
           {/* Register Button */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex flex-row items-center space-x-4">
             <Link href="/registration" >
             <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
             </Link>
-            
+            <GoogleTranslateMenu/>
           </div>
 
           {/* Mobile Menu Button */}
@@ -214,6 +215,8 @@ export default function ConferenceNavbar() {
             <Link href="/registration" >
               <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
             </Link>
+              <GoogleTranslateMenu/>
+     
             </div>
           </div>
         </div>
