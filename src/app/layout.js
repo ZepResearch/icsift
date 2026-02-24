@@ -4,6 +4,8 @@ import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
 import FloatingWhatsApp from "@/components/FloatingWhatsapp";
+import GoogleTranslateMenu from "@/components/GoogleTranslate";
+
 
 
 const geistSans = Geist({
@@ -73,7 +75,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="sticky top-0 z-50 bg-white">
+        <GoogleTranslateMenu/>
         <ConferenceNavbar/>
+        </div>
         {children}
         <ConferenceFooter/>
          <TawkToChat/> 

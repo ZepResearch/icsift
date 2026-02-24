@@ -6,7 +6,6 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import GoogleTranslateMenu from "./GoogleTranslate"
 
 export default function ConferenceNavbar() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -102,7 +101,7 @@ export default function ConferenceNavbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 py-2 ${
+      className={` w-full transition-all duration-300 py-2 ${
         isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm " : "bg-transparent"
       }`}
     >
@@ -160,7 +159,7 @@ export default function ConferenceNavbar() {
             <Link href="/registration" >
             <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
             </Link>
-            <GoogleTranslateMenu/>
+
           </div>
 
           {/* Mobile Menu Button */}
@@ -215,7 +214,7 @@ export default function ConferenceNavbar() {
             <Link href="/registration" >
               <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
             </Link>
-              <GoogleTranslateMenu/>
+           
      
             </div>
           </div>
