@@ -50,6 +50,14 @@ export default function ConferenceNavbar() {
           href: "/schedule",
           title: "Conference Schedule",
         },
+        {
+          title: "Gallery",
+          href: "/gallery",
+        },
+        {
+          title: "Awards",
+          href: "/awards",
+        },
       ],
     },
     {
@@ -60,18 +68,12 @@ export default function ConferenceNavbar() {
       title: "SUBMISSION",
       href: "/submission",
     },
-    {
-      title: "GALLERY",
-      href: "/gallery",
-    },
+
     {
       title: "VENUE",
       href: "/venue",
     },
     {
-      title: "AWARDS",
-      href: "/awards",
-    },{
       title: "JOURNAL",
       href: "/journals",
     },
@@ -82,6 +84,10 @@ export default function ConferenceNavbar() {
     {
       title: "EXHIBIT & SPONSOR",
       href: "/exhibit-and-sponsor",
+    },
+    {
+      title: "PROCEEDINGS",
+      href: "/proceedings",
     },
   ]
 
@@ -101,9 +107,8 @@ export default function ConferenceNavbar() {
 
   return (
     <header
-      className={` w-full transition-all duration-300 py-2 ${
-        isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm " : "bg-transparent"
-      }`}
+      className={` w-full transition-all duration-300 py-2 ${isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm " : "bg-transparent"
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-16 md:h-20 items-center justify-between">
@@ -118,13 +123,13 @@ export default function ConferenceNavbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center space-x-">
             {navLinks.map((link, index) => (
               <div key={index} className="relative group">
                 {link.dropdown ? (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="px-3 py-2 text-sm font-medium text-[#1a2e1a] hover:text-[#4d724d] transition-colors flex items-center">
+                      <button className="px-3 py-2 text-xs font-medium text-[#1a2e1a] hover:text-[#4d724d] transition-colors flex items-center">
                         {link.title}
                         <ChevronDown className="ml-1 h-4 w-4" />
                       </button>
@@ -134,7 +139,7 @@ export default function ConferenceNavbar() {
                         <DropdownMenuItem key={idx} asChild>
                           <Link
                             href={item.href}
-                            className="w-full px-4 py-2 text-sm text-[#1a2e1a] hover:bg-[#edf6e1] cursor-pointer"
+                            className="w-full px-4 py-2 text-xs text-[#1a2e1a] hover:bg-[#edf6e1] cursor-pointer"
                           >
                             {item.title}
                           </Link>
@@ -145,7 +150,7 @@ export default function ConferenceNavbar() {
                 ) : (
                   <Link
                     href={link.href}
-                    className="px-3 py-2 text-sm font-medium text-[#1a2e1a] hover:text-[#4d724d] transition-colors"
+                    className="px-3 py-2 text-xs font-medium text-[#1a2e1a] hover:text-[#4d724d] transition-colors"
                   >
                     {link.title}
                   </Link>
@@ -157,7 +162,7 @@ export default function ConferenceNavbar() {
           {/* Register Button */}
           <div className="hidden lg:flex flex-row items-center space-x-4">
             <Link href="/registration" >
-            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
+              <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
             </Link>
 
           </div>
@@ -211,11 +216,11 @@ export default function ConferenceNavbar() {
               ))}
             </nav>
             <div className="mt-6 pt-6 border-t border-[#edf6e1]">
-            <Link href="/registration" >
-              <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
-            </Link>
-           
-     
+              <Link href="/registration" >
+                <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
+              </Link>
+
+
             </div>
           </div>
         </div>

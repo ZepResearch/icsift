@@ -9,25 +9,25 @@ import { ReserveButton } from './reserve-button';
 
 // Icon component for contact details
 const InfoIcon = ({ type }) => {
-    const icons = {
-        website: (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" x2="22" y1="12" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-        ),
-        calender: (
-           <CalendarIcon className="h-5 w-5 text-primary" />
-        ),
-        address: (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-        ),
-    };
-    return <div className="mr-2 flex-shrink-0">{icons[type]}</div>;
+  const icons = {
+    website: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" x2="22" y1="12" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+    ),
+    calender: (
+      <CalendarIcon className="h-5 w-5 text-primary" />
+    ),
+    address: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-primary">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+    ),
+  };
+  return <div className="mr-2 flex-shrink-0">{icons[type]}</div>;
 };
 
 
@@ -35,7 +35,7 @@ const InfoIcon = ({ type }) => {
 
 const HeroSection = React.forwardRef(
   ({ className, logo, slogan, title, subtitle, callToAction, videoUrl, contactInfo, ...props }, ref) => {
-    
+
     // Convert YouTube URL to embed URL
     const getYouTubeEmbedUrl = (url) => {
       const videoId = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=|\/watch\?.+&v=))([^&\n?#]+)/)?.[1];
@@ -66,7 +66,7 @@ const HeroSection = React.forwardRef(
         },
       },
     };
-    
+
     return (
       <motion.section
         ref={ref}
@@ -83,9 +83,9 @@ const HeroSection = React.forwardRef(
         <div className="relative z-10 mx-auto w-full max-w-screen-2xl md:flex md:items-stretch">
           {/* Left Side: Content */}
           <div className="flex w-full flex-col justify-between p-8 md:w-1/2 md:p-12 lg:w-3/5 lg:p-16">
-              {/* Top Section: Logo & Main Content */}
-              <div>
-                  {/* <motion.header className="mb-12" variants={itemVariants}>
+            {/* Top Section: Logo & Main Content */}
+            <div>
+              {/* <motion.header className="mb-12" variants={itemVariants}>
                       {logo && (
                           <div className="flex items-center">
                               <img src={logo.url} alt={logo.alt} className="mr-3 h-8" />
@@ -97,28 +97,32 @@ const HeroSection = React.forwardRef(
                       )}
                   </motion.header> */}
 
-                  <motion.main variants={containerVariants}>
-                      <motion.h1 className="text-4xl font-bold  text-white sm:text-black md:text-5xl" variants={itemVariants}>
-                          3<sup>rd</sup> International Conference on <br />
-                          <span className="text-primary">Sustainability, Innovation, and Future Technologies</span>
-                      </motion.h1>
-                      <motion.div className="my-2 h-1 w-20 bg-primary" variants={itemVariants}></motion.div>
-                      <motion.p className="mb-8 max-w-md text-base  text-white sm:text-black  " variants={itemVariants}>
-                        Sustainable Innovation: Bridging Technology and Environmental Stewardship                      </motion.p>
-                      <div className='flex flex-col sm:flex-row gap-3'>
-                     <Link href="/registration" >
-                      <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full">Register Now</Button>
-                    </Link>
-                      <Link href="/submission" >
-                      <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full ">Submit Paper</Button>
-                    </Link>
-                    {/* <ReserveButton className={'bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full'}/> */}
-                      </div>
+              <motion.main variants={containerVariants}>
+                <motion.h1 className="text-4xl font-bold  text-white sm:text-black md:text-5xl" variants={itemVariants}>
+                  3<sup>rd</sup> International Conference on <br />
+                  <span className="text-primary">Sustainability, Innovation, and Future Technologies</span>
+                </motion.h1>
+                <motion.div className="my-2 h-1 w-20 bg-primary" variants={itemVariants}></motion.div>
+                <motion.p className="mb-8 max-w-md text-base  text-white sm:text-black  " variants={itemVariants}>
+                  Sustainable Innovation: Bridging Technology and Environmental Stewardship                      </motion.p>
+                <div className='flex flex-col sm:flex-row gap-3'>
+                  <Link href="/registration" >
+                    <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full">Register Now</Button>
+                  </Link>
+                  <Link href="/submission" >
+                    <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full ">Submit Paper</Button>
+                  </Link>
 
-                  </motion.main>
+                  <Link href="/proceedings" >
+                    <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full ">Proceedings</Button>
+                  </Link>
+                  {/* <ReserveButton className={'bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full'}/> */}
+                </div>
 
-              </div>
- <div className="flex flex-wrap gap-3 mt-2   py-4 rounded-3xl ">
+              </motion.main>
+
+            </div>
+            <div className="flex flex-wrap gap-3 mt-2   py-4 rounded-3xl ">
               <img
                 src="/assets/scopus.png"
                 alt=""
@@ -140,81 +144,81 @@ const HeroSection = React.forwardRef(
                 className="h-8 drop-shadow-lg"
               />
             </div>
-           
-{/* Early Bird Discount Box */}
-<motion.div 
-  className="mt-4 relative max-w-xl overflow-hidden rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 p-1 shadow-lg"
-  variants={itemVariants}
-  animate={{
-    boxShadow: [
-      "0 0 20px rgba(251, 191, 36, 0.5)",
-      "0 0 30px rgba(251, 191, 36, 0.8)",
-      "0 0 20px rgba(251, 191, 36, 0.5)",
-    ],
-  }}
-  transition={{
-    duration: 2,
-    repeat: Infinity,
-    ease: "easeInOut"
-  }}
->
-  <div className="bg-white rounded-xl p-4 relative">
-    {/* Decorative corner element */}
-    <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">
-      LIMITED
-    </div>
-    
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-      <div className="flex-1">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-2xl">🔥</span>
-          <h3 className="text-lg font-bold text-gray-900">Early Bird Discount Active!</h3>
-        </div>
-        <p className="text-sm text-gray-600">
-          Save up to <span className="font-bold text-orange-600">20%</span> on registration
-        </p>
-      </div>
-      
-      <Link href="/registration">
-        <Button 
-          className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
-        >
-          Claim Now →
-        </Button>
-      </Link>
-    </div>
-    
-    {/* Countdown or expiry text */}
-    <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <span>Offer expires soon • Limited spots available</span>
-    </div>
-  </div>
-</motion.div>
-              {/* Bottom Section: Footer Info */}
-              <motion.footer className="mt-6 w-full" variants={itemVariants}>
-                  <div className="flex flex-col text-white sm:text-black sm:flex-row items-start md:items-center gap-6 text-xs text-muted-foreground ">
-                      <div className="flex  items-center">
-                          <InfoIcon type="website" />
-                          <span>Hybrid Conference</span>
-                      </div>
-                      <div className="flex items-center">
-                          <InfoIcon type="address" />
-                          <span>Boracay, Philippines</span>
-                      </div>
-                      <div className="flex items-center">
-                          <InfoIcon type="calender" />
-                          <span>August 21<sup>st</sup> - 22<sup>nd</sup>, 2026</span>
-                      </div>
+
+            {/* Early Bird Discount Box */}
+            <motion.div
+              className="mt-4 relative max-w-xl overflow-hidden rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 p-1 shadow-lg"
+              variants={itemVariants}
+              animate={{
+                boxShadow: [
+                  "0 0 20px rgba(251, 191, 36, 0.5)",
+                  "0 0 30px rgba(251, 191, 36, 0.8)",
+                  "0 0 20px rgba(251, 191, 36, 0.5)",
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <div className="bg-white rounded-xl p-4 relative">
+                {/* Decorative corner element */}
+                <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">
+                  LIMITED
+                </div>
+
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-2xl">🔥</span>
+                      <h3 className="text-lg font-bold text-gray-900">Early Bird Discount Active!</h3>
+                    </div>
+                    <p className="text-sm text-gray-600">
+                      Save up to <span className="font-bold text-orange-600">20%</span> on registration
+                    </p>
                   </div>
-              </motion.footer>
+
+                  <Link href="/registration">
+                    <Button
+                      className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap"
+                    >
+                      Claim Now →
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Countdown or expiry text */}
+                <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Offer expires soon • Limited spots available</span>
+                </div>
+              </div>
+            </motion.div>
+            {/* Bottom Section: Footer Info */}
+            <motion.footer className="mt-6 w-full" variants={itemVariants}>
+              <div className="flex flex-col text-white sm:text-black sm:flex-row items-start md:items-center gap-6 text-xs text-muted-foreground ">
+                <div className="flex  items-center">
+                  <InfoIcon type="website" />
+                  <span>Hybrid Conference</span>
+                </div>
+                <div className="flex items-center">
+                  <InfoIcon type="address" />
+                  <span>Boracay, Philippines</span>
+                </div>
+                <div className="flex items-center">
+                  <InfoIcon type="calender" />
+                  <span>August 21<sup>st</sup> - 22<sup>nd</sup>, 2026</span>
+                </div>
+              </div>
+            </motion.footer>
           </div>
         </div>
 
         {/* Right Side: Video Background (Full Width) */}
-        <motion.div 
+        <motion.div
           className="absolute right-0 top-0 h-full w-full md:w-1/2 lg:w-2/4 min-h-[300px] md:min-h-full overflow-hidden"
           initial={{ clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)' }}
           animate={{ clipPath: 'polygon(25% 0, 100% 0, 100% 100%, 0% 100%)' }}
@@ -228,7 +232,7 @@ const HeroSection = React.forwardRef(
             frameBorder="0"
             title="Hero Video"
           />
-          
+
           {/* Gradient Overlay on edges for better visibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50 md:from-black" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/50" />
