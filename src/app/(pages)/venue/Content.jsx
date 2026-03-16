@@ -114,28 +114,30 @@ export default function VenuePage() {
                     <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 mt-8">
                       <div className="flex items-center gap-3 mb-3">
                         <MapPin className="h-5 w-5 text-[#4d724d]" />
-                        <h3 className="text-lg font-medium text-[#1a2e1a]">Address</h3>
+                        <h3 className="text-lg font-medium text-[#1a2e1a]">Astoria Current</h3>
                       </div>
                       <p className="text-[#4d724d]">
-                      Boracay, philippines
+                     Sitio Mangayad, Brgy. Manoc Manoc, Station 3, Malay, Boracay Island, 5608 Aklan, Philippines
                       </p>
                     </div>
                   </div>
 
                   <div className="mt-8">
+                    <Link href="https://maps.app.goo.gl/FWgRFSnHvycYa2im6" target="_blank" rel="noopener noreferrer">
                     <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
                       <Navigation className="mr-2 h-5 w-5" />
                       Get Directions
                     </Button>
+                    </Link>
                   </div>
                 </div>
 
                 <div>
-                  <div className="relative h-full w-full rounded-2xl overflow-hidden border border-[#d3e4c5]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1729391512126-c799d8d3f378?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  <div className="relative h-full w-full rounded-2xl overflow-hidden  ">
+                    <img
+                      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/ef/87/24/caption.jpg?w=1000&h=-1&s=1"
                       alt="Radisson Suites Bangkok Sukhumvit"
-                      fill
+                      
                       className="object-cover"
                     />
 
@@ -165,11 +167,10 @@ export default function VenuePage() {
 
           <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-4 shadow-sm">
             <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-
             <div className="relative rounded-2xl overflow-hidden h-[500px] w-full">
               <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31224.603094399008!2d121.90662953949412!3d11.969282398728232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a53c2f324b4ee7%3A0xa738e81e5e6dda36!2sBoracay!5e0!3m2!1sen!2sin!4v1769505027863!5m2!1sen!2sin"
-                 width="100%"
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d121.92879636969192!3d11.953323711292446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a53e9de25e70a5%3A0x1f5eaf649be17786!2sAstoria%20Current!5e0!3m2!1sen!2sin!4v1773657923762!5m2!1sen!2sin"    
+            width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen

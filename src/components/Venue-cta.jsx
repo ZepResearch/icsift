@@ -51,13 +51,13 @@ export default function ConferenceVenue() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Left side - Venue image */}
             <div className="relative h-[300px] lg:h-full">
-              <Image
-                src="https://images.unsplash.com/photo-1729391512126-c799d8d3f378?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              <img
+                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/ef/87/24/caption.jpg?w=1000&h=-1&s=1"
                 alt="ICSIFT Conference Venue - Bangkok International Convention Center"
-                fill
+                
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/40 via-transparent to-transparent"></div>
 
               {/* Venue name overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -99,8 +99,8 @@ export default function ConferenceVenue() {
                     </div>
                     <div>
                       <p className="text-sm text-[#4d724d]">Address</p>
-                      {/* <p className="text-[#1a2e1a] font-medium">Declare soon</p> */}
-                      <p className="text-[#1a2e1a]">Boracay, philippines</p>
+                      <p className="text-[#1a2e1a] font-medium">Astoria Current</p>
+                      <p className="text-[#1a2e1a]">Sitio Mangayad, Brgy. Manoc Manoc, Station 3, Malay, Boracay Island, 5608 Aklan, Philippines</p>
                     </div>
                   </div>
                 </div>
