@@ -49,7 +49,128 @@ const organizersData = [
       gradient: 'from-blue-900 to-blue-600'
     }
   },
-  
+  {
+    id: 2,
+    name: "Polytechnic University of the Philippines",
+    logo: "/co-org/PUTP.jpeg",
+    image: "/co-org/pup-campus.jpg",
+    about: "Polytechnic University of the Philippines is a public university established in 1904. Its main campus is located in Manila. Known as the “People’s University,” it provides affordable and quality education. The university offers various undergraduate and graduate programs in business, engineering, education, technology, and social sciences to thousands of students.",
+    vision: "To be a globally recognized university for higher education and research that is accessible to all.",
+    mission: "To provide higher education offering quality programs that are responsive to societal needs through effective teaching, research, and community engagement.",
+    mandate: "PUP is mandated to provide advanced instruction and professional training in technology, science, arts, and economics, and to promote research, advanced studies, and progressive leadership in these fields.",
+    coreValues: [
+      { letter: 'P', value: 'Pananalig', color: 'bg-red-600' },
+      { letter: 'U', value: 'Ugnayan', color: 'bg-yellow-400' },
+      { letter: 'P', value: 'Paglilingkod', color: 'bg-red-600' }
+    ],
+    culture: [
+      "Inclusive Education",
+      "Academic Integrity",
+      "Community Development",
+      "Lifelong Learning"
+    ],
+    competencies: [
+      "Research and Innovation",
+      "Technical and Vocational Training",
+      "Community Outreach",
+      "Quality Instruction"
+    ],
+    accreditations: [
+      { name: "CHED Recognized", logo: "/images/ched.png" },
+      { name: "ISO Certified", logo: "/images/iso.png" }
+    ],
+    contact: {
+      website: "www.pup.edu.ph",
+      email: "",
+      facebook: "https://www.facebook.com/ThePUPOfficials"
+    },
+    theme: {
+      primary: 'red',
+      gradient: 'from-red-700 to-red-400'
+    }
+  },
+  {
+    id: 3,
+    name: "Asia Pacific Society of Educators, Researchers and Professionals",
+    logo: "/co-org/PCERP.jpeg",
+    image: "/co-org/asperp-event.jpg",
+    about: "The Asia Pacific Society of Educators, Researchers and Professionals is an academic organization that promotes collaboration among teachers, researchers, and professionals across the Asia-Pacific region. It organizes conferences, workshops, and research activities to support knowledge sharing, professional development, and innovation in education, science, technology, and other academic and professional fields.",
+    vision: "To be the leading network of educators and researchers dedicated to improving education and professional practices in the Asia-Pacific.",
+    mission: "To foster partnerships, organize knowledge-sharing events, and support research initiatives that elevate teaching and learning across the region.",
+    mandate: "APSERP is committed to strengthening education by creating platforms for collaboration, professional development, and research dissemination.",
+    coreValues: [
+      { letter: 'A', value: 'Academia', color: 'bg-emerald-600' },
+      { letter: 'P', value: 'Partnership', color: 'bg-blue-700' },
+      { letter: 'S', value: 'Service', color: 'bg-emerald-600' },
+      { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
+      { letter: 'R', value: 'Research', color: 'bg-emerald-600' }
+    ],
+    culture: [
+      "Collaborative Research",
+      "Professional Growth",
+      "Innovation in Education",
+      "Global Networking"
+    ],
+    competencies: [
+      "Conference and Workshop Organization",
+      "Research Collaboration",
+      "Professional Development",
+      "Cross-cultural Knowledge Exchange"
+    ],
+    accreditations: [
+      { name: "International Network", logo: "/images/world.png" }
+    ],
+    contact: {
+      website: "https://www.facebook.com/profile.php?id=61572166725005",
+      email: "apserp2025@gmail.com",
+      facebook: "www.facebook.com/profile.php?id=61572166725005"
+    },
+    theme: {
+      primary: 'emerald',
+      gradient: 'from-emerald-700 to-emerald-400'
+    }
+  },
+  {
+    id: 4,
+    name: "FEATI University",
+    logo: "/co-org/FU.jpeg",
+    image: "/co-org/feati-campus.jpg",
+    about: "FEATI University is a leading university in the Philippines, renowned for its pioneering role in aviation education and excellence across engineering, science, education, architecture, business, arts, maritime studies, and information technology. It fosters an environment that empowers students to become socially responsible, lifelong learners and innovators.",
+    vision: "To be a premier university developing competent professionals and leaders grounded in technical excellence and ethical values.",
+    mission: "To deliver quality education through innovative programs, industry partnerships, and value-driven instruction.",
+    mandate: "FEATI is mandated to provide technological and professional education geared towards producing globally competitive graduates.",
+    coreValues: [
+      { letter: 'F', value: 'Faith', color: 'bg-yellow-500' },
+      { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
+      { letter: 'A', value: 'Accountability', color: 'bg-yellow-500' },
+      { letter: 'T', value: 'Teamwork', color: 'bg-blue-700' },
+      { letter: 'I', value: 'Integrity', color: 'bg-yellow-500' }
+    ],
+    culture: [
+      "Innovation and Creativity",
+      "Industry Engagement",
+      "Student-centered Learning",
+      "Ethical Leadership"
+    ],
+    competencies: [
+      "Aviation and Engineering Education",
+      "Technical Research",
+      "Industry Partnerships",
+      "Leadership Development"
+    ],
+    accreditations: [
+      { name: "PAASCU Accredited", logo: "/images/paascu.png" }
+    ],
+    contact: {
+      website: "www.featiu.edu.ph",
+      email: "info@featiu.edu.ph",
+      facebook: "www.facebook.com/featiuniversity"
+    },
+    theme: {
+      primary: 'yellow',
+      gradient: 'from-yellow-500 to-yellow-300'
+    }
+  }
 ];
 
 export default function CoOrganizerSection() {
@@ -105,7 +226,7 @@ function OrganizerCard({ organizer, onShowMore, delay }) {
       <div className="relative h-64 overflow-hidden">
         <div className={`absolute inset-0 bg-gradient-to-br ${organizer.theme.gradient}`}>
           {/* Placeholder for image */}
-          <Image src={organizer.image} alt={`${organizer.name} Building`} fill className="object-cover object-center opacity-80" />
+          {/* <Image src={organizer.image} alt={`${organizer.name} Building`} fill className="object-cover object-center opacity-80" /> */}
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
@@ -138,7 +259,7 @@ function OrganizerCard({ organizer, onShowMore, delay }) {
         </div>
 
         {/* Core Values */}
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <h4 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3">
             Core Values
           </h4>
@@ -154,7 +275,7 @@ function OrganizerCard({ organizer, onShowMore, delay }) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Show More Button */}
         <button
@@ -243,7 +364,7 @@ function Dialog({ organizer, onClose }) {
             )}
 
             {/* Core Values */}
-            <div>
+            {/* <div>
               <SectionHeader icon="💎" title="Core Values" />
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
                 {organizer.coreValues.map((value, idx) => (
@@ -256,7 +377,7 @@ function Dialog({ organizer, onClose }) {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             {/* Organizational Culture */}
             {organizer.culture.length > 0 && (
