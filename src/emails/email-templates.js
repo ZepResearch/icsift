@@ -115,13 +115,13 @@ export function getUserEmailTemplate(data) {
   </head>
   <body>
     <div class="header">
-      <div class="conference-title">ICSIFT 2025</div>
+      <div class="conference-title">ICSIFT </div>
       <div class="subtitle">International Conference on Sustainability, Innovation, and Future Technologies</div>
     </div>
     <div class="content">
       <p>Dear ${data.author},</p>
       
-      <p>Thank you for submitting your paper titled <span class="highlight">"${data.paper_title}"</span> to ICSIFT 2025: International Conference on Sustainability, Innovation, and Future Technologies.</p>
+      <p>Thank you for submitting your paper titled <span class="highlight">"${data.paper_title}"</span> to ICSIFT : International Conference on Sustainability, Innovation, and Future Technologies.</p>
       
       <p>We have received your submission and our review committee will evaluate it shortly. You will be notified about the status of your submission in the coming weeks.</p>
       
@@ -136,12 +136,10 @@ export function getUserEmailTemplate(data) {
       <p>If you have any questions or need to make changes to your submission, please contact us at <a href="mailto:info@icsift.org">info@icsift.org</a>.</p>
       
       <p>Best regards,<br>
-      ICSIFT 2025 Organizing Committee<br>
+      ICSIFT  Organizing Committee<br>
       International Conference on Sustainability, Innovation, and Future Technologies</p>
     </div>
-    <div class="footer">
-      <p>© 2025 ICSIFT. All rights reserved.</p>
-    </div>
+    
   </body>
   </html>
   `
@@ -284,11 +282,11 @@ export function getAdminEmailTemplate(data, fileUrl) {
   </head>
   <body>
     <div class="header">
-      <div class="conference-title">ICSIFT 2025</div>
+      <div class="conference-title">ICSIFT </div>
       <div class="subtitle">New Paper Submission Alert</div>
     </div>
     <div class="content">
-      <p>A new paper has been submitted to ICSIFT 2025: International Conference on Sustainability, Innovation, and Future Technologies.</p>
+      <p>A new paper has been submitted to ICSIFT  International Conference on Sustainability, Innovation, and Future Technologies.</p>
       
       <h2>Submission Details:</h2>
       <table>
@@ -363,7 +361,7 @@ export function getAdminEmailTemplate(data, fileUrl) {
       <p>Please review this submission at your earliest convenience.</p>
     </div>
     <div class="footer">
-      <p>© 2025 ICSIFT. All rights reserved.</p>
+      <p>© ICSIFT. All rights reserved.</p>
     </div>
   </body>
   </html>
