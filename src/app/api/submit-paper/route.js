@@ -92,7 +92,7 @@ export async function POST(request) {
     await resend.emails.send({
       from: "Conference <info@icsift.com>",
       to: data.email,
-      subject: "Paper Submission Confirmation - ICSIFT 2025",
+      subject: "Paper Submission Confirmation - ICSIFT ",
       html: getUserEmailTemplate(data),
     })
 
@@ -100,7 +100,7 @@ export async function POST(request) {
     await resend.emails.send({
       from: "Conference <info@icsift.com>",
       to: "info@icsift.com", // Replace with actual admin email
-      subject: "New Paper Submission - ICSIFT 2025",
+      subject: "New Paper Submission - ICSIFT ",
       html: getAdminEmailTemplate(data, fileUrl),
     })
 

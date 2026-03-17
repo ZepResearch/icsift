@@ -38,7 +38,7 @@ export default function SubmissionSuccess() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Thank you for contributing to ICSIFT 2025: International Conference on Sustainability, Innovation, and
+              Thank you for contributing to ICSIFT  International Conference on Sustainability, Innovation, and
               Future Technologies
             </p>
           </div>
@@ -65,7 +65,7 @@ export default function SubmissionSuccess() {
 
                 <div className="space-y-6 text-[#4d724d] max-w-2xl mx-auto">
                   <p>
-                    Thank you for submitting your paper to ICSIFT 2025: International Conference on Sustainability,
+                    Thank you for submitting your paper to ICSIFT  International Conference on Sustainability,
                     Innovation, and Future Technologies. Your contribution is an important part of advancing research
                     and collaboration in sustainability and innovation.
                   </p>
@@ -102,10 +102,7 @@ export default function SubmissionSuccess() {
                     </ul>
                   </div>
 
-                  <div className="flex items-center justify-center gap-4 mt-8">
-                    <Calendar className="h-5 w-5 text-[#4d724d]" />
-                    <span>Mark your calendar: ICSIFT will take place on December 27-28, 2025</span>
-                  </div>
+                
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
