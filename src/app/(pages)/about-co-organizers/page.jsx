@@ -182,7 +182,7 @@ export default function CoOrganizerSection() {
   return (
     <>
       <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <header className="text-center mb-16 animate-fadeInDown">
             <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
@@ -194,7 +194,7 @@ export default function CoOrganizerSection() {
           </header>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-1  gap-8 lg:gap-12">
             {organizersData.map((org, index) => (
               <OrganizerCard
                 key={org.id}
@@ -231,7 +231,7 @@ function OrganizerCard({ organizer, onShowMore, delay }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         
         {/* Logo */}
-        <div className="relative z-20 -bottom-12 left-8 w-32 h-32 bg-white rounded-2xl shadow-2xl p-3 border-4 border-white">
+        <div className="relative z-20 -bottom-12 left-1/2 transform -translate-x-1/2 w-48 h-48 bg-white rounded-2xl shadow-2xl p-3 border-4 border-white">
           <div className={`w-full h-full flex items-center justify-center text-3xl font-bold text-${organizer.theme.primary}-900`}>
             <Image src={organizer.logo} alt={`${organizer.name} Logo`} width={200} height={200} className="object-contain" />
           </div>
