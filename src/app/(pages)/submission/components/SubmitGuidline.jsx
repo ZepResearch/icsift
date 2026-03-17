@@ -52,7 +52,7 @@ export default function AbstractSubmissionGuidelines() {
 
   const submissionRequirements = [
     "Submit through the conference's online submission portal",
-    "Ensure submissions are in PDF or Word (.doc/.docx) format",
+    "Ensure submissions are in  Word (.doc/.docx) format",
     "Abstracts sent via email will not be accepted unless specifically permitted",
   ]
 
