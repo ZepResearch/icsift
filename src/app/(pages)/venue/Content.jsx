@@ -135,10 +135,10 @@ export default function VenuePage() {
                 <div>
                   <div className="relative h-full w-full rounded-2xl overflow-hidden  ">
                     <img
-                      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/ef/87/24/caption.jpg?w=1000&h=-1&s=1"
+                      src="https://images.unsplash.com/photo-1542533382-b42a59d8bd39?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="Radisson Suites Bangkok Sukhumvit"
                       
-                      className="object-cover"
+                      className="object-cover rounded-2xl"
                     />
 
                     {/* Floating elements */}
