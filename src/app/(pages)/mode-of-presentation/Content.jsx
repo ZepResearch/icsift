@@ -77,7 +77,7 @@ export default function ModeOfPresentationPage() {
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a]">Speak at the Event</h2>
               </div>
-              <p className="text-[#4d724d] mb-6">
+              <p className="text-[#4d724d] mb-6  text-justify">
                 Present your research in a 15-minute oral presentation followed by a 5-minute Q&A session. This format
                 is ideal for sharing detailed findings and engaging directly with the audience.
               </p>
@@ -215,7 +215,7 @@ export default function ModeOfPresentationPage() {
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a]">Present Online</h2>
               </div>
-              <p className="text-[#4d724d] mb-6">
+              <p className="text-[#4d724d] mb-6  text-justify">
                 Can't attend in person? Present your research virtually through our dedicated online platform. This
                 option provides flexibility while still allowing for meaningful engagement.
               </p>
@@ -264,7 +264,7 @@ export default function ModeOfPresentationPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-12 text-center">Presentation Guidelines</h2>
-            <p className="text-[#4d724d] text-center mb-8">
+            <p className="text-[#4d724d] text-center mb-8 ">
               Regardless of your presentation mode, please adhere to the following guidelines to ensure a smooth and
               engaging experience for all participants:
             </p>

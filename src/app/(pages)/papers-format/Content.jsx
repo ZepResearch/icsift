@@ -102,11 +102,11 @@ export default function PapersFormatPage() {
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Paper Format Guidelines</h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 All submissions to 3<sup>rd</sup>ICSIFT 2026 must follow our formatting guidelines to ensure consistency and
                 readability. We provide templates for different types of submissions to make this process easier.
               </p>
-              <p className="text-[#4d724d] mb-6">
+              <p className="text-[#4d724d] mb-6  text-justify">
                 Please carefully review the guidelines below and use the appropriate template for your submission type.
                 Papers that do not follow these guidelines may be returned for revision before being considered for
                 review.
@@ -136,12 +136,12 @@ export default function PapersFormatPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-3xl font-bold text-[#1a2e1a] mb-6">Citation Style</h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 3<sup>rd</sup>ICSIFT 2026 uses the IEEE citation style for all submissions. Please ensure that your references are
                 formatted according to this style. The templates provided include examples of how to format different
                 types of references.
               </p>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d]  text-justify">
                 For detailed information on IEEE citation style, please refer to the IEEE Reference Guide available on
                 our website or consult the IEEE Editorial Style Manual.
               </p>
@@ -149,11 +149,11 @@ export default function PapersFormatPage() {
 
             <div>
               <h2 className="text-3xl font-bold text-[#1a2e1a] mb-6">Language</h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 All submissions must be in English. We recommend having your paper proofread by a native English speaker
                 or professional editing service before submission.
               </p>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d]  text-justify">
                 Clear and concise language is essential for effectively communicating your research. Pay particular
                 attention to the clarity of your abstract, introduction, and conclusion, as these sections are critical
                 for readers to understand the significance of your work.
@@ -178,7 +178,7 @@ export default function PapersFormatPage() {
                   {template.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">{template.title}</h3>
-                <p className="text-[#4d724d] mb-6">{template.description}</p>
+                <p className="text-[#4d724d] mb-6  text-justify">{template.description}</p>
                 <Link href={template.file}>
                  <Button
                   variant="outline"

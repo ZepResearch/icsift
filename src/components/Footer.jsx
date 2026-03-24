@@ -182,7 +182,7 @@ export default function ConferenceFooter() {
               </div>
               <span className="font-bold text-3xl text-white">ICSIFT</span>
             </div>
-            <p className="text-white/80 mb-6 max-w-xl">
+            <p className="text-white/80 mb-6 max-w-xl text-justify">
               International Conference on Sustainability, Innovation, and Future Technologies. Join us August 21st - 22nd,
               2026 in Boracay, philippines for a transformative experience bringing together experts, researchers, and
               industry leaders to explore groundbreaking advancements in sustainability and innovation.

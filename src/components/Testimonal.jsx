@@ -101,7 +101,7 @@ export default function ConferenceTestimonials() {
                 </span>
               </div>
 
-              <p className={`mb-8 relative z-10 ${testimonial.textColor ? "text-white/90" : "text-[#1a2e1a]/80"}`}>
+              <p className={`mb-8 relative z-10 text-justify ${testimonial.textColor ? "text-white/90" : "text-[#1a2e1a]/80"}`}>
                 {testimonial.quote}
               </p>
 

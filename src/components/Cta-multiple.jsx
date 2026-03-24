@@ -115,7 +115,7 @@ export default function ConferenceCTACards() {
                 <div className="relative p-8 h-full flex flex-col text-white">
                   <div className="mb-4">{card.icon}</div>
                   <h3 className="text-2xl font-bold mb-3">{card.title}</h3>
-                  <p className="text-white/80 mb-6 flex-grow">{card.description}</p>
+                  <p className="text-white/80 mb-6 flex-grow text-justify">{card.description}</p>
 
                   <span className="inline-flex items-center text-white font-medium mt-auto group-hover:underline w-full py-2">
                     Learn more <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />

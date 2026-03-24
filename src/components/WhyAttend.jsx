@@ -122,7 +122,7 @@ export default function WhyAttendConference() {
               <div className="relative z-10">
                 <div className="bg-[#d3e4c5]/30 rounded-2xl p-4 inline-block mb-4">{reason.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-[#1a2e1a]">{reason.title}</h3>
-                <p className="text-[#4d724d]">{reason.description}</p>
+                <p className="text-[#4d724d] text-justify">{reason.description}</p>
               </div>
             </div>
           ))}

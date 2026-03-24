@@ -118,7 +118,7 @@ export default function FutureOpportunities() {
           </div>
 
           {/* Grid Layout for Opportunities */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {opportunities.map((opportunity, index) => (
               <div
                 key={index}
@@ -140,7 +140,7 @@ export default function FutureOpportunities() {
             <h3 className="text-lg md:text-xl font-bold mb-4 text-[#1a2e1a] group-hover:text-[#4d724d] transition-colors duration-300">
               {opportunity.title}
             </h3>
-            <p className="text-[#4d724d] text-lg leading-relaxed">{opportunity.description}</p>
+            <p className="text-[#4d724d] text-lg leading-relaxed  text-justify">{opportunity.description}</p>
                 </div>
               </div>
             ))}

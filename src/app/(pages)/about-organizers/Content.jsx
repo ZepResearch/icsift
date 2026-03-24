@@ -115,13 +115,13 @@ export default function AboutOrganizersPage() {
             </div>
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">About Zep Research</h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4 text-justify">
                 Zep Research is a global leader in advancing academic excellence and fostering innovation. Specializing
                 in organizing impactful conferences, research initiatives, and collaboration opportunities, Zep Research
                 creates dynamic environments where researchers, academics, and industry professionals come together to
                 share knowledge, exchange ideas, and collaborate on groundbreaking work across various industries.
               </p>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 With a commitment to providing a platform for high-quality research dissemination, Zep Research enables
                 individuals and institutions to engage in meaningful discussions about emerging trends, challenges, and
                 solutions. The focus spans diverse fields such as tourism, hospitality, education, sustainability, and

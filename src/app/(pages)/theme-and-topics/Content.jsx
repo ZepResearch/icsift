@@ -152,13 +152,13 @@ export default function ThemeAndTopicsPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">
                 "Sustainable Innovation: Bridging Technology and Environmental Stewardship"
               </h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 3<sup>rd</sup>ICSIFT 2026 explores how innovative technologies are revolutionizing our approach to sustainability and
                 environmental challenges. As traditional boundaries between technology and sustainability continue to
                 blur, new innovations are enabling unprecedented opportunities for addressing climate change,
                 resource scarcity, and environmental degradation.
               </p>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d]  text-justify">
                 This conference brings together researchers, innovators, and thought leaders from diverse disciplines to
                 examine the current state and future possibilities of sustainable technologies. We invite contributions
                 that highlight innovative approaches to environmental challenges, novel applications of technology for
@@ -235,7 +235,7 @@ export default function ThemeAndTopicsPage() {
                     {step.number}
                   </div>
                   <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{step.title}</h3>
-                  <p className="text-[#4d724d]">{step.description}</p>
+                  <p className="text-[#4d724d]  text-justify">{step.description}</p>
                 </div>
               </div>
             ))}

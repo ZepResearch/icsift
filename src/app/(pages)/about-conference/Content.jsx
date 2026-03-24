@@ -116,16 +116,16 @@ export default function AboutConferencePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">About the Conference</h2>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 The 3<sup>rd</sup> International Conference on Sustainability, Innovation, and Future Technologies 2026, taking place in
                 the vibrant city of Boracay, Philippines, aims to engage in discussions and identify how and where
                 sustainability, technological innovation, and industrial futures intersect.
               </p>
-              <p className="text-[#4d724d] mb-4">
+              <p className="text-[#4d724d] mb-4  text-justify">
                 From August 21st to 22nd, 2026, ICSIFT will gather experts from every sphere to speak on innovative
                 research, eco-friendly solutions, and technological advancement.
               </p>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 The conference involves keynote addresses, panels, and practical workshops to advance knowledge and start
                 partnerships to promote sustainable development. With an emphasis on practical, scalable solutions and
                 forward-thinking research, ICSIFT 2026 promises to be an inspiring showcase of how new technologies are
@@ -227,7 +227,7 @@ export default function AboutConferencePage() {
             {whyAttendReasons.map((reason, index) => (
               <div key={index} className="bg-white rounded-3xl p-6 shadow-sm">
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">{reason.title}</h3>
-                <p className="text-[#4d724d]">{reason.description}</p>
+                <p className="text-[#4d724d] text-justify">{reason.description}</p>
               </div>
             ))}
           </div>
@@ -255,7 +255,7 @@ export default function AboutConferencePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Academicians & Researchers</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Present your research, exchange knowledge, and collaborate with peers to advance sustainable
                 technologies.
               </p>
@@ -263,28 +263,28 @@ export default function AboutConferencePage() {
 
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Industry Professionals</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Explore innovative solutions and technologies that can drive sustainable growth in your industry.
               </p>
             </div>
 
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Policymakers & Government Officials</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Gain insights to develop and implement policies supporting sustainability and technological innovation.
               </p>
             </div>
 
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Entrepreneurs & Startups</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Discover new trends, technologies, and collaboration opportunities to fuel sustainable business growth.
               </p>
             </div>
 
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Students & Emerging Scholars</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Learn from experts, showcase your research, and build networks to kickstart your career in sustainability
                 and innovation.
               </p>
@@ -292,7 +292,7 @@ export default function AboutConferencePage() {
 
             <div className="bg-white rounded-3xl p-6 shadow-sm">
               <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Environmental Advocates & NGOs</h3>
-              <p className="text-[#4d724d]">
+              <p className="text-[#4d724d] text-justify">
                 Connect with innovators and explore strategies for driving sustainable change in communities and
                 organizations.
               </p>

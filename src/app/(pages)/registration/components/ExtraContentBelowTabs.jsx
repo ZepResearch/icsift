@@ -125,7 +125,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Conference Materials</h3>
-          <p className="text-[#1a2e1a]">
+          <p className="text-[#1a2e1a] text-justify">
             Access to all conference proceedings, papers, and presentation materials
           </p>
         </div>
@@ -142,7 +142,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Networking Opportunities</h3>
-          <p className="text-[#1a2e1a]">Connect with researchers and professionals from around the world</p>
+          <p className="text-[#1a2e1a] text-justify">Connect with researchers and professionals from around the world</p>
         </div>
       </div>
 
@@ -157,7 +157,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Interactive Sessions</h3>
-          <p className="text-[#1a2e1a]">Participate in workshops, panel discussions, and Q&A sessions</p>
+          <p className="text-[#1a2e1a] text-justify">Participate in workshops, panel discussions, and Q&A sessions</p>
         </div>
       </div>
 
@@ -172,7 +172,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Career Development</h3>
-          <p className="text-[#1a2e1a]">Learn and share new abilities, career prospects, and business concepts</p>
+          <p className="text-[#1a2e1a] text-justify">Learn and share new abilities, career prospects, and business concepts</p>
         </div>
       </div>
 
@@ -187,7 +187,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Publication Opportunities</h3>
-          <p className="text-[#1a2e1a]">Publication in Scopus/WOS/Google Scholar Indexed journals</p>
+          <p className="text-[#1a2e1a] text-justify">Publication in Scopus/WOS/Google Scholar Indexed journals</p>
         </div>
       </div>
 
@@ -202,7 +202,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Knowledge Exchange</h3>
-          <p className="text-[#1a2e1a]">Gaining and exchanging knowledge with presenters, session chairs, speakers and other attendees</p>
+          <p className="text-[#1a2e1a] text-justify">Gaining and exchanging knowledge with presenters, session chairs, speakers and other attendees</p>
         </div>
       </div>
 
@@ -217,7 +217,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Video Documentation</h3>
-          <p className="text-[#1a2e1a]">Videos of your talk and conference highlights will be posted on Facebook and YouTube for public viewing</p>
+          <p className="text-[#1a2e1a] text-justify">Videos of your talk and conference highlights will be posted on Facebook and YouTube for public viewing</p>
         </div>
       </div>
 
@@ -232,7 +232,7 @@ function ExtraContentBelowTabs() {
           </div>
 
           <h3 className="text-xl font-semibold text-black mb-3">Digital Certificates</h3>
-          <p className="text-[#1a2e1a]">Receive official participation and presentation certificates to enhance your professional profile</p>
+          <p className="text-[#1a2e1a] text-justify">Receive official participation and presentation certificates to enhance your professional profile</p>
         </div>
       </div>
     </div>

@@ -218,7 +218,7 @@ const sponsorshipPackages = [
 
                 <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">Why Sponsor ICSIFT?</h2>
 
-                <div className="space-y-6 text-[#4d724d]">
+                <div className="space-y-6 text-[#4d724d] text-justify">
                   <p>
                     3<sup>rd</sup>ICSIFT 2026 offers a unique opportunity to connect with leading researchers, academics, and industry
                     professionals in sustainability, innovation, and future technologies. By sponsoring our conference,

@@ -154,7 +154,7 @@ export default function ConferenceVenue() {
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
       <p className="text-sm font-medium text-[#4d724d] mb-2">From Airport</p>
-      <p className="text-[#1a2e1a]/80">
+      <p className="text-[#1a2e1a]/80 text-justify">
         Boracay is accessible via Caticlan Airport (MPH) or Kalibo International Airport (KLO).
         From Caticlan Airport, a short tricycle ride followed by a boat transfer will take you to
         Boracay Island, with a total travel time of around 30–45 minutes. From Kalibo Airport,
@@ -163,7 +163,7 @@ export default function ConferenceVenue() {
     </div>
     <div>
       <p className="text-sm font-medium text-[#4d724d] mb-2">Local Transportation</p>
-      <p className="text-[#1a2e1a]/80">
+      <p className="text-[#1a2e1a]/80 text-justify">
         Transportation within Boracay is mainly via electric tricycles (e-trikes), which are the
         primary mode of public transport on the island. Walking is also convenient, especially
         along White Beach, where most hotels, venues, and attractions are located.
@@ -199,7 +199,7 @@ export default function ConferenceVenue() {
         <div className="bg-[#edf6e1] rounded-3xl p-8">
           <div className="mb-6">
             <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Sustainability Initiatives</h3>
-            <p className="text-[#4d724d]">
+            <p className="text-[#4d724d] text-justify">
               We hold various events, campaigns and raise funds for the implementation of projects to preserve the
               environment
             </p>
@@ -209,7 +209,7 @@ export default function ConferenceVenue() {
             <div className="bg-[#f8faf5] rounded-3xl overflow-hidden">
               <div className="p-6">
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-2">Carbon Neutral Event</h4>
-                <p className="text-[#4d724d] mb-4">
+                <p className="text-[#4d724d] mb-4 text-justify">
                   Our team is actively working to offset the carbon footprint of the conference through tree planting
                   and renewable energy investments.
                 </p>
@@ -230,7 +230,7 @@ export default function ConferenceVenue() {
             <div className="bg-[#f8faf5] rounded-3xl overflow-hidden">
               <div className="p-6">
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-2">Zero Waste Conference</h4>
-                <p className="text-[#4d724d] mb-4">
+                <p className="text-[#4d724d] mb-4  text-justify">
                   We're implementing comprehensive recycling and composting systems to minimize waste and promote
                   sustainable practices.
                 </p>
@@ -251,7 +251,7 @@ export default function ConferenceVenue() {
             <div className="bg-[#f8faf5] rounded-3xl overflow-hidden">
               <div className="p-6">
                 <h4 className="text-xl font-bold text-[#1a2e1a] mb-2">Local Community Support</h4>
-                <p className="text-[#4d724d] mb-4">
+                <p className="text-[#4d724d] mb-4 text-justify">
                   We partner with local sustainable businesses for catering, materials, and services to support the
                   local economy.
                 </p>

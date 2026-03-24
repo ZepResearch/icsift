@@ -157,7 +157,7 @@ export default function AboutConference() {
               
               <motion.p 
                 variants={itemVariants}
-                className="text-[#4d724d] mb-6"
+                className="text-[#4d724d] mb-6 text-justify"
               >
                 The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is a
                 premier global event bringing together experts, researchers, and industry leaders to explore

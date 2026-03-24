@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, Navigation, Building, Utensils, Landmark, Trees, ShoppingBag, Palette } from "lucide-react"
+import { ArrowRight, MapPin, Navigation, Building, Utensils, Landmark, Trees, ShoppingBag, Palette, Globe, Mountain, LandPlot } from "lucide-react"
 
 export default function VenuePage() {
   return (
@@ -62,7 +62,7 @@ export default function VenuePage() {
                     <h2 className="text-2xl md:text-3xl font-bold text-[#1a2e1a]">Conference Venue</h2>
                   </div>
 
-                  <div className="space-y-6 text-[#4d724d]">
+                  <div className="space-y-6 text-[#4d724d]  text-justify">
                     {/* change the content below */}
                     <p>
                  Boracay, Philippines offers a modern, comfortable, and centrally appealing venue for 3rd ICSIFT 2026. Renowned worldwide for its pristine white-sand beaches, clear turquoise waters, and vibrant island atmosphere, Boracay provides an inspiring setting for international academic exchange
@@ -291,6 +291,28 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d1
     image:
       "/venue/6.jpg",
   },
+  {
+    title: "Diniwid Beach",
+    description: "Peaceful hidden beach just north of White Beach",
+    distance: "1 km",
+    icon: <Globe className="h-8 w-8 text-[#4d724d]" />,
+    image:
+      "/venue/8.jpg",
+  },
+  {
+    title: "Caticlan Jetty Port",
+    description: "Island-hopping spot with caves & scenic views",
+    distance: "1 km",
+    icon: <Mountain className="h-8 w-8 text-[#4d724d]" />,
+    image: "/venue/9.jpg",
+  },
+  {
+    title: "Crocodile Island",
+    description: "Top snorkeling & diving destination with vibrant marine life",
+    distance: "0.8 km",
+    icon: <LandPlot className="h-8 w-8 text-[#4d724d]" />,
+    image: "/venue/10.jpg",
+  }
 ].map((attraction, index) => (
               <div
                 key={index}

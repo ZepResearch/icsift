@@ -117,7 +117,7 @@ export default function ConferenceObjectives() {
               <div className="relative z-10">
                 <div className="bg-[#d3e4c5]/30 rounded-2xl p-4 inline-block mb-4">{objective.icon}</div>
                 <h3 className="text-2xl font-bold mb-3 text-[#1a2e1a]">{objective.title}</h3>
-                <p className="text-[#4d724d]">{objective.description}</p>
+                <p className="text-[#4d724d] text-justify">{objective.description}</p>
               </div>
             </div>
           ))}
