@@ -24,7 +24,7 @@ function CPD() {
                 className="h-48 w-auto mx-auto"
               />
                <span className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap text-center">
-                18 CPD Hours
+                12 CPD Hours
               </span>
             </div>
           </div>
@@ -36,7 +36,7 @@ function CPD() {
                 Continuing Professional Development
               </h2>
               <span className="bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg whitespace-nowrap">
-                18 CPD Hours
+                12 CPD Hours
               </span>
             </div>
             <p className="leading-relaxed text-sm lg:text-base">
