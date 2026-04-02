@@ -174,7 +174,7 @@ const organizersData = [
   {
   id: 5,
   name: "Iloilo State University of Fisheries Science and Technology (ISUFST)",
-  logo: "/co-org/ISUFST.jpeg",
+  logo: "/co-org/isufst.jpeg",
   image: "/co-org/isufst-campus.jpg",
   about: "Iloilo State University of Fisheries Science and Technology (ISUFST) is a recognized state university in the Philippines, specializing in fisheries, marine sciences, agriculture, and technology-driven education. The institution is committed to academic excellence through quality instruction, impactful research, and strong community engagement initiatives. ISUFST has established itself as a center for innovation and sustainability, particularly in aquatic and environmental sciences, while continuously expanding its academic programs across engineering, management, and social sciences.",
   vision: "To be a recognized center of excellence in fisheries, aquatic sciences, and technology-driven education, producing globally competitive graduates committed to sustainable development.",
