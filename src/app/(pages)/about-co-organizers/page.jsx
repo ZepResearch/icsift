@@ -170,7 +170,51 @@ const organizersData = [
       primary: 'yellow',
       gradient: 'from-yellow-500 to-yellow-300'
     }
+  },
+  {
+  id: 5,
+  name: "Iloilo State University of Fisheries Science and Technology (ISUFST)",
+  logo: "/co-org/ISUFST.jpeg",
+  image: "/co-org/isufst-campus.jpg",
+  about: "Iloilo State University of Fisheries Science and Technology (ISUFST) is a recognized state university in the Philippines, specializing in fisheries, marine sciences, agriculture, and technology-driven education. The institution is committed to academic excellence through quality instruction, impactful research, and strong community engagement initiatives. ISUFST has established itself as a center for innovation and sustainability, particularly in aquatic and environmental sciences, while continuously expanding its academic programs across engineering, management, and social sciences.",
+  vision: "To be a recognized center of excellence in fisheries, aquatic sciences, and technology-driven education, producing globally competitive graduates committed to sustainable development.",
+  mission: "To provide quality instruction, conduct impactful research, and engage communities through programs anchored in fisheries, marine sciences, agriculture, and allied fields.",
+  mandate: "ISUFST is mandated to offer advanced education and training in fisheries and aquatic sciences, promote scientific research, and support sustainable development in coastal and rural communities.",
+  coreValues: [
+    { letter: 'I', value: 'Integrity', color: 'bg-blue-700' },
+    { letter: 'S', value: 'Service', color: 'bg-green-600' },
+    { letter: 'U', value: 'Unity', color: 'bg-blue-700' },
+    { letter: 'F', value: 'Faith', color: 'bg-green-600' },
+    { letter: 'S', value: 'Sustainability', color: 'bg-blue-700' },
+    { letter: 'T', value: 'Teamwork', color: 'bg-green-600' }
+  ],
+  culture: [
+    "Innovation and Sustainability",
+    "Community Engagement",
+    "Interdisciplinary Research",
+    "Environmental Stewardship"
+  ],
+  competencies: [
+    "Fisheries and Aquatic Sciences",
+    "Marine and Environmental Studies",
+    "Agriculture and Food Technology",
+    "Engineering and Applied Sciences",
+    "Business, Management, and Social Sciences",
+    "Education and Community Development"
+  ],
+  accreditations: [
+    { name: "CHED Recognized State University", logo: "/images/ched.png" }
+  ],
+  contact: {
+    website: "www.isufst.edu.ph",
+    email: "president@isufst.edu.ph",
+    facebook: "https://www.facebook.com/ISUFSTOfficialPage"
+  },
+  theme: {
+    primary: 'green',
+    gradient: 'from-green-700 to-blue-600'
   }
+}
 ];
 
 export default function CoOrganizerSection() {
@@ -410,7 +454,7 @@ function Dialog({ organizer, onClose }) {
             )}
 
             {/* Accreditations */}
-            {organizer.accreditations.length > 0 && (
+            {/* {organizer.accreditations.length > 0 && (
               <div>
                 <SectionHeader icon="🏆" title="Accreditations & Recognition" />
                 <div className="grid grid-cols-3 gap-4 mt-4">
@@ -426,7 +470,7 @@ function Dialog({ organizer, onClose }) {
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Contact Information */}
             <div>
