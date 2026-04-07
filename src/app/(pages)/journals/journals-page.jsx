@@ -121,11 +121,11 @@ export default function JournalsPageClient({ journals }) {
                         {badge.label}
                       </span>
                     )}
-                    {journal.by_zep && (
+                    {/* {journal.by_zep && (
                       <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-lime-100 text-lime-800">
                         By ZEP
                       </span>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
