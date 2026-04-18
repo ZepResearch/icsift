@@ -12,6 +12,8 @@ import CPD from "@/components/cpd";
 import WhyAttendConference from "@/components/WhyAttend";
 import FutureOpportunities from "@/components/FutureOpportunities";
 import { HeroSection } from "@/components/Hero";
+import PASUCEndorsement from "@/components/PASUC";
+import PASUCEndorsementPOPUP from "@/components/PASUC-pop-up";
 
 
 ;
@@ -47,7 +49,9 @@ export default function Home() {
         }}
       />
     </div>
-<CPD/>
+        <CPD/>
+        <PASUCEndorsementPOPUP/>
+        <PASUCEndorsement/>
         <Organizer/>
         <AboutConference/>
         <Buttons/>
