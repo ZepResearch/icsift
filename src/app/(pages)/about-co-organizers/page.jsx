@@ -214,6 +214,48 @@ const organizersData = [
     primary: 'green',
     gradient: 'from-green-700 to-blue-600'
   }
+},
+{
+  id: 6,
+  name: "Aklan State University (ASU)",
+  logo: "/co-org/asu.jpeg",
+  image: "/co-org/asu-campus.jpg",
+  about: "Aklan State University (ASU; Filipino: Pamantasang Pampamahalaan ng Aklan) is a provincial state university in Aklan province, Philippines. Its seat of governance is in ASU - Banga, with four other campuses across the province. ASU focuses on agriculture, fishery, arts and sciences, engineering and technology, and education. Formerly known as the Aklan State College of Agriculture and the Aklan Agricultural College, the institution gained university status on April 4, 2001, with the signing of Republic Act 9055 by President Gloria Macapagal Arroyo.",
+  vision: "To be a leading state university in agriculture, fisheries, engineering, and education, producing globally competent graduates and promoting sustainable development.",
+  mission: "To provide quality instruction, conduct relevant research, and deliver community extension services in agriculture, fisheries, arts and sciences, engineering, technology, and education.",
+  mandate: "ASU is mandated to provide advanced education, research, and extension services in agriculture, fisheries, engineering, and allied disciplines to support regional and national development.",
+  coreValues: [
+    { letter: 'A', value: 'Accountability', color: 'bg-blue-700' },
+    { letter: 'S', value: 'Service Excellence', color: 'bg-green-600' },
+    { letter: 'U', value: 'Unity', color: 'bg-blue-700' }
+  ],
+  culture: [
+    "Academic Excellence",
+    "Sustainable Development",
+    "Community Engagement",
+    "Innovation and Research"
+  ],
+  competencies: [
+    "Agriculture and Fisheries",
+    "Engineering and Technology",
+    "Arts and Sciences",
+    "Education and Teacher Training",
+    "Research and Extension Services"
+  ],
+  accreditations: [
+    { name: "CHED Recognized State University", logo: "/images/ched.png" }
+  ],
+  contact: {
+    website: "https://asu.edu.ph/online/",
+    email: "asumail@asu.edu.ph",
+    phone: "+63 36 267 5801",
+    facebook: "https://www.facebook.com/ASUInfoOffice/",
+    address: "Banga, Philippines"
+  },
+  theme: {
+    primary: 'green',
+    gradient: 'from-green-700 to-blue-600'
+  }
 }
 ];
 
