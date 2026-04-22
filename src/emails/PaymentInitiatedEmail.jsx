@@ -221,7 +221,7 @@ const RegistrationEmailTemplate = (data) => {
             `
                 : `
             <div class="highlight">
-              <p>Your registration payment for ICSIFT 2025 has been initiated. Please note that your registration is not complete until payment is confirmed.</p>
+              <p>Your registration payment for ICSIFT 2026 has been initiated. Please note that your registration is not complete until payment is confirmed.</p>
             </div>
             
            
@@ -233,7 +233,7 @@ const RegistrationEmailTemplate = (data) => {
             isAdmin
               ? `
           <div class="highlight">
-            <p>This is a notification of a new registration payment initiated for the International Conference on Sustainability, Innovation and Future Technologies (ICSIFT), December 27th-28th, 2025, Bangkok, Thailand.</p>
+            <p>This is a notification of a new registration payment initiated for the International Conference on Sustainability, Innovation and Future Technologies (ICSIFT), August 21st - 22nd, 2026 | Boracay, Philippines.</p>
           </div>
           `
               : `
@@ -245,7 +245,7 @@ const RegistrationEmailTemplate = (data) => {
             <p>The <strong>International Conference on Sustainability, Innovation and Future Technologies (ICSIFT)</strong> brings together industry leaders, researchers, and professionals to explore cutting-edge developments in sustainable technology solutions.</p>
             
             <div class="highlight">
-              <p>The conference will take place on <strong>December 27th-28th, 2025</strong> at  <strong>Bangkok, Thailand</strong>.</p>
+              <p>The conference will take place on <strong August 21st - 22nd</strong> at  <strong>Boracay, Philippines</strong>.</p>
             </div>
             
             <div class="section-title" style="margin-top: 20px;">What's Next?</div>

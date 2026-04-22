@@ -19,6 +19,16 @@ function Organizer() {
           alt="Organizing Partner Logo"
           className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
         />
+          <img
+          src={putp}
+          alt="Organizing Partner Logo"
+          className="w-auto h-[140px] rounded-lg   p-2 mx-auto"
+        />
+          <img
+            src={asu}
+            alt="Organizing Partner Logo"
+            className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
+          />
         <img
           src={fu}
           alt="Organizing Partner Logo"
@@ -28,19 +38,9 @@ function Organizer() {
           src={pcerp}
           alt="Organizing Partner Logo"
           className=" w-auto h-[140px] rounded-lg   p-2  mx-auto"
-        />
-        <img
-          src={putp}
-          alt="Organizing Partner Logo"
-          className="w-auto h-[140px] rounded-lg   p-2 mx-auto"
-        />
+          />
         <img
           src={isufst}
-          alt="Organizing Partner Logo"
-          className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
-        />
-        <img
-          src={asu}
           alt="Organizing Partner Logo"
           className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
         />
