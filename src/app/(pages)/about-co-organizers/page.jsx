@@ -8,7 +8,7 @@ const organizersData = [
   {
     id: 1,
     name: "Sulu State College",
-    logo: "/co-org/sulu.png",
+    logo: "/co-org/sulunew.png",
     image: "/co-org/sulubuilding.jpg",
     about: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region",
     vision: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region.",

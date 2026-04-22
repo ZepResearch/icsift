@@ -1,6 +1,6 @@
 import React from 'react';
 
-const sulu = '/co-org/sulu.png'; // Update with your image path\
+const sulu = '/co-org/sulunew.png'; // Update with your image path\
 const fu = '/co-org/FU.jpeg'; // Update with your image path
 const pcerp = '/co-org/PCERP.jpeg'; // Update with your image path
 const putp = '/co-org/PUTP.jpeg'; // Update with your image path
