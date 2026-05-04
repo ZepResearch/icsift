@@ -37,6 +37,9 @@ export default function RegistrationPage() {
   const [customAmount, setCustomAmount] = useState("")
   const [activeTab, setActiveTab] = useState("physical-no-accommodation")
 
+  // ✅ Toggle this to show/hide Early Bird pricing across all cards
+  const isEarlyBirdActive = false  // Set to `true` to show Early Bird, `false` to hide it
+
   // Updated pricing structure with Early Bird pricing
   const pricingData = {
     physicalNoAccommodation: {
@@ -320,11 +323,9 @@ export default function RegistrationPage() {
   }
 
   const handleTicketSelect = (ticket) => {
-    // Recalculate tax and total to ensure consistency
     const taxAmount = Number((ticket.price * 0.06).toFixed(2))
     const totalAmount = Number((ticket.price + taxAmount).toFixed(2))
 
-    // Set selectedTicket with properly calculated values
     setSelectedTicket({
       ...ticket,
       taxRate: 0.06,
@@ -367,7 +368,6 @@ export default function RegistrationPage() {
   const handlePaymentFormSubmit = async (formData) => {
     setIsLoading(true)
     try {
-      // Combine ticket data with form data
       const paymentData = {
         ...formData,
         order_id: `ORDER-${Date.now()}`,
@@ -381,27 +381,20 @@ export default function RegistrationPage() {
         ticket_name: selectedTicket.name,
       }
 
-      // Send notification email
       await fetch("/api/payment-notification", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(paymentData),
       })
 
-      // Get encrypted order data
       const encResponse = await fetch("/api/ccavenue/encrypt", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(paymentData),
       })
 
       const { encRequest } = await encResponse.json()
 
-      // Create and submit form to CCAvenue
       const form = document.createElement("form")
       form.method = "post"
       form.action = "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
@@ -435,7 +428,7 @@ export default function RegistrationPage() {
     const priceInfo = categoryData[priceType]
     if (!priceInfo) return null
 
-    const priceTypeName = priceType === 'earlyBird' ? 'Early Bird' : 
+    const priceTypeName = priceType === 'earlyBird' ? 'Early Bird' :
                           priceType === 'physical' ? 'Physical' : 'Virtual'
 
     return {
@@ -454,8 +447,9 @@ export default function RegistrationPage() {
   const renderPricingCard = (categoryData, participantType, accommodationType) => {
     const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
     const hasVirtual = categoryData.virtual !== undefined
-    const hasEarlyBird = categoryData.earlyBird !== undefined
-    
+    // ✅ Early Bird only renders if both the data exists AND isEarlyBirdActive is true
+    const showEarlyBird = isEarlyBirdActive && categoryData.earlyBird !== undefined
+
     return (
       <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
         <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
@@ -474,9 +468,10 @@ export default function RegistrationPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-3">
-            {hasEarlyBird && (
+            {/* ✅ Early Bird row — only shown when isEarlyBirdActive is true */}
+            {showEarlyBird && (
               <div className="flex justify-between items-center bg-yellow-50 border border-yellow-200 rounded-lg p-2 -mx-2">
                 <div className="flex items-center">
                   <Zap className="h-4 w-4 text-yellow-600 mr-1" />
@@ -511,18 +506,8 @@ export default function RegistrationPage() {
               {categoryData.features.map((feature, i) => (
                 <li key={i} className="flex items-start">
                   <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg
-                      className="h-3 w-3 text-[#4d724d]"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
+                    <svg className="h-3 w-3 text-[#4d724d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                   <span className="text-[#4d724d] text-sm">{feature}</span>
@@ -530,9 +515,10 @@ export default function RegistrationPage() {
               ))}
             </ul>
           </div>
-          
+
           <div className="space-y-2">
-            {hasEarlyBird && (
+            {/* ✅ Early Bird button — only shown when isEarlyBirdActive is true */}
+            {showEarlyBird && (
               <Button
                 onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, accommodationType))}
                 className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-full shadow-md"
@@ -566,7 +552,7 @@ export default function RegistrationPage() {
   return (
     <main className="bg-[#f8faf5]">
       <ExtraContentAboveCard/>
-      
+
       {/* Registration Cards */}
       <section className="py-16 bg-[#f8faf5]">
         <div className="container mx-auto px-4">
@@ -632,7 +618,7 @@ export default function RegistrationPage() {
 
                 <TabsContent value="local-no-accommodation" className="mt-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalNoAccommodation.local.map((categoryData) => 
+                    {pricingData.physicalNoAccommodation.local.map((categoryData) =>
                       renderPricingCard(categoryData, "local", "no-accommodation")
                     )}
                   </div>
@@ -640,7 +626,7 @@ export default function RegistrationPage() {
 
                 <TabsContent value="international-no-accommodation" className="mt-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalNoAccommodation.international.map((categoryData) => 
+                    {pricingData.physicalNoAccommodation.international.map((categoryData) =>
                       renderPricingCard(categoryData, "international", "no-accommodation")
                     )}
                   </div>
@@ -678,7 +664,7 @@ export default function RegistrationPage() {
 
                 <TabsContent value="local-with-accommodation" className="mt-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalWithAccommodation.local.map((categoryData) => 
+                    {pricingData.physicalWithAccommodation.local.map((categoryData) =>
                       renderPricingCard(categoryData, "local", "with-accommodation")
                     )}
                   </div>
@@ -686,7 +672,7 @@ export default function RegistrationPage() {
 
                 <TabsContent value="international-with-accommodation" className="mt-0">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalWithAccommodation.international.map((categoryData) => 
+                    {pricingData.physicalWithAccommodation.international.map((categoryData) =>
                       renderPricingCard(categoryData, "international", "with-accommodation")
                     )}
                   </div>
