@@ -152,7 +152,7 @@ export function SpeakerSection() {
       try {
         // Fetch speakers
         const records = await pb.collection("ICSIFT_speakers").getFullList({
-          sort: "name",
+          sort: "order",
           requestKey: null,
         })
 
