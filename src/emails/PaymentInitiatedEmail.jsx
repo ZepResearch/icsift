@@ -1,4 +1,4 @@
-import { CONFERENCE } from "@/content/conference"
+import { CONFERENCE } from "@/constants/conference"
 const RegistrationEmailTemplate = (data) => {
   const isAdmin = data.recipient === "admin"
   const currencySymbol = data.currency === "USD" ? "$" : "€"
