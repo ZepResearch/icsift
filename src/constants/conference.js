@@ -1,5 +1,5 @@
 export const CONFERENCE = {
-  name: "3rd International Conference on Sustainable Infrastructure and Future Technologies",
+  name: "3rd International Conference on Sustainability, Innovation, and Future Technologies ",
   shortForm: "3rd ICSIFT",
 
 scheduleDates: {
