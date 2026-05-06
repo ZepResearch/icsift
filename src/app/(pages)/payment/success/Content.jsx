@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, Calendar, FileText, ArrowRight } from "lucide-react"
 import { GeometricShapesCSS } from "@/components/geometric-shapes"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function RegistrationSuccessPage() {
   return (
@@ -23,8 +24,7 @@ export default function RegistrationSuccessPage() {
 
                 <h1 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">Registration Successful!</h1>
                 <p className="text-[#4d724d] text-lg max-w-2xl">
-                  Thank you for registering for the International Conference on Sustainable Innovation in Food
-                  Technology. We look forward to your participation.
+                  Thank you for registering for the {CONFERENCE.name}. We look forward to your participation.
                 </p>
               </div>
 
