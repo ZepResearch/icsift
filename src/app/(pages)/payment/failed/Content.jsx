@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { XCircle, Calendar, RefreshCw, ArrowRight } from "lucide-react"
 import { GeometricShapesCSS } from "@/components/geometric-shapes"
-import { CONFERENCE } from "@/lib/constants"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function PaymentFailedPage() {
   return (
