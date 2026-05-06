@@ -6,11 +6,15 @@ import { SponsorshipPackage } from "./components/sponsorship-package"
 import { CCavenuePaymentForm } from "./components/payment-form"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { CONFERENCE } from "@/constants/conference"
+
 
 export default function ExhibitAndSponsorPage() {
   const [selectedPackage, setSelectedPackage] = useState(null)
   const [isPaymentFormOpen, setIsPaymentFormOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+
 
   const handlePackageSelect = (packageData) => {
     setSelectedPackage(packageData)
@@ -181,8 +185,8 @@ const sponsorshipPackages = [
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center rounded-full border border-[#d3e4c5] bg-[#edf6e1] px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-              <span>3<sup>rd</sup>ICSIFT 2026</span>
-              <ChevronRight className="ml-1 h-4 w-4" />
+              <span>{CONFERENCE.shortForm} </span>
+              {/* <ChevronRight className="ml-1 h-4 w-4" /> */}
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
@@ -194,7 +198,7 @@ const sponsorshipPackages = [
             </h1>
 
             <p className="text-xl text-[#4d724d] mb-8">
-              Partner with ICSIFT to showcase your commitment to sustainability, innovation, and future technologies
+              Partner with {CONFERENCE.shortForm} to showcase your commitment to sustainability, innovation, and future technologies
             </p>
           </div>
         </div>
@@ -220,7 +224,7 @@ const sponsorshipPackages = [
 
                 <div className="space-y-6 text-[#4d724d] text-justify">
                   <p>
-                    3<sup>rd</sup>ICSIFT 2026 offers a unique opportunity to connect with leading researchers, academics, and industry
+                    {CONFERENCE.shortForm} offers a unique opportunity to connect with leading researchers, academics, and industry
                     professionals in sustainability, innovation, and future technologies. By sponsoring our conference,
                     you'll gain visibility among a diverse audience of innovators and decision-makers.
                   </p>

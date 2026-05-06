@@ -3,6 +3,7 @@
 import Image from "next/image"
 import {  QuoteIcon } from "lucide-react"
 import Link from "next/link"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function ConferenceTestimonials() {
   const testimonials = [
@@ -140,8 +141,8 @@ export default function ConferenceTestimonials() {
             </p>
           </div>
           <div className="bg-white rounded-3xl p-8 text-center shadow-sm">
-            <div className="text-4xl font-bold text-[#1a2e1a] mb-2">32</div>
-            <p className="text-[#4d724d]">Countries represented by speakers and attendees at ICSIFT 2026</p>
+          <div className="text-4xl font-bold text-[#1a2e1a] mb-2">32</div>
+            <p className="text-[#4d724d]">Countries represented by speakers and attendees at {CONFERENCE.shortForm}</p>
           </div>
           <div className="bg-white rounded-3xl p-8 text-center shadow-sm">
             <div className="text-4xl font-bold text-[#1a2e1a] mb-2">87%</div>
@@ -153,7 +154,7 @@ export default function ConferenceTestimonials() {
 
         {/* Call to Action */}
         <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at 3<sup>rd</sup>  ICSIFT 2026</h3>
+          <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">Join us at {CONFERENCE.shortForm}</h3>
           <p className="text-[#4d724d] max-w-2xl mx-auto mb-8">
             Be part of the global conversation on sustainability, innovation, and future technologies.
           </p>

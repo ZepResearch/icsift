@@ -1,14 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import { CONFERENCE } from "@/constants/conference"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+// Add this helper at the top of your component file (after imports)
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+]
 
+const monthName = monthNames[CONFERENCE.scheduleDates.month]
 const scheduleData = [
   {
-    date: "August 21 | Day 1",
+    date: `${monthName} ${CONFERENCE.scheduleDates.days[0]} | Day 1`,  // ✅ "August 21 | Day 1"
     items: [
       { time: "8:30AM - 9:00AM", title: "Registration" },
       { time: "9:00AM - 9:20AM", title: "Introduction by Moderator" },
@@ -33,7 +39,7 @@ const scheduleData = [
     ],
   },
   {
-    date: "August 22 | Day 2",
+    date: `${monthName} ${CONFERENCE.scheduleDates.days[1]} | Day 2`,  // ✅ "August 22 | Day 2"
     items: [
       { time: "8:30AM - 9:00AM", title: "Registration" },
       { time: "9:00AM - 9:20AM", title: "Introduction by Moderator" },
@@ -57,37 +63,34 @@ const scheduleData = [
 ]
 // Custom Calendar Component
 function CustomCalendar({ selectedDates, onSelectDate }) {
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 7)) // August 2026
-  
+  const [currentMonth, setCurrentMonth] = useState(
+    new Date(CONFERENCE.scheduleDates.year, CONFERENCE.scheduleDates.month) // ✅ from constant
+  )
+
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ]
-  
+
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-  
+
   const getDaysInMonth = (date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
     const firstDay = new Date(year, month, 1).getDay()
     const daysInMonth = new Date(year, month + 1, 0).getDate()
-    
+
     const days = []
-    
-    for (let i = 0; i < firstDay; i++) {
-      days.push(null)
-    }
-    
-    for (let i = 1; i <= daysInMonth; i++) {
-      days.push(i)
-    }
-    
+    for (let i = 0; i < firstDay; i++) days.push(null)
+    for (let i = 1; i <= daysInMonth; i++) days.push(i)
     return days
   }
-  
+
   const days = getDaysInMonth(currentMonth)
   const today = new Date()
-  const isCurrentMonth = currentMonth.getMonth() === today.getMonth() && currentMonth.getFullYear() === today.getFullYear()
-  
+  const isCurrentMonth =
+    currentMonth.getMonth() === today.getMonth() &&
+    currentMonth.getFullYear() === today.getFullYear()
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between mb-4">
@@ -107,7 +110,7 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
           <ChevronRight className="w-5 h-5 text-[#4d724d]" />
         </button>
       </div>
-      
+
       <div className="grid grid-cols-7 gap-1 mb-2">
         {dayNames.map((day) => (
           <div key={day} className="text-center text-xs font-medium text-[#4d724d] py-2">
@@ -115,16 +118,14 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
           </div>
         ))}
       </div>
-      
+
       <div className="grid grid-cols-7 gap-1">
         {days.map((day, index) => {
-          if (day === null) {
-            return <div key={`empty-${index}`} className="aspect-square" />
-          }
-          
+          if (day === null) return <div key={`empty-${index}`} className="aspect-square" />
+
           const isSelected = selectedDates.includes(day)
           const isToday = isCurrentMonth && day === today.getDate()
-          
+
           return (
             <button
               key={day}
@@ -147,8 +148,8 @@ function CustomCalendar({ selectedDates, onSelectDate }) {
 }
 
 export default function ConferenceSchedule() {
-  const [selectedDates, setSelectedDates] = useState([21, 22])
-  
+  const [selectedDates, setSelectedDates] = useState(CONFERENCE.scheduleDates.days) // ✅ from constant
+
   const handleSelectDate = (day) => {
     if (selectedDates.includes(day)) {
       setSelectedDates(selectedDates.filter(d => d !== day))
@@ -157,6 +158,12 @@ export default function ConferenceSchedule() {
     }
   }
 
+  const calendarTitle = useMemo(() => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ]
+    return `${monthNames[CONFERENCE.scheduleDates.month]} ${CONFERENCE.scheduleDates.year}` // ✅ from constant
+  }, [])
   return (
     <div className="bg-[#f8faf5] py-16">
       <div className="container mx-auto px-4">
@@ -170,15 +177,15 @@ export default function ConferenceSchedule() {
               </span>
             </h1>
             <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
-              Join us August 21st - 22nd, 2026 for two days of cutting-edge insights and networking on sustainability and
+              Join us {CONFERENCE.date} for two days of cutting-edge insights and networking on sustainability and
               innovation. Reserve your spot today!
             </p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-[320px_1fr]">
-            <Card className="border-[#4d724d] rounded-3xl shadow-sm overflow-hidden h-fit">
+           <Card className="border-[#4d724d] rounded-3xl shadow-sm overflow-hidden h-fit">
               <CardHeader className="bg-[#4d724d] text-white">
-                <CardTitle>August 2026</CardTitle>
+                <CardTitle>{calendarTitle}</CardTitle> {/* ✅ dynamic */}
               </CardHeader>
               <CardContent className="p-6">
                 <CustomCalendar selectedDates={selectedDates} onSelectDate={handleSelectDate} />
@@ -220,8 +227,8 @@ export default function ConferenceSchedule() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Venue</h3>
-                <p className="text-[#4d724d] mb-2">Declare Soon</p>
-                <p className="text-[#4d724d]">Boracay, Philippines</p>
+                <p className="text-[#4d724d] mb-2">{CONFERENCE.venue.name}</p>
+                <p className="text-[#4d724d]">{CONFERENCE.venue.location}</p>
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Registration</h3>
@@ -234,11 +241,11 @@ export default function ConferenceSchedule() {
           </div>
 
           {/* Download Schedule Button */}
-          <div className="flex justify-center mt-8">
+          {/* <div className="flex justify-center mt-8">
             <button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 flex items-center">
               Download Full Schedule
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

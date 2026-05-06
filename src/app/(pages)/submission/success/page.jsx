@@ -38,8 +38,7 @@ export default function SubmissionSuccess() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Thank you for contributing to ICSIFT  International Conference on Sustainability, Innovation, and
-              Future Technologies
+              Thank you for contributing to {CONFERENCE.shortForm} {CONFERENCE.name}
             </p>
           </div>
         </div>

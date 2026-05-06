@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield, Heart, Users, FileText, Phone, Eye } from 'lucide-react';
 import Link from 'next/link';
+import { CONFERENCE } from '@/constants/conference';
 
 const DisabilityPolicy = () => {
   return (
@@ -21,7 +22,7 @@ const DisabilityPolicy = () => {
             {/* Introduction */}
             <div className="prose max-w-none">
               <p className="text-gray-700 leading-relaxed">
-                The  International Conference on Applied Science, Engineering & Management (ICSIFT 2025) is committed to fostering an inclusive, accessible, and discrimination-free environment for all participants, regardless of physical, sensory, intellectual, or mental health conditions.
+                The  {CONFERENCE.name} ({CONFERENCE.year}) is committed to fostering an inclusive, accessible, and discrimination-free environment for all participants, regardless of physical, sensory, intellectual, or mental health conditions.
               </p>
             </div>
 
@@ -32,7 +33,7 @@ const DisabilityPolicy = () => {
                 <h2 className="text-xl font-semibold text-gray-900">1. Policy Statement</h2>
               </div>
               <p className="text-gray-700 leading-relaxed">
-                ICSIFT 2025 strictly prohibits any form of discrimination, harassment, or exclusion based on disability. All conference organizers, staff, and participants are expected to support and uphold the principles of inclusivity and equal access to conference activities, both in physical and virtual formats.
+                {CONFERENCE.shortForm} {CONFERENCE.year} strictly prohibits any form of discrimination, harassment, or exclusion based on disability. All conference organizers, staff, and participants are expected to support and uphold the principles of inclusivity and equal access to conference activities, both in physical and virtual formats.
               </p>
             </section>
 
@@ -71,7 +72,7 @@ const DisabilityPolicy = () => {
                 <h2 className="text-xl font-semibold text-gray-900">3. Reasonable Accommodations</h2>
               </div>
               <p className="text-gray-700 mb-4">
-                ICSIFT 2025 will provide reasonable accommodations to ensure the full participation of individuals with disabilities, which may include:
+                {CONFERENCE.shortForm} {CONFERENCE.year} will provide reasonable accommodations to ensure the full participation of individuals with disabilities, which may include:
               </p>
               <div className="grid md:grid-cols-2 gap-3">
                 <div className="flex items-start space-x-2">

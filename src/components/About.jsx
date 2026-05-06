@@ -8,6 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import Link from "next/link"
 import PocketBase from 'pocketbase'
 import { motion } from "framer-motion"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function AboutConference() {
   const [downloadMaterials, setDownloadMaterials] = useState([])
@@ -152,14 +153,14 @@ export default function AboutConference() {
                 variants={itemVariants}
                 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4"
               >
-                International Conference on Sustainability, Innovation, and Future Technologies
+                {CONFERENCE.name}
               </motion.h2>
               
               <motion.p 
                 variants={itemVariants}
                 className="text-[#4d724d] mb-6 text-justify"
               >
-                The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is a
+                The {CONFERENCE.name} ({CONFERENCE.shortForm}) is a
                 premier global event bringing together experts, researchers, and industry leaders to explore
                 groundbreaking advancements. The conference focuses on sustainable development, cutting-edge
                 innovations, and transformative technologies shaping the future. ICSIFT aims to inspire collaboration,

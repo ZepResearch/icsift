@@ -1,6 +1,13 @@
 export const CONFERENCE = {
-  name: "3rd International Conference on Sustainability, Innovation, and Future Technologies",
+  name: "3rd International Conference on Sustainable Infrastructure and Future Technologies",
   shortForm: "3rd ICSIFT",
+
+scheduleDates: {
+    month: 7,        // 0-indexed: 7 = August
+    year: 2026,
+    days: [21, 22],  // Conference days
+  },
+
   year: 2026,
   date: "August 21st - 22nd, 2026",
   venue: {

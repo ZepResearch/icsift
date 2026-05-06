@@ -16,6 +16,7 @@ import {
   } from "lucide-react"
   import Link from "next/link"
   import { GeometricShapes } from "./geometric-shapes"
+  import { CONFERENCE } from "@/constants/conference"
 function ExtraContentAboveCard() {
   return (
     <div>    {/* Hero Section */}
@@ -36,7 +37,7 @@ function ExtraContentAboveCard() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#d3e4c5]/30 px-4 py-1.5 text-sm font-medium text-[#4d724d] mb-6">
-            <span>ICSIFT 2026</span>
+            <span>ICSIFT {CONFERENCE.year}</span>
             <ChevronRight className="ml-1 h-4 w-4" />
           </div>
 
@@ -49,7 +50,7 @@ function ExtraContentAboveCard() {
           </h1>
 
           <p className="text-xl text-[#4d724d] mb-8">
-            Join us at the International Conference on Sustainability, Innovation and Future Technologies
+            Join us at {CONFERENCE.name}
           </p>
         </div>
       </div>

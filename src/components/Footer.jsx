@@ -16,7 +16,7 @@ import {
   Mail,
   Contact
 } from "lucide-react"
-
+ import { CONFERENCE } from "@/constants/conference"
 export default function ConferenceFooter() {
   const [showScrollTop, setShowScrollTop] = useState(false)
 
@@ -183,8 +183,7 @@ export default function ConferenceFooter() {
               <span className="font-bold text-3xl text-white">ICSIFT</span>
             </div>
             <p className="text-white/80 mb-6 max-w-xl text-justify">
-              International Conference on Sustainability, Innovation, and Future Technologies. Join us August 21st - 22nd,
-              2026 in Boracay, philippines for a transformative experience bringing together experts, researchers, and
+              {CONFERENCE.name}. Join us {CONFERENCE.date} in {CONFERENCE.venue.location} for a transformative experience bringing together experts, researchers, and
               industry leaders to explore groundbreaking advancements in sustainability and innovation.
             </p>
             <div className="flex space-x-4">
@@ -294,7 +293,7 @@ export default function ConferenceFooter() {
               <li>
                 <div className="space-y-1">
                   <p className="text-white/70 inline-flex gap-2">
-                   <MapPin/> Boracay, philippines
+                   <MapPin/> {CONFERENCE.venue.location}
                   </p>
                 </div>
               </li>

@@ -13,6 +13,7 @@ import {
   Img,
 } from "@react-email/components"
 import { Tailwind } from "@react-email/tailwind"
+import { CONFERENCE } from "@/constants/conference"
 
 const AdminEmailTemplate = ({ name, email, subject, message, phoneNumber }) => {
   return (
@@ -140,7 +141,7 @@ const AdminEmailTemplate = ({ name, email, subject, message, phoneNumber }) => {
                 </div>
                 <Hr className="border-t border-[#d3e4c5] my-6" />
                 <Text className="text-sm text-[#4d724d] text-center">
-                  © 2025 ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies
+                  © {new Date().getFullYear()} {CONFERENCE.shortForm}: {CONFERENCE.name}
                 </Text>
               </Section>
             </Container>

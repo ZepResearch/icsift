@@ -22,6 +22,7 @@ import {
   import Link from "next/link"
 import { Button } from '@/components/ui/button'
 import Guidline from './guidline'
+import { CONFERENCE } from '@/constants/conference'
 function ExtraContentBelowTabs() {
   return (
     <div> <section className="py-16 bg-white">
@@ -247,10 +248,9 @@ function ExtraContentBelowTabs() {
           <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
 
           <div className="relative">
-            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join ICSIFT 2026?</h3>
+            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join {CONFERENCE.shortForm } {CONFERENCE.year}?</h3>
             <p className="text-[#4d724d] mb-6">
-              Register now to secure your spot at the International Conference on Sustainability, Innovation and
-              Future Technologies.
+              Register now to secure your spot at {CONFERENCE.name}.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

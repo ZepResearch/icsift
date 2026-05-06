@@ -5,7 +5,7 @@ import { ArrowRight, Award, MapPin, Users, Calendar, BookOpen, Handshake, Play, 
 import Link from "next/link"
 import Image from "next/image"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-
+import { CONFERENCE } from "@/constants/conference"
 export default function ConferenceCTACards() {
   const [videoOpen, setVideoOpen] = useState(false)
   const [currentVideoId, setCurrentVideoId] = useState("")
@@ -95,7 +95,7 @@ export default function ConferenceCTACards() {
             </span>
           </h2>
           <p className="text-[#4d724d] max-w-2xl mx-auto">
-            Explore the key features of ICSIFT 2026 and discover opportunities to engage with the global sustainability
+            Explore the key features of {CONFERENCE.shortForm} and discover opportunities to engage with the global sustainability
             community.
           </p>
         </div>
@@ -207,7 +207,7 @@ export default function ConferenceCTACards() {
         {/* Bottom CTA */}
         <div className="mt-12 bg-[#edf6e1] rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0">
-            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join ICSIFT 2026?</h3>
+            <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join {CONFERENCE.shortForm}?</h3>
             <p className="text-[#4d724d] max-w-xl">
               Register now to secure your spot at the premier conference on sustainability, innovation, and future
               technologies.

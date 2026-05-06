@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Calendar, Clock, MapPin, Navigation, Building, Wifi, Coffee, Users, ArrowRight } from "lucide-react"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function ConferenceVenue() {
   const venueFeatures = [
@@ -62,7 +63,7 @@ export default function ConferenceVenue() {
               {/* Venue name overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <div className="bg-white/90 backdrop-blur-sm rounded-full py-3 px-6 inline-block">
-                  <span className="text-[#1a2e1a] font-medium">Boracay, philippines</span>
+                  <span className="text-[#1a2e1a] font-medium">{CONFERENCE.venue.location}</span>
                 </div>
               </div>
             </div>
@@ -77,7 +78,7 @@ export default function ConferenceVenue() {
                     </div>
                     <div>
                       <p className="text-sm text-[#4d724d]">Date</p>
-                      <p className="text-[#1a2e1a] font-medium">August  21<sup>st</sup> - 22<sup>nd</sup>, 2026</p>
+                      <p className="text-[#1a2e1a] font-medium">{CONFERENCE.date}</p>
                       <p className="text-sm text-[#4d724d]">2 Days of Sustainability Innovation</p>
                     </div>
                   </div>
@@ -99,8 +100,8 @@ export default function ConferenceVenue() {
                     </div>
                     <div>
                       <p className="text-sm text-[#4d724d]">Address</p>
-                      <p className="text-[#1a2e1a] font-medium">Astoria Current</p>
-                      <p className="text-[#1a2e1a]">Sitio Mangayad, Brgy. Manoc Manoc, Station 3, Malay, Boracay Island, 5608 Aklan, Philippines</p>
+                      <p className="text-[#1a2e1a] font-medium">{CONFERENCE.venue.name}</p>
+                      <p className="text-[#1a2e1a]">{CONFERENCE.venue.address}</p>
                     </div>
                   </div>
                 </div>

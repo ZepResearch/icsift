@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { ArrowDown, ArrowUp, ChevronDown, ChevronUp } from "lucide-react"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function ConferenceFAQ() {
   const [openIndex, setOpenIndex] = useState(1)
@@ -10,7 +11,7 @@ export default function ConferenceFAQ() {
     {
       question: "How can I register for the conference?",
       answer:
-        "Registration for ICSIFT 2026 is available through our online portal. Early bird registration is open until August 21st - 22nd, 2026. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.",
+        `Registration for ${CONFERENCE.shortForm} is available through our online portal. Early bird registration is open until ${CONFERENCE.date}. You can choose between in-person attendance or virtual participation. Group discounts are available for organizations sending 5 or more attendees.`,
     },
     {
       question: "What are the submission guidelines for papers?",
@@ -20,7 +21,7 @@ export default function ConferenceFAQ() {
     {
       question: "Is there financial support available for students?",
       answer:
-        "Yes, ICSIFT offers special student pricing for the conference on August 21st - 22nd, 2026. Student registration is available at a significantly reduced rate compared to regular registration. To qualify for student pricing, you must provide valid student ID and proof of enrollment. This discounted rate makes the conference more accessible for students while maintaining the same high-quality experience.",
+        `Yes, ${CONFERENCE.shortForm} offers special student pricing for the conference on ${CONFERENCE.date}. Student registration is available at a significantly reduced rate compared to regular registration. To qualify for student pricing, you must provide valid student ID and proof of enrollment. This discounted rate makes the conference more accessible for students while maintaining the same high-quality experience.`,
     },
     {
       question: "What accommodation options are available?",
@@ -35,7 +36,7 @@ export default function ConferenceFAQ() {
     {
       question: "Is the conference venue accessible?",
       answer:
-        "Yes, the venues in Boracay, Philippines are fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.",
+        `Yes, the venues in ${CONFERENCE.venue.location} are fully accessible with ramps, elevators, accessible restrooms, and designated seating areas. If you have specific accessibility requirements, please indicate them during registration so we can ensure appropriate accommodations.`,
     },
   ]
 
@@ -56,7 +57,7 @@ export default function ConferenceFAQ() {
             </span>
           </h2>
           <p className="text-[#4d724d] max-w-2xl mx-auto">
-            Find answers to common questions about the 3<sup>rd</sup> ICSIFT 2026. If you don't see your question here, please contact us.
+            Find answers to common questions about the {CONFERENCE.shortForm}. If you don't see your question here, please contact us.
           </p>
         </div>
 

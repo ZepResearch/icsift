@@ -13,6 +13,7 @@ import {
   Button,
 } from "@react-email/components"
 import { Tailwind } from "@react-email/tailwind"
+import { CONFERENCE } from "@/constants/conference"
 
 const UserEmailTemplate = ({ name }) => {
   return (
@@ -102,8 +103,7 @@ const UserEmailTemplate = ({ name }) => {
               <Section>
                 <Text className="text-xl font-medium text-[#4d724d] text-center">Hello, {name}!</Text>
                 <Text className="text-base text-[#1a2e1a] mt-4">
-                  We've received your message and appreciate your interest in ICSIFT 2025: International Conference on
-                  Sustainability, Innovation, and Future Technologies. Our team will review your inquiry and get back to
+                  We've received your message and appreciate your interest in {CONFERENCE.shortForm}: {CONFERENCE.name}. Our team will review your inquiry and get back to
                   you as soon as possible.
                 </Text>
                 <Text className="text-base text-[#1a2e1a] mt-4">
@@ -146,7 +146,7 @@ const UserEmailTemplate = ({ name }) => {
               <Section className="mt-8 text-center">
                 <Hr className="border-t border-[#d3e4c5] my-6" />
                 <Text className="text-sm text-[#4d724d] text-center">
-                  © 2025 ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies
+                  © {new Date().getFullYear()} {CONFERENCE.shortForm}: {CONFERENCE.name}
                 </Text>
                 <Text className="text-xs text-[#4d724d]/70 text-center mt-2">
                   This is an automated response. Please do not reply to this email.

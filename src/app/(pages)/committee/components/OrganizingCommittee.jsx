@@ -5,7 +5,7 @@ import { Twitter, Linkedin, Globe, Users, Award, GraduationCap,Sparkles } from "
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { pb } from "@/lib/pocketbase"
 import Link from "next/link"
-
+import { CONFERENCE } from "@/constants/conference"
 export default function CommitteePage() {
   // Mock committee data since we don't have a real database connection
   const [committee, setCommittee] = useState([])
@@ -112,8 +112,7 @@ export default function CommitteePage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Meet the experts behind 3<sup>rd</sup>ICSIFT 2026: International Conference on Sustainability, Innovation, and Future
-              Technologies
+              Meet the experts behind {CONFERENCE.shortForm}
             </p>
           </div>
         </div>

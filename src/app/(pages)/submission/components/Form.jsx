@@ -9,6 +9,8 @@ import { FileText, Upload, ChevronDown, Send } from "lucide-react"
 import ReCAPTCHA from "react-google-recaptcha"
 import { GeometricShapesCSS } from "./geometric-shapes-css"
 import AbstractSubmissionGuidelines from "./SubmitGuidline"
+import { CONFERENCE } from "@/constants/conference"
+
 
 export default function PaperSubmissionPage() {
   const router = useRouter()
@@ -96,8 +98,7 @@ export default function PaperSubmissionPage() {
               </span>
             </h1>
             <h2 className="text-xl text-[#4d724d] mb-8">
-              Share your research at 3<sup>rd</sup>ICSIFT  International Conference on Sustainability, Innovation, and Future
-              Technologies
+              Share your research at  {CONFERENCE.name}
             </h2>
             <a href="#guid" className="scroll-smooth transition-all py-2 px-3 bg-gradient-to-tl from-[#4d724d] via-[#606b58] to-[#4d724d] rounded-4xl text-white font-semibold hover:drop-shadow-2xl hover:bg-orange-500/90">
               Read Submission Guidelines before submitting

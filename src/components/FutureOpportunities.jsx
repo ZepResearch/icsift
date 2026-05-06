@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 
+import { CONFERENCE } from "@/constants/conference"
+
 export default function FutureOpportunities() {
   // State to store dot positions
   const [dots, setDots] = useState([])
@@ -110,7 +112,7 @@ export default function FutureOpportunities() {
               </span>
             </h2>
             <p className="text-[#4d724d] text-lg max-w-3xl mx-auto leading-relaxed">
-              The International Conference on Sustainability, Innovation and Future Technologies serves as a dynamic
+              {CONFERENCE.name} serves as a dynamic
               platform to shape the future of sustainable development through interdisciplinary collaboration and
               technological advancement. As global challenges continue to evolve, the conference opens new avenues for
               innovation, research, and impactful partnerships.

@@ -1,3 +1,5 @@
+import { CONFERENCE } from "@/constants/conference";
+
 export function getUserEmailTemplate(data) {
   return `
   <!DOCTYPE html>
@@ -115,13 +117,13 @@ export function getUserEmailTemplate(data) {
   </head>
   <body>
     <div class="header">
-      <div class="conference-title">ICSIFT </div>
-      <div class="subtitle">International Conference on Sustainability, Innovation, and Future Technologies</div>
+      <div class="conference-title">${CONFERENCE.shortForm}</div>
+      <div class="subtitle">${CONFERENCE.name}</div>
     </div>
     <div class="content">
       <p>Dear ${data.author},</p>
       
-      <p>Thank you for submitting your paper titled <span class="highlight">"${data.paper_title}"</span> to ICSIFT : International Conference on Sustainability, Innovation, and Future Technologies.</p>
+      <p>Thank you for submitting your paper titled <span class="highlight">"${data.paper_title}"</span> to ${CONFERENCE.shortForm} : ${CONFERENCE.name}.</p>
       
       <p>We have received your submission and our review committee will evaluate it shortly. You will be notified about the status of your submission in the coming weeks.</p>
       
@@ -136,8 +138,8 @@ export function getUserEmailTemplate(data) {
       <p>If you have any questions or need to make changes to your submission, please contact us at <a href="mailto:info@icsift.org">info@icsift.org</a>.</p>
       
       <p>Best regards,<br>
-      ICSIFT  Organizing Committee<br>
-      International Conference on Sustainability, Innovation, and Future Technologies</p>
+      ${CONFERENCE.shortForm}  Organizing Committee<br>
+      ${CONFERENCE.name}</p>
     </div>
     
   </body>
@@ -286,7 +288,7 @@ export function getAdminEmailTemplate(data, fileUrl) {
       <div class="subtitle">New Paper Submission Alert</div>
     </div>
     <div class="content">
-      <p>A new paper has been submitted to ICSIFT  International Conference on Sustainability, Innovation, and Future Technologies.</p>
+      <p>A new paper has been submitted to ${CONFERENCE.shortForm} ${CONFERENCE.name}.</p>
       
       <h2>Submission Details:</h2>
       <table>

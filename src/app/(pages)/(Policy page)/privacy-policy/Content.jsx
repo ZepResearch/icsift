@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ChevronRight, Shield, Lock, Eye, Server, Cookie, UserCheck } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function PrivacyPolicy() {
   const fadeIn = {
@@ -117,8 +118,7 @@ export default function PrivacyPolicy() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#4d724d]/10 px-4 py-1.5 text-sm font-medium text-[#1a2e1a] backdrop-blur-md mb-6">
-              <span> 2<sup>nd</sup>ICSIFT 2025</span>
-              <ChevronRight className="ml-1 h-4 w-4" />
+              {CONFERENCE.shortForm} {CONFERENCE.year}
             </div>
 
             <motion.h1
@@ -173,8 +173,7 @@ export default function PrivacyPolicy() {
 
                 <p className="text-[#4d724d] mb-6">
                   We believe in being clear and open about how we collect and use your data. This privacy policy
-                  explains how the International Conference on Sustainability, Innovation and Future Technologies
-                  (ICSIFT) handles your personal information.
+                  explains how the {CONFERENCE.name} handles your personal information.
                 </p>
 
                 <Accordion type="single" collapsible className="w-full space-y-4">

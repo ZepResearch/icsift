@@ -1,6 +1,13 @@
 import React from 'react';
 import { Shield, Heart, AlertTriangle, Users, Activity, RefreshCw, MapPin, Phone } from 'lucide-react';
+import { CONFERENCE } from '@/constants/conference';
 
+
+export const metadata = {
+  title: "ICSIFT | Health and Safety Policy",
+  description:
+    "Join global experts at ICSIFT, a premier conference dedicated to exploring cutting-edge scientific innovations and emerging technologies shaping our future.",
+};
 const HealthSafetyPolicy = () => {
   return (
     <div className="min-h-screen ">
@@ -22,7 +29,7 @@ const HealthSafetyPolicy = () => {
             {/* Introduction */}
             <div className="prose max-w-none">
               <p className="text-gray-700 leading-relaxed">
-                The Organizing Committee of the  ICSIFT is committed to ensuring the health, safety, and well-being of all participants, including delegates, speakers, exhibitors, sponsors, and staff. We aim to provide a secure and comfortable environment that fosters knowledge exchange and professional networking.
+                The Organizing Committee of the  {CONFERENCE.shortForm} is committed to ensuring the health, safety, and well-being of all participants, including delegates, speakers, exhibitors, sponsors, and staff. We aim to provide a secure and comfortable environment that fosters knowledge exchange and professional networking.
               </p>
             </div>
 
@@ -219,7 +226,7 @@ const HealthSafetyPolicy = () => {
                   <Shield className="w-12 h-12 text-green-500 mx-auto mb-4" />
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Participant Agreement</h3>
                   <p className="text-gray-700 text-sm max-w-2xl mx-auto">
-                    By attending the  ICSIFT, all participants agree to adhere to this Health and Safety Policy, ensuring a secure and professional conference environment.
+                    By attending the  {CONFERENCE.shortForm}, all participants agree to adhere to this Health and Safety Policy, ensuring a secure and professional conference environment.
                   </p>
                 </div>
               </div>

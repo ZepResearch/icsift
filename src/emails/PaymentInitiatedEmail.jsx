@@ -1,6 +1,8 @@
+import { CONFERENCE } from "@/content/conference"
 const RegistrationEmailTemplate = (data) => {
   const isAdmin = data.recipient === "admin"
   const currencySymbol = data.currency === "USD" ? "$" : "€"
+
 
   return `
     <!DOCTYPE html>
@@ -221,7 +223,7 @@ const RegistrationEmailTemplate = (data) => {
             `
                 : `
             <div class="highlight">
-              <p>Your registration payment for ICSIFT 2026 has been initiated. Please note that your registration is not complete until payment is confirmed.</p>
+              <p>Your registration payment for ${CONFERENCE.shortForm} has been initiated. Please note that your registration is not complete until payment is confirmed.</p>
             </div>
             
            
@@ -233,7 +235,7 @@ const RegistrationEmailTemplate = (data) => {
             isAdmin
               ? `
           <div class="highlight">
-            <p>This is a notification of a new registration payment initiated for the International Conference on Sustainability, Innovation and Future Technologies (ICSIFT), August 21st - 22nd, 2026 | Boracay, Philippines.</p>
+            <p>This is a notification of a new registration payment initiated for ${CONFERENCE.name} (${CONFERENCE.shortForm}), ${CONFERENCE.date} | ${CONFERENCE.venue.location}.</p>
           </div>
           `
               : `
@@ -242,10 +244,10 @@ const RegistrationEmailTemplate = (data) => {
             <p>Your payment is currently being processed. You will receive a confirmation email once your payment is complete. If you do not receive a confirmation within 24 hours, please contact our support team.</p>
             
             <div class="section-title" style="margin-top: 20px;">About the Conference</div>
-            <p>The <strong>International Conference on Sustainability, Innovation and Future Technologies (ICSIFT)</strong> brings together industry leaders, researchers, and professionals to explore cutting-edge developments in sustainable technology solutions.</p>
+            <p>The <strong>${CONFERENCE.name} (${CONFERENCE.shortForm})</strong> brings together industry leaders, researchers, and professionals to explore cutting-edge developments in sustainable technology solutions.</p>
             
             <div class="highlight">
-              <p>The conference will take place on <strong August 21st - 22nd</strong> at  <strong>Boracay, Philippines</strong>.</p>
+              <p>The conference will take place on <strong>${CONFERENCE.date}</strong> at  <strong>${CONFERENCE.venue.location}</strong>.</p>
             </div>
             
             <div class="section-title" style="margin-top: 20px;">What's Next?</div>

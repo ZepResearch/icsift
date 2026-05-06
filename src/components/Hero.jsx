@@ -8,6 +8,8 @@ import { Button } from './ui/button';
 import { ReserveButton } from './reserve-button';
 
 // Icon component for contact details
+import { CONFERENCE } from "@/constants/conference"
+
 const InfoIcon = ({ type }) => {
   const icons = {
     website: (
@@ -99,8 +101,7 @@ const HeroSection = React.forwardRef(
 
               <motion.main variants={containerVariants}>
                 <motion.h1 className="text-4xl font-bold  text-white sm:text-black md:text-5xl" variants={itemVariants}>
-                  3<sup>rd</sup> International Conference on <br />
-                  <span className="text-primary">Sustainability, Innovation, and Future Technologies</span>
+                  {CONFERENCE.name}
                 </motion.h1>
                 <motion.div className="my-2 h-1 w-20 bg-primary" variants={itemVariants}></motion.div>
                 <motion.p className="mb-2 max-w-md text-base  text-white sm:text-black  " variants={itemVariants}>
@@ -210,11 +211,11 @@ const HeroSection = React.forwardRef(
                 </div>
                 <div className="flex items-center">
                   <InfoIcon type="address" />
-                  <span>Boracay, Philippines</span>
+                  <span>{CONFERENCE.venue.location}</span>
                 </div>
                 <div className="flex items-center">
                   <InfoIcon type="calender" />
-                  <span>August 21<sup>st</sup> - 22<sup>nd</sup>, 2026</span>
+                  <span>{CONFERENCE.date}</span>
                 </div>
               </div>
             </motion.footer>

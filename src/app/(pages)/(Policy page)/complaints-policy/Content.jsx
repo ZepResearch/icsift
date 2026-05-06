@@ -1,3 +1,4 @@
+import { CONFERENCE } from "@/constants/conference"
 import { Mail, Phone, MapPin } from "lucide-react"
 
 export default function ComplaintsPolicy() {
@@ -18,8 +19,8 @@ export default function ComplaintsPolicy() {
             <section>
               <h2 className="text-xl font-bold text-[#1a311a] mb-4">1. Introduction</h2>
               <p className="text-gray-700 leading-relaxed">
-                The Organizing Committee of the International Conference on Sustainability, Innovation, and Future Technologies
-                (ICSIFT) is committed to providing a professional, respectful, and inclusive environment for all
+                The Organizing Committee of the {CONFERENCE.name}
+                ({CONFERENCE.shortForm}) is committed to providing a professional, respectful, and inclusive environment for all
                 participants. We aim to handle all complaints fairly, consistently, and promptly to maintain the
                 integrity and quality of the conference.
               </p>
@@ -55,7 +56,7 @@ export default function ComplaintsPolicy() {
                   <strong>Complaints should be sent via email to:</strong> info@icsift.com
                 </p>
                 <p className="text-gray-700 mt-2">
-                  <strong>Subject line:</strong> Formal Complaint – ICSIFT 2025
+                  <strong>Subject line:</strong> Formal Complaint – {CONFERENCE.shortForm} {CONFERENCE.year}
                 </p>
               </div>
             </section>
@@ -123,7 +124,7 @@ export default function ComplaintsPolicy() {
                 </div>
                 <div className="flex items-center space-x-3 text-[#4d724d]">
                   <MapPin className="w-5 h-5" />
-                  <span>Bangkok, Thailand</span>
+                  <span>{CONFERENCE.venue.location}</span>
                 </div>
               </div>
             </section>

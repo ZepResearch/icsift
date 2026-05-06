@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, MapPin, Navigation, Building, Utensils, Landmark, Trees, ShoppingBag, Palette, Globe, Mountain, LandPlot } from "lucide-react"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function VenuePage() {
   return (
@@ -37,7 +38,7 @@ export default function VenuePage() {
                 <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
               </span>
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">Join us at Boracay, philippines</p>
+            <p className="text-xl text-[#4d724d] mb-8">Join us at {CONFERENCE.venue.location}</p>
           </div>
         </div>
       </section>
@@ -65,7 +66,7 @@ export default function VenuePage() {
                   <div className="space-y-6 text-[#4d724d]  text-justify">
                     {/* change the content below */}
                     <p>
-                 Boracay, Philippines offers a modern, comfortable, and centrally appealing venue for 3rd ICSIFT 2026. Renowned worldwide for its pristine white-sand beaches, clear turquoise waters, and vibrant island atmosphere, Boracay provides an inspiring setting for international academic exchange
+                 {CONFERENCE.venue.location} offers a modern, comfortable, and centrally appealing venue for {CONFERENCE.shortForm}. Renowned worldwide for its pristine white-sand beaches, clear turquoise waters, and vibrant island atmosphere, Boracay provides an inspiring setting for international academic exchange
                     </p>
 
                     <div className="space-y-4">
@@ -114,10 +115,10 @@ export default function VenuePage() {
                     <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 mt-8">
                       <div className="flex items-center gap-3 mb-3">
                         <MapPin className="h-5 w-5 text-[#4d724d]" />
-                        <h3 className="text-lg font-medium text-[#1a2e1a]">Astoria Current</h3>
+                        <h3 className="text-lg font-medium text-[#1a2e1a]">{CONFERENCE.venue.name}</h3>
                       </div>
                       <p className="text-[#4d724d]">
-                     Sitio Mangayad, Brgy. Manoc Manoc, Station 3, Malay, Boracay Island, 5608 Aklan, Philippines
+                     {CONFERENCE.venue.address}
                       </p>
                     </div>
                   </div>
@@ -238,7 +239,7 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d1
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Nearby Attractions</h2>
             <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore Boracay, Philippines during your visit to ICSIFT </p>
+            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore {CONFERENCE.venue.location} during your visit to {CONFERENCE.shortForm} </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -429,7 +430,7 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d1
               <div className="relative">
                 <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join Us?</h3>
                 <p className="text-[#4d724d] mb-6">
-                  Register for 3<sup>rd</sup>ICSIFT 2026 today and experience our world-class venue in the heart of Bangkok.
+                  Register for {CONFERENCE.shortForm} today and experience our world-class venue in the heart of {CONFERENCE.venue.location}.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">

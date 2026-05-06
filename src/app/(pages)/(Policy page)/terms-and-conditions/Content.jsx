@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { ChevronRight, ScrollText, AlertCircle } from "lucide-react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function TermsAndConditions() {
   const fadeIn = {
@@ -87,8 +88,7 @@ export default function TermsAndConditions() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#4d724d]/10 px-4 py-1.5 text-sm font-medium text-[#1a2e1a] backdrop-blur-md mb-6">
-              <span>ICSIFT 2025</span>
-              <ChevronRight className="ml-1 h-4 w-4" />
+            {CONFERENCE.shortForm} {CONFERENCE.year}
             </div>
 
             <motion.h1
@@ -142,8 +142,7 @@ export default function TermsAndConditions() {
                 </div>
 
                 <p className="text-[#4d724d] mb-6">
-                  Welcome to the Terms and Conditions for the International Conference on Sustainability, Innovation and
-                  Future Technologies (ICSIFT). These terms govern your participation in our conference and use of our
+                  Welcome to the Terms and Conditions for the {CONFERENCE.name}. These terms govern your participation in our conference and use of our
                   services.
                 </p>
 
@@ -172,7 +171,7 @@ export default function TermsAndConditions() {
                   <AlertCircle className="h-6 w-6 text-[#4d724d] shrink-0 mt-0.5" />
                   <div>
                     <p className="text-[#4d724d]">
-                      By registering for ICSIFT, you acknowledge that you have read, understood, and agree to be bound
+                      By registering for {CONFERENCE.shortForm}, you acknowledge that you have read, understood, and agree to be bound
                       by these Terms and Conditions.
                     </p>
                   </div>

@@ -5,6 +5,7 @@ import { ChevronRight, FileText, Info, ArrowLeft, CrossIcon, StopCircle, X, Doll
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import Link from "next/link"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function CancellationPolicy() {
   const fadeIn = {
@@ -41,7 +42,7 @@ export default function CancellationPolicy() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <div className="inline-flex items-center rounded-full border border-[#4d724d]/30 bg-[#4d724d]/10 px-4 py-1.5 text-sm font-medium text-[#1a2e1a] backdrop-blur-md mb-6">
-              <span>2<sup>nd</sup>ICSIFT 2025</span>
+              {CONFERENCE.shortForm} {CONFERENCE.year}
               <ChevronRight className="ml-1 h-4 w-4" />
             </div>
 
@@ -64,7 +65,7 @@ export default function CancellationPolicy() {
               variants={fadeIn}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Our refund and cancellation guidelines for 2<sup>nd</sup>ICSIFT 2025
+              Our refund and cancellation guidelines for {CONFERENCE.shortForm} {CONFERENCE.year}
             </motion.p>
           </div>
         </div>
@@ -97,8 +98,7 @@ export default function CancellationPolicy() {
 
                 <p className="text-[#4d724d] mb-6">
                   We understand that plans can change. Our cancellation policy is designed to be fair to all parties
-                  involved. Please read this policy carefully before registering for the International Conference on
-                  Sustainability, Innovation and Future Technologies (ICSIFT).
+                  involved. Please read this policy carefully before registering for the {CONFERENCE.name} (ICSIFT).
                 </p>
               </div>
             </div>

@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Target, Users, Globe, Award } from "lucide-react"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function AboutOrganizersPage() {
   const teamMembers = [
@@ -94,7 +95,7 @@ export default function AboutOrganizersPage() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Meet the team behind the International Conference on Sustainability, Innovation, and Future Technologies
+              Meet the team behind {CONFERENCE.name}
             </p>
           </div>
         </div>

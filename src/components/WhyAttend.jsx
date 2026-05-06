@@ -4,6 +4,7 @@ import { Check, Sparkles, Users, Handshake, Award, TrendingUp, Globe } from "luc
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import { CONFERENCE } from "@/constants/conference"
 
 export default function WhyAttendConference() {
   // State to store dot positions
@@ -98,10 +99,10 @@ export default function WhyAttendConference() {
           <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
             Why Attend
             <span className="relative inline-block mx-2 ml-4">
-              <span className="relative z-10 mx-4">ICSIFT</span>
+              <span className="relative z-10 mx-4">{CONFERENCE.shortForm}</span>
               <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
             </span>
-            2026
+            {CONFERENCE.year}
           </h2>
           <p className="text-[#4d724d] text-xl max-w-2xl mx-auto">
             The International Conference on Sustainability, Innovation, and Future Technologies (ICSIFT) is the ideal

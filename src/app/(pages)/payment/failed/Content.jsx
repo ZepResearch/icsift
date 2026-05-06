@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { XCircle, Calendar, RefreshCw, ArrowRight } from "lucide-react"
 import { GeometricShapesCSS } from "@/components/geometric-shapes"
+import { CONFERENCE } from "@/lib/constants"
 
 export default function PaymentFailedPage() {
   return (
@@ -23,7 +24,7 @@ export default function PaymentFailedPage() {
 
                 <h1 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">Payment Unsuccessful</h1>
                 <p className="text-[#4d724d] text-lg max-w-2xl">
-                  We encountered an issue while processing your payment for the International Conference on Sustainability, Innovation and Future Technologies.
+                  We encountered an issue while processing your payment for {CONFERENCE.name}.
                 </p>
               </div>
 
