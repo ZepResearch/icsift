@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, ArrowRight, ArrowLeft, Calendar } from "lucide-react"
 import { submissionSuccessMetadata } from "@/components/metadata"
+import { CONFERENCE } from "@/constants/conference";
 
 
 export const metadata = submissionSuccessMetadata;
@@ -38,8 +39,7 @@ export default function SubmissionSuccess() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Thank you for contributing to {CONFERENCE.shortForm} {CONFERENCE.name}
-            </p>
+              Thank you for contributing to {CONFERENCE
           </div>
         </div>
       </section>
