@@ -14,6 +14,7 @@ import FutureOpportunities from "@/components/FutureOpportunities";
 import { HeroSection } from "@/components/Hero";
 import PASUCEndorsement from "@/components/PASUC";
 import PASUCEndorsementPOPUP from "@/components/PASUC-pop-up";
+import OurPatner from "@/components/OurPatner";
 
 
 ;
@@ -65,6 +66,7 @@ export default function Home() {
         <FutureOpportunities/>
         <ConferenceFAQ/>
         <ConferenceTestimonials/>
+        <OurPatner/>
   
       </main>
     
