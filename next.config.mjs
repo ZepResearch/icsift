@@ -7,6 +7,7 @@ const nextConfig = {
       'plus.unsplash.com',
       'conference.pockethost.io',
       'zep-research.pockethost.io',
+      'pocketbase.icsift.zepresearch.com',
     ],
   },
   experimental: {

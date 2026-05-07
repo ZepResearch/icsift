@@ -31,7 +31,7 @@ const SpeakerCard = ({ speaker, onMoreInfo }) => {
         {/* Speaker image */}
         <div className="relative h-[280px] w-full rounded-lg overflow-hidden mb-4">
           <Image 
-                src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
+                src={`${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
             alt={speaker.name} 
             fill 
             className="object-contain" 
@@ -97,7 +97,7 @@ const SpeakerDrawer = ({ isOpen, onClose, speaker }) => (
             {/* Speaker image */}
             <div className="relative h-[300px] w-full rounded-3xl overflow-hidden border border-[#d3e4c5] mt-6 mb-6">
               <Image 
-                src={`https://conference.pockethost.io/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
+                src={`${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${speaker.collectionId}/${speaker.id}/${speaker.image}`} 
                 alt={speaker.name} 
                 fill 
                 className="object-contain" 

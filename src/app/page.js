@@ -11,9 +11,9 @@ import SDGS from "@/components/SDGS";import Organizer from "@/components/Organiz
 import CPD from "@/components/cpd";
 import WhyAttendConference from "@/components/WhyAttend";
 import FutureOpportunities from "@/components/FutureOpportunities";
-import { HeroSection } from "@/components/Hero";
 import PASUCEndorsement from "@/components/PASUC";
 import PASUCEndorsementPOPUP from "@/components/PASUC-pop-up";
+import HeroSection from "@/components/Hero";
 
 
 ;
@@ -23,35 +23,11 @@ export default function Home() {
    
       <main className="min-h-screen bg-[#f8faf5]">
          <div className="w-full">
-      <HeroSection
-        logo={{
-            url: "https://vucvdpamtrjkzmubwlts.supabase.co/storage/v1/object/public/users/user_2zMtrqo9RMaaIn4f8F2z3oeY497/avatar.png",
-            alt: "Company Logo",
-            text: "Your Logo"
-        }}
-        slogan="ELEVATE YOUR PERSPECTIVE"
-        title={
-          <>
-            Each Peak <br />
-            <span className="text-primary">Teaches Something</span>
-          </>
-        }
-        subtitle="Discover breathtaking landscapes and challenge yourself with our guided mountain expeditions. Join a community of adventurers."
-        callToAction={{
-          text: "JOIN US TO EXPLORE",
-          href: "#explore",
-        }}
-        videoUrl="https://www.youtube.com/watch?v=WrYrSB41BPg" // Replace with your YouTube video URL
-        contactInfo={{
-            website: "yourwebsite.com",
-            phone: "+1 (555) 123-4567",
-            address: "20 Fieldstone Dr, Roswell, GA",
-        }}
-      />
+      <HeroSection/>
     </div>
-        <CPD/>
-        <PASUCEndorsementPOPUP/>
-        <PASUCEndorsement/>
+        {/* <CPD/> */}
+        {/* <PASUCEndorsementPOPUP/> */}
+        {/* <PASUCEndorsement/> */}
         <Organizer/>
         <AboutConference/>
         <Buttons/>

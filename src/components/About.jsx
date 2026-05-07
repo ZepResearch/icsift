@@ -114,7 +114,7 @@ export default function AboutConference() {
       <div className="max-w-screen-2xl mx-auto">
         {/* Main Card */}
         <motion.div 
-          className="bg-[#edf6e1] rounded-3xl p-6 md:p-10 overflow-hidden relative"
+          className="bg-[#1a2e1a]/90 rounded-3xl p-6 md:p-10 overflow-hidden relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -144,21 +144,21 @@ export default function AboutConference() {
             <div className="md:pl-8">
               <motion.div 
                 variants={itemVariants}
-                className="inline-block border border-[#1a2e1a] rounded-full px-4 py-1 text-sm mb-6"
+                className="inline-block border text-white border-[#f8faf5] rounded-full px-4 py-1 text-sm mb-6"
               >
                 About ICSIFT
               </motion.div>
               
               <motion.h2 
                 variants={itemVariants}
-                className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4"
+                className="text-3xl md:text-4xl font-bold text-[#f8faf5] mb-4"
               >
                 {CONFERENCE.name}
               </motion.h2>
               
               <motion.p 
                 variants={itemVariants}
-                className="text-[#4d724d] mb-6 text-justify"
+                className="text-white/80 mb-6 text-justify"
               >
                 The {CONFERENCE.name} ({CONFERENCE.shortForm}) is a
                 premier global event bringing together experts, researchers, and industry leaders to explore

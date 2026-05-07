@@ -1,6 +1,7 @@
 export const CONFERENCE = {
   name: "4th International Conference on Sustainable Infrastructure and Future Technologies",
   shortForm: "4th ICSIFT",
+  type: "Hybrid Conference",
 
 scheduleDates: {
     month: 7,        // 0-indexed: 7 = August
