@@ -151,7 +151,7 @@ const HeroSection = React.forwardRef(
             </div>
 
             {/* Early Bird Discount Box */}
-            <motion.div
+            {/* <motion.div
               className="mt-4 relative max-w-xl overflow-hidden rounded-2xl bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 p-1 shadow-lg"
               variants={itemVariants}
               animate={{
@@ -168,7 +168,7 @@ const HeroSection = React.forwardRef(
               }}
             >
               <div className="bg-white rounded-xl p-4 relative">
-                {/* Decorative corner element */}
+            
                 <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">
                   LIMITED
                 </div>
@@ -193,7 +193,7 @@ const HeroSection = React.forwardRef(
                   </Link>
                 </div>
 
-                {/* Countdown or expiry text */}
+                
                 <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -201,7 +201,7 @@ const HeroSection = React.forwardRef(
                   <span>Offer expires soon • Limited spots available</span>
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
             {/* Bottom Section: Footer Info */}
             <motion.footer className="mt-6 w-full" variants={itemVariants}>
               <div className="flex flex-col text-white sm:text-black sm:flex-row items-start md:items-center gap-6 text-xs text-muted-foreground ">
