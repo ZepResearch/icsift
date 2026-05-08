@@ -214,7 +214,7 @@ export default function AboutConference() {
                 <Link href="/about-conference">      
                   <Button
                     variant="ghost"
-                    className="text-[#1a2e1a] hover:bg-white/50 border border-[#1a2e1a] rounded-full"
+                    className="text-[#1a2e1a] hover:bg-white/90 bg-amber-50 border border-[#1a2e1a] rounded-full"
                   >
                     Details <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

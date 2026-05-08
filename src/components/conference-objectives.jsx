@@ -124,7 +124,7 @@ export default function ConferenceObjectives() {
         </div>
         
         {/* Image Gallery Section */}
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
               <Image
@@ -145,7 +145,7 @@ export default function ConferenceObjectives() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Key Focus Areas */}
         <div className="bg-white rounded-3xl p-8 shadow-sm mb-16">

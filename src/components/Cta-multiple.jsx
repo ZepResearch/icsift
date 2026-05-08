@@ -176,7 +176,7 @@ export default function ConferenceCTACards() {
           </div>
         </div>
  <div className="mb-16">
-          <div className="grid grid-cols-1 gap-6">
+          {/* <div className="grid grid-cols-1 gap-6">
             <div className="rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
               <Image
               height={400}
@@ -187,7 +187,7 @@ export default function ConferenceCTACards() {
               />
             </div>
             
-          </div>
+          </div> */}
         </div>
         {/* Video Modal */}
         <Dialog open={videoOpen} onOpenChange={setVideoOpen}>
