@@ -49,7 +49,7 @@ function OurPatner() {
              Conference Locate (Clocate) is a global conference and exhibition directory that helps you discover international conferences, exhibitions, seminars, and workshops in one place. Search upcoming events, explore opportunities worldwide, and submit your own listings to reach a global audience.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link href="https://www.clocate.com/international-conference-on-sustainability-innovation-and-future-technologies-icsift/105213/" target='_blank'>
+                <Link href="https://www.clocate.com/" target='_blank'>
               <button
                 className="bg-white text-emerald-700 px-6 py-3 rounded-lg font-semibold hover:bg-emerald-50 transition-colors duration-300 shadow-lg flex items-center gap-2"
                 >
