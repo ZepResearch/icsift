@@ -18,12 +18,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 export const metadata = {
-  title: "ICSIFT: International Conference on Scientific Innovation and Future Technologies",
+  title: "ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies",
   description:
     "Join global experts at ICSIFT, a premier conference dedicated to exploring cutting-edge scientific innovations and emerging technologies shaping our future.",
   keywords: [
     "ICSIFT",
-    "scientific innovation",
+    "sustainability",
+    "innovation",
     "future technologies",
     "research conference",
     "interdisciplinary science",
@@ -34,7 +35,7 @@ export const metadata = {
   authors: [{ name: "ICSIFT Organizing Committee", url: "https://icsift.com" }],
   creator: "ICSIFT",
   openGraph: {
-    title: "ICSIFT: International Conference on Scientific Innovation and Future Technologies",
+    title: "ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies",
     description:
       "Discover groundbreaking research and technological advancements at ICSIFT — where science meets innovation to shape tomorrow's world.",
     url: "https://icsift.com",
@@ -54,7 +55,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "ICSIFT",
     description:
-      "The premier international conference on scientific innovation and future technologies.",
+      "The premier International Conference on Sustainability, Innovation, and Future Technologies.",
     creator: "@icsift", // Update to your actual handle
     images: ["https://icsift.com/og-image.png"],
   },
