@@ -5,6 +5,8 @@ import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
 import FloatingWhatsApp from "@/components/FloatingWhatsapp";
 import GoogleTranslateMenu from "@/components/GoogleTranslate";
+import { AuthProvider } from '@/context/AuthContext'
+import AuthModal from '@/components/auth/AuthModal'
 
 
 
@@ -73,18 +75,19 @@ export default function RootLayout({ children }) {
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
         ></script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="sticky top-0 z-50 bg-white">
-        <GoogleTranslateMenu/>
-        <ConferenceNavbar/>
-        </div>
-        {children}
-        <ConferenceFooter/>
-         <TawkToChat/> 
-         <FloatingWhatsApp/>    
-           </body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <AuthProvider>
+          <div className="sticky top-0 z-50 bg-white">
+            <GoogleTranslateMenu />
+            <ConferenceNavbar />
+          </div>
+          {children}
+          <ConferenceFooter />
+          <TawkToChat />
+          <FloatingWhatsApp />
+          <AuthModal />
+        </AuthProvider>
+      </body>
     </html>
   );
 }

@@ -373,13 +373,16 @@ export default function RegistrationPage() {
         order_id: `ORDER-${Date.now()}`,
         currency: selectedTicket.currency,
         amount: selectedTicket.totalAmount,
-        redirect_url: `${window.location.origin}/api/ccavenue/handle`,
-        cancel_url: `${window.location.origin}/api/ccavenue/handle`,
         language: "EN",
         ticket_type: selectedTicket.type,
         ticket_category: selectedTicket.category,
         ticket_name: selectedTicket.name,
       }
+
+      const paymentDataQuery = encodeURIComponent(JSON.stringify(paymentData))
+      const redirectUrl = `${window.location.origin}/api/ccavenue/handle?paymentData=${paymentDataQuery}`
+      paymentData.redirect_url = redirectUrl
+      paymentData.cancel_url = redirectUrl
 
       await fetch("/api/payment-notification", {
         method: "POST",

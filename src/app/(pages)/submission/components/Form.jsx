@@ -10,9 +10,11 @@ import ReCAPTCHA from "react-google-recaptcha"
 import { GeometricShapesCSS } from "./geometric-shapes-css"
 import AbstractSubmissionGuidelines from "./SubmitGuidline"
 import { CONFERENCE } from "@/constants/conference"
+import { useAuth } from '@/context/AuthContext'
 
 
 export default function PaperSubmissionPage() {
+  const { user, openAuthModal } = useAuth()
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -82,11 +84,27 @@ export default function PaperSubmissionPage() {
     }
   }
 
+  if (!user) {
+    return (
+      <main className="bg-[#f8faf5]">
+        <Toaster position="top-right" />
+        <section className="container mx-auto py-12 px-4">
+          <div className="max-w-2xl mx-auto text-center p-8 bg-white rounded-xl shadow">
+            <h2 className="text-2xl font-semibold mb-4">Please sign in to submit a paper</h2>
+            <p className="mb-6">You need to be authenticated to submit your paper. Create an account or login to continue.</p>
+            <div className="flex items-center justify-center gap-4">
+              <button onClick={() => openAuthModal()} className="px-6 py-3 bg-green-600 text-white rounded-full">Sign in / Register</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    )
+  }
   return (
     <main className="bg-[#f8faf5]">
-      <Toaster position="top-right" />
 
       {/* Hero Section */}
+
       <section className="relative py-20 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

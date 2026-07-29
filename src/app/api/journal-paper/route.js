@@ -1,20 +1,20 @@
-import {  NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import PocketBase from "pocketbase"
 import { resend } from "@/lib/resend"
-import { getUserEmailTemplate, getAdminEmailTemplate} from "@/emails/journal-templates"
+import { getUserEmailTemplate, getAdminEmailTemplate } from "@/emails/journal-templates"
 
 export async function POST(request) {
   try {
     const formData = await request.formData()
 
-    // Initialize PocketBase
+    // Initialize PocketBase instances
     const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL)
+    const zepPb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL || "https://admin.zepresearch.com")
 
     // Extract file if present
-    const file = formData.get("file") 
+    const file = formData.get("file")
     let fileUrl = ""
 
-    // Create data object for PocketBase
     const data = {
       author: formData.get("author"),
       phone_number: formData.get("phone_number"),
@@ -26,49 +26,74 @@ export async function POST(request) {
       organization: formData.get("organization"),
       message: formData.get("message"),
       journal_name: formData.get("journal_name"),
+      user: formData.get("user"),
     }
 
-    // Create a new FormData for PocketBase (needed for file upload)
     const pbFormData = new FormData()
-
-    // Add all fields to PocketBase FormData
     Object.entries(data).forEach(([key, value]) => {
-      pbFormData.append(key, value )
+      if (value !== null && value !== undefined) {
+        pbFormData.append(key, value)
+      }
     })
 
-    // Add file if present
     if (file && file.size > 0) {
       pbFormData.append("file", file)
     }
 
-    // Submit to PocketBase
     const record = await pb.collection("ICSIFT_journal_form_submission").create(pbFormData)
 
-    // Get file URL if a file was uploaded
     if (record.file && record.file.length > 0) {
-        // Use the URL method as per latest documentation
-        fileUrl = pb.files.getURL(record, record.file),{'download': 1};
-        
-        // If you need to add download parameter
-        // fileUrl = pb.files.getURL(record, record.file[0], {'download': 1});
-      }
+      fileUrl = pb.getFileUrl(record, record.file[0])
+    }
 
     // Send confirmation email to user
     await resend.emails.send({
       from: "ICSIFT|Journal-Submission <info@icsift.com>",
       to: data.email,
-      subject:
-        "Journal Submission Confirmation - ICSIFT ",
+      subject: "Journal Submission Confirmation - ICSIFT",
       html: getUserEmailTemplate(data),
     })
 
     // Send notification email to admin
     await resend.emails.send({
       from: "ICSIFT | Submission <info@icsift.com>",
-      to: "info@icsift.com", // Replace with actual admin email
+      to: "info@icsift.com",
       subject: "New Journal Submission - from ICSIFT",
       html: getAdminEmailTemplate(data, fileUrl),
     })
+
+    // Also create a record in the ZEP PocketBase instance
+    try {
+      const zepFormData = new FormData()
+      const zepData = {
+        user: formData.get("user"),
+        author: formData.get("author"),
+        journal_name: formData.get("journal_name"),
+        phone_number: formData.get("phone_number"),
+        email: formData.get("email"),
+        country: formData.get("country"),
+        co_author: formData.get("co_author"),
+        paper_title: formData.get("paper_title"),
+        department: formData.get("department"),
+        organization: formData.get("organization"),
+        message: formData.get("message"),
+        status: "pending",
+      }
+      Object.entries(zepData).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          zepFormData.append(key, value)
+        }
+      })
+
+      if (file && file.size > 0) {
+        zepFormData.append("file", file)
+      }
+
+      await zepPb.collection("paper_form_submission").create(zepFormData)
+    } catch (zepError) {
+      console.error("Error creating ZEP PocketBase record:", zepError)
+      // don't fail the entire submission if the secondary record cannot be created
+    }
 
     return NextResponse.json({
       success: true,

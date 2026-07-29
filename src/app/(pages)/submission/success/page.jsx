@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ArrowRight, ArrowLeft, Calendar } from "lucide-react"
+import { CheckCircle, ArrowRight, ArrowLeft, Calendar, ExternalLink, Search } from "lucide-react"
 import { submissionSuccessMetadata } from "@/components/metadata"
 import { CONFERENCE } from "@/constants/conference";
 
@@ -39,7 +39,7 @@ export default function SubmissionSuccess() {
               </span>
             </h1>
             <p className="text-xl text-[#4d724d] mb-8">
-              Thank you for contributing to  {CONFERENCE.name}
+              Thank you for contributing to {CONFERENCE.name}
             </p>
           </div>
         </div>
@@ -55,7 +55,8 @@ export default function SubmissionSuccess() {
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
 
               <div className="relative p-8 md:p-12 text-center">
-                <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
+                <div className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
+                  <div className="absolute inset-0 rounded-full bg-[#4d724d]/30 blur-xl -z-10"></div>
                   <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
                     <CheckCircle className="h-10 w-10 text-[#4d724d]" />
                   </div>
@@ -65,7 +66,7 @@ export default function SubmissionSuccess() {
 
                 <div className="space-y-6 text-[#4d724d] max-w-2xl mx-auto">
                   <p>
-                    Thank you for submitting your paper to {CONFERENCE.shortForm}  International Conference on Sustainability,
+                    Thank you for submitting your paper to {CONFERENCE.shortForm} International Conference on Sustainability,
                     Innovation, and Future Technologies. Your contribution is an important part of advancing research
                     and collaboration in sustainability and innovation.
                   </p>
@@ -102,11 +103,41 @@ export default function SubmissionSuccess() {
                     </ul>
                   </div>
 
-                
+                  {/* Track submission callout */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-[#d3e4c5] bg-white p-5 text-left">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d]/10">
+                        <Search className="h-5 w-5 text-[#4d724d]" />
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-[#1a2e1a]">Track your submission</h4>
+                        <p className="text-sm text-[#4d724d]/90">
+                          You can check the status of your submission on this main website:{" "}
+                          <a
+                            href="https://publication.zepresearch.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium underline underline-offset-2 hover:text-[#3c5c3c]"
+                          >
+                            publication.zepresearch.com
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                    <a
+                      href="https://publication.zepresearch.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#4d724d] px-4 py-2 text-sm font-medium text-[#4d724d] transition-colors hover:bg-[#4d724d] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4d724d]"
+                    >
+                      Check Status
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                  <Button asChild className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
+                  <Button asChild className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full transition-transform hover:-translate-y-0.5">
                     <Link href="/">
                       <ArrowLeft className="mr-2 h-5 w-5" />
                       Return to Home
@@ -115,9 +146,10 @@ export default function SubmissionSuccess() {
                   <Button
                     asChild
                     variant="outline"
-                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full"
+                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full transition-transform hover:-translate-y-0.5"
                   >
                     <Link href="/schedule">
+                      <Calendar className="mr-2 h-5 w-5" />
                       View Conference Schedule
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>

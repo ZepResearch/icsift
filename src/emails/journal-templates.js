@@ -223,15 +223,15 @@ export function getUserEmailTemplate(data) {
         <div class="contact-section">
           <p><strong>📧 Need Assistance?</strong></p>
           <p>If you have any questions, need to make changes to your submission, or require additional information about the conference, please don't hesitate to contact us:</p>
-          <p>📧 Email: <a href="mailto:info@icsift.org" style="color: #65a30d;">info@icsift.org</a><br>
-          🌐 Website: <a href="https://icsift.org" style="color: #65a30d;">www.icsift.org</a></p>
+          <p>📧 Email: <a href="mailto:info@icsift.com" style="color: #65a30d;">info@icsift.com</a><br>
+          🌐 Website: <a href="https://icsift.com" style="color: #65a30d;">www.icsift.com</a></p>
         </div>
         
         <div class="signature">
           <div class="signature-title">Best regards,</div>
           Conference Organizing Committee<br>
           ICSIFT - International Conference on Science, Innovation & Future Technology<br>
-          📧 info@icsift.org
+          📧 info@icsift.com
         </div>
       </div>
       

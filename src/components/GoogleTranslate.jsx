@@ -1,12 +1,31 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+
+let translateInitialized = false; // module-level guard, survives remounts
 
 export default function GoogleTranslate() {
-  useEffect(() => {
-    if (window.google?.translate) return;
+  const initRef = useRef(false);
 
-    window.googleTranslateElementInit = () => {
+  useEffect(() => {
+    // Guard 1: prevent this specific component instance from running twice
+    // (handles React Strict Mode's mount -> unmount -> mount in dev)
+    if (initRef.current) return;
+    initRef.current = true;
+
+    // Guard 2: prevent duplicate init across remounts/navigations
+    if (translateInitialized) return;
+
+    const initWidget = () => {
+      const container = document.getElementById("google_translate_element");
+      if (!container) return;
+
+      // Safety net: if Google already dropped markup in here, don't add more
+      if (container.childElementCount > 0) {
+        translateInitialized = true;
+        return;
+      }
+
       new window.google.translate.TranslateElement(
         {
           pageLanguage: "en",
@@ -14,9 +33,24 @@ export default function GoogleTranslate() {
         },
         "google_translate_element"
       );
+
+      translateInitialized = true;
     };
 
+    // If the Google script already loaded (e.g. fast refresh / client nav),
+    // just init directly instead of injecting the script again.
+    if (window.google?.translate) {
+      initWidget();
+      return;
+    }
+
+    window.googleTranslateElementInit = initWidget;
+
+    // Avoid appending the <script> tag more than once
+    if (document.getElementById("google_translate_script")) return;
+
     const script = document.createElement("script");
+    script.id = "google_translate_script";
     script.src =
       "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
     script.async = true;

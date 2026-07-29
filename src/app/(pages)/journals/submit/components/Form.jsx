@@ -26,9 +26,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useAuth } from '@/context/AuthContext'
 
 
 export default function PaperSubmissionForm({ journalId, journalTitle }) {
+  const { user } = useAuth()
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -42,6 +44,11 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
 
     try {
       const formData = new FormData(e.currentTarget )
+
+      // Add authenticated user id if available
+      if (user?.id) {
+        formData.set("user", user.id)
+      }
 
       // Add journal ID and title to form data
       formData.set("journal_id", journalId)

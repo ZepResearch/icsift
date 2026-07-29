@@ -45,6 +45,7 @@ export async function POST(request) {
 
     // Initialize PocketBase
     const pb = new PocketBase("https://conference.pockethost.io")
+    const zepPb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL_ZEP || "https://admin.zepresearch.com")
 
     // Extract file if present
     const file = formData.get("file")
@@ -52,6 +53,7 @@ export async function POST(request) {
 
     // Create data object for PocketBase
     const data = {
+      user: formData.get("user"),
       author: formData.get("author"),
       phone_number: formData.get("phone_number"),
       email: formData.get("email"),
@@ -71,7 +73,9 @@ export async function POST(request) {
 
     // Add all fields to PocketBase FormData
     Object.entries(data).forEach(([key, value]) => {
-      pbFormData.append(key, value)
+      if (value !== null && value !== undefined) {
+        pbFormData.append(key, value)
+      }
     })
 
     // Add file if present
@@ -103,6 +107,42 @@ export async function POST(request) {
       subject: "New Paper Submission - ICSIFT ",
       html: getAdminEmailTemplate(data, fileUrl),
     })
+
+    // Also write the same record to the ZEP PocketBase instance
+    try {
+      const zepFormData = new FormData()
+      const zepData = {
+        user: formData.get("user"),
+        author: formData.get("author"),
+        phone_number: formData.get("phone_number"),
+        email: formData.get("email"),
+        country: formData.get("country"),
+        co_author: formData.get("co_author"),
+        paper_title: formData.get("paper_title"),
+        department: formData.get("department"),
+        organization: formData.get("organization"),
+        paper_type: formData.get("paper_type"),
+        presentation_type: formData.get("presentation_type"),
+        message: formData.get("message"),
+        know_to_you: formData.get("know_to_you"),
+        status: "pending",
+      }
+
+      Object.entries(zepData).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          zepFormData.append(key, value)
+        }
+      })
+
+      if (file && file.size > 0) {
+        zepFormData.append("file", file)
+      }
+
+      await zepPb.collection("conf_paper_submission_all").create(zepFormData)
+    } catch (zepError) {
+      console.error("Error creating ZEP PocketBase record:", zepError)
+      // don't fail the main submission if the secondary record cannot be created
+    }
 
     return NextResponse.json({
       success: true,

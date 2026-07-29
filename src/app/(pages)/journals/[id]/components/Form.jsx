@@ -26,9 +26,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useAuth } from '@/context/AuthContext'
 
 
 export default function PaperSubmissionForm({ journalId, journalTitle }) {
+  const { user, openAuthModal } = useAuth()
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -42,6 +44,11 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
 
     try {
       const formData = new FormData(e.currentTarget )
+
+      // Add authenticated user id from auth state
+      if (user?.id) {
+        formData.set("user", user.id)
+      }
 
       // Add journal ID and title to form data
       formData.set("journal_id", journalId)
@@ -95,7 +102,20 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
   }
 
   return (
-    <Card className="shadow-lg border-0 overflow-hidden bg-slate-50">
+    <>
+      {!user ? (
+        <Card className="shadow-lg border-0 overflow-hidden bg-slate-50">
+          <div className="h-2 bg-gradient-to-r from-green-400 to-lime-500"></div>
+          <div className="p-8 text-center">
+            <h3 className="text-xl font-semibold mb-2">Please sign in to submit to this journal</h3>
+            <p className="mb-4">You need to be authenticated to submit your paper. Create an account or login to continue.</p>
+            <div className="flex justify-center">
+              <button onClick={() => openAuthModal()} className="px-4 py-2 bg-lime-700 text-white rounded">Sign in / Register</button>
+            </div>
+          </div>
+        </Card>
+      ) : (
+        <Card className="shadow-lg border-0 overflow-hidden bg-slate-50">
       <div className="h-2 bg-gradient-to-r from-green-400 to-lime-500"></div>
 
       <CardHeader className="space-y-1 pb-6 pt-6">
@@ -345,6 +365,8 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
           </CardFooter>
         </form>
       </CardContent>
-    </Card>
+      </Card>
+      )}
+    </>
   )
 }
