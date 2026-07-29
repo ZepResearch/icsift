@@ -11,6 +11,7 @@ import { pb } from "@/lib/pocketbase"
 // Speaker categories
 const speakerCategories = [
   // { id: "Guest Speaker", title: "Guest Speaker" },
+  { id: "Guest of Honor", title: "Guest of Honor" },
   { id: "Organizing Secretary", title: "Organizing Secretary" },
   { id: "Conference Chair", title: "Conference Chair" },
   { id: "Conference Co-Chair", title: "Conference Co-Chair" },
@@ -140,7 +141,7 @@ const SpeakerDrawer = ({ isOpen, onClose, speaker }) => (
 )
 
 export function SpeakerSection() {
-  const [activeCategory, setActiveCategory] = useState("Organizing Secretary")
+  const [activeCategory, setActiveCategory] = useState("Guest of Honor")
   const [selectedSpeaker, setSelectedSpeaker] = useState(null)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [speakers, setSpeakers] = useState()
