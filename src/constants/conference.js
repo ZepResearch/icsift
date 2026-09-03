@@ -1,15 +1,15 @@
 export const CONFERENCE = {
-  name: "3rd International Conference on Sustainability, Innovation, and Future Technologies ",
-  shortForm: "3rd ICSIFT",
+  name: "4th International Conference on Sustainability, Innovation, and Future Technologies ",
+  shortForm: "4th ICSIFT",
 
 scheduleDates: {
-    month: 7,        // 0-indexed: 7 = August
-    year: 2026,
+    month: 1,        // 0-indexed: 1 = February
+    year: 2027,
     days: [21, 22],  // Conference days
   },
 
-  year: 2026,
-  date: "August 21st - 22nd, 2026",
+  year: 2027,
+  date: "February 21st - 22nd, 2027",
   venue: {
     location: "Boracay, Philippines",
     name: "Astoria Current",

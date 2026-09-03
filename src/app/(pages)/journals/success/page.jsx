@@ -30,7 +30,7 @@ export default function SuccessPage() {
               Submission Successful!
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Your journal has been successfully submitted to the ICSIFT.
+              Your journal paper has been successfully submitted to the ICSIFT.
             </p>
 
             {/* Info card */}

@@ -38,7 +38,7 @@ export default function RegistrationPage() {
   const [activeTab, setActiveTab] = useState("physical-no-accommodation")
 
   // ✅ Toggle this to show/hide Early Bird pricing across all cards
-  const isEarlyBirdActive = false  // Set to `true` to show Early Bird, `false` to hide it
+  const isEarlyBirdActive = true  // Set to `true` to show Early Bird, `false` to hide it
 
   // Updated pricing structure with Early Bird pricing
   const pricingData = {

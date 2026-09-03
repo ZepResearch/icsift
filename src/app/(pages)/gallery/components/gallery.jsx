@@ -51,16 +51,16 @@ const firstConferenceImages = [
 
 const secondConferenceImages = [
   {
-    src: "/gallery/2nd-ICSIFT_05.jpg?height=600&width=800",
-    alt: "1st Conference - Opening Ceremony",
+    src: "/gallery/2nd-ICSIFT_03.jpg?height=600&width=800",
+    alt: "1st Conference - Workshop Session",
   },
   {
     src: "/gallery/2nd-ICSIFT_02.jpg?height=600&width=800",
     alt: "1st Conference - Keynote Speaker",
   },
   {
-    src: "/gallery/2nd-ICSIFT_03.jpg?height=600&width=800",
-    alt: "1st Conference - Workshop Session",
+    src: "/gallery/2nd-ICSIFT_05.jpg?height=600&width=800",
+    alt: "1st Conference - Opening Ceremony",
   },
   {
     src: "/gallery/2nd-ICSIFT_04.jpg?height=600&width=800",
@@ -83,6 +83,93 @@ const secondConferenceImages = [
   },
 ]
 
+const thirdConferenceImages = [
+  {
+  src:'/gallery/3rd-icsift (10).jpg',
+  alt:'3rd Conference - Networking Event',
+  },
+  {
+  src:'/gallery/3rd-icsift (1).jpg',
+  alt:'3rd Conference - Opening Ceremony',
+  },
+  {
+  src:'/gallery/3rd-icsift (2).jpg',
+  alt:'3rd Conference - Keynote Speaker',
+  },
+  {
+  src:'/gallery/3rd-icsift (3).jpg',
+  alt:'3rd Conference - Workshop Session',
+  },
+  {
+  src:'/gallery/3rd-icsift (4).jpg',
+  alt:'3rd Conference - Networking Event',
+  },
+  {
+  src:'/gallery/3rd-icsift (5).jpg',
+  alt:'3rd Conference - Networking Event',
+    
+  },
+  {
+  src:'/gallery/3rd-icsift (6).jpg',
+  alt:'3rd Conference - Networking Event',
+  },
+  {
+  src:'/gallery/3rd-icsift (7).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (8).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (9).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (11).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (12).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (13).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (14).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (15).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (16).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (16).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (17).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (18).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (19).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (20).jpg',
+  alt:'3rd Conference - Networking Event',
+  },
+  {
+  src:'/gallery/3rd-icsift (21).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (22).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (23).jpg',
+  alt:'3rd Conference - Networking Event',
+  },{
+  src:'/gallery/3rd-icsift (24).jpg',
+  alt:'3rd Conference - Networking Event',
+  },
+]
 // Sample video data
 const conferenceVideos = [
   {
@@ -151,6 +238,23 @@ export default function Gallery() {
             </div>
 
             <ImageCarousel images={secondConferenceImages} />
+          </section>
+
+          {/* Third Conference Section */}
+          <section className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl border border-white/20 transition-all duration-300 hover:shadow-emerald-400/20">
+            <div>
+              <div className="inline-block px-3 py-1 mb-3 text-xs font-semibold tracking-wider text-emerald-900 bg-emerald-200 rounded-full">
+                EVENT HIGHLIGHTS
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-emerald-200">
+                3rd International Conference
+              </h2>
+              <p className="text-emerald-100 mt-2 max-w-3xl mb-6">
+                 the essence of our third conference with engaging sessions, networking opportunities, and meaningful connections.
+              </p>
+            </div>
+
+            <ImageCarousel images={thirdConferenceImages} />
           </section>
 
           {/* Video Section */}
