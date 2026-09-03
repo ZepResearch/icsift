@@ -110,8 +110,20 @@ export async function POST(request) {
 
     // Also write the same record to the ZEP PocketBase instance
     try {
+      // Get the user's auth token from the request
+      const authToken = formData.get("auth_token")
+
+      // Authenticate ZEP PocketBase with the user's token
+      if (authToken) {
+        zepPb.authStore.save(authToken)
+      } else {
+        console.warn("No auth token provided for ZEP PocketBase")
+      }
+
       const zepFormData = new FormData()
       const zepData = {
+        conference: "9cj5n4788ilx2ms",
+        conf_name: "ICSIFT",
         user: formData.get("user"),
         author: formData.get("author"),
         phone_number: formData.get("phone_number"),

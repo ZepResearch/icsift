@@ -11,6 +11,7 @@ import { GeometricShapesCSS } from "./geometric-shapes-css"
 import AbstractSubmissionGuidelines from "./SubmitGuidline"
 import { CONFERENCE } from "@/constants/conference"
 import { useAuth } from '@/context/AuthContext'
+import pb from '@/lib/zep-pocketbase'
 
 
 export default function PaperSubmissionPage() {
@@ -54,6 +55,11 @@ export default function PaperSubmissionPage() {
 
       // Add reCAPTCHA token
       formData.set("recaptcha_token", recaptchaToken)
+
+      // Add user's auth token for ZEP PocketBase authentication
+      if (pb.authStore.token) {
+        formData.set("auth_token", pb.authStore.token)
+      }
 
       const response = await fetch("/api/submit-paper", {
         method: "POST",
