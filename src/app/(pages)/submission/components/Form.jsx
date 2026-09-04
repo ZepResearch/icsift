@@ -13,6 +13,7 @@ import { CONFERENCE } from "@/constants/conference"
 import { useAuth } from '@/context/AuthContext'
 import pb from '@/lib/zep-pocketbase'
 
+const RECAPTCHA_BYPASS_TOKEN = "localhost-bypass"
 
 export default function PaperSubmissionPage() {
   const { user, openAuthModal } = useAuth()
@@ -23,6 +24,13 @@ export default function PaperSubmissionPage() {
   const [phoneNumber, setPhoneNumber] = useState()
   const [recaptchaToken, setRecaptchaToken] = useState(null)
 
+  // Only true when this page is actually being loaded from localhost —
+  // never true on a deployed domain, so the widget still renders (and is
+  // still required) everywhere else.
+  const isLocalDev =
+    typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+
   const handleRecaptchaChange = (token) => {
     setRecaptchaToken(token)
   }
@@ -32,8 +40,8 @@ export default function PaperSubmissionPage() {
     setIsSubmitting(true)
     setError(null)
 
-    // Validate reCAPTCHA
-    if (!recaptchaToken) {
+    // Validate reCAPTCHA (skipped on localhost)
+    if (!isLocalDev && !recaptchaToken) {
       setError("Please complete the reCAPTCHA verification")
       toast.error("Please complete the reCAPTCHA verification")
       setIsSubmitting(false)
@@ -53,12 +61,20 @@ export default function PaperSubmissionPage() {
         formData.set("file", selectedFile)
       }
 
-      // Add reCAPTCHA token
-      formData.set("recaptcha_token", recaptchaToken)
+      // Add reCAPTCHA token (or the localhost bypass marker)
+      formData.set("recaptcha_token", isLocalDev ? RECAPTCHA_BYPASS_TOKEN : recaptchaToken)
 
       // Add user's auth token for ZEP PocketBase authentication
       if (pb.authStore.token) {
         formData.set("auth_token", pb.authStore.token)
+      }
+
+      // Add the authenticated ZEP user's id explicitly — this is what the
+      // ZEP `conf_paper_submission_all` collection's auth rule checks
+      // against, and it was never being sent before.
+      const zepUserId = pb.authStore.record?.id || pb.authStore.model?.id
+      if (zepUserId) {
+        formData.set("user_id", zepUserId)
       }
 
       const response = await fetch("/api/submit-paper", {
@@ -70,6 +86,10 @@ export default function PaperSubmissionPage() {
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to submit paper")
+      }
+
+      if (data.zep && !data.zep.success) {
+        console.warn("Paper saved, but the ZEP sync did not succeed:", data.zep.error)
       }
 
       // Show success toast
@@ -376,14 +396,22 @@ export default function PaperSubmissionPage() {
                     ></textarea>
                   </div>
 
-                  {/* reCAPTCHA */}
-                  <div className="flex justify-center">
-                    <ReCAPTCHA
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                      onChange={handleRecaptchaChange}
-                      theme="light"
-                    />
-                  </div>
+                  {/* reCAPTCHA (skipped on localhost) */}
+                  {isLocalDev ? (
+                    <div className="flex justify-center">
+                      <span className="px-4 py-2 rounded-lg bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm">
+                        reCAPTCHA bypassed — localhost
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex justify-center">
+                      <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                        onChange={handleRecaptchaChange}
+                        theme="light"
+                      />
+                    </div>
+                  )}
 
                   {/* Submit Button */}
                   <div className="flex justify-center pt-4">
