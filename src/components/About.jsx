@@ -249,7 +249,7 @@ export default function AboutConference() {
                   className="w-full h-full"
                 >
                   <Image
-                    src="/gallery/2nd-ICSIFT_03.jpg"
+                    src="/gallery/3rd-icsift (10).jpg"
                     alt="Sustainable Materials"
                     fill
                     className="object-cover"
