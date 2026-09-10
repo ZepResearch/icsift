@@ -134,13 +134,12 @@ const thirdConferenceImages = [
   },{
   src:'/gallery/3rd-icsift (14).jpg',
   alt:'3rd Conference - Networking Event',
-  },{
-  src:'/gallery/3rd-icsift (15).jpg',
-  alt:'3rd Conference - Networking Event',
-  },{
-  src:'/gallery/3rd-icsift (16).jpg',
-  alt:'3rd Conference - Networking Event',
-  },{
+  },
+  // {
+  // src:'/gallery/3rd-icsift (15).jpg',
+  // alt:'3rd Conference - Networking Event',
+  // },
+ {
   src:'/gallery/3rd-icsift (16).jpg',
   alt:'3rd Conference - Networking Event',
   },{
@@ -169,6 +168,117 @@ const thirdConferenceImages = [
   src:'/gallery/3rd-icsift (24).jpg',
   alt:'3rd Conference - Networking Event',
   },
+  {
+    src:'/gallery/3rd-icsift  (31).jpeg',
+    alt:'3rd Conference - Networking Event',
+  },
+
+{
+  src:'/gallery/3rd-icsift  (33).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (34).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (35).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (36).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (37).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (38).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (39).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (40).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (41).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (42).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (43).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (44).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (45).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (46).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+
+{
+  src:'/gallery/3rd-icsift  (49).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (50).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (51).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (52).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (53).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (54).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (55).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (56).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (57).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (58).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (59).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+{
+  src:'/gallery/3rd-icsift  (60).jpeg',
+  alt:'3rd Conference - Networking Event',
+},
+
 ]
 // Sample video data
 const conferenceVideos = [
