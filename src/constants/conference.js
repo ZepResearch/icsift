@@ -11,8 +11,8 @@ scheduleDates: {
   year: 2027,
   date: "February 21st - 22nd, 2027",
   venue: {
-    location: "Boracay, Philippines",
-    name: "Astoria Current",
-    address: "Sitio Mangayad, Brgy. Manoc Manoc, Station 3, Malay, Boracay Island, 5608 Aklan, Philippines",
+    location: " Bangkok, Thailand",
+    name: "bangkok, Thailand",
+    address: "full venue will be updated soon",
   },
 };
