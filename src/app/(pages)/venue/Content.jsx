@@ -170,7 +170,7 @@ export default function VenuePage() {
             <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
             <div className="relative rounded-2xl overflow-hidden h-[500px] w-full">
               <iframe
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d121.92879636969192!3d11.953323711292446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a53e9de25e70a5%3A0x1f5eaf649be17786!2sAstoria%20Current!5e0!3m2!1sen!2sin!4v1773657923762!5m2!1sen!2sin"    
+src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1178277.5118688908!2d99.97363989628013!3d13.723724826940103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6032280d61f3%3A0x10100b25de24820!2sBangkok%2C%20Thailand!5e1!3m2!1sen!2sin!4v1789545403208!5m2!1sen!2sin"
             width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -181,51 +181,67 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d1
               ></iframe>
             </div>
           </div>
-
 <div className="max-w-3xl mx-auto mt-8">
   <div className="bg-white rounded-3xl border border-[#d3e4c5] p-8 shadow-sm">
-    <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">Getting Around</h2>
+    <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">
+      Getting Around
+    </h2>
+
     <div className="space-y-6 text-[#4d724d]">
-      
       <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">From Airport:</h3>
+        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
+          From Airport:
+        </h3>
         <ul className="list-disc pl-6 space-y-1">
           <li>
-            <strong>Caticlan Airport (MPH):</strong> About 30–45 minutes total travel time, including a short tricycle ride to Caticlan Jetty Port, a 10–15 minute boat transfer to Boracay Island, and a tricycle or e-trike ride to your hotel.
+            <strong>Suvarnabhumi Airport (BKK):</strong> Around 30–45
+            minutes to central Bangkok via Airport Rail Link, taxi, or private
+            transfer depending on traffic.
           </li>
           <li>
-            <strong>Kalibo International Airport (KLO):</strong> Approximately 2–2.5 hours by bus or van to Caticlan Jetty Port, followed by a boat transfer to Boracay.
+            <strong>Don Mueang International Airport (DMK):</strong>{" "}
+            Approximately 30–50 minutes by taxi, airport bus, or ride-hailing
+            services to the city center.
           </li>
           <li>
-            Hotels and resorts commonly offer paid airport and island transfer services.
+            Hotels throughout Bangkok commonly provide paid airport pickup and
+            private transfer services upon request.
           </li>
         </ul>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">Local Transportation:</h3>
+        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
+          Local Transportation:
+        </h3>
         <ul className="list-disc pl-6 space-y-1">
           <li>
-            <strong>E-trikes and tricycles</strong> are the main modes of transport on the island and are easily available.
+            <strong>BTS Skytrain and MRT Metro</strong> are the fastest and most
+            convenient ways to travel across Bangkok.
           </li>
           <li>
-            Most popular areas such as White Beach Stations 1, 2, and 3 are walkable.
+            <strong>Grab, taxis, and tuk-tuks</strong> are widely available for
+            short-distance travel throughout the city.
           </li>
           <li>
-            Motorbike rentals are available for travelers who prefer exploring independently.
+            The <strong>Chao Phraya Express Boat</strong> offers a scenic and
+            efficient route to attractions along the river.
           </li>
         </ul>
       </div>
 
       <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">Parking:</h3>
+        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
+          Parking:
+        </h3>
         <ul className="list-disc pl-6 space-y-1">
           <li>
-            Private vehicle parking is limited on Boracay Island. Parking facilities are available near Caticlan Jetty Port on the mainland.
+            Parking is available at most shopping malls, hotels, and commercial
+            buildings, though traffic and parking availability can be limited
+            during peak hours.
           </li>
         </ul>
       </div>
-
     </div>
   </div>
 </div>
@@ -245,75 +261,78 @@ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d975.8264257275775!2d1
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
   {
-    title: "White Beach",
-    description: "World-famous powdery white sand beach with crystal-clear waters and vibrant sunsets",
-    distance: "0.3 km",
-    icon: <Trees className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1639526473371-e68e5336df56?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "D'Mall Boracay",
-    description: "Central shopping and dining hub with boutiques, cafés, and souvenir stores",
-    distance: "0.6 km",
-    icon: <ShoppingBag className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "/venue/2.jpg",
-  },
-  {
-    title: "Bulabog Beach",
-    description: "Popular spot for kitesurfing, windsurfing, and water sports",
-    distance: "1.2 km",
-    icon: <Trees className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "/venue/3.jpg",
-  },
-  {
-    title: "Mount Luho Viewpoint",
-    description: "Highest point on the island offering panoramic views of Boracay",
+    title: "Grand Palace",
+    description:
+      "Bangkok's iconic royal complex featuring ornate Thai architecture and the Temple of the Emerald Buddha",
     distance: "2.5 km",
     icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
     image:
-      "/venue/4.jpg",
+      "https://images.unsplash.com/photo-1693501107615-a412a9e29ccf?auto=format&fit=crop&w=1548&q=80",
   },
   {
-    title: "Willy’s Rock",
-    description: "Iconic volcanic rock formation and one of Boracay’s most photographed landmarks",
-    distance: "1.8 km",
+    title: "Wat Arun",
+    description:
+      "Beautiful riverside temple known for its distinctive central prang and stunning views along the Chao Phraya River",
+    distance: "3.2 km",
     icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
     image:
-      "/venue/5.jpg",
+      "https://images.unsplash.com/photo-1769850069367-6ad11e3fa8ed?auto=format&fit=crop&w=1548&q=80",
   },
   {
-    title: "Puka Shell Beach",
-    description: "Quieter beach known for natural scenery, shells, and peaceful surroundings",
-    distance: "3.5 km",
-    icon: <Trees className="h-8 w-8 text-[#4d724d]" />,
+    title: "Wat Pho",
+    description:
+      "Historic Buddhist temple famous for its enormous reclining Buddha and traditional Thai architecture",
+    distance: "2.7 km",
+    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
     image:
-      "/venue/6.jpg",
+      "https://images.unsplash.com/photo-1688577553676-3ba3ace2e0c2?auto=format&fit=crop&w=1548&q=80",
   },
   {
-    title: "Diniwid Beach",
-    description: "Peaceful hidden beach just north of White Beach",
-    distance: "1 km",
+    title: "Chinatown Bangkok",
+    description:
+      "Lively Yaowarat district filled with street food, traditional markets, colorful signs, and vibrant nightlife",
+    distance: "1.8 km",
     icon: <Globe className="h-8 w-8 text-[#4d724d]" />,
     image:
-      "/venue/8.jpg",
+      "https://images.unsplash.com/photo-1786299595406-4956eb496c77?auto=format&fit=crop&w=1548&q=80",
   },
   {
-    title: "Caticlan Jetty Port",
-    description: "Island-hopping spot with caves & scenic views",
-    distance: "1 km",
+    title: "Lumphini Park",
+    description:
+      "Large green urban park offering peaceful walking paths, a lake, gardens, and views of Bangkok's skyline",
+    distance: "4.5 km",
+    icon: <Trees className="h-8 w-8 text-[#4d724d]" />,
+    image:
+      "https://images.unsplash.com/photo-1774703699581-32d6b6bcc8f5?auto=format&fit=crop&w=1548&q=80",
+  },
+  {
+    title: "ICONSIAM",
+    description:
+      "Luxury riverside shopping and lifestyle destination featuring international brands, restaurants, and Thai cultural experiences",
+    distance: "3.5 km",
+    icon: <ShoppingBag className="h-8 w-8 text-[#4d724d]" />,
+    image:
+      "https://images.unsplash.com/photo-1739523915210-0d9ee6df3b61?auto=format&fit=crop&w=1548&q=80",
+  },
+  {
+    title: "Asiatique The Riverfront",
+    description:
+      "Popular riverside destination combining shopping, restaurants, entertainment, and scenic views of the Chao Phraya River",
+    distance: "5.2 km",
+    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
+    image:
+      "https://images.unsplash.com/photo-1694676468402-95f71a9fe89d?auto=format&fit=crop&w=1548&q=80",
+  },
+  {
+    title: "Jim Thompson House",
+    description:
+      "Traditional Thai-style house and museum surrounded by tropical gardens and a collection of Southeast Asian art",
+    distance: "3.8 km",
     icon: <Mountain className="h-8 w-8 text-[#4d724d]" />,
-    image: "/venue/9.jpg",
+    image:
+      "https://images.unsplash.com/photo-1500109232983-ec562bebb685?auto=format&fit=crop&w=1548&q=80",
   },
-  {
-    title: "Crocodile Island",
-    description: "Top snorkeling & diving destination with vibrant marine life",
-    distance: "0.8 km",
-    icon: <LandPlot className="h-8 w-8 text-[#4d724d]" />,
-    image: "/venue/10.jpg",
-  }
+  
 ].map((attraction, index) => (
               <div
                 key={index}
