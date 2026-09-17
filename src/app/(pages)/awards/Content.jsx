@@ -108,16 +108,15 @@ export default function AwardsPage() {
                 <div className="bg-gradient-to-r from-[#4d724d] to-[#6b8e6b] rounded-xl p-6 text-white">
                   <h3 className="text-xl font-semibold mb-4">Details of Scholarship</h3>
                   <p className="text-lg">
-                    A <span className="font-bold">50% fee refund</span> will be provided to the best paper and best
-                    paper presenters.
+                    Upto 20% Discount on the next registration will be provided to the best paper and best paper presenters. Scholarships cover full or partial conference registration fees based on fund availability.
                   </p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
                 <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                  <div className="text-3xl font-bold text-[#4d724d] mb-1">50%</div>
-                  <div className="text-[#4d724d]">Fee Refund</div>
+                  <div className="text-3xl font-bold text-[#4d724d] mb-1">20%</div>
+                  <div className="text-[#4d724d]">Discount on Next Registration</div>
                 </div>
 
                 <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">

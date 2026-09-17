@@ -107,9 +107,9 @@ const HeroSection = React.forwardRef(
                 <motion.p className="mb-2 max-w-md text-base  text-white sm:text-black  " variants={itemVariants}>
                   Sustainable Innovation: Bridging Technology and Environmental Stewardship    
                   </motion.p>
-                  <div className='py-2 bg-amber-200 drop-shadow-xl px-7 border-2 border-primary rounded-lg mb-5 max-w-sm' variants={itemVariants}>
+                  {/* <div className='py-2 bg-amber-200 drop-shadow-xl px-7 border-2 border-primary rounded-lg mb-5 max-w-sm' variants={itemVariants}>
                     <p className='text-xl'>ISBN Number : <span className='font-bold'>978-81-996400-0-9</span></p>
-                    </div> 
+                    </div>  */}
                 <div className='flex flex-col sm:flex-row gap-3'>
                   <Link href="/registration" >
                     <Button className=" bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full">Register Now</Button>
