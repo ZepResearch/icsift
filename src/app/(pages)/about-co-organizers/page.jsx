@@ -2,261 +2,262 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Organizers data structure
 const organizersData = [
-  {
-    id: 1,
-    name: "Sulu State College",
-    logo: "/co-org/sulunew.png",
-    image: "/co-org/sulubuilding.jpg",
-    about: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region",
-    vision: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region.",
-    mission: "SSC is committed to develop academic stalwart and globally competent professionals, producing cutting edge research, knowledge and technologies for sustainable development; engage in partnership and viable resource generation programs.",
-    mandate: "Sulu State College is mandated to provide higher technological, professional, and vocational instruction and training in science, agricultural, and industrial fields, as well as short-term technical or vocational courses. It shall promote research, advanced studies, and progressive leadership in its areas of specialization (Philippine Batas Pambansa Blg. 208 Section 2).To the latter ends, the college believes in a system of management devolution to affect an efficient and effective supervision of processes and resources for a sustained delivery of quality outputs, the generation of knowledge on a more global orientation, and the provision of its academic resources, to the extent feasible, to institutions, both local and international, that are involved in development activities. ",
-    coreValues: [
-      { letter: 'S', value: 'Solidarity', color: 'bg-yellow-400' },
-      { letter: 'P', value: 'Professionalism', color: 'bg-blue-900' },
-      { letter: 'I', value: 'Integrity', color: 'bg-yellow-400' },
-      { letter: 'C', value: 'Commitment', color: 'bg-blue-900' },
-      { letter: 'E', value: 'Excellence', color: 'bg-yellow-400' }
-    ],
-    culture: [
-      "Continuous Improvement",
-      "Administrative Accountability",
-      "Community Engagement",
-      "Commitment to Quality and Innovation"
-    ],
-    competencies: [
-      "Quality Excellence and Continuous Improvement",
-      "Building Partnerships with Stakeholders",
-      "Providing Accessible Services to Current and Potential Students",
-      "Continuous Learning and Development for Employees"
-    ],
-    accreditations: [
-      { name: "WURI Rankings", logo: "/images/wuri.png" },
-      { name: "ISO Certified", logo: "/images/iso.png" },
-      { name: "CHED Recognition", logo: "/images/ched.png" }
-    ],
-    contact: {
-      facebook: "facebook.com/sulustatecollege",
-      email: "sulustatecollege@gmail.com",
-    //   phone: "+63 XXX XXX XXXX",
-      website: "sulustatecollege.edu.ph"
-    },
-    theme: {
-      primary: 'blue',
-      gradient: 'from-blue-900 to-blue-600'
-    }
-  },
-  {
-    id: 2,
-    name: "Polytechnic University of the Philippines",
-    logo: "/co-org/PUTP.jpeg",
-    image: "/co-org/pup-campus.jpg",
-    about: "Polytechnic University of the Philippines is a public university established in 1904. Its main campus is located in Manila. Known as the “People’s University,” it provides affordable and quality education. The university offers various undergraduate and graduate programs in business, engineering, education, technology, and social sciences to thousands of students.",
-    vision: "To be a globally recognized university for higher education and research that is accessible to all.",
-    mission: "To provide higher education offering quality programs that are responsive to societal needs through effective teaching, research, and community engagement.",
-    mandate: "PUP is mandated to provide advanced instruction and professional training in technology, science, arts, and economics, and to promote research, advanced studies, and progressive leadership in these fields.",
-    coreValues: [
-      { letter: 'P', value: 'Pananalig', color: 'bg-red-600' },
-      { letter: 'U', value: 'Ugnayan', color: 'bg-yellow-400' },
-      { letter: 'P', value: 'Paglilingkod', color: 'bg-red-600' }
-    ],
-    culture: [
-      "Inclusive Education",
-      "Academic Integrity",
-      "Community Development",
-      "Lifelong Learning"
-    ],
-    competencies: [
-      "Research and Innovation",
-      "Technical and Vocational Training",
-      "Community Outreach",
-      "Quality Instruction"
-    ],
-    accreditations: [
-      { name: "CHED Recognized", logo: "/images/ched.png" },
-      { name: "ISO Certified", logo: "/images/iso.png" }
-    ],
-    contact: {
-      website: "www.pup.edu.ph",
-      email: "",
-      facebook: "https://www.facebook.com/ThePUPOfficials"
-    },
-    theme: {
-      primary: 'red',
-      gradient: 'from-red-700 to-red-400'
-    }
-  },
-  {
-  id: 3,
-  name: "Aklan State University (ASU)",
-  logo: "/co-org/asu.jpeg",
-  image: "/co-org/asu-campus.jpg",
-  about: "Aklan State University (ASU; Filipino: Pamantasang Pampamahalaan ng Aklan) is a provincial state university in Aklan province, Philippines. Its seat of governance is in ASU - Banga, with four other campuses across the province. ASU focuses on agriculture, fishery, arts and sciences, engineering and technology, and education. Formerly known as the Aklan State College of Agriculture and the Aklan Agricultural College, the institution gained university status on April 4, 2001, with the signing of Republic Act 9055 by President Gloria Macapagal Arroyo.",
-  vision: "To be a leading state university in agriculture, fisheries, engineering, and education, producing globally competent graduates and promoting sustainable development.",
-  mission: "To provide quality instruction, conduct relevant research, and deliver community extension services in agriculture, fisheries, arts and sciences, engineering, technology, and education.",
-  mandate: "ASU is mandated to provide advanced education, research, and extension services in agriculture, fisheries, engineering, and allied disciplines to support regional and national development.",
-  coreValues: [
-    { letter: 'A', value: 'Accountability', color: 'bg-blue-700' },
-    { letter: 'S', value: 'Service Excellence', color: 'bg-green-600' },
-    { letter: 'U', value: 'Unity', color: 'bg-blue-700' }
-  ],
-  culture: [
-    "Academic Excellence",
-    "Sustainable Development",
-    "Community Engagement",
-    "Innovation and Research"
-  ],
-  competencies: [
-    "Agriculture and Fisheries",
-    "Engineering and Technology",
-    "Arts and Sciences",
-    "Education and Teacher Training",
-    "Research and Extension Services"
-  ],
-  accreditations: [
-    { name: "CHED Recognized State University", logo: "/images/ched.png" }
-  ],
-  contact: {
-    website: "https://asu.edu.ph/online/",
-    email: "asumail@asu.edu.ph",
-    phone: "+63 36 267 5801",
-    facebook: "https://www.facebook.com/ASUInfoOffice/",
-    address: "Banga, Philippines"
-  },
-  theme: {
-    primary: 'green',
-    gradient: 'from-green-700 to-blue-600'
-  }
-},
-  {
-    id: 4,
-    name: "Asia Pacific Society of Educators, Researchers and Professionals",
-    logo: "/co-org/PCERP.jpeg",
-    image: "/co-org/asperp-event.jpg",
-    about: "The Asia Pacific Society of Educators, Researchers and Professionals is an academic organization that promotes collaboration among teachers, researchers, and professionals across the Asia-Pacific region. It organizes conferences, workshops, and research activities to support knowledge sharing, professional development, and innovation in education, science, technology, and other academic and professional fields.",
-    vision: "To be the leading network of educators and researchers dedicated to improving education and professional practices in the Asia-Pacific.",
-    mission: "To foster partnerships, organize knowledge-sharing events, and support research initiatives that elevate teaching and learning across the region.",
-    mandate: "APSERP is committed to strengthening education by creating platforms for collaboration, professional development, and research dissemination.",
-    coreValues: [
-      { letter: 'A', value: 'Academia', color: 'bg-emerald-600' },
-      { letter: 'P', value: 'Partnership', color: 'bg-blue-700' },
-      { letter: 'S', value: 'Service', color: 'bg-emerald-600' },
-      { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
-      { letter: 'R', value: 'Research', color: 'bg-emerald-600' }
-    ],
-    culture: [
-      "Collaborative Research",
-      "Professional Growth",
-      "Innovation in Education",
-      "Global Networking"
-    ],
-    competencies: [
-      "Conference and Workshop Organization",
-      "Research Collaboration",
-      "Professional Development",
-      "Cross-cultural Knowledge Exchange"
-    ],
-    accreditations: [
-      { name: "International Network", logo: "/images/world.png" }
-    ],
-    contact: {
-      website: "https://www.facebook.com/profile.php?id=61572166725005",
-      email: "apserp2025@gmail.com",
-      facebook: "www.facebook.com/profile.php?id=61572166725005"
-    },
-    theme: {
-      primary: 'emerald',
-      gradient: 'from-emerald-700 to-emerald-400'
-    }
-  },
-  {
-    id: 5,
-    name: "FEATI University",
-    logo: "/co-org/FU.jpeg",
-    image: "/co-org/feati-campus.jpg",
-    about: "FEATI University is a leading university in the Philippines, renowned for its pioneering role in aviation education and excellence across engineering, science, education, architecture, business, arts, maritime studies, and information technology. It fosters an environment that empowers students to become socially responsible, lifelong learners and innovators.",
-    vision: "To be a premier university developing competent professionals and leaders grounded in technical excellence and ethical values.",
-    mission: "To deliver quality education through innovative programs, industry partnerships, and value-driven instruction.",
-    mandate: "FEATI is mandated to provide technological and professional education geared towards producing globally competitive graduates.",
-    coreValues: [
-      { letter: 'F', value: 'Faith', color: 'bg-yellow-500' },
-      { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
-      { letter: 'A', value: 'Accountability', color: 'bg-yellow-500' },
-      { letter: 'T', value: 'Teamwork', color: 'bg-blue-700' },
-      { letter: 'I', value: 'Integrity', color: 'bg-yellow-500' }
-    ],
-    culture: [
-      "Innovation and Creativity",
-      "Industry Engagement",
-      "Student-centered Learning",
-      "Ethical Leadership"
-    ],
-    competencies: [
-      "Aviation and Engineering Education",
-      "Technical Research",
-      "Industry Partnerships",
-      "Leadership Development"
-    ],
-    accreditations: [
-      { name: "PAASCU Accredited", logo: "/images/paascu.png" }
-    ],
-    contact: {
-      website: "www.featiu.edu.ph",
-      email: "info@featiu.edu.ph",
-      facebook: "www.facebook.com/featiuniversity"
-    },
-    theme: {
-      primary: 'yellow',
-      gradient: 'from-yellow-500 to-yellow-300'
-    }
-  },
-  {
-  id: 6,
-  name: "Iloilo State University of Fisheries Science and Technology (ISUFST)",
-  logo: "/co-org/isufst.jpeg",
-  image: "/co-org/isufst-campus.jpg",
-  about: "Iloilo State University of Fisheries Science and Technology (ISUFST) is a recognized state university in the Philippines, specializing in fisheries, marine sciences, agriculture, and technology-driven education. The institution is committed to academic excellence through quality instruction, impactful research, and strong community engagement initiatives. ISUFST has established itself as a center for innovation and sustainability, particularly in aquatic and environmental sciences, while continuously expanding its academic programs across engineering, management, and social sciences.",
-  vision: "To be a recognized center of excellence in fisheries, aquatic sciences, and technology-driven education, producing globally competitive graduates committed to sustainable development.",
-  mission: "To provide quality instruction, conduct impactful research, and engage communities through programs anchored in fisheries, marine sciences, agriculture, and allied fields.",
-  mandate: "ISUFST is mandated to offer advanced education and training in fisheries and aquatic sciences, promote scientific research, and support sustainable development in coastal and rural communities.",
-  coreValues: [
-    { letter: 'I', value: 'Integrity', color: 'bg-blue-700' },
-    { letter: 'S', value: 'Service', color: 'bg-green-600' },
-    { letter: 'U', value: 'Unity', color: 'bg-blue-700' },
-    { letter: 'F', value: 'Faith', color: 'bg-green-600' },
-    { letter: 'S', value: 'Sustainability', color: 'bg-blue-700' },
-    { letter: 'T', value: 'Teamwork', color: 'bg-green-600' }
-  ],
-  culture: [
-    "Innovation and Sustainability",
-    "Community Engagement",
-    "Interdisciplinary Research",
-    "Environmental Stewardship"
-  ],
-  competencies: [
-    "Fisheries and Aquatic Sciences",
-    "Marine and Environmental Studies",
-    "Agriculture and Food Technology",
-    "Engineering and Applied Sciences",
-    "Business, Management, and Social Sciences",
-    "Education and Community Development"
-  ],
-  accreditations: [
-    { name: "CHED Recognized State University", logo: "/images/ched.png" }
-  ],
-  contact: {
-    website: "www.isufst.edu.ph",
-    email: "president@isufst.edu.ph",
-    facebook: "https://www.facebook.com/ISUFSTOfficialPage"
-  },
-  theme: {
-    primary: 'green',
-    gradient: 'from-green-700 to-blue-600'
-  }
-},
+//   {
+//     id: 1,
+//     name: "Sulu State College",
+//     logo: "/co-org/sulunew.png",
+//     image: "/co-org/sulubuilding.jpg",
+//     about: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region",
+//     vision: "The Sulu State College as Center of Excellence in BARMM producing globally competitive graduates and as institutional stewards in the development of the region.",
+//     mission: "SSC is committed to develop academic stalwart and globally competent professionals, producing cutting edge research, knowledge and technologies for sustainable development; engage in partnership and viable resource generation programs.",
+//     mandate: "Sulu State College is mandated to provide higher technological, professional, and vocational instruction and training in science, agricultural, and industrial fields, as well as short-term technical or vocational courses. It shall promote research, advanced studies, and progressive leadership in its areas of specialization (Philippine Batas Pambansa Blg. 208 Section 2).To the latter ends, the college believes in a system of management devolution to affect an efficient and effective supervision of processes and resources for a sustained delivery of quality outputs, the generation of knowledge on a more global orientation, and the provision of its academic resources, to the extent feasible, to institutions, both local and international, that are involved in development activities. ",
+//     coreValues: [
+//       { letter: 'S', value: 'Solidarity', color: 'bg-yellow-400' },
+//       { letter: 'P', value: 'Professionalism', color: 'bg-blue-900' },
+//       { letter: 'I', value: 'Integrity', color: 'bg-yellow-400' },
+//       { letter: 'C', value: 'Commitment', color: 'bg-blue-900' },
+//       { letter: 'E', value: 'Excellence', color: 'bg-yellow-400' }
+//     ],
+//     culture: [
+//       "Continuous Improvement",
+//       "Administrative Accountability",
+//       "Community Engagement",
+//       "Commitment to Quality and Innovation"
+//     ],
+//     competencies: [
+//       "Quality Excellence and Continuous Improvement",
+//       "Building Partnerships with Stakeholders",
+//       "Providing Accessible Services to Current and Potential Students",
+//       "Continuous Learning and Development for Employees"
+//     ],
+//     accreditations: [
+//       { name: "WURI Rankings", logo: "/images/wuri.png" },
+//       { name: "ISO Certified", logo: "/images/iso.png" },
+//       { name: "CHED Recognition", logo: "/images/ched.png" }
+//     ],
+//     contact: {
+//       facebook: "facebook.com/sulustatecollege",
+//       email: "sulustatecollege@gmail.com",
+//     //   phone: "+63 XXX XXX XXXX",
+//       website: "sulustatecollege.edu.ph"
+//     },
+//     theme: {
+//       primary: 'blue',
+//       gradient: 'from-blue-900 to-blue-600'
+//     }
+//   },
+//   {
+//     id: 2,
+//     name: "Polytechnic University of the Philippines",
+//     logo: "/co-org/PUTP.jpeg",
+//     image: "/co-org/pup-campus.jpg",
+//     about: "Polytechnic University of the Philippines is a public university established in 1904. Its main campus is located in Manila. Known as the “People’s University,” it provides affordable and quality education. The university offers various undergraduate and graduate programs in business, engineering, education, technology, and social sciences to thousands of students.",
+//     vision: "To be a globally recognized university for higher education and research that is accessible to all.",
+//     mission: "To provide higher education offering quality programs that are responsive to societal needs through effective teaching, research, and community engagement.",
+//     mandate: "PUP is mandated to provide advanced instruction and professional training in technology, science, arts, and economics, and to promote research, advanced studies, and progressive leadership in these fields.",
+//     coreValues: [
+//       { letter: 'P', value: 'Pananalig', color: 'bg-red-600' },
+//       { letter: 'U', value: 'Ugnayan', color: 'bg-yellow-400' },
+//       { letter: 'P', value: 'Paglilingkod', color: 'bg-red-600' }
+//     ],
+//     culture: [
+//       "Inclusive Education",
+//       "Academic Integrity",
+//       "Community Development",
+//       "Lifelong Learning"
+//     ],
+//     competencies: [
+//       "Research and Innovation",
+//       "Technical and Vocational Training",
+//       "Community Outreach",
+//       "Quality Instruction"
+//     ],
+//     accreditations: [
+//       { name: "CHED Recognized", logo: "/images/ched.png" },
+//       { name: "ISO Certified", logo: "/images/iso.png" }
+//     ],
+//     contact: {
+//       website: "www.pup.edu.ph",
+//       email: "",
+//       facebook: "https://www.facebook.com/ThePUPOfficials"
+//     },
+//     theme: {
+//       primary: 'red',
+//       gradient: 'from-red-700 to-red-400'
+//     }
+//   },
+//   {
+//   id: 3,
+//   name: "Aklan State University (ASU)",
+//   logo: "/co-org/asu.jpeg",
+//   image: "/co-org/asu-campus.jpg",
+//   about: "Aklan State University (ASU; Filipino: Pamantasang Pampamahalaan ng Aklan) is a provincial state university in Aklan province, Philippines. Its seat of governance is in ASU - Banga, with four other campuses across the province. ASU focuses on agriculture, fishery, arts and sciences, engineering and technology, and education. Formerly known as the Aklan State College of Agriculture and the Aklan Agricultural College, the institution gained university status on April 4, 2001, with the signing of Republic Act 9055 by President Gloria Macapagal Arroyo.",
+//   vision: "To be a leading state university in agriculture, fisheries, engineering, and education, producing globally competent graduates and promoting sustainable development.",
+//   mission: "To provide quality instruction, conduct relevant research, and deliver community extension services in agriculture, fisheries, arts and sciences, engineering, technology, and education.",
+//   mandate: "ASU is mandated to provide advanced education, research, and extension services in agriculture, fisheries, engineering, and allied disciplines to support regional and national development.",
+//   coreValues: [
+//     { letter: 'A', value: 'Accountability', color: 'bg-blue-700' },
+//     { letter: 'S', value: 'Service Excellence', color: 'bg-green-600' },
+//     { letter: 'U', value: 'Unity', color: 'bg-blue-700' }
+//   ],
+//   culture: [
+//     "Academic Excellence",
+//     "Sustainable Development",
+//     "Community Engagement",
+//     "Innovation and Research"
+//   ],
+//   competencies: [
+//     "Agriculture and Fisheries",
+//     "Engineering and Technology",
+//     "Arts and Sciences",
+//     "Education and Teacher Training",
+//     "Research and Extension Services"
+//   ],
+//   accreditations: [
+//     { name: "CHED Recognized State University", logo: "/images/ched.png" }
+//   ],
+//   contact: {
+//     website: "https://asu.edu.ph/online/",
+//     email: "asumail@asu.edu.ph",
+//     phone: "+63 36 267 5801",
+//     facebook: "https://www.facebook.com/ASUInfoOffice/",
+//     address: "Banga, Philippines"
+//   },
+//   theme: {
+//     primary: 'green',
+//     gradient: 'from-green-700 to-blue-600'
+//   }
+// },
+//   {
+//     id: 4,
+//     name: "Asia Pacific Society of Educators, Researchers and Professionals",
+//     logo: "/co-org/PCERP.jpeg",
+//     image: "/co-org/asperp-event.jpg",
+//     about: "The Asia Pacific Society of Educators, Researchers and Professionals is an academic organization that promotes collaboration among teachers, researchers, and professionals across the Asia-Pacific region. It organizes conferences, workshops, and research activities to support knowledge sharing, professional development, and innovation in education, science, technology, and other academic and professional fields.",
+//     vision: "To be the leading network of educators and researchers dedicated to improving education and professional practices in the Asia-Pacific.",
+//     mission: "To foster partnerships, organize knowledge-sharing events, and support research initiatives that elevate teaching and learning across the region.",
+//     mandate: "APSERP is committed to strengthening education by creating platforms for collaboration, professional development, and research dissemination.",
+//     coreValues: [
+//       { letter: 'A', value: 'Academia', color: 'bg-emerald-600' },
+//       { letter: 'P', value: 'Partnership', color: 'bg-blue-700' },
+//       { letter: 'S', value: 'Service', color: 'bg-emerald-600' },
+//       { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
+//       { letter: 'R', value: 'Research', color: 'bg-emerald-600' }
+//     ],
+//     culture: [
+//       "Collaborative Research",
+//       "Professional Growth",
+//       "Innovation in Education",
+//       "Global Networking"
+//     ],
+//     competencies: [
+//       "Conference and Workshop Organization",
+//       "Research Collaboration",
+//       "Professional Development",
+//       "Cross-cultural Knowledge Exchange"
+//     ],
+//     accreditations: [
+//       { name: "International Network", logo: "/images/world.png" }
+//     ],
+//     contact: {
+//       website: "https://www.facebook.com/profile.php?id=61572166725005",
+//       email: "apserp2025@gmail.com",
+//       facebook: "www.facebook.com/profile.php?id=61572166725005"
+//     },
+//     theme: {
+//       primary: 'emerald',
+//       gradient: 'from-emerald-700 to-emerald-400'
+//     }
+//   },
+//   {
+//     id: 5,
+//     name: "FEATI University",
+//     logo: "/co-org/FU.jpeg",
+//     image: "/co-org/feati-campus.jpg",
+//     about: "FEATI University is a leading university in the Philippines, renowned for its pioneering role in aviation education and excellence across engineering, science, education, architecture, business, arts, maritime studies, and information technology. It fosters an environment that empowers students to become socially responsible, lifelong learners and innovators.",
+//     vision: "To be a premier university developing competent professionals and leaders grounded in technical excellence and ethical values.",
+//     mission: "To deliver quality education through innovative programs, industry partnerships, and value-driven instruction.",
+//     mandate: "FEATI is mandated to provide technological and professional education geared towards producing globally competitive graduates.",
+//     coreValues: [
+//       { letter: 'F', value: 'Faith', color: 'bg-yellow-500' },
+//       { letter: 'E', value: 'Excellence', color: 'bg-blue-700' },
+//       { letter: 'A', value: 'Accountability', color: 'bg-yellow-500' },
+//       { letter: 'T', value: 'Teamwork', color: 'bg-blue-700' },
+//       { letter: 'I', value: 'Integrity', color: 'bg-yellow-500' }
+//     ],
+//     culture: [
+//       "Innovation and Creativity",
+//       "Industry Engagement",
+//       "Student-centered Learning",
+//       "Ethical Leadership"
+//     ],
+//     competencies: [
+//       "Aviation and Engineering Education",
+//       "Technical Research",
+//       "Industry Partnerships",
+//       "Leadership Development"
+//     ],
+//     accreditations: [
+//       { name: "PAASCU Accredited", logo: "/images/paascu.png" }
+//     ],
+//     contact: {
+//       website: "www.featiu.edu.ph",
+//       email: "info@featiu.edu.ph",
+//       facebook: "www.facebook.com/featiuniversity"
+//     },
+//     theme: {
+//       primary: 'yellow',
+//       gradient: 'from-yellow-500 to-yellow-300'
+//     }
+//   },
+//   {
+//   id: 6,
+//   name: "Iloilo State University of Fisheries Science and Technology (ISUFST)",
+//   logo: "/co-org/isufst.jpeg",
+//   image: "/co-org/isufst-campus.jpg",
+//   about: "Iloilo State University of Fisheries Science and Technology (ISUFST) is a recognized state university in the Philippines, specializing in fisheries, marine sciences, agriculture, and technology-driven education. The institution is committed to academic excellence through quality instruction, impactful research, and strong community engagement initiatives. ISUFST has established itself as a center for innovation and sustainability, particularly in aquatic and environmental sciences, while continuously expanding its academic programs across engineering, management, and social sciences.",
+//   vision: "To be a recognized center of excellence in fisheries, aquatic sciences, and technology-driven education, producing globally competitive graduates committed to sustainable development.",
+//   mission: "To provide quality instruction, conduct impactful research, and engage communities through programs anchored in fisheries, marine sciences, agriculture, and allied fields.",
+//   mandate: "ISUFST is mandated to offer advanced education and training in fisheries and aquatic sciences, promote scientific research, and support sustainable development in coastal and rural communities.",
+//   coreValues: [
+//     { letter: 'I', value: 'Integrity', color: 'bg-blue-700' },
+//     { letter: 'S', value: 'Service', color: 'bg-green-600' },
+//     { letter: 'U', value: 'Unity', color: 'bg-blue-700' },
+//     { letter: 'F', value: 'Faith', color: 'bg-green-600' },
+//     { letter: 'S', value: 'Sustainability', color: 'bg-blue-700' },
+//     { letter: 'T', value: 'Teamwork', color: 'bg-green-600' }
+//   ],
+//   culture: [
+//     "Innovation and Sustainability",
+//     "Community Engagement",
+//     "Interdisciplinary Research",
+//     "Environmental Stewardship"
+//   ],
+//   competencies: [
+//     "Fisheries and Aquatic Sciences",
+//     "Marine and Environmental Studies",
+//     "Agriculture and Food Technology",
+//     "Engineering and Applied Sciences",
+//     "Business, Management, and Social Sciences",
+//     "Education and Community Development"
+//   ],
+//   accreditations: [
+//     { name: "CHED Recognized State University", logo: "/images/ched.png" }
+//   ],
+//   contact: {
+//     website: "www.isufst.edu.ph",
+//     email: "president@isufst.edu.ph",
+//     facebook: "https://www.facebook.com/ISUFSTOfficialPage"
+//   },
+//   theme: {
+//     primary: 'green',
+//     gradient: 'from-green-700 to-blue-600'
+//   }
+// },
 
 ];
 
@@ -282,14 +283,31 @@ export default function CoOrganizerSection() {
 
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-1  gap-8 lg:gap-12">
-            {organizersData.map((org, index) => (
-              <OrganizerCard
-                key={org.id}
-                organizer={org}
-                onShowMore={() => openDialog(org)}
-                delay={index * 100}
-              />
-            ))}
+            {organizersData.length > 0 ? (
+              organizersData.map((org, index) => (
+                <OrganizerCard
+                  key={org.id}
+                  organizer={org}
+                  onShowMore={() => openDialog(org)}
+                  delay={index * 100}
+                />
+              ))
+            ) : (
+              <div className="col-span-full py-12 text-center bg-[#4d724d] rounded-3xl shadow-lg animate-fadeInUp">
+                <h3 className="mb-3 font-serif text-3xl font-bold text-gray-50">
+                  Become a Co-Organizer
+                </h3>
+                <p className="mx-auto mb-6 max-w-xl text-gray-100">
+                  Interested in partnering with us? Get in touch to explore how your institution can join our conference.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-full bg-black  px-8 py-3 font-medium text-white transition-colors "
+                >
+                  Contact Us
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>

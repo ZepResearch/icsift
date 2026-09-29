@@ -50,10 +50,10 @@ export default function Home() {
         }}
       />
     </div>
-        <CPD/>
-        <PASUCEndorsementPOPUP/>
-        <PASUCEndorsement/>
-        <Organizer/>
+        {/* <CPD/> */}
+        {/* <PASUCEndorsementPOPUP/> */}
+        {/* <PASUCEndorsement/> */}
+        {/* <Organizer/> */}
         <AboutConference/>
         <Buttons/>
         <ConferenceObjectives/>
