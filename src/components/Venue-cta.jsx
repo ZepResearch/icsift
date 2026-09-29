@@ -154,20 +154,20 @@ export default function ConferenceVenue() {
   <h4 className="text-xl font-medium text-[#1a2e1a] mb-6">Transportation</h4>
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <p className="text-sm font-medium text-[#4d724d] mb-2">From Airport</p>
+      <p className="text-sm font-medium text-[#4d724d] mb-2">From the Airport</p>
       <p className="text-[#1a2e1a]/80 text-justify">
-        Boracay is accessible via Caticlan Airport (MPH) or Kalibo International Airport (KLO).
-        From Caticlan Airport, a short tricycle ride followed by a boat transfer will take you to
-        Boracay Island, with a total travel time of around 30–45 minutes. From Kalibo Airport,
-        land transfers and boat rides take approximately 2–3 hours.
+        Bangkok is served by Suvarnabhumi Airport (BKK) and Don Mueang International Airport (DMK).
+        From Suvarnabhumi, the Airport Rail Link, taxi, or private transfer can take around 30–45
+        minutes to central Bangkok, depending on traffic. From Don Mueang, a taxi, airport bus, or
+        ride-hailing service typically takes around 30–50 minutes to the city center.
       </p>
     </div>
     <div>
       <p className="text-sm font-medium text-[#4d724d] mb-2">Local Transportation</p>
       <p className="text-[#1a2e1a]/80 text-justify">
-        Transportation within Boracay is mainly via electric tricycles (e-trikes), which are the
-        primary mode of public transport on the island. Walking is also convenient, especially
-        along White Beach, where most hotels, venues, and attractions are located.
+        Bangkok's BTS Skytrain and MRT Metro are convenient ways to travel across the city. Taxis,
+        Grab ride-hailing services, and tuk-tuks are also widely available. The Chao Phraya Express
+        Boat offers another way to reach attractions along the river.
       </p>
     </div>
   </div>
