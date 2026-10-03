@@ -53,10 +53,10 @@ export default function ConferenceVenue() {
             {/* Left side - Venue image */}
             <div className="relative h-[300px] lg:h-full">
               <img
-                src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/ef/87/24/caption.jpg?w=1000&h=-1&s=1"
+                src="https://images.unsplash.com/photo-1659779088260-3ab99bd08e0c?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="ICSIFT Conference Venue - Bangkok International Convention Center"
                 
-                className="object-cover"
+                className="object-fill w-full h-full"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/40 via-transparent to-transparent"></div>
 
