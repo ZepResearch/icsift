@@ -50,46 +50,46 @@ const organizersData = [
 //       gradient: 'from-blue-900 to-blue-600'
 //     }
 //   },
-//   {
-//     id: 2,
-//     name: "Polytechnic University of the Philippines",
-//     logo: "/co-org/PUTP.jpeg",
-//     image: "/co-org/pup-campus.jpg",
-//     about: "Polytechnic University of the Philippines is a public university established in 1904. Its main campus is located in Manila. Known as the “People’s University,” it provides affordable and quality education. The university offers various undergraduate and graduate programs in business, engineering, education, technology, and social sciences to thousands of students.",
-//     vision: "To be a globally recognized university for higher education and research that is accessible to all.",
-//     mission: "To provide higher education offering quality programs that are responsive to societal needs through effective teaching, research, and community engagement.",
-//     mandate: "PUP is mandated to provide advanced instruction and professional training in technology, science, arts, and economics, and to promote research, advanced studies, and progressive leadership in these fields.",
-//     coreValues: [
-//       { letter: 'P', value: 'Pananalig', color: 'bg-red-600' },
-//       { letter: 'U', value: 'Ugnayan', color: 'bg-yellow-400' },
-//       { letter: 'P', value: 'Paglilingkod', color: 'bg-red-600' }
-//     ],
-//     culture: [
-//       "Inclusive Education",
-//       "Academic Integrity",
-//       "Community Development",
-//       "Lifelong Learning"
-//     ],
-//     competencies: [
-//       "Research and Innovation",
-//       "Technical and Vocational Training",
-//       "Community Outreach",
-//       "Quality Instruction"
-//     ],
-//     accreditations: [
-//       { name: "CHED Recognized", logo: "/images/ched.png" },
-//       { name: "ISO Certified", logo: "/images/iso.png" }
-//     ],
-//     contact: {
-//       website: "www.pup.edu.ph",
-//       email: "",
-//       facebook: "https://www.facebook.com/ThePUPOfficials"
-//     },
-//     theme: {
-//       primary: 'red',
-//       gradient: 'from-red-700 to-red-400'
-//     }
-//   },
+   {
+    id: 2,
+    name: "Polytechnic University of the Philippines",
+    logo: "/co-org/PUTP.jpeg",
+    image: "/co-org/pup-campus.jpg",
+    about: "Polytechnic University of the Philippines is a public university established in 1904. Its main campus is located in Manila. Known as the “People’s University,” it provides affordable and quality education. The university offers various undergraduate and graduate programs in business, engineering, education, technology, and social sciences to thousands of students.",
+    vision: "To be a globally recognized university for higher education and research that is accessible to all.",
+    mission: "To provide higher education offering quality programs that are responsive to societal needs through effective teaching, research, and community engagement.",
+    mandate: "PUP is mandated to provide advanced instruction and professional training in technology, science, arts, and economics, and to promote research, advanced studies, and progressive leadership in these fields.",
+    coreValues: [
+      { letter: 'P', value: 'Pananalig', color: 'bg-red-600' },
+      { letter: 'U', value: 'Ugnayan', color: 'bg-yellow-400' },
+      { letter: 'P', value: 'Paglilingkod', color: 'bg-red-600' }
+    ],
+    culture: [
+      "Inclusive Education",
+      "Academic Integrity",
+      "Community Development",
+      "Lifelong Learning"
+    ],
+    competencies: [
+      "Research and Innovation",
+      "Technical and Vocational Training",
+      "Community Outreach",
+      "Quality Instruction"
+    ],
+    accreditations: [
+      { name: "CHED Recognized", logo: "/images/ched.png" },
+      { name: "ISO Certified", logo: "/images/iso.png" }
+    ],
+    contact: {
+      website: "www.pup.edu.ph",
+      email: "",
+      facebook: "https://www.facebook.com/ThePUPOfficials"
+    },
+    theme: {
+      primary: 'red',
+      gradient: 'from-red-700 to-red-400'
+    }
+  },
 //   {
 //   id: 3,
 //   name: "Aklan State University (ASU)",

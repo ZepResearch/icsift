@@ -12,19 +12,19 @@ function Organizer() {
       <h2 className="text-5xl font-semibold mb-6 text-slate-900 ">
         Our <span className='bg-green-700 drop-shadow-2xl text-transparent bg-clip-text'>Organizing Partner</span>
       </h2>
-      <div className='grid grid-cols-1 sm:grid-cols-6 gap-1'>
+      <div className='grid grid-cols-1 sm:grid-cols-1 gap-1'>
 
-        <img
+        {/* <img
           src={sulu}
           alt="Organizing Partner Logo"
           className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
-        />
+        /> */}
           <img
           src={putp}
           alt="Organizing Partner Logo"
           className="w-auto h-[140px] rounded-lg   p-2 mx-auto"
         />
-          <img
+          {/* <img
             src={asu}
             alt="Organizing Partner Logo"
             className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
@@ -43,7 +43,7 @@ function Organizer() {
           src={isufst}
           alt="Organizing Partner Logo"
           className=" w-auto h-[140px] rounded-lg   p-2 mx-auto"
-        />
+        /> */}
       </div>
     </section>
   );

@@ -53,7 +53,7 @@ export default function Home() {
         {/* <CPD/> */}
         {/* <PASUCEndorsementPOPUP/> */}
         {/* <PASUCEndorsement/> */}
-        {/* <Organizer/> */}
+        <Organizer/>
         <AboutConference/>
         <Buttons/>
         <ConferenceObjectives/>
