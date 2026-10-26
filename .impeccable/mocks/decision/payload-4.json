@@ -1,0 +1,55 @@
+{
+  "title": "Premium and minimal: choose the visual world",
+  "question": "A safer, premium-minimal lineup. Pick one, take the category standard, or re-roll.",
+  "options": [
+    {
+      "id": "catalogue",
+      "kind": "grounded",
+      "label": "Exhibition Catalogue",
+      "lineage": "museum exhibition catalogues and Swiss editorial layout",
+      "thesis": "The conference presented like a gallery catalogue: real photographs of past editions, generous white space, precise type, every image captioned with its edition.",
+      "palette": ["#FAFAF8", "#111613", "#123B2A", "#55605A", "#D8DCD8"],
+      "materials": ["uncoated white stock", "full-bleed documentary photography", "hairline rules"],
+      "viewport": "Large light-weight headline and Submit/Register on the left, one tall photograph from the 3rd ICSIFT on the right, a ruled fact line below: dates, city, indexing, credit.",
+      "risk": "The most familiar of the three: premium-minimal is where many polished sites land, so it relies on craft rather than a concept.",
+      "html": ".impeccable/mocks/decision/catalogue.html"
+    },
+    {
+      "id": "herbarium",
+      "kind": "grounded",
+      "label": "Herbarium Sheet",
+      "lineage": "botanical herbarium sheets and accession labels",
+      "thesis": "Each section is a mounted specimen sheet: one image, a precise accession label of facts, deep botanical green as the only colour.",
+      "palette": ["#E9ECE6", "#FFFFFF", "#0F1A14", "#1F5E3B"],
+      "materials": ["archival mount board", "ruled accession labels"],
+      "viewport": "A white sheet mounted on pale grey-green: a tall photograph as the specimen, the title and two actions beside it, an accession label holding date, city and indexing.",
+      "risk": "Can feel like a museum archive if the labels are fussy; the metaphor must stay quiet.",
+      "html": ".impeccable/mocks/decision/herbarium.html"
+    },
+    {
+      "id": "programme",
+      "kind": "grounded",
+      "label": "Printed Programme",
+      "lineage": "printed conference programme booklets",
+      "thesis": "The site as the conference's printed programme: a deep green cover beside a clean, ruled schedule page.",
+      "palette": ["#123B2A", "#FFFFFF", "#B9CCC0", "#C9D3CC"],
+      "materials": ["cover board", "ruled schedule pages"],
+      "viewport": "Green cover half with title and actions; white page half listing Day 1, Day 2, indexing and credit as ruled rows.",
+      "risk": "Split-half layout can read as a standard two-column template.",
+      "html": ".impeccable/mocks/decision/programme.html"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "The conference site as Nature Conferences, TED and the World Economic Forum events pages ship it, at their craft level.",
+    "palette": ["#FFFFFF", "#0F2A1D", "#2F7D4F"],
+    "materials": ["clean grid", "event photography"],
+    "viewport": "Photo hero with title, dates, venue and two buttons, then highlights, dates, speakers.",
+    "risk": "Indistinguishable from the competition by design."
+  },
+  "steer": true
+}

@@ -59,12 +59,9 @@ export default function GoogleTranslate() {
 
   return (
     <>
-      {/* Spacer to avoid layout jump */}
-      <div className="translate-top-spacer" />
-
       <div className="translate-top-bar">
         <div className="translate-inner">
-          <span className="translate-label">🌐 Language</span>
+          <span className="translate-label">Read this site in</span>
           <div
             id="google_translate_element"
             className="translate-widget"
@@ -73,24 +70,17 @@ export default function GoogleTranslate() {
       </div>
 
       <style jsx global>{`
-        /* Space above site (like selected language state) */
-        .translate-top-spacer {
-          height: 15px;
-          width: 100%;
-        }
-
         /* Light top bar */
         .translate-top-bar {
           width: 100%;
-          background: #ffffff;
-          border-bottom: 1px solid #e5e7eb;
-   
+          background: #e9ece6;
+          border-bottom: 1px solid #c9cfc8;
         }
 
         .translate-inner {
-          max-width: 1280px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 10px 16px;
+          padding: 4px 24px;
           display: flex;
           justify-content: flex-end;
           align-items: center;
@@ -98,9 +88,10 @@ export default function GoogleTranslate() {
         }
 
         .translate-label {
-          color: #374151;
+          color: #4f5a53;
+          font-family: var(--font-label), Georgia, serif;
+          font-style: italic;
           font-size: 13px;
-          font-weight: 500;
         }
 
         /* Ensure widget shows */
@@ -115,19 +106,19 @@ export default function GoogleTranslate() {
         /* Dropdown (light theme) */
         .goog-te-combo {
           min-width: 150px;
-          padding: 6px 10px;
-          border-radius: 6px;
-          border: 1px solid #d1d5db;
-          background: #f9fafb;
-          color: #111827;
-          font-size: 13px;
+          padding: 3px 8px;
+          border-radius: 0;
+          border: 1px solid #c9cfc8;
+          background: #ffffff;
+          color: #0f1a14;
+          font-size: 12.5px;
           cursor: pointer;
         }
 
         .goog-te-combo:focus {
           outline: none;
-          border-color: #2563eb;
-          box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+          border-color: #1f5e3b;
+          box-shadow: 0 0 0 2px rgba(31, 94, 59, 0.2);
         }
 
         /* Hide Google branding */

@@ -1,290 +1,230 @@
-"use client"
+import Link from "next/link";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
 
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, FileText, Globe, Lightbulb, Users, Shield, Leaf } from 'lucide-react'
-import { CONFERENCE } from "@/constants/conference"
+const TRACKS = [
+  {
+    title: "Sustainable development and environmental technologies",
+    topics: [
+      "Renewable energy systems and green technologies",
+      "Climate change mitigation and adaptation",
+      "Sustainable agriculture and food security",
+      "Environmental management and policy",
+      "Circular economy and waste management",
+    ],
+  },
+  {
+    title: "Artificial intelligence, data science and emerging technologies",
+    topics: [
+      "Artificial intelligence and machine learning applications",
+      "Big data analytics and predictive modelling",
+      "Internet of Things (IoT) and smart systems",
+      "Robotics and automation",
+      "Blockchain and cybersecurity",
+    ],
+  },
+  {
+    title: "Engineering innovations and smart infrastructure",
+    topics: [
+      "Smart cities and urban development",
+      "Civil, mechanical and industrial engineering innovations",
+      "Advanced materials and manufacturing technologies",
+      "Transportation and mobility solutions",
+      "Sustainable construction technologies",
+    ],
+  },
+  {
+    title: "Management, economics and sustainable business practices",
+    topics: [
+      "Sustainable business models and entrepreneurship",
+      "Green finance and economic development",
+      "Sustainable management and digital transformation",
+      "Supply chain and operations management",
+      "Corporate social responsibility (CSR)",
+    ],
+  },
+  {
+    title: "Science, technology and future innovations",
+    topics: [
+      "Biotechnology and life sciences innovations",
+      "Nanotechnology and advanced scientific research",
+      "Healthcare technologies and medical innovations",
+      "Space, defence and advanced research technologies",
+      "Interdisciplinary scientific innovations",
+    ],
+  },
+  {
+    title: "Social sciences, education and policy for sustainability",
+    topics: [
+      "Education for sustainable development",
+      "Public policy and governance",
+      "Social innovation and community development",
+      "Ethics, technology and society",
+      "Digital learning and educational technologies",
+      "Linguistic and sustainable technologies",
+    ],
+  },
+];
+
+const STEPS = [
+  [
+    "Prepare your abstract",
+    "Submit a 300-word abstract outlining your research question, methodology, findings and relevance to the sustainability and innovation theme.",
+  ],
+  ["Abstract review", "The interdisciplinary committee reviews abstracts. If yours is accepted, you are invited to submit a full paper."],
+  [
+    "Full paper submission",
+    "Submit your full paper (8 to 12 pages) following the format guidelines. Every paper goes through double-blind peer review by experts in its field.",
+  ],
+  [
+    "Presentation",
+    "Accepted papers are presented in person or online, depending on your preference and the committee's recommendation.",
+  ],
+];
+
+const trackNo = (index) => String(index + 1).padStart(2, "0");
+
 export default function ThemeAndTopicsPage() {
-  const researchAreas = [
-    {
-      icon: <Leaf className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 1: Sustainable Development and Environmental Technologies",
-      topics: [
-        "Renewable Energy Systems and Green Technologies",
-        "Climate Change Mitigation and Adaptation",
-        "Sustainable Agriculture and Food Security",
-        "Environmental Management and Policy",
-        "Circular Economy and Waste Management",
-      ],
-    },
-    {
-      icon: <Lightbulb className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 2: Artificial Intelligence, Data Science, and Emerging Technologies",
-      topics: [
-        "Artificial Intelligence and Machine Learning Applications",
-        "Big Data Analytics and Predictive Modeling",
-        "Internet of Things (IoT) and Smart Systems",
-        "Robotics and Automation",
-        "Blockchain and Cybersecurity",
-      ],
-    },
-    {
-      icon: <Shield className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 3: Engineering Innovations and Smart Infrastructure",
-      topics: [
-        "Smart Cities and Urban Development",
-        "Civil, Mechanical, and Industrial Engineering Innovations",
-        "Advanced Materials and Manufacturing Technologies",
-        "Transportation and Mobility Solutions",
-        "Sustainable Construction Technologies",
-      ],
-    },
-    {
-      icon: <Users className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 4: Management, Economics, and Sustainable Business Practices",
-      topics: [
-        "Sustainable Business Models and Entrepreneurship",
-        "Green Finance and Economic Development",
-        "Sustainable Management and Digital Transformation",
-        "Supply Chain and Operations Management",
-        "Corporate Social Responsibility (CSR)",
-      ],
-    },
-    {
-      icon: <FileText className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 5: Science, Technology, and Future Innovations",
-      topics: [
-        "Biotechnology and Life Sciences Innovations",
-        "Nanotechnology and Advanced Scientific Research",
-        "Healthcare Technologies and Medical Innovations",
-        "Space, Defense, and Advanced Research Technologies",
-        "Interdisciplinary Scientific Innovations",
-      ],
-    },
-    {
-      icon: <Globe className="h-8 w-8 text-[#4d724d]" />,
-      title: "Track 6: Social Sciences, Education, and Policy for Sustainability",
-      topics: [
-        "Education for Sustainable Development",
-        "Public Policy and Governance",
-        "Social Innovation and Community Development",
-        "Ethics, Technology, and Society",
-        "Digital Learning and Educational Technologies",
-        "Linguistic and Sustainable Technologies",
-      ],
-    },
-  ]
-
-  const submissionSteps = [
-    {
-      number: "1",
-      title: "Prepare Your Abstract",
-      description:
-        "Submit a 300-word abstract outlining your research question, methodology, findings, and relevance to the sustainability and innovation theme.",
-    },
-    {
-      number: "2",
-      title: "Abstract Review",
-      description:
-        "Abstracts will be reviewed by our interdisciplinary committee. If accepted, you'll be invited to submit a full paper.",
-    },
-    {
-      number: "3",
-      title: "Full Paper Submission",
-      description:
-        "Submit your full paper (8-12 pages) following our formatting guidelines. All papers will undergo a double-blind peer review by experts from relevant disciplines.",
-    },
-    {
-      number: "4",
-      title: "Presentation",
-      description:
-        "Accepted papers will be presented either as oral presentations, poster sessions, or virtual presentations, depending on your preference and the committee's recommendation.",
-    },
-  ]
-
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large blob in top right */}
-          <div
-            className="absolute -right-40 -top-40 w-[30rem] h-[30rem] opacity-20"
-            style={{
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: "linear-gradient(45deg, #d3e4c5, #4d724d)",
-            }}
-          ></div>
-
-          {/* Small circle in bottom left */}
-          <div className="absolute left-20 bottom-20 w-16 h-16 rounded-full bg-[#d3e4c5]/40"></div>
-
-          {/* Medium circle in top left */}
-          <div className="absolute -left-10 top-40 w-32 h-32 rounded-full bg-[#b9d4a3]/30"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Theme and
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">Topics</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
+    <main className="herb min-h-screen">
+      {/* Title sheet: the theme itself is the headline, over a six-cell index of tracks. */}
+      <section aria-labelledby="theme-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="theme-title" className="herb-display text-[clamp(2.5rem,1.3rem+3.2vw,4.5rem)]">
+              Sustainable innovation: bridging technology and environmental stewardship.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              Explore the research areas and themes for {CONFERENCE.shortForm}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Conference Theme Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block border border-[#1a2e1a] rounded-full px-4 py-1 text-sm mb-6">
-                Conference Theme
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">
-                "Sustainable Innovation: Bridging Technology and Environmental Stewardship"
-              </h2>
-              <p className="text-[#4d724d] mb-4  text-justify">
-                {CONFERENCE.shortForm} explores how innovative technologies are revolutionizing our approach to sustainability and
-                environmental challenges. As traditional boundaries between technology and sustainability continue to
-                blur, new innovations are enabling unprecedented opportunities for addressing climate change,
-                resource scarcity, and environmental degradation.
+              <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
+                The theme of the {CONFERENCE.shortForm}, and six tracks to submit under. Pick the track closest to your
+                research.
               </p>
-              <p className="text-[#4d724d]  text-justify">
-                This conference brings together researchers, innovators, and thought leaders from diverse disciplines to
-                examine the current state and future possibilities of sustainable technologies. We invite contributions
-                that highlight innovative approaches to environmental challenges, novel applications of technology for
-                sustainability, and critical perspectives on the methodological and ethical implications of these
-                emerging solutions.
-              </p>
-            </div>
-            <div className="relative rounded-3xl overflow-hidden h-[400px]">
-              <Image
-                src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=2070&auto=format&fit=crop"
-                alt="Sustainable Innovation"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="bg-white/90 backdrop-blur-sm rounded-full py-3 px-6 inline-flex items-center">
-                  <span className="text-[#1a2e1a] font-medium">Shaping a sustainable future through innovation</span>
-                </div>
-              </div>
+              <ActionLink href="/submission" primary className="mt-6 sm:max-w-[22rem]">
+                Submit a paper
+              </ActionLink>
             </div>
           </div>
+
+          <nav aria-label="Tracks" className="mt-12">
+            <ol className="grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
+              {TRACKS.map((track, index) => (
+                <li key={track.title} className="bg-[var(--sheet)]">
+                  <a href={`#track-${index + 1}`} className="group flex h-full gap-4 py-5 sm:px-5">
+                    <span className="herb-italic pt-0.5 text-[14.5px] text-[var(--ink-2)]">{trackNo(index)}</span>
+                    <span className="text-[17px] leading-snug group-hover:text-[var(--green)]">{track.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </div>
       </section>
 
-      {/* Research Areas Section */}
-      <section className="py-16 bg-[#edf6e1]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">What We'll Cover</h2>
-            <p className="text-[#4d724d]">
-              Research topics and areas that can be selected for paper submissions
+      {/* The theme in full */}
+      <section aria-labelledby="about-theme-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <h2 id="about-theme-title" className="herb-h2 max-w-[13ch]">
+            What the theme asks.
+          </h2>
+          <Reveal className="border-t border-[var(--ink)] pt-8">
+            <p className="max-w-[42rem] text-[18px] leading-relaxed">
+              The {CONFERENCE.shortForm} explores how new technologies are changing our approach to sustainability and
+              environmental challenges. As the boundary between technology and sustainability blurs, innovation opens new ways
+              to address climate change, resource scarcity and environmental degradation.
             </p>
+            <p className="herb-muted mt-5 max-w-[42rem]">
+              We invite work that brings new approaches to environmental challenges, new applications of technology for
+              sustainability, and critical perspectives on the methods and ethics of these emerging solutions.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Tracks */}
+      <section aria-labelledby="tracks-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="tracks-title" className="herb-h2 max-w-[14ch]">
+              Six tracks, thirty-one topics.
+            </h2>
+            <p className="herb-muted max-w-[28rem]">Topics are a guide, not a fence. Interdisciplinary work is welcome in any track.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {researchAreas.map((area, index) => (
-              <div key={index} className="bg-white rounded-3xl p-8 shadow-sm h-full">
-                <div className="bg-[#f8faf5] rounded-2xl p-4 inline-block mb-4">{area.icon}</div>
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">{area.title}</h3>
-                <ul className="space-y-2">
-                  {area.topics.map((topic, topicIndex) => (
-                    <li key={topicIndex} className="flex items-start">
-                      <div className="h-6 w-6 rounded-full bg-[#d3e4c5] flex items-center justify-center mr-2 mt-0.5">
-                        <span className="text-[#1a2e1a] text-xs">•</span>
-                      </div>
-                      <span className="text-[#4d724d]">{topic}</span>
+          <div className="mt-10 border-t border-[var(--ink)]">
+            {TRACKS.map((track, index) => (
+              <div
+                key={track.title}
+                id={`track-${index + 1}`}
+                className="grid scroll-mt-24 gap-x-10 gap-y-4 border-b border-[var(--rule)] py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
+              >
+                <div>
+                  <p className="herb-italic text-[15px] text-[var(--ink-2)]">Track {trackNo(index)}</p>
+                  <h3 className="mt-2 max-w-[22ch] text-[clamp(1.4rem,1.15rem+0.8vw,1.85rem)] leading-tight font-normal tracking-[-0.02em]">
+                    {track.title}
+                  </h3>
+                </div>
+                <ul className="grid gap-x-8 sm:grid-cols-2">
+                  {track.topics.map((topic) => (
+                    <li key={topic} className="border-b border-[var(--rule-soft)] py-2.5 text-[16px]">
+                      {topic}
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* How to Submit Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">How to Submit Your Work</h2>
-            <p className="text-[#4d724d]">
-              We welcome submissions from researchers, practitioners, and students across all disciplines. The
-              submission process involves the following steps:
+      {/* How to submit */}
+      <section aria-labelledby="steps-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <h2 id="steps-title" className="herb-h2 max-w-[13ch]">
+              From abstract to lectern.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[26rem]">
+              We welcome submissions from researchers, practitioners and students across all disciplines.{" "}
+              <Link href="/papers-format" className="herb-link">
+                Paper format
+              </Link>
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {submissionSteps.map((step, index) => (
-              <div key={index} className="bg-[#f8faf5] rounded-3xl p-6 shadow-sm relative overflow-hidden">
-                <div className="absolute -top-6 -left-6 w-24 h-24 bg-[#d3e4c5]/30 rounded-full"></div>
-                <div className="relative z-10">
-                  <div className="bg-[#4d724d] text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <h3 className="text-xl font-bold text-[#1a2e1a] mb-2">{step.title}</h3>
-                  <p className="text-[#4d724d]  text-justify">{step.description}</p>
-                </div>
-              </div>
+          <Reveal as="ol" className="border-t border-[var(--ink)]">
+            {STEPS.map(([title, body], index) => (
+              <li
+                key={title}
+                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
+              >
+                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{trackNo(index)}</span>
+                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
+                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
+              </li>
             ))}
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-          <Link href={'/registration'}>
-            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full px-8">
-              Register Now
-            </Button>
-            </Link>
-            <Link href={'/submission'}>
-            <Button
-              variant="outline"
-              className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full px-8"
-            >
-              Submit Paper <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#edf6e1]">
-        <div className="container mx-auto px-4">
-          <div className="bg-white rounded-3xl p-8 shadow-sm">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-6">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to contribute?</h3>
-                <p className="text-[#4d724d] max-w-xl">
-                  Submit your research paper or proposal and be part of the global conversation on sustainability,
-                  innovation, and future technologies.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                <Link href={'/submission'}>
-                 
-                <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full whitespace-nowrap">
-                  Submit Paper
-                </Button>
-                </Link>
-              
-              </div>
-            </div>
+      {/* Closing */}
+      <section aria-labelledby="theme-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="theme-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Found your track?
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              Submit your paper and join the conversation on sustainability, innovation and future technologies.
+            </p>
           </div>
-        </div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
+          </div>
+        </Reveal>
       </section>
     </main>
-  )
+  );
 }

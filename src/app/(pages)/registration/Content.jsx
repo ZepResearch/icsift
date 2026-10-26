@@ -1,801 +1,341 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+import Link from "next/link";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
+import { Field } from "@/components/forms/herb-fields";
+import CheckoutPanel from "@/components/payments/checkout-panel";
 import {
-  ChevronRight,
-  Users,
-  FileText,
-  Sparkles,
-  CreditCard,
-  Presentation,
-  Headphones,
-  DollarSign,
-  Ticket,
-  Mail,
-  Calendar,
-  Info,
-  ArrowRight,
-  Globe,
-  MapPin,
-  Home,
-  Zap,
-} from "lucide-react"
-import Link from "next/link"
-import { GeometricShapes } from "./components/geometric-shapes"
-import { PaymentForm } from "./components/payment-form"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ExtraContentBelowTabs from "./components/ExtraContentBelowTabs"
-import ExtraContentAboveCard from "./components/ExtraContentAboveCard"
+  EARLY_BIRD_ACTIVE,
+  PARTICIPANTS,
+  PLANS,
+  PRICE_TYPES,
+  REGISTRATION,
+  TAX_RATE,
+  customAmountProblem,
+  money,
+  resolveTicket,
+  ticketKey,
+  withTax,
+} from "@/lib/pricing";
+
+const TAX_LABEL = `Tax (${TAX_RATE * 100}%)`;
+
+const STEPS = [
+  ["Choose your fee", "Pick your category, how you will take part, and whether you need accommodation."],
+  ["Sign in", "Registration is tied to your Zep Research account, so you can find it again later."],
+  ["Enter billing details", "Your name, organisation and address, as they should appear on the receipt."],
+  ["Pay through CCAvenue", "You are taken to CCAvenue's secure page to complete the payment."],
+  ["Confirmation", "You receive a confirmation email with your payment details and an official receipt."],
+];
+
+const BENEFITS = [
+  ["Conference materials", "Access to proceedings, papers and presentation materials."],
+  ["Networking", "Connect with researchers and professionals from around the world."],
+  ["Interactive sessions", "Workshops, panel discussions and Q&A sessions."],
+  ["Career development", "New skills, career prospects and business ideas."],
+  ["Publication", "Publication in Scopus, Web of Science and Google Scholar indexed journals."],
+  ["Knowledge exchange", "With presenters, session chairs, speakers and other attendees."],
+  ["Video documentation", "Videos of your talk and highlights posted on Facebook and YouTube."],
+  ["Digital certificates", "Official participation and presentation certificates."],
+];
+
+function Choice({ legend, name, options, value, onChange }) {
+  return (
+    <fieldset>
+      <legend className="text-[13px] font-semibold tracking-[0.08em] uppercase">{legend}</legend>
+      <div className="mt-3 grid grid-cols-2 border border-[var(--ink)]">
+        {options.map(([optionValue, label], index) => {
+          const checked = value === optionValue;
+          return (
+            <label
+              key={optionValue}
+              className={`relative cursor-pointer px-4 py-3.5 text-[16px] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-[var(--green)] ${
+                index ? "border-l border-[var(--ink)]" : ""
+              } ${checked ? "bg-[var(--ink)] text-white" : "hover:bg-[var(--rule-soft)]"}`}
+            >
+              <input type="radio" name={name} value={optionValue} checked={checked} onChange={() => onChange(optionValue)} className="sr-only" />
+              {label}
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
 
 export default function RegistrationPage() {
-  const router = useRouter()
-  const [selectedTicket, setSelectedTicket] = useState(null)
-  const [isPaymentFormOpen, setIsPaymentFormOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [customAmount, setCustomAmount] = useState("")
-  const [activeTab, setActiveTab] = useState("physical-no-accommodation")
+  const [plan, setPlan] = useState("noAccommodation");
+  const [participant, setParticipant] = useState("local");
+  const [customAmount, setCustomAmount] = useState("");
+  const [customError, setCustomError] = useState(null);
+  const [checkout, setCheckout] = useState(null);
 
-  // ✅ Toggle this to show/hide Early Bird pricing across all cards
-  const isEarlyBirdActive = true  // Set to `true` to show Early Bird, `false` to hide it
+  const rows = REGISTRATION[plan][participant];
+  const priceTypes = PRICE_TYPES.filter(
+    ([type]) => (type !== "earlyBird" || EARLY_BIRD_ACTIVE) && rows.some((row) => row.prices[type]),
+  );
+  const planName = PLANS.find(([v]) => v === plan)[1].toLowerCase();
+  const participantName = PARTICIPANTS.find(([v]) => v === participant)[1].toLowerCase();
 
-  // Updated pricing structure with Early Bird pricing
-  const pricingData = {
-    physicalNoAccommodation: {
-      local: [
-        {
-          category: "Academician",
-          physical: { price: 249, currency: "USD" },
-          virtual: { price: 169, currency: "USD" },
-          earlyBird: { price: 199, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Networking opportunities",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Access to presentation materials"
-          ]
-        },
-        {
-          category: "Student",
-          physical: { price: 199, currency: "USD" },
-          virtual: { price: 129, currency: "USD" },
-          earlyBird: { price: 159, currency: "USD" },
-          features: [
-            "Conference access",
-            "Networking opportunities",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Student discount applied"
-          ]
-        },
-        {
-          category: "Delegate",
-          physical: { price: 169, currency: "USD" },
-          virtual: { price: 79, currency: "USD" },
-          earlyBird: { price: 159, currency: "USD" },
-          features: [
-            "Conference access",
-            "Networking opportunities",
-            "Lunch and refreshments",
-            "Certificate of attendance",
-            "Access to presentation materials"
-          ]
-        },
-        {
-          category: "With Scopus Q3 & Q4",
-          physical: { price: 1049, currency: "USD" },
-          virtual: { price: 949, currency: "USD" },
-          earlyBird: { price: 999, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Scopus Q3 & Q4 publication",
-            "Premium networking opportunities",
-            "Workshop materials",
-            "Certificate of participation",
-            "Priority presentation slot"
-          ]
-        },
-        {
-          category: "With Scopus Q1 & Q2",
-          physical: { price: 1749, currency: "USD" },
-          virtual: { price: 1649, currency: "USD" },
-          earlyBird: { price: 1699, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Scopus Q1 & Q2 publication",
-            "Premium networking opportunities",
-            "Workshop materials",
-            "Certificate of participation",
-            "Priority presentation slot"
-          ]
-        }
+  const chooseTicket = (category, priceType) => {
+    const ticket = resolveTicket(ticketKey(plan, participant, category, priceType));
+    if (!ticket) return;
+    setCheckout({
+      title: ticket.name,
+      lines: [
+        ["Accommodation", plan === "withAccommodation" ? "Included" : "Not included"],
+        ["Fee", money(ticket.price)],
+        [TAX_LABEL, money(ticket.taxAmount)],
       ],
-      international: [
-        {
-          category: "Academician",
-          physical: { price: 299, currency: "USD" },
-          virtual: { price: 229, currency: "USD" },
-          earlyBird: { price: 249, currency: "USD" },
-          features: [
-            "Full conference access",
-            "International networking",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Access to presentation materials"
-          ]
-        },
-        {
-          category: "Student",
-          physical: { price: 249, currency: "USD" },
-          virtual: { price: 169, currency: "USD" },
-          earlyBird: { price: 219, currency: "USD" },
-          features: [
-            "Conference access",
-            "International networking",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation",
-            "Student discount applied"
-          ]
-        },
-        {
-          category: "Delegate",
-          physical: { price: 219, currency: "USD" },
-          virtual: { price: 129, currency: "USD" },
-          earlyBird: { price: 199, currency: "USD" },
-          features: [
-            "Conference access",
-            "International networking",
-            "Lunch and refreshments",
-            "Certificate of attendance",
-            "Access to presentation materials"
-          ]
-        },
-        {
-          category: "With Scopus Q3 & Q4",
-          physical: { price: 1099, currency: "USD" },
-          virtual: { price: 999, currency: "USD" },
-          earlyBird: { price: 1049, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Scopus Q3 & Q4 publication",
-            "Premium international networking",
-            "Workshop materials",
-            "Certificate of participation",
-            "Priority presentation slot"
-          ]
-        },
-        {
-          category: "With Scopus Q1 & Q2",
-          physical: { price: 1799, currency: "USD" },
-          virtual: { price: 1699, currency: "USD" },
-          earlyBird: { price: 1749, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Scopus Q1 & Q2 publication",
-            "Premium international networking",
-            "Workshop materials",
-            "Certificate of participation",
-            "Priority presentation slot"
-          ]
-        }
-      ]
-    },
-    physicalWithAccommodation: {
-      local: [
-        {
-          category: "Academician",
-          physical: { price: 399, currency: "USD" },
-          earlyBird: { price: 349, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "Networking opportunities",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation"
-          ]
-        },
-        {
-          category: "Student",
-          physical: { price: 349, currency: "USD" },
-          earlyBird: { price: 299, currency: "USD" },
-          features: [
-            "Conference access",
-            "Accommodation included",
-            "Networking opportunities",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation"
-          ]
-        },
-        {
-          category: "Delegate",
-          physical: { price: 319, currency: "USD" },
-          earlyBird: { price: 279, currency: "USD" },
-          features: [
-            "Conference access",
-            "Accommodation included",
-            "Networking opportunities",
-            "Lunch and refreshments",
-            "Certificate of attendance"
-          ]
-        },
-        {
-          category: "With Scopus Q3 & Q4",
-          physical: { price: 1199, currency: "USD" },
-          earlyBird: { price: 1149, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "Scopus Q3 & Q4 publication",
-            "Premium networking opportunities",
-            "Workshop materials",
-            "Priority presentation slot"
-          ]
-        },
-        {
-          category: "With Scopus Q1 & Q2",
-          physical: { price: 1899, currency: "USD" },
-          earlyBird: { price: 1849, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "Scopus Q1 & Q2 publication",
-            "Premium networking opportunities",
-            "Workshop materials",
-            "Priority presentation slot"
-          ]
-        }
+      total: money(ticket.totalAmount),
+      request: { kind: "ticket", ticket_key: ticket.key },
+    });
+  };
+
+  const chooseCustom = (event) => {
+    event.preventDefault();
+    const problem = customAmountProblem(customAmount);
+    setCustomError(problem);
+    if (problem) return;
+    const { price, taxAmount, totalAmount } = withTax(Number(customAmount));
+    setCheckout({
+      title: "Custom payment",
+      lines: [
+        ["Amount", money(price)],
+        [TAX_LABEL, money(taxAmount)],
       ],
-      international: [
-        {
-          category: "Academician",
-          physical: { price: 449, currency: "USD" },
-          earlyBird: { price: 399, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "International networking",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation"
-          ]
-        },
-        {
-          category: "Student",
-          physical: { price: 399, currency: "USD" },
-          earlyBird: { price: 349, currency: "USD" },
-          features: [
-            "Conference access",
-            "Accommodation included",
-            "International networking",
-            "Workshop materials",
-            "Lunch and refreshments",
-            "Certificate of participation"
-          ]
-        },
-        {
-          category: "Delegate",
-          physical: { price: 349, currency: "USD" },
-          earlyBird: { price: 299, currency: "USD" },
-          features: [
-            "Conference access",
-            "Accommodation included",
-            "International networking",
-            "Lunch and refreshments",
-            "Certificate of attendance"
-          ]
-        },
-        {
-          category: "With Scopus Q3 & Q4",
-          physical: { price: 1299, currency: "USD" },
-          earlyBird: { price: 1249, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "Scopus Q3 & Q4 publication",
-            "Premium international networking",
-            "Workshop materials",
-            "Priority presentation slot"
-          ]
-        },
-        {
-          category: "With Scopus Q1 & Q2",
-          physical: { price: 1949, currency: "USD" },
-          earlyBird: { price: 1899, currency: "USD" },
-          features: [
-            "Full conference access",
-            "Accommodation included",
-            "Scopus Q1 & Q2 publication",
-            "Premium international networking",
-            "Workshop materials",
-            "Priority presentation slot"
-          ]
-        }
-      ]
-    }
-  }
+      total: money(totalAmount),
+      request: { kind: "custom", amount: customAmount.trim() },
+    });
+  };
 
-  const handleTicketSelect = (ticket) => {
-    const taxAmount = Number((ticket.price * 0.06).toFixed(2))
-    const totalAmount = Number((ticket.price + taxAmount).toFixed(2))
-
-    setSelectedTicket({
-      ...ticket,
-      taxRate: 0.06,
-      taxAmount: taxAmount,
-      totalAmount: totalAmount,
-    })
-    setIsPaymentFormOpen(true)
-  }
-
-  const handleCustomPayment = () => {
-    if (!customAmount || isNaN(customAmount) || Number.parseFloat(customAmount) <= 0) {
-      alert("Please enter a valid amount")
-      return
-    }
-
-    const price = Number.parseFloat(customAmount)
-    const taxAmount = Number((price * 0.06).toFixed(2))
-    const totalAmount = Number((price + taxAmount).toFixed(2))
-
-    const ticket = {
-      name: "Custom Payment",
-      price: price,
-      type: "Custom",
-      category: "Custom",
-      taxRate: 0.06,
-      taxAmount: taxAmount,
-      totalAmount: totalAmount,
-      currency: "USD",
-      features: ["Custom amount payment", "6% tax included"],
-    }
-
-    setSelectedTicket(ticket)
-    setIsPaymentFormOpen(true)
-  }
-
-  const handlePaymentFormClose = () => {
-    setIsPaymentFormOpen(false)
-  }
-
-  const handlePaymentFormSubmit = async (formData) => {
-    setIsLoading(true)
-    try {
-      const paymentData = {
-        ...formData,
-        order_id: `ORDER-${Date.now()}`,
-        currency: selectedTicket.currency,
-        amount: selectedTicket.totalAmount,
-        language: "EN",
-        ticket_type: selectedTicket.type,
-        ticket_category: selectedTicket.category,
-        ticket_name: selectedTicket.name,
-      }
-
-      const paymentDataQuery = encodeURIComponent(JSON.stringify(paymentData))
-      const redirectUrl = `${window.location.origin}/api/ccavenue/handle?paymentData=${paymentDataQuery}`
-      paymentData.redirect_url = redirectUrl
-      paymentData.cancel_url = redirectUrl
-
-      await fetch("/api/payment-notification", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(paymentData),
-      })
-
-      const encResponse = await fetch("/api/ccavenue/encrypt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(paymentData),
-      })
-
-      const { encRequest } = await encResponse.json()
-
-      const form = document.createElement("form")
-      form.method = "post"
-      form.action = "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
-      form.style.display = "none"
-
-      const encRequestInput = document.createElement("input")
-      encRequestInput.name = "encRequest"
-      encRequestInput.value = encRequest
-      form.appendChild(encRequestInput)
-
-      const accessCodeInput = document.createElement("input")
-      accessCodeInput.name = "access_code"
-      accessCodeInput.value = process.env.NEXT_PUBLIC_CCAVENUE_ACCESS_CODE
-      form.appendChild(accessCodeInput)
-
-      const merchantIdInput = document.createElement("input")
-      merchantIdInput.name = "merchant_id"
-      merchantIdInput.value = process.env.NEXT_PUBLIC_CCAVENUE_MERCHANT_ID
-      form.appendChild(merchantIdInput)
-
-      document.body.appendChild(form)
-      form.submit()
-    } catch (error) {
-      console.error("Payment processing error:", error)
-      setIsLoading(false)
-      alert("There was an error processing your payment. Please try again.")
-    }
-  }
-
-  const createTicketFromPricing = (categoryData, priceType, participantType, accommodationType) => {
-    const priceInfo = categoryData[priceType]
-    if (!priceInfo) return null
-
-    const priceTypeName = priceType === 'earlyBird' ? 'Early Bird' :
-                          priceType === 'physical' ? 'Physical' : 'Virtual'
-
-    return {
-      name: `${categoryData.category} - ${participantType.charAt(0).toUpperCase() + participantType.slice(1)} (${priceTypeName})`,
-      price: priceInfo.price,
-      currency: priceInfo.currency,
-      type: categoryData.category,
-      category: categoryData.category,
-      participantType: participantType,
-      accommodationType: accommodationType,
-      priceType: priceType,
-      features: categoryData.features
-    }
-  }
-
-  const renderPricingCard = (categoryData, participantType, accommodationType) => {
-    const getCurrencySymbol = (currency) => currency === "USD" ? "$" : "₹"
-    const hasVirtual = categoryData.virtual !== undefined
-    // ✅ Early Bird only renders if both the data exists AND isEarlyBirdActive is true
-    const showEarlyBird = isEarlyBirdActive && categoryData.earlyBird !== undefined
-
-    return (
-      <div key={`${categoryData.category}-${participantType}`} className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
-        <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center space-x-2 flex-wrap gap-2">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
-                {categoryData.category}
-              </span>
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#4d724d] text-white">
-                {participantType === "local" ? "Local" : "International"}
-              </span>
-            </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                <Presentation className="h-5 w-5 text-[#4d724d]" />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {/* ✅ Early Bird row — only shown when isEarlyBirdActive is true */}
-            {showEarlyBird && (
-              <div className="flex justify-between items-center bg-yellow-50 border border-yellow-200 rounded-lg p-2 -mx-2">
-                <div className="flex items-center">
-                  <Zap className="h-4 w-4 text-yellow-600 mr-1" />
-                  <span className="text-sm font-semibold text-yellow-700">Early Bird:</span>
-                </div>
-                <span className="text-xl font-bold text-yellow-700">
-                  {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-                </span>
-              </div>
-            )}
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-[#4d724d]">Physical:</span>
-              <span className="text-2xl font-bold text-[#1a2e1a]">
-                {getCurrencySymbol(categoryData.physical.currency)}{categoryData.physical.price}
-              </span>
-            </div>
-            {hasVirtual && (
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-[#4d724d]">Virtual:</span>
-                <span className="text-xl font-semibold text-[#1a2e1a]">
-                  {getCurrencySymbol(categoryData.virtual.currency)}{categoryData.virtual.price}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="p-6 flex flex-col flex-1">
-          <div className="flex-1">
-            <h3 className="text-xl font-bold text-black mb-4">Deliverables</h3>
-            <ul className="space-y-3 mb-6">
-              {categoryData.features.map((feature, i) => (
-                <li key={i} className="flex items-start">
-                  <div className="h-5 w-5 rounded-full bg-[#d3e4c5] flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">
-                    <svg className="h-3 w-3 text-[#4d724d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-[#4d724d] text-sm">{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-2">
-            {/* ✅ Early Bird button — only shown when isEarlyBirdActive is true */}
-            {showEarlyBird && (
-              <Button
-                onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "earlyBird", participantType, accommodationType))}
-                className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-full shadow-md"
-              >
-                <Zap className="mr-2 h-4 w-4 text-white" />
-                Early Bird - {getCurrencySymbol(categoryData.earlyBird.currency)}{categoryData.earlyBird.price}
-              </Button>
-            )}
-            <Button
-              onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "physical", participantType, accommodationType))}
-              className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-            >
-              <MapPin className="mr-2 h-4 w-4 text-white" />
-              Physical - {getCurrencySymbol(categoryData.physical.currency)}{categoryData.physical.price}
-            </Button>
-            {hasVirtual && (
-              <Button
-                onClick={() => handleTicketSelect(createTicketFromPricing(categoryData, "virtual", participantType, accommodationType))}
-                className="w-full bg-white hover:bg-[#f8faf5] text-[#4d724d] border-2 border-[#4d724d] rounded-full"
-              >
-                <Globe className="mr-2 h-4 w-4 text-[#4d724d]" />
-                Virtual - {getCurrencySymbol(categoryData.virtual.currency)}{categoryData.virtual.price}
-              </Button>
-            )}
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const customPreview = !customAmountProblem(customAmount) ? withTax(Number(customAmount)) : null;
 
   return (
-    <main className="bg-[#f8faf5]">
-      <ExtraContentAboveCard/>
-
-      {/* Registration Cards */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Registration Options</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
+    <main className="herb min-h-screen">
+      {/* Title sheet: title and intro left; the two fee choices right, which drive the fee table below. */}
+      <section aria-labelledby="registration-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end lg:gap-16 lg:p-12">
+          <div>
+            <h1 id="registration-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Register for the {CONFERENCE.shortForm}.
+            </h1>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
+              Presenting a paper or attending to listen, every registration includes the keynotes, panel discussions and
+              networking. {CONFERENCE.date}, {CONFERENCE.venue.location.trim()} and online.
+            </p>
           </div>
 
-          <Tabs defaultValue="physical-no-accommodation" className="w-full" onValueChange={setActiveTab}>
-            <div className="flex justify-center mb-10">
-              <TabsList className="bg-[#edf6e1] p-1 rounded-full flex flex-col md:flex-row gap-4">
-                <TabsTrigger
-                  value="physical-no-accommodation"
-                  className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                >
-                  <Presentation className="mr-2 h-4 w-4" />
-                  Without Accommodation
-                </TabsTrigger>
-                <TabsTrigger
-                  value="physical-with-accommodation"
-                  className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                >
-                  <Home className="mr-2 h-4 w-4" />
-                  With Accommodation
-                </TabsTrigger>
-                <TabsTrigger
-                  value="custom"
-                  className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                >
-                  <DollarSign className="mr-2 h-4 w-4" />
-                  Custom Payment
-                </TabsTrigger>
-              </TabsList>
-            </div>
-
-            <TabsContent value="physical-no-accommodation" className="mt-0">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Conference Fees (Without Accommodation)</h3>
-                <p className="text-[#4d724d] max-w-2xl mx-auto">
-                  Choose between physical or virtual participation options
-                </p>
-              </div>
-
-              <Tabs defaultValue="local-no-accommodation" className="w-full">
-                <div className="flex justify-center mb-8">
-                  <TabsList className="bg-[#edf6e1] p-1 rounded-full">
-                    <TabsTrigger
-                      value="local-no-accommodation"
-                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                    >
-                      <MapPin className="mr-2 h-4 w-4" />
-                      Local Participants
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="international-no-accommodation"
-                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                    >
-                      <Globe className="mr-2 h-4 w-4" />
-                      International Participants
-                    </TabsTrigger>
-                  </TabsList>
-                </div>
-
-                <TabsContent value="local-no-accommodation" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalNoAccommodation.local.map((categoryData) =>
-                      renderPricingCard(categoryData, "local", "no-accommodation")
-                    )}
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="international-no-accommodation" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalNoAccommodation.international.map((categoryData) =>
-                      renderPricingCard(categoryData, "international", "no-accommodation")
-                    )}
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </TabsContent>
-
-            <TabsContent value="physical-with-accommodation" className="mt-0">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Conference Fees (With Accommodation)</h3>
-                <p className="text-[#4d724d] max-w-2xl mx-auto">
-                  Physical participation with accommodation included
-                </p>
-              </div>
-
-              <Tabs defaultValue="local-with-accommodation" className="w-full">
-                <div className="flex justify-center mb-8">
-                  <TabsList className="bg-[#edf6e1] p-1 rounded-full">
-                    <TabsTrigger
-                      value="local-with-accommodation"
-                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                    >
-                      <MapPin className="mr-2 h-4 w-4" />
-                      Local Participants
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="international-with-accommodation"
-                      className="rounded-full data-[state=active]:bg-[#4d724d] data-[state=active]:text-white px-6 py-2"
-                    >
-                      <Globe className="mr-2 h-4 w-4" />
-                      International Participants
-                    </TabsTrigger>
-                  </TabsList>
-                </div>
-
-                <TabsContent value="local-with-accommodation" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalWithAccommodation.local.map((categoryData) =>
-                      renderPricingCard(categoryData, "local", "with-accommodation")
-                    )}
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="international-with-accommodation" className="mt-0">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {pricingData.physicalWithAccommodation.international.map((categoryData) =>
-                      renderPricingCard(categoryData, "international", "with-accommodation")
-                    )}
-                  </div>
-                </TabsContent>
-              </Tabs>
-
-              {/* Important Note */}
-              <div className="mt-12 max-w-3xl mx-auto">
-                <div className="bg-white rounded-2xl border-2 border-[#d3e4c5] p-6 shadow-sm">
-                  <div className="flex items-start space-x-3">
-                    <Info className="h-6 w-6 text-[#4d724d] flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="text-lg font-bold text-[#1a2e1a] mb-2">Important Note</h4>
-                      <p className="text-[#4d724d] mb-2">
-                        <strong>N.B.:</strong> For group discounts, kindly connect with the coordinator.
-                      </p>
-                      <p className="text-[#4d724d]">
-                        (Exciting offers are also available for outstanding contributors.)
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="custom" className="mt-0">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Custom Payment</h3>
-                <p className="text-[#4d724d] max-w-2xl mx-auto">
-                  Enter a custom amount for your registration or additional services
-                </p>
-              </div>
-
-              <div className="max-w-md mx-auto">
-                <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm">
-                  <div className="bg-gradient-to-r from-[#d3e4c5]/50 to-[#b9d4a3]/50 p-6">
-                    <div className="flex justify-between items-center">
-                      <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-white/80 text-[#4d724d]">
-                        Custom Payment
-                      </span>
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                        <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                          <DollarSign className="h-5 w-5 text-[#4d724d]" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="mb-6">
-                      <label htmlFor="customAmount" className="block text-[#1a2e1a] font-medium mb-2">
-                        Enter Amount (USD)
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4d724d]">$</span>
-                        <input
-                          id="customAmount"
-                          type="number"
-                          min="1"
-                          step="0.01"
-                          value={customAmount}
-                          onChange={(e) => setCustomAmount(e.target.value)}
-                          className="w-full pl-8 pr-4 py-3 rounded-xl border border-[#d3e4c5] focus:ring-2 focus:ring-[#4d724d] focus:border-transparent outline-none"
-                          placeholder="Enter amount"
-                        />
-                      </div>
-                      <p className="text-sm text-[#4d724d] mt-2">A 6% tax will be added to this amount</p>
-                    </div>
-
-                    {customAmount && !isNaN(Number.parseFloat(customAmount)) && Number.parseFloat(customAmount) > 0 && (
-                      <div className="space-y-2 mb-6 p-4 bg-[#edf6e1] rounded-xl border border-[#d3e4c5]">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-[#4d724d]">Base Amount:</span>
-                          <span className="text-[#1a2e1a] font-medium">
-                            ${Number.parseFloat(customAmount).toFixed(2)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-[#4d724d]">Tax (6%):</span>
-                          <span className="text-[#1a2e1a] font-medium">
-                            ${(Number.parseFloat(customAmount) * 0.06).toFixed(2)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm font-medium pt-2 border-t border-[#d3e4c5]">
-                          <span className="text-[#4d724d]">Total:</span>
-                          <span className="text-[#1a2e1a] font-bold">
-                            ${(Number.parseFloat(customAmount) * 1.06).toFixed(2)}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    <Button
-                      onClick={handleCustomPayment}
-                      className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full"
-                    >
-                      <CreditCard className="mr-2 h-4 w-4 text-white" />
-                      Proceed to Payment
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+          <div className="grid gap-6">
+            <Choice legend="Accommodation" name="plan" options={PLANS} value={plan} onChange={setPlan} />
+            <Choice legend="You are" name="participant" options={PARTICIPANTS} value={participant} onChange={setParticipant} />
+            <p className="herb-italic text-[15px] text-[var(--ink-2)]">
+              {EARLY_BIRD_ACTIVE ? "Early Bird prices are open. " : ""}Fees are in US dollars; {TAX_RATE * 100}% tax is added at checkout.
+            </p>
+          </div>
         </div>
       </section>
 
-      <ExtraContentBelowTabs/>
+      {/* Fee table */}
+      <section id="fees" aria-labelledby="fees-title" className="scroll-mt-24 px-3 pt-16 sm:px-6 lg:px-10 lg:pt-20">
+        <div className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="fees-title" className="herb-h2 max-w-[16ch]">
+              Choose your fee.
+            </h2>
+            <p className="herb-italic text-[16px] text-[var(--ink-2)]" aria-live="polite">
+              {participantName.charAt(0).toUpperCase() + participantName.slice(1)} participants, {planName}
+            </p>
+          </div>
 
-      {/* Payment Form Dialog */}
-      <PaymentForm
-        isOpen={isPaymentFormOpen}
-        onClose={handlePaymentFormClose}
-        ticketName={selectedTicket?.name}
-        amount={selectedTicket?.price || 0}
-        taxRate={selectedTicket?.taxRate || 0}
-        currency={selectedTicket?.currency || "USD"}
-        onSubmit={handlePaymentFormSubmit}
-        isLoading={isLoading}
-      />
+          <div className="mt-10 overflow-x-auto">
+            <table className="w-full min-w-[640px] border-collapse text-left">
+              <thead>
+                <tr className="border-b border-[var(--ink)] text-[13px] tracking-[0.08em] uppercase">
+                  <th scope="col" className="py-3 pr-6 font-semibold">Category</th>
+                  {priceTypes.map(([type, label]) => (
+                    <th key={type} scope="col" className="w-[11rem] px-2 py-3 font-semibold">
+                      {label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.category} className="border-b border-[var(--rule)] align-top">
+                    <th scope="row" className="py-5 pr-6 text-left font-normal">
+                      <span className="block text-[19px] leading-snug">{row.category}</span>
+                      <details className="mt-2">
+                        <summary className="herb-link w-fit cursor-pointer text-[14.5px]">What is included</summary>
+                        <ul className="mt-2 grid gap-1 text-[15px] text-[var(--ink-2)]">
+                          {row.features.map((feature) => (
+                            <li key={feature}>{feature}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    </th>
+                    {priceTypes.map(([type, label]) => (
+                      <td key={type} className="px-2 py-5">
+                        {row.prices[type] ? (
+                          <button
+                            type="button"
+                            onClick={() => chooseTicket(row.category, type)}
+                            className="group flex w-full flex-col items-start border border-[var(--rule)] px-3 py-2.5 text-left hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
+                            aria-label={`Choose ${row.category}, ${label}, ${money(row.prices[type])}`}
+                          >
+                            <span className="text-[1.35rem] leading-none tracking-[-0.02em]">{money(row.prices[type])}</span>
+                            <span className="mt-1.5 text-[13.5px] text-[var(--ink-2)] group-hover:text-white">Choose</span>
+                          </button>
+                        ) : (
+                          <span className="herb-italic text-[14px] text-[var(--ink-2)]">Not offered</span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="herb-muted mt-6 max-w-[44rem] text-[15px]">
+            For group discounts, contact the coordinator at{" "}
+            <a href="mailto:info@icsift.com" className="herb-link">
+              info@icsift.com
+            </a>
+            . Offers are also available for outstanding contributors.
+          </p>
+        </div>
+      </section>
+
+      {/* Custom payment */}
+      <section id="custom" aria-labelledby="custom-title" className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
+          <div>
+            <h2 id="custom-title" className="herb-h2 max-w-[14ch]">
+              Paying a different amount?
+            </h2>
+            <p className="herb-muted mt-5 max-w-[32rem]">
+              For an amount agreed with the organisers, such as a balance or an extra service, enter it here.{" "}
+              {TAX_RATE * 100}% tax is added.
+            </p>
+          </div>
+          <form onSubmit={chooseCustom} noValidate className="grid gap-5 self-end">
+            <Field id="custom-amount" label="Amount in US dollars" error={customError} hint={`Between $1 and $10,000.`}>
+              <div className="relative">
+                <span aria-hidden="true" className="absolute top-1/2 left-4 -translate-y-1/2 text-[var(--ink-2)]">
+                  $
+                </span>
+                <input
+                  id="custom-amount"
+                  inputMode="decimal"
+                  value={customAmount}
+                  onChange={(event) => setCustomAmount(event.target.value)}
+                  aria-invalid={Boolean(customError)}
+                  aria-describedby={customError ? "custom-amount-error" : "custom-amount-hint"}
+                  className="herb-input pl-8 text-[18px]"
+                />
+              </div>
+            </Field>
+            {customPreview ? (
+              <dl className="grid grid-cols-3 border-y border-[var(--rule)] py-3 text-[15px]">
+                <div>
+                  <dt className="herb-italic text-[var(--ink-2)]">Amount</dt>
+                  <dd>{money(customPreview.price)}</dd>
+                </div>
+                <div>
+                  <dt className="herb-italic text-[var(--ink-2)]">{TAX_LABEL}</dt>
+                  <dd>{money(customPreview.taxAmount)}</dd>
+                </div>
+                <div>
+                  <dt className="herb-italic text-[var(--ink-2)]">Total</dt>
+                  <dd className="font-semibold">{money(customPreview.totalAmount)}</dd>
+                </div>
+              </dl>
+            ) : null}
+            <button type="submit" className="herb-btn w-full sm:max-w-[22rem]">
+              <span>Continue to payment</span>
+            </button>
+          </form>
+        </Reveal>
+      </section>
+
+      {/* How it works */}
+      <section aria-labelledby="steps-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <h2 id="steps-title" className="herb-h2 max-w-[13ch]">
+              How registration works.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[26rem]">Check your details before you pay; they appear on your receipt.</p>
+          </div>
+          <Reveal as="ol" className="border-t border-[var(--ink)]">
+            {STEPS.map(([title, body], index) => (
+              <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-5 sm:grid-cols-[2.5rem_13rem_1fr] sm:gap-x-6">
+                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
+                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
+              </li>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Benefits and policy */}
+      <section aria-labelledby="benefits-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
+          <div>
+            <h2 id="benefits-title" className="herb-h2 max-w-[16ch]">
+              What registration gives you.
+            </h2>
+            <dl className="mt-10 grid border-t border-[var(--ink)] sm:grid-cols-2 sm:gap-x-10">
+              {BENEFITS.map(([term, value]) => (
+                <div key={term} className="border-b border-[var(--rule)] py-4">
+                  <dt className="text-[17px]">{term}</dt>
+                  <dd className="herb-muted mt-1 text-[15px]">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="self-start">
+            <AccessionLabel
+              title="Cancellation policy"
+              rows={[
+                ["60+ days", "Full refund if you cancel more than 60 days before the event"],
+                ["60 days or less", "No refund"],
+                ["How", "All cancellations must be made in writing"],
+                ["Transfers", "Allowed to another person up to 7 days before the event"],
+              ]}
+            />
+            <Link href="/cancellation-policy" className="herb-link mt-4 inline-block text-[15.5px]">
+              Read the full policy
+            </Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Closing */}
+      <section aria-labelledby="registration-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="registration-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Presenting? Submit your paper too.
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              Registration secures your place; your paper is submitted separately.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="#fees">Register to attend</ActionLink>
+          </div>
+        </Reveal>
+      </section>
+
+      <CheckoutPanel item={checkout} onClose={() => setCheckout(null)} requireAuth />
     </main>
-  )
+  );
 }

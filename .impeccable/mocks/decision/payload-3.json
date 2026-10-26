@@ -1,0 +1,110 @@
+{
+  "title": "Choose the visual world for the ICSIFT home page",
+  "question": "Re-roll 1 assigned Solar Array. Keep it, take an alternate, or re-roll again.",
+  "followup": false,
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Solar Array",
+      "kicker": "THE ROLL",
+      "lineage": "photovoltaic panels on a mounting rail",
+      "thesis": "The page is one solar panel: content lives in its cells, and the cells light up as the visitor takes the actions that matter.",
+      "palette": ["#16234A", "#1F2F5C", "#C9CED6", "#F6C343", "#E7E9EC"],
+      "materials": ["monocrystalline cells", "silver busbars", "anodised aluminium rail"],
+      "viewport": "A full-width panel of deep-indigo cells on a silver frame: the theme set across a block of cells, Submit (sunlit yellow) and Register as two cells top right, indexing and awards in the cells below.",
+      "risk": "A literal sustainability symbol; it turns into stock clip art if the cell grid stops carrying the content.",
+      "raised": [
+        {"from": "design-canon-hoffmann-gridsmith-showroom", "raise": "Cells are fixed-ratio units that re-count per viewport and never stretch."},
+        {"from": "exhibition-museum-curation-provenance-ribbon", "raise": "Confirmed facts sit in lit cells; to-be-announced facts (the full venue) sit in visibly unlit cells."},
+        {"from": "clay-ceramics-fracture-coiled-earth-tower", "raise": "Text is set in courses whose measure matches the row of cells it occupies."}
+      ],
+      "html": ".impeccable/mocks/decision/array.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Goals Program",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "the UN Sustainable Development Goals identity",
+      "thesis": "The conference set in the 17-colour SDG tile system its audience already reads daily.",
+      "palette": ["#E5243B", "#4C9F38", "#26BDE2", "#FCC30B", "#19486A"],
+      "materials": ["flat colour tiles", "bold numerals"],
+      "viewport": "A white headline cell for the 4th ICSIFT beside a wall of numbered goal tiles; Submit and Register under the title.",
+      "risk": "Familiar: nearly every sustainability event borrows this system, and it overlaps the separate SDG figure.",
+      "html": ".impeccable/mocks/decision/sdg-program.html"
+    },
+    {
+      "id": "challenger-collider",
+      "kind": "challenger",
+      "catalogId": "scientific-notation-particle-detector-event-display",
+      "label": "Event Display",
+      "verdict": "competitive",
+      "lineage": "collider event displays",
+      "thesis": "Every paper is a track curving out of one collision: the conference.",
+      "palette": ["#06080C", "#4D6A8A", "#F5D020", "#2EC5E8", "#E5383B"],
+      "materials": ["vacuum black", "detector rings", "signal tracks"],
+      "viewport": "A ring cross-section centred on Bangkok, 21–22 Feb, tracks fanning out to the topics.",
+      "case": "Researchers recognise the scientific form; loses on clarity because the offer hides inside the diagram.",
+      "risk": "Reads physics-only and dark-tech for a sustainability audience."
+    },
+    {
+      "id": "challenger-provenance",
+      "kind": "challenger",
+      "catalogId": "exhibition-museum-curation-provenance-ribbon",
+      "label": "Provenance Ribbon",
+      "verdict": "declined",
+      "lineage": "museum provenance records",
+      "thesis": "One ribbon traces the editions from 2024 to 2027.",
+      "palette": ["#EFE6D2", "#B3261E", "#8A8A8A"],
+      "materials": ["archival buff", "red silk ribbon"],
+      "viewport": "A red ribbon running through dated editions.",
+      "case": "Fuses poorly: archive mood dampens a call to submit.",
+      "risk": "Museum costume.",
+      "kept": "Known and not-yet-known facts are visually distinct."
+    },
+    {
+      "id": "challenger-hoffmann",
+      "kind": "challenger",
+      "catalogId": "design-canon-hoffmann-gridsmith-showroom",
+      "label": "Gridsmith Showroom",
+      "verdict": "declined",
+      "lineage": "Wiener Werkstätte metalwork",
+      "thesis": "Content held in square-pierced lattices.",
+      "palette": ["#FFFFFF", "#0D0D0D", "#B8BCC2"],
+      "materials": ["lacquer black rules", "hammered silver"],
+      "viewport": "A black-and-white lattice framing the conference title.",
+      "case": "Fuses poorly: Viennese luxury has no tie to the audience.",
+      "risk": "Cold and decorative.",
+      "kept": "Square units that re-count, never stretch."
+    },
+    {
+      "id": "challenger-coil",
+      "kind": "challenger",
+      "catalogId": "clay-ceramics-fracture-coiled-earth-tower",
+      "label": "Coiled Earth Tower",
+      "verdict": "declined",
+      "lineage": "coil-built earthen architecture",
+      "thesis": "The page rises in clay courses.",
+      "palette": ["#B5532F", "#6B3A22", "#F1E6D6"],
+      "materials": ["terracotta coils", "slip seams"],
+      "viewport": "Banded clay courses carrying the title.",
+      "case": "Fuses poorly: craft material, weak link to future technologies.",
+      "risk": "Earthy cliché.",
+      "kept": "Text measure matches its band."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A conference landing page as the category ships it, executed impeccably.",
+    "palette": ["#FFFFFF", "#0F2A1D", "#2F7D4F"],
+    "materials": ["clean grid", "event photography"],
+    "viewport": "Photo hero with dates, venue and two buttons, then highlights, dates, speakers.",
+    "risk": "Indistinguishable from every other conference site by design."
+  },
+  "steer": true
+}

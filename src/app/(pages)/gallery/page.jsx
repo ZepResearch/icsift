@@ -1,14 +1,8 @@
-import React from 'react'
 import Gallery from './components/gallery'
-import { galleryMetadata } from '@/components/metadata';
-  export const metadata = galleryMetadata;
+import { galleryMetadata } from '@/components/metadata'
 
-function page() {
-  return (
-    <div>
-      <Gallery/>
-    </div>
-  )
+export const metadata = galleryMetadata
+
+export default function page() {
+  return <Gallery />
 }
-
-export default page

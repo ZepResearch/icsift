@@ -1,452 +1,298 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Toaster, toast } from "react-hot-toast"
-import "react-phone-number-input/style.css"
-import PhoneInput from "react-phone-number-input"
-import { FileText, Upload, ChevronDown, Send } from "lucide-react"
-import ReCAPTCHA from "react-google-recaptcha"
-import { GeometricShapesCSS } from "./geometric-shapes-css"
-import AbstractSubmissionGuidelines from "./SubmitGuidline"
-import { CONFERENCE } from "@/constants/conference"
-import { useAuth } from '@/context/AuthContext'
-import pb from '@/lib/zep-pocketbase'
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import ReCAPTCHA from "react-google-recaptcha";
+import { ArrowUpRight } from "lucide-react";
+import { CONFERENCE } from "@/constants/conference";
+import { AccessionLabel, ActionLink } from "@/components/home/primitives";
+import { useAuth } from "@/context/AuthContext";
+import pb from "@/lib/zep-pocketbase";
+import {
+  FILE_EXTENSIONS,
+  HEARD_FROM,
+  PAPER_TYPES,
+  PRESENTATION_TYPES,
+  TEXT_FIELDS,
+  fileProblem,
+  validateSubmission,
+} from "@/lib/paper-submission";
+import { Field, FormAlert, Honeypot, Select, describedBy } from "@/components/forms/herb-fields";
+import AbstractSubmissionGuidelines from "./SubmitGuidline";
 
-const RECAPTCHA_BYPASS_TOKEN = "localhost-bypass"
+const RECAPTCHA_BYPASS_TOKEN = "localhost-bypass";
+const MAX = Object.fromEntries(TEXT_FIELDS.map(([name, , max]) => [name, max]));
+const STEPS = ["Sign in", "Fill in your details", "Upload and send"];
+
+function StepStrip({ current }) {
+  return (
+    <ol className="mt-12 grid border-y border-[var(--ink)] sm:grid-cols-3" aria-label="Submission steps">
+      {STEPS.map((step, index) => {
+        const state = index < current ? "Done" : index === current ? "Now" : "Next";
+        return (
+          <li
+            key={step}
+            aria-current={index === current ? "step" : undefined}
+            className={`relative py-5 sm:px-5 sm:first:pl-0 ${index ? "border-t border-[var(--rule)] sm:border-t-0 sm:border-l" : ""} ${
+              index > current ? "text-[var(--ink-2)]" : ""
+            }`}
+          >
+            <span className="herb-italic block text-[14px] text-[var(--ink-2)]">
+              Step {index + 1} · {state}
+            </span>
+            <span className="mt-1 block text-[clamp(1.2rem,1rem+0.6vw,1.5rem)] leading-tight tracking-[-0.01em]">{step}</span>
+            {index === current ? <span aria-hidden="true" className="absolute inset-x-0 -bottom-px h-[3px] bg-[var(--green)]" /> : null}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+function TitleRow() {
+  return (
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+      <h1 id="submission-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+        Submit your paper.
+      </h1>
+      <p className="herb-muted max-w-[32rem] text-[17.5px] leading-relaxed">
+        Send your abstract or full paper to the {CONFERENCE.shortForm}. Read the{" "}
+        <a href="#guidelines" className="herb-link">
+          guidelines
+        </a>{" "}
+        first; submissions that do not follow them may be returned.
+      </p>
+    </div>
+  );
+}
 
 export default function PaperSubmissionPage() {
-  const { user, openAuthModal } = useAuth()
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState(null)
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [phoneNumber, setPhoneNumber] = useState()
-  const [recaptchaToken, setRecaptchaToken] = useState(null)
+  const { user, openAuthModal } = useAuth();
+  const router = useRouter();
+  const recaptchaRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [formError, setFormError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  // Only true when this page is actually being loaded from localhost —
-  // never true on a deployed domain, so the widget still renders (and is
-  // still required) everywhere else.
+  // Only true on localhost. The server ignores the bypass token in production builds.
   const isLocalDev =
-    typeof window !== "undefined" &&
-    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+    typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
 
-  const handleRecaptchaChange = (token) => {
-    setRecaptchaToken(token)
-  }
+  const showErrors = (next, message) => {
+    setErrors(next);
+    setFormError(message);
+    const first = Object.keys(next)[0];
+    if (first) document.getElementById(first === "phone_number" ? "phone_number" : first)?.focus();
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
+  const onFileChange = (event) => {
+    const file = event.target.files?.[0] || null;
+    setSelectedFile(file);
+    setErrors((prev) => {
+      const { file: _drop, ...rest } = prev;
+      const problem = file ? fileProblem(file) : null;
+      return problem ? { ...rest, file: problem } : rest;
+    });
+  };
 
-    // Validate reCAPTCHA (skipped on localhost)
-    if (!isLocalDev && !recaptchaToken) {
-      setError("Please complete the reCAPTCHA verification")
-      toast.error("Please complete the reCAPTCHA verification")
-      setIsSubmitting(false)
-      return
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+
+    const formData = new FormData(event.currentTarget);
+    formData.set("phone_number", phoneNumber || "");
+
+    // Instant feedback with the same rules the server enforces.
+    const { errors: found } = validateSubmission(Object.fromEntries(formData.entries()));
+    const problem = fileProblem(selectedFile);
+    if (problem) found.file = problem;
+    if (!isLocalDev && !recaptchaToken) found.recaptcha = "Tick the reCAPTCHA box to show you are not a robot.";
+    if (Object.keys(found).length) {
+      showErrors(found, "Some fields need attention. Each one is marked below.");
+      return;
     }
 
+    setSubmitting(true);
+    setErrors({});
+    setFormError(null);
     try {
-      const formData = new FormData(e.currentTarget)
+      formData.set("file", selectedFile);
+      formData.set("recaptcha_token", isLocalDev ? RECAPTCHA_BYPASS_TOKEN : recaptchaToken);
+      if (pb.authStore.token) formData.set("auth_token", pb.authStore.token);
 
-      // Add phone number to form data
-      if (phoneNumber) {
-        formData.set("phone_number", phoneNumber)
-      }
-
-      // Add file if selected
-      if (selectedFile) {
-        formData.set("file", selectedFile)
-      }
-
-      // Add reCAPTCHA token (or the localhost bypass marker)
-      formData.set("recaptcha_token", isLocalDev ? RECAPTCHA_BYPASS_TOKEN : recaptchaToken)
-
-      // Add user's auth token for ZEP PocketBase authentication
-      if (pb.authStore.token) {
-        formData.set("auth_token", pb.authStore.token)
-      }
-
-      // Add the authenticated ZEP user's id explicitly — this is what the
-      // ZEP `conf_paper_submission_all` collection's auth rule checks
-      // against, and it was never being sent before.
-      const zepUserId = pb.authStore.record?.id || pb.authStore.model?.id
-      if (zepUserId) {
-        formData.set("user_id", zepUserId)
-      }
-
-      const response = await fetch("/api/submit-paper", {
-        method: "POST",
-        body: formData,
-      })
-
-      const data = await response.json()
+      const response = await fetch("/api/submit-paper", { method: "POST", body: formData });
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to submit paper")
+        if (response.status === 401) openAuthModal();
+        showErrors(data.errors || {}, data.message || "Your paper could not be submitted. Please try again.");
+        return;
       }
-
-      if (data.zep && !data.zep.success) {
-        console.warn("Paper saved, but the ZEP sync did not succeed:", data.zep.error)
-      }
-
-      // Show success toast
-      toast.success("Paper submitted successfully!")
-
-      // Redirect to success page
-      router.push("/submission/success")
-    } catch (err) {
-      setError(err.message || "An error occurred while submitting your paper")
-      toast.error(err.message || "An error occurred while submitting your paper")
-      setIsSubmitting(false)
+      router.push("/submission/success");
+    } catch {
+      setFormError("The connection dropped before your paper was sent. Check your internet and submit again.");
+    } finally {
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+      setSubmitting(false);
     }
-  }
+  };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0])
-    }
-  }
+  const step = !user ? 0 : selectedFile ? 2 : 1;
+  const err = (name) => errors[name];
 
-  if (!user) {
-    return (
-      <main className="bg-[#f8faf5]">
-        <Toaster position="top-right" />
-        <section className="container mx-auto py-12 px-4">
-          <div className="max-w-2xl mx-auto text-center p-8 bg-white rounded-xl shadow">
-            <h2 className="text-2xl font-semibold mb-4">Please sign in to submit a paper</h2>
-            <p className="mb-6">You need to be authenticated to submit your paper. Create an account or login to continue.</p>
-            <div className="flex items-center justify-center gap-4">
-              <button onClick={() => openAuthModal()} className="px-6 py-3 bg-green-600 text-white rounded-full">Sign in / Register</button>
-            </div>
-          </div>
-        </section>
-      </main>
-    )
-  }
   return (
-    <main className="bg-[#f8faf5]">
+    <main className="herb min-h-screen">
+      <section aria-labelledby="submission-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <TitleRow />
+          <StepStrip current={step} />
 
-      {/* Hero Section */}
-
-      <section className="relative py-20 overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Paper
-              <span className="relative inline-block mx-2 ml-6">
-                <span className="relative z-10">Submission</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
-            </h1>
-            <h2 className="text-xl text-[#4d724d] mb-8">
-              Share your research at  {CONFERENCE.name}
-            </h2>
-            <a href="#guid" className="scroll-smooth transition-all py-2 px-3 bg-gradient-to-tl from-[#4d724d] via-[#606b58] to-[#4d724d] rounded-4xl text-white font-semibold hover:drop-shadow-2xl hover:bg-orange-500/90">
-              Read Submission Guidelines before submitting
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Form Section */}
-      <section className="pb-12">
-        <GeometricShapesCSS />
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-              <div className="relative p-8 md:p-12">
-                {error && (
-                  <div className="mb-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl">{error}</div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Author Name */}
-                    <div className="space-y-2">
-                      <label htmlFor="author" className="block text-sm font-medium text-[#1a2e1a]">
-                        Author Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="author"
-                        name="author"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Enter your full name"
-                      />
-                    </div>
-
-                    {/* Phone Number */}
-                    <div className="space-y-2">
-                      <label htmlFor="phone_number" className="block text-sm font-medium text-[#1a2e1a]">
-                        Phone Number *
-                      </label>
-                      <PhoneInput
-                        international
-                        defaultCountry="US"
-                        value={phoneNumber}
-                        onChange={setPhoneNumber}
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-sm font-medium text-[#1a2e1a]">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-
-                    {/* Country */}
-                    <div className="space-y-2">
-                      <label htmlFor="country" className="block text-sm font-medium text-[#1a2e1a]">
-                        Country *
-                      </label>
-                      <input
-                        type="text"
-                        id="country"
-                        name="country"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Your country"
-                      />
-                    </div>
-
-                    {/* Co-Author */}
-                    <div className="space-y-2">
-                      <label htmlFor="co_author" className="block text-sm font-medium text-[#1a2e1a]">
-                        Co-Author(s) *
-                      </label>
-                      <input
-                        type="text"
-                        id="co_author"
-                        name="co_author"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Separate multiple authors with commas"
-                      />
-                    </div>
-
-                    {/* Paper Title */}
-                    <div className="space-y-2">
-                      <label htmlFor="paper_title" className="block text-sm font-medium text-[#1a2e1a]">
-                        Paper Title *
-                      </label>
-                      <input
-                        type="text"
-                        id="paper_title"
-                        name="paper_title"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Enter your paper title"
-                      />
-                    </div>
-
-                    {/* Department */}
-                    <div className="space-y-2">
-                      <label htmlFor="department" className="block text-sm font-medium text-[#1a2e1a]">
-                        Department *
-                      </label>
-                      <input
-                        type="text"
-                        id="department"
-                        name="department"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Your academic department"
-                      />
-                    </div>
-
-                    {/* Organization */}
-                    <div className="space-y-2">
-                      <label htmlFor="organization" className="block text-sm font-medium text-[#1a2e1a]">
-                        Organization *
-                      </label>
-                      <input
-                        type="text"
-                        id="organization"
-                        name="organization"
-                        required
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="Your university or organization"
-                      />
-                    </div>
-
-                    {/* Paper Type */}
-                    <div className="space-y-2">
-                      <label htmlFor="paper_type" className="block text-sm font-medium text-[#1a2e1a]">
-                        Paper Type *
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="paper_type"
-                          name="paper_type"
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50 appearance-none"
-                        >
-                          <option value="">Select Paper Type</option>
-                          <option value="Abstract">Abstract</option>
-                          <option value="Full Paper">Full Paper</option>
-                        </select>
-                        <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-[#4d724d]" />
-                      </div>
-                    </div>
-
-                    {/* Presentation Type */}
-                    <div className="space-y-2">
-                      <label htmlFor="presentation_type" className="block text-sm font-medium text-[#1a2e1a]">
-                        Presentation Type *
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="presentation_type"
-                          name="presentation_type"
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50 appearance-none"
-                        >
-                          <option value="">Select Presentation Type</option>
-                          <option value="Poster">Poster Presentation</option>
-                          <option value="Oral">Oral Presentation</option>
-                          <option value="Virtual">Virtual Presentation</option>
-                        </select>
-                        <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-[#4d724d]" />
-                      </div>
-                    </div>
-
-                    {/* How did you hear about us */}
-                    <div className="space-y-2">
-                      <label htmlFor="know_to_you" className="block text-sm font-medium text-[#1a2e1a]">
-                        How did you hear about us? *
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="know_to_you"
-                          name="know_to_you"
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50 appearance-none"
-                        >
-                          <option value="">Select an option</option>
-                          <option value="Conference Alerts">Conference Alerts</option>
-                          <option value="Email">Email</option>
-                          <option value="Friend or Colleague or Supervisor">Friend, Colleague, or Supervisor</option>
-                          <option value="Facebook">Facebook</option>
-                          <option value="Google Search">Google Search</option>
-                          <option value="Eventbit">Eventbit</option>
-                          <option value="Linkdin">LinkedIn</option>
-                          <option value="Others">Others</option>
-                        </select>
-                        <ChevronDown className="absolute right-3 top-3 h-5 w-5 text-[#4d724d]" />
-                      </div>
-                    </div>
-
-                    {/* File Upload */}
-                    <div className="space-y-2">
-                      <label htmlFor="file" className="block text-sm font-medium text-[#1a2e1a]">
-                        Upload Paper (DOC, DOCX) *
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="file"
-                          id="file"
-                          name="file"
-                          onChange={handleFileChange}
-                          required
-                          accept=".doc,.docx"
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-[#4d724d] file:text-white hover:file:bg-[#3c5c3c]"
-                        />
-                        <Upload className="absolute right-3 top-3 h-5 w-5 text-[#4d724d]" />
-                      </div>
-                      {selectedFile && (
-                        <div className="mt-2 px-3 py-2 bg-white rounded-lg border border-[#d3e4c5] text-sm text-[#1a2e1a] flex items-center">
-                          <FileText className="h-4 w-4 mr-2 text-[#4d724d]" />
-                          Selected: {selectedFile.name}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="block text-sm font-medium text-[#1a2e1a]">
-                      Additional Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                      placeholder="Any additional information you'd like to share"
-                    ></textarea>
-                  </div>
-
-                  {/* reCAPTCHA (skipped on localhost) */}
-                  {isLocalDev ? (
-                    <div className="flex justify-center">
-                      <span className="px-4 py-2 rounded-lg bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm">
-                        reCAPTCHA bypassed — localhost
-                      </span>
-                    </div>
-                  ) : (
-                    <div className="flex justify-center">
-                      <ReCAPTCHA
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={handleRecaptchaChange}
-                        theme="light"
-                      />
-                    </div>
-                  )}
-
-                  {/* Submit Button */}
-                  <div className="flex justify-center pt-4">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="relative px-8 py-4 bg-[#4d724d] hover:bg-[#3c5c3c] text-white font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:ring-offset-2 focus:ring-offset-[#edf6e1] disabled:opacity-50 disabled:cursor-not-allowed group overflow-hidden"
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="h-full w-full bg-[#3c5c3c] opacity-0 group-hover:opacity-50 group-hover:animate-pulse transition-all duration-1000"></div>
-                      </div>
-                      <div className="relative flex items-center">
-                        {isSubmitting ? (
-                          <>
-                            <div className="animate-spin mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
-                            Submitting...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                            Submit Paper
-                          </>
-                        )}
-                      </div>
-                    </button>
-                  </div>
-                </form>
+          {!user ? (
+            <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+              <div>
+                <h2 className="text-[clamp(1.6rem,1.3rem+1vw,2.2rem)] leading-tight tracking-[-0.02em]">Sign in to submit.</h2>
+                <p className="herb-muted mt-4 max-w-[38rem]">
+                  Submissions are tied to your Zep Research account, so you can track their status later. Create an account or
+                  sign in to continue.
+                </p>
+                <button type="button" onClick={() => openAuthModal()} data-primary className="herb-btn mt-8 w-full sm:max-w-[22rem]">
+                  <span>Sign in or create an account</span>
+                  <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+                </button>
               </div>
+              <SubmissionRail />
             </div>
-          </div>
-          <div id="guid" className="mt-12 scroll-smooth">
-            <AbstractSubmissionGuidelines />
-          </div>
+          ) : (
+            <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+              <form onSubmit={onSubmit} noValidate className="grid gap-6" aria-busy={submitting}>
+                <FormAlert>{formError}</FormAlert>
+
+                <Honeypot />
+
+                <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">About you</h2>
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Field id="author" label="Author name" error={err("author")}>
+                    <input id="author" name="author" type="text" autoComplete="name" required maxLength={MAX.author} defaultValue={user?.name || ""} aria-invalid={Boolean(err("author"))} aria-describedby={describedBy("author", err("author"))} className="herb-input" />
+                  </Field>
+                  <Field id="email" label="Email" error={err("email")} hint="Your confirmation goes here.">
+                    <input id="email" name="email" type="email" autoComplete="email" required maxLength={MAX.email} defaultValue={user?.email || ""} aria-invalid={Boolean(err("email"))} aria-describedby={describedBy("email", err("email"), true)} className="herb-input" />
+                  </Field>
+                  <Field id="phone_number" label="Phone number" error={err("phone_number")} hint="With country code.">
+                    <PhoneInput id="phone_number" international defaultCountry="US" value={phoneNumber} onChange={setPhoneNumber} aria-invalid={Boolean(err("phone_number"))} className="herb-input" />
+                  </Field>
+                  <Field id="country" label="Country" error={err("country")}>
+                    <input id="country" name="country" type="text" autoComplete="country-name" required maxLength={MAX.country} aria-invalid={Boolean(err("country"))} aria-describedby={describedBy("country", err("country"))} className="herb-input" />
+                  </Field>
+                  <Field id="department" label="Department" error={err("department")}>
+                    <input id="department" name="department" type="text" required maxLength={MAX.department} aria-invalid={Boolean(err("department"))} aria-describedby={describedBy("department", err("department"))} className="herb-input" />
+                  </Field>
+                  <Field id="organization" label="University or organization" error={err("organization")}>
+                    <input id="organization" name="organization" type="text" autoComplete="organization" required maxLength={MAX.organization} aria-invalid={Boolean(err("organization"))} aria-describedby={describedBy("organization", err("organization"))} className="herb-input" />
+                  </Field>
+                </div>
+
+                <h2 className="mt-4 border-t border-[var(--ink)] pt-6 text-[13px] font-semibold tracking-[0.08em] uppercase">Your paper</h2>
+                <Field id="paper_title" label="Paper title" error={err("paper_title")}>
+                  <input id="paper_title" name="paper_title" type="text" required maxLength={MAX.paper_title} aria-invalid={Boolean(err("paper_title"))} aria-describedby={describedBy("paper_title", err("paper_title"))} className="herb-input" />
+                </Field>
+                <Field id="co_author" label="Co-author(s)" error={err("co_author")} hint="Separate names with commas. Write “None” if you are the only author.">
+                  <input id="co_author" name="co_author" type="text" required maxLength={MAX.co_author} aria-invalid={Boolean(err("co_author"))} aria-describedby={describedBy("co_author", err("co_author"), true)} className="herb-input" />
+                </Field>
+                <div className="grid gap-6 md:grid-cols-3">
+                  <Field id="paper_type" label="Paper type" error={err("paper_type")}>
+                    <Select id="paper_type" placeholder="Choose one" options={PAPER_TYPES.map((t) => [t, t])} error={err("paper_type")} />
+                  </Field>
+                  <Field id="presentation_type" label="Presentation" error={err("presentation_type")}>
+                    <Select id="presentation_type" placeholder="Choose one" options={PRESENTATION_TYPES} error={err("presentation_type")} />
+                  </Field>
+                  <Field id="know_to_you" label="How did you hear of us?" error={err("know_to_you")}>
+                    <Select id="know_to_you" placeholder="Choose one" options={HEARD_FROM} error={err("know_to_you")} />
+                  </Field>
+                </div>
+
+                <Field id="file" label="Paper file" error={err("file")} hint="Word only (.doc or .docx), up to 10 MB.">
+                  <input
+                    id="file"
+                    name="file"
+                    type="file"
+                    required
+                    accept={`${FILE_EXTENSIONS.join(",")},application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document`}
+                    onChange={onFileChange}
+                    aria-invalid={Boolean(err("file"))}
+                    aria-describedby={describedBy("file", err("file"), true)}
+                    className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border file:border-[var(--ink)] file:bg-[var(--sheet)] file:px-3 file:py-1.5 file:text-[15px] hover:file:bg-[var(--ink)] hover:file:text-white"
+                  />
+                </Field>
+
+                <Field id="message" label="Message to the committee" error={err("message")} hint="Anything the reviewers should know, such as a preferred session.">
+                  <textarea id="message" name="message" rows={5} required maxLength={MAX.message} aria-invalid={Boolean(err("message"))} aria-describedby={describedBy("message", err("message"), true)} className="herb-input resize-y" />
+                </Field>
+
+                <div className="border-t border-[var(--ink)] pt-6">
+                  {isLocalDev ? (
+                    <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">reCAPTCHA is skipped on localhost.</p>
+                  ) : (
+                    <>
+                      <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} />
+                      {err("recaptcha") ? <p className="mt-1.5 text-[14px] font-medium">{err("recaptcha")}</p> : null}
+                    </>
+                  )}
+                  <button type="submit" disabled={submitting} data-primary className="herb-btn mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:max-w-[22rem]">
+                    <span>{submitting ? "Submitting…" : "Submit paper"}</span>
+                    <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+                  </button>
+                  <p className="herb-muted mt-3 text-[14px]">You will get a confirmation email once your paper is received.</p>
+                </div>
+              </form>
+              <SubmissionRail />
+            </div>
+          )}
         </div>
       </section>
+
+      <div id="guidelines" className="scroll-mt-24">
+        <AbstractSubmissionGuidelines />
+      </div>
     </main>
-  )
+  );
+}
+
+function SubmissionRail() {
+  return (
+    <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
+      <AccessionLabel
+        title="Before you submit"
+        rows={[
+          ["File", "Word, .doc or .docx, up to 10 MB"],
+          ["Abstract", "250 to 300 words"],
+          ["Presenting", "In person, online or as a poster"],
+          ["Conference", `${CONFERENCE.shortForm}, ${CONFERENCE.date}`],
+          [
+            "Help",
+            <a key="help" href="mailto:info@icsift.com" className="herb-link">
+              info@icsift.com
+            </a>,
+          ],
+        ]}
+      />
+      <div className="grid gap-3">
+        <ActionLink href="/papers-format">Templates and format</ActionLink>
+        <ActionLink href="/mode-of-presentation">Modes of presentation</ActionLink>
+      </div>
+      <p className="herb-muted text-[14.5px]">
+        Already submitted? Track it at{" "}
+        <Link href="https://publication.zepresearch.com/" target="_blank" rel="noopener noreferrer" className="herb-link">
+          publication.zepresearch.com
+        </Link>
+        .
+      </p>
+    </aside>
+  );
 }

@@ -1,0 +1,95 @@
+{
+  "title": "Choose the visual world for the ICSIFT home page",
+  "question": "The roll assigned Skytrain Line. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Skytrain Line",
+      "kicker": "THE ROLL",
+      "lineage": "Bangkok BTS Skytrain and MRT wayfinding",
+      "thesis": "The conference as a route through Bangkok: every deadline is a station; the event is the interchange where the in-person and virtual lines meet.",
+      "palette": ["#0B5D3B", "#F4F6F3", "#14181A", "#F2C230", "#1E62B0"],
+      "materials": ["station signage panels", "route-line diagram", "platform-edge stripe"],
+      "viewport": "A green station sign, 'Next stop: Sustainable Innovation, Bangkok', with Submit and Register as ticket gates, over a full-width route line whose stations are the live important dates.",
+      "risk": "Reads as a transit-app costume if the signage type is timid or the route line becomes decoration instead of the dates.",
+      "raised": [
+        {"from": "highlife-sleeve", "raise": "Line colours own whole section fields (green sign, blue virtual band), never sprinkled as accents."},
+        {"from": "signals-instruments-night-flight-six-pack", "raise": "Every date station shows its state: departed, next with a live countdown, or upcoming."},
+        {"from": "kinetic-sculpture-automata-crank-paper-menagerie", "raise": "Platform-edge yellow is reserved for the next stop and the primary gate only."}
+      ],
+      "html": ".impeccable/mocks/decision/skytrain.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Proceedings Issue",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "academic journal covers and tables of contents",
+      "thesis": "The edition as a journal issue: a drenched cover per edition, the page as its table of contents, ending in indexed publication.",
+      "palette": ["#1D3B2A", "#C9532D", "#F1EBDD"],
+      "materials": ["journal cover stock", "contents-page rules"],
+      "viewport": "A vermilion issue cover on deep green beside the contents of the 4th edition, Submit and Register under the contents.",
+      "risk": "Familiar: the academic-publishing look is where many runs in this category land, and it skews serif-editorial.",
+      "html": ".impeccable/mocks/decision/proceedings.html"
+    },
+    {
+      "id": "challenger-highlife",
+      "kind": "challenger",
+      "catalogId": "highlife-sleeve",
+      "label": "Highlife Sleeve",
+      "verdict": "declined",
+      "lineage": "hand-lettered record sleeves",
+      "thesis": "The edition as a tropical record sleeve with painted lettering.",
+      "palette": ["#F08A24", "#2E8B3E", "#D7263D", "#F3E9D2"],
+      "materials": ["brush lettering", "printed board"],
+      "viewport": "Arced hand-brushed ICSIFT over saturated colour fields.",
+      "case": "Fuses poorly: scholars weighing indexed publication do not identify with a party sleeve.",
+      "risk": "Undercuts academic credibility.",
+      "kept": "Total colour commitment: colour owns whole regions."
+    },
+    {
+      "id": "challenger-sixpack",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-night-flight-six-pack",
+      "label": "Night-flight Six-pack",
+      "verdict": "declined",
+      "lineage": "aircraft instrument panels",
+      "thesis": "Six gauges for the conference's six truths.",
+      "palette": ["#0A0C0B", "#E8F0EA", "#5CFF8A", "#F2A33A"],
+      "materials": ["matte panel", "luminous dials"],
+      "viewport": "Six dials: deadlines, CPD, awards, countries.",
+      "case": "Fuses poorly: an instrument panel hides the offer behind readings.",
+      "risk": "Dashboard costume on a marketing page.",
+      "kept": "Every value shows its state, not just a number."
+    },
+    {
+      "id": "challenger-menagerie",
+      "kind": "challenger",
+      "catalogId": "kinetic-sculpture-automata-crank-paper-menagerie",
+      "label": "Paper Menagerie",
+      "verdict": "declined",
+      "lineage": "hand-cranked paper automata",
+      "thesis": "A procession of cut-paper figures driven by one crank.",
+      "palette": ["#F7F4EE", "#B98E5A", "#2B2B2B", "#C22A2A"],
+      "materials": ["cut paper", "kraft board"],
+      "viewport": "A crank line with a figure for each conference stage.",
+      "case": "Fuses poorly: whimsical craft does not carry indexing or dates clearly.",
+      "risk": "Reads as children's craft.",
+      "kept": "One reserved colour only for the item currently in motion."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "A conference landing page as the category ships it, executed impeccably.",
+    "palette": ["#FFFFFF", "#0F2A1D", "#2F7D4F"],
+    "materials": ["clean grid", "event photography"],
+    "viewport": "Photo hero with dates, venue and two buttons, then highlights, dates, speakers.",
+    "risk": "Indistinguishable from every other conference site by design."
+  },
+  "steer": true
+}

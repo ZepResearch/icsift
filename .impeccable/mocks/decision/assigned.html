@@ -1,0 +1,53 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Certificate & CPD Ledger</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;background:#2a1c6b;font-family:"Segoe UI",system-ui,sans-serif;color:#2a1c6b;overflow:hidden}
+.sheet{position:absolute;inset:28px;background:#f7f8fb;border-radius:6px;overflow:hidden}
+.band{position:absolute;inset:0;border:22px solid transparent;border-image:repeating-linear-gradient(45deg,#0f7c86 0 2px,#f7f8fb 2px 5px,#2a1c6b 5px 6px,#f7f8fb 6px 9px) 22}
+.micro{position:absolute;left:40px;right:40px;top:30px;font:600 9px/1 monospace;letter-spacing:.3em;color:#0f7c86;white-space:nowrap;overflow:hidden}
+.top{position:absolute;left:72px;top:64px;right:72px;display:flex;justify-content:space-between;align-items:baseline}
+.serial{font:700 15px monospace;color:#d9432b;letter-spacing:.12em}
+h1{position:absolute;left:72px;top:118px;width:780px;font:800 54px/1.02 "Segoe UI",sans-serif;letter-spacing:-.01em;font-stretch:expanded;text-transform:none}
+.theme{position:absolute;left:72px;top:310px;font-size:20px;width:640px;color:#2a1c6b;opacity:.85}
+.denom{position:absolute;left:72px;top:380px;font:900 150px/0.9 "Segoe UI",sans-serif;letter-spacing:-.04em;color:#2a1c6b}
+.denom small{display:block;font:800 30px/1.2 "Segoe UI";letter-spacing:.08em;margin-top:10px}
+.ledger{position:absolute;right:72px;top:400px;width:520px}
+.ledger dt{font:700 11px monospace;letter-spacing:.2em;color:#0f7c86;text-transform:uppercase}
+.ledger div{display:flex;justify-content:space-between;border-bottom:1.5px solid #2a1c6b;padding:12px 0}
+.ledger dd{font:700 22px "Segoe UI"}
+svg.rosette{position:absolute;right:120px;top:70px}
+.stubs{position:absolute;left:0;right:0;bottom:0;height:150px;display:grid;grid-template-columns:1fr 1fr;border-top:3px dashed #2a1c6b}
+.stub{display:flex;align-items:center;justify-content:space-between;padding:0 72px;font:900 40px "Segoe UI";letter-spacing:.02em}
+.stub:first-child{background:#d9432b;color:#fff;border-right:3px dashed #2a1c6b}
+.stub:last-child{background:#c79a2a;color:#2a1c6b}
+.stub span{font:700 13px monospace;letter-spacing:.2em}
+</style></head><body>
+<div class="sheet">
+<div class="band"></div>
+<div class="micro">ICSIFT · SUSTAINABILITY · INNOVATION · FUTURE TECHNOLOGIES · ICSIFT · SUSTAINABILITY · INNOVATION · FUTURE TECHNOLOGIES · ICSIFT · SUSTAINABILITY · INNOVATION · FUTURE TECHNOLOGIES ·</div>
+<div class="top"><span class="serial">No. ICSIFT-04-2027</span><span class="serial" style="color:#0f7c86">BANGKOK · HYBRID</span></div>
+<h1>4th International Conference on Sustainability, Innovation, and Future Technologies</h1>
+<p class="theme">Sustainable Innovation: Bridging Technology and Environmental Stewardship</p>
+<div class="denom">21–22<small>FEBRUARY 2027 · BANGKOK, THAILAND</small></div>
+<svg class="rosette" width="300" height="300" viewBox="-150 -150 300 300" aria-hidden="true">
+<g fill="none" stroke-width="0.8">
+<path stroke="#0f7c86" d="M0 0"/>
+</g>
+<script>
+const g=document.querySelector('svg.rosette g');
+for(let k=0;k<3;k++){let d='';const R=[130,105,80][k],r=[18,22,26][k],n=[24,30,36][k];
+for(let t=0;t<=Math.PI*2+0.01;t+=0.01){const x=(R-r)*Math.cos(t)+ (r*0.9)*Math.cos(((R-r)/r)*t*n/6);const y=(R-r)*Math.sin(t)-(r*0.9)*Math.sin(((R-r)/r)*t*n/6);d+=(d?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)}
+const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);p.setAttribute('stroke',['#0f7c86','#2a1c6b','#c79a2a'][k]);g.appendChild(p)}
+</script>
+<circle r="46" fill="#d9432b"/><text y="6" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Segoe UI">ICSIFT</text>
+</svg>
+<dl class="ledger">
+<div><dt>Publication</dt><dd>Scopus · Clarivate indexed</dd></div>
+<div><dt>Credit</dt><dd>Certified CPD hours</dd></div>
+<div><dt>Recognition</dt><dd>15+ awards</dd></div>
+<div><dt>Participation</dt><dd>In person or virtual</dd></div>
+</dl>
+<div class="stubs"><div class="stub">Submit Paper <span>COUNTERFOIL A →</span></div><div class="stub">Register Now <span>COUNTERFOIL B →</span></div></div>
+</div>
+</body></html>

@@ -73,8 +73,11 @@ return initOptions && initOptions[key]? true : false;
 
     getEncryptedOrder(orderParams) {
         if (this.validate('merchant_id') && orderParams) {
+            // CCAvenue reads a raw key=value&key=value string, so a value containing & or = could smuggle in
+            // extra parameters (for example a second amount). Strip those characters before joining.
+            const safe = (value) => String(value ?? '').replace(/[&=\r\n]/g, ' ');
             let data = `merchant_id=${initOptions.merchant_id}`;
-            data += Object.entries(orderParams).map(([key, value]) => `&${key}=${value}`).join('');
+            data += Object.entries(orderParams).map(([key, value]) => `&${safe(key)}=${safe(value)}`).join('');
             return this.encrypt(data);
 
         } else if (!orderParams) {
@@ -87,7 +90,9 @@ return initOptions && initOptions[key]? true : false;
 }
 
 const CCAvenue = new Configure({
-    working_key: process.env.NEXT_PUBLIC_CCAVENUE_WORKING_KEY, // Your Working Key from CCAvenue
+    // Prefer the server-only CCAVENUE_WORKING_KEY. The NEXT_PUBLIC_ name is kept as a fallback so nothing breaks,
+    // but a NEXT_PUBLIC_ variable gets bundled into browser code if any client file ever references it.
+    working_key: process.env.CCAVENUE_WORKING_KEY || process.env.NEXT_PUBLIC_CCAVENUE_WORKING_KEY,
     merchant_id: process.env.NEXT_PUBLIC_CCAVENUE_MERCHANT_ID,// Your Merchant ID from CCAvenue
 });
 

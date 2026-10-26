@@ -1,287 +1,206 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { Twitter, Linkedin, Globe, Users, Award, GraduationCap,Sparkles } from "lucide-react"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { pb } from "@/lib/pocketbase"
-import Link from "next/link"
-import { CONFERENCE } from "@/constants/conference"
-export default function CommitteePage() {
-  // Mock committee data since we don't have a real database connection
-  const [committee, setCommittee] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { pb } from "@/lib/pocketbase";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
+
+const photoOf = (m) => `${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${m.collectionId}/${m.id}/${m.img}`;
+
+const initialsOf = (name = "") =>
+  name
+    .replace(/^(dr|prof|mr|ms|mrs|engr)\.?\s+/i, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+
+function MemberCard({ member }) {
+  return (
+    <li id={`member-${member.id}`} className="scroll-mt-24">
+      {member.img ? (
+        <div className="herb-mount herb-photo relative aspect-[4/5] bg-[var(--rule-soft)]">
+          <Image
+            src={photoOf(member)}
+            alt={member.name}
+            fill
+            sizes="(min-width: 1024px) 22vw, (min-width: 768px) 30vw, 45vw"
+            className="object-cover object-[50%_20%]"
+          />
+        </div>
+      ) : (
+        <div
+          aria-hidden="true"
+          className="flex aspect-[4/5] items-center justify-center border border-[var(--rule)] text-[2.5rem] tracking-[-0.02em] text-[var(--ink-2)]"
+        >
+          {initialsOf(member.name)}
+        </div>
+      )}
+      <h3 className="mt-5 text-[18px] leading-snug font-medium">{member.name}</h3>
+      {member.designation ? <p className="mt-1 text-[15px] leading-snug">{member.designation}</p> : null}
+      {member.details ? <p className="herb-muted mt-2 text-[14.5px] leading-snug">{member.details}</p> : null}
+      {member.country ? (
+        <p className="herb-italic mt-2 text-[14px] text-[var(--ink-2)]">{member.country}</p>
+      ) : null}
+      {member.linkedin || member.twitter ? (
+        <p className="mt-3 flex gap-5 text-[14.5px]">
+          {member.linkedin ? (
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="herb-link">
+              LinkedIn
+            </a>
+          ) : null}
+          {member.twitter ? (
+            <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="herb-link">
+              X / Twitter
+            </a>
+          ) : null}
+        </p>
+      ) : null}
+    </li>
+  );
+}
+
+export default function OrganizingCommittee() {
+  const [committee, setCommittee] = useState(null);
+  const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    const fetchCommittee = async () => {
-      try {
-        const records = await pb.collection("ICSIFT_committee").getFullList({
-          sort: "name",
-          requestKey: null,
-        })
-        setCommittee(records)
-      } catch (err) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
-    }
+    pb.collection("ICSIFT_committee")
+      .getFullList({ sort: "name", requestKey: null })
+      .then(setCommittee)
+      .catch(() => {
+        setCommittee([]);
+        setFailed(true);
+      });
+  }, []);
 
-    fetchCommittee()
-  }, [])
-  if (loading) {
-    return (
-      <div className="pt-20 min-h-screen bg-[#f8faf5]">
-        <div className="container mx-auto px-4 py-16 text-center">
-          <div className="relative bg-[#edf6e1] rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm p-12">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-            <div className="relative">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6 animate-pulse">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                  <Award className="h-8 w-8 text-[#4d724d]" />
-                </div>
-              </div>
-              <h2 className="text-3xl font-bold text-[#1a2e1a] mb-4">
-                Loading Committee Data...
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="pt-20 min-h-screen bg-[#f8faf5]">
-        <div className="container mx-auto px-4 py-16 text-center">
-          <div className="relative bg-[#edf6e1] rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm p-12">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-            <div className="relative">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                  <AlertTriangle className="h-8 w-8 text-[#4d724d]" />
-                </div>
-              </div>
-              <h2 className="text-3xl font-bold text-[#1a2e1a] mb-4">
-                Error Loading Data
-              </h2>
-              <p className="mt-4 text-[#4d724d]">{error}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const loading = committee === null;
+  const countries = [...new Set((committee ?? []).map((m) => m.country?.trim()).filter(Boolean))];
 
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large blob in top right */}
-          <div
-            className="absolute -right-40 -top-40 w-[30rem] h-[30rem] opacity-20"
-            style={{
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: "linear-gradient(45deg, #d3e4c5, #4d724d)",
-            }}
-          ></div>
-
-          {/* Small circle in bottom left */}
-          <div className="absolute left-20 bottom-20 w-16 h-16 rounded-full bg-[#d3e4c5]/40"></div>
-
-          {/* Medium circle in top left */}
-          <div className="absolute -left-10 top-40 w-32 h-32 rounded-full bg-[#b9d4a3]/30"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Organizing
-              <span className="relative inline-block mx-2 ml-4  ">
-                <span className="relative z-10 ">Committee</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
+    <main className="herb min-h-screen">
+      {/* Title sheet: title and intro over a running roll call of every member's name. */}
+      <section aria-labelledby="committee-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="committee-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              The committee behind the programme.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              Meet the experts behind {CONFERENCE.shortForm}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Committee Introduction */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="max-w-3xl mx-auto text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                    <Users className="h-8 w-8 text-[#4d724d]" />
+            <div>
+              <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
+                Experts from environmental science, renewable energy, green technology and sustainable development, who shape
+                and review the {CONFERENCE.shortForm}.
+              </p>
+              <dl className="mt-6 grid grid-cols-2 border-t border-[var(--ink)]">
+                {[
+                  ["Members", committee?.length],
+                  ["Countries", countries.length],
+                ].map(([term, value], index) => (
+                  <div key={term} className={`pt-4 ${index ? "border-l border-[var(--rule)] pl-5" : ""}`}>
+                    <dt className="herb-italic text-[14.5px] text-[var(--ink-2)]">{term}</dt>
+                    <dd className="mt-1 text-[1.75rem] leading-none tracking-[-0.02em]">
+                      {loading ? <span className="inline-block h-6 w-10 animate-pulse bg-[var(--rule-soft)]" /> : failed ? "–" : value}
+                    </dd>
                   </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">
-                  Driving Sustainability Through Collaboration
-                </h2>
-
-                <div className="space-y-6 text-[#4d724d]">
-                  <p>
-                    Our organizing committee brings together experts from diverse fields to create a truly
-                    interdisciplinary forum on sustainability and innovation. With backgrounds spanning environmental
-                    science, renewable energy, green technology, and sustainable development, they work together to
-                    address pressing global challenges and foster innovative approaches to building a more sustainable
-                    future.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">{committee.length}</div>
-                    <div className="text-[#4d724d]">Committee Members</div>
-                  </div>
-
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">12+</div>
-                    <div className="text-[#4d724d]">Disciplines Represented</div>
-                  </div>
-
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                    <div className="text-3xl font-bold text-[#4d724d] mb-1">Global</div>
-                    <div className="text-[#4d724d]">Collaboration</div>
-                  </div>
-                </div>
-              </div>
+                ))}
+              </dl>
             </div>
           </div>
+
+          <div className="mt-12 border-t border-[var(--ink)] pt-5" aria-busy={loading}>
+            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Roll call</h2>
+            {loading ? (
+              <div className="mt-4 space-y-3">
+                <span className="block h-4 w-full animate-pulse bg-[var(--rule-soft)]" />
+                <span className="block h-4 w-2/3 animate-pulse bg-[var(--rule-soft)]" />
+              </div>
+            ) : committee.length ? (
+              <p className="mt-4 text-[clamp(1.1rem,0.95rem+0.5vw,1.4rem)] leading-[1.6]">
+                {committee.map((member, index) => (
+                  <span key={member.id}>
+                    <a href={`#member-${member.id}`} className="hover:text-[var(--green)]">
+                      {member.name}
+                    </a>
+                    {index < committee.length - 1 ? <span className="herb-italic px-2 text-[var(--ink-2)]">·</span> : null}
+                  </span>
+                ))}
+              </p>
+            ) : (
+              <p className="herb-muted mt-4">
+                {failed ? "The committee list could not load just now." : "Committee members will be listed here soon."}
+              </p>
+            )}
+          </div>
         </div>
       </section>
 
-      
-
-      {/* Committee Members Grid */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Meet Our Committee</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">
-              Our committee members bring diverse expertise and perspectives to ensure a successful and impactful
-              conference
+      {/* Members */}
+      <section aria-labelledby="members-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="members-title" className="herb-h2 max-w-[14ch]">
+              Meet the committee.
+            </h2>
+            <p className="herb-muted max-w-[28rem]">
+              Diverse expertise and perspectives, brought together to make the conference rigorous and useful.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {committee.map((member) => (
-              <div key={member.id} className="relative group">
-                <div className="absolute inset-0 bg-[#d3e4c5]/50 rounded-3xl blur-xl opacity-0 group-hover:opacity-70 transition-opacity"></div>
-
-                <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full transition-all group-hover:shadow-md shadow-sm">
-                  <div className="absolute top-0 left-0 right-0 h-24 bg-[#d3e4c5]/30"></div>
-
-                  <div className="relative p-6 flex flex-col items-center">
-                    <div className="relative h-40 w-40 rounded-full p-1 bg-[#4d724d] mb-6">
-                      <div className="absolute inset-0 rounded-full bg-[#4d724d] blur-md opacity-50"></div>
-                      <Avatar className="h-full w-full border-2 border-white">
-                        <AvatarImage
-                        src={`${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${member.collectionId}/${member.id}/${member.img}`}
-                          alt={member.name}
-                          className="object-contain bg-[#edf6e1]"
-                        />
-                        <AvatarFallback className="bg-[#4d724d] text-white text-2xl">
-                          {member.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-[#1a2e1a] text-center mb-2">{member.name}</h3>
-
-                    <div className="px-3 py-1 rounded-full bg-[#edf6e1] mb-4">
-                      <p className="text-sm text-[#4d724d] font-medium">{member.designation}</p>
-                    </div>
-
-                    <p className="text-[#4d724d] text-center mb-3">{member.details}</p>
-
-                    <div className="flex items-center gap-2 mt-auto">
-                      <Globe className="h-4 w-4 text-[#4d724d]" />
-                      <span className="text-sm text-[#4d724d]/70">{member.country}</span>
-                    </div>
-
-                    {/* Social Media Links */}
-                    {(member.twitter || member.linkedin) && (
-                      <div className="flex gap-3 mt-4">
-                        {member.twitter && (
-                          <a
-                            href={member.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="h-8 w-8 flex items-center justify-center rounded-full bg-[#edf6e1] border border-[#d3e4c5] text-[#4d724d] hover:bg-[#4d724d] hover:text-white transition-colors"
-                          >
-                            <Twitter className="h-4 w-4" />
-                          </a>
-                        )}
-                        {member.linkedin && (
-                          <a
-                            href={member.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="h-8 w-8 flex items-center justify-center rounded-full bg-[#edf6e1] border border-[#d3e4c5] text-[#4d724d] hover:bg-[#4d724d] hover:text-white transition-colors"
-                          >
-                            <Linkedin className="h-4 w-4" />
-                          </a>
-                        )}
-                      </div>
-                    )}
+          <div className="mt-10 border-t border-[var(--ink)] pt-10" aria-live="polite" aria-busy={loading}>
+            {loading ? (
+              <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
+                {[0, 1, 2, 3].map((i) => (
+                  <div key={i}>
+                    <div className="aspect-[4/5] animate-pulse bg-[var(--rule-soft)]" />
+                    <div className="mt-4 h-4 w-2/3 animate-pulse bg-[var(--rule-soft)]" />
+                    <div className="mt-2 h-4 w-1/2 animate-pulse bg-[var(--rule-soft)]" />
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            ) : committee.length === 0 ? (
+              <p className="herb-muted py-6 text-[17px]">
+                {failed
+                  ? "The committee could not load just now. Please refresh the page."
+                  : `The committee for the ${CONFERENCE.shortForm} will be announced here soon.`}
+              </p>
+            ) : (
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+                {committee.map((member) => (
+                  <MemberCard key={member.id} member={member} />
+                ))}
+              </ul>
+            )}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* Join the Committee CTA */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-8 shadow-sm">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Interested in Contributing?</h3>
-                <p className="text-[#4d724d] mb-6">
-                  We're always looking for passionate experts to join our reviewer pool for future conferences. Share
-                  your expertise and help shape the future of sustainability and innovation.
-                </p>
-
-                <div className="inline-block">
-                  <Link href="/contact" >
-                  <button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300">
-                    Express Interest
-                  </button>
-                  </Link>
-                </div>
-              </div>
+      {/* Closing: join the reviewer pool, keep Submit and Register reachable. */}
+      <section aria-labelledby="contribute-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="contribute-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Review for future editions.
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              We are always looking for experts to join the reviewer pool. Share your expertise and help shape the future of
+              sustainability and innovation research.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <ActionLink href="/contact" primary>
+              Express interest
+            </ActionLink>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <ActionLink href="/submission">Submit a paper</ActionLink>
+              <ActionLink href="/registration">Register to attend</ActionLink>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
-  )
+  );
 }

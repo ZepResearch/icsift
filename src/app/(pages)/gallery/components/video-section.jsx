@@ -1,107 +1,46 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import Image from "next/image"
-import { Play, X } from "lucide-react"
-import { createPortal } from "react-dom"
+import { useState } from "react";
+import Image from "next/image";
+import { Play } from "lucide-react";
+
+// Shows a poster first and only loads the YouTube player when asked, so the page stays light.
+function Video({ video }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <figure>
+      <div className="herb-photo relative aspect-video bg-[var(--rule-soft)]">
+        {playing ? (
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button type="button" onClick={() => setPlaying(true)} className="group absolute inset-0 block" aria-label={`Play video: ${video.title}`}>
+            <Image src={video.poster} alt="" fill sizes="(min-width: 1024px) 45vw, 100vw" quality={70} className="object-cover group-hover:scale-[1.03]" />
+            <span className="absolute bottom-0 left-0 flex items-center gap-3 bg-white py-3 pr-5 pl-4 text-[15.5px] font-medium">
+              <span className="grid h-9 w-9 place-items-center bg-[var(--green)] text-white">
+                <Play className="h-4 w-4 fill-current" strokeWidth={1.6} />
+              </span>
+              Watch the film
+            </span>
+          </button>
+        )}
+      </div>
+      <figcaption className="herb-italic mt-3 text-[14.5px] text-[var(--ink-2)]">{video.title}</figcaption>
+    </figure>
+  );
+}
 
 export default function VideoSection({ videos }) {
-  const [activeVideo, setActiveVideo] = useState(null)
-  const [mounted, setMounted] = useState(false)
-  const modalRef = useRef(null)
-
-  // Only use portals on the client side
-  useEffect(() => {
-    setMounted(true)
-    return () => setMounted(false)
-  }, [])
-
-  const openVideo = (video) => {
-    setActiveVideo(video)
-    // Prevent scrolling when modal is open
-    document.body.style.overflow = "hidden"
-  }
-
-  const closeVideo = () => {
-    setActiveVideo(null)
-    // Restore scrolling
-    document.body.style.overflow = "auto"
-  }
-
-  // Close modal when clicking outside the video
-  const handleOverlayClick = (e) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
-      closeVideo()
-    }
-  }
-
-  // Handle escape key press to close modal
-  useEffect(() => {
-    const handleEscKey = (e) => {
-      if (e.key === "Escape" && activeVideo) {
-        closeVideo()
-      }
-    }
-    
-    window.addEventListener("keydown", handleEscKey)
-    return () => window.removeEventListener("keydown", handleEscKey)
-  }, [activeVideo])
-
-  // Video Modal Component
-  const VideoModal = () => {
-    if (!activeVideo) return null
-    
-    return (
-      <div 
-        className="fixed inset-0 flex items-center justify-center bg-black/90"
-        onClick={handleOverlayClick}
-        style={{ 
-          backdropFilter: "blur(3px)",
-          zIndex: 9999 // Very high z-index to ensure it's above everything
-        }}
-      >
-        <div ref={modalRef} className="relative w-full max-w-4xl mx-4">
-          <button
-            onClick={closeVideo}
-            className="absolute -right-4 -top-4 z-10 rounded-full bg-white p-2 shadow-md transition-colors hover:bg-gray-100"
-            aria-label="Close video"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          <div className="aspect-video w-full overflow-hidden rounded-lg bg-black shadow-2xl">
-            <iframe
-              src={`${activeVideo.videoUrl}?autoplay=1`}
-              title={activeVideo.title}
-              className="h-full w-full"
-              allowFullScreen
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {videos.map((video) => (
-          <div key={video.id} className="group cursor-pointer" onClick={() => openVideo(video)}>
-            <div className="relative aspect-video overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-[1.02]">
-              <Image src={video.thumbnail || "/placeholder.svg"} alt={video.title} fill className="object-cover" />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <div className="rounded-full bg-white/90 p-3">
-                  <Play className="h-8 w-8 text-gray-900" />
-                </div>
-              </div>
-            </div>
-            <h3 className="mt-2 text-lg font-medium">{video.title}</h3>
-          </div>
-        ))}
-      </div>
-
-      {/* Use createPortal to render the modal at the document level */}
-      {mounted && activeVideo && createPortal(<VideoModal />, document.body)}
+    <div className="grid gap-8 sm:grid-cols-2">
+      {videos.map((video) => (
+        <Video key={video.id} video={video} />
+      ))}
     </div>
-  )
+  );
 }

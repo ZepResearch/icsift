@@ -1,106 +1,80 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { CheckCircle, Calendar, FileText, ArrowRight } from "lucide-react"
-import { GeometricShapesCSS } from "@/components/geometric-shapes"
-import { CONFERENCE } from "@/constants/conference"
+import Link from "next/link";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+
+const NEXT = [
+  ["Keep your order number", "It is in the “Payment initiated” email we sent to your billing address. Quote it in any question about your payment.", null],
+  ["Presenting a paper?", "Submit it, and prepare your slides to the presentation guidelines.", "/submission"],
+  ["Plan your trip", `Getting to ${CONFERENCE.venue.location.trim()}, and getting around once you are there.`, "/venue"],
+  ["See the programme", "Sessions, keynotes and timings for both days.", "/schedule"],
+];
 
 export default function RegistrationSuccessPage() {
   return (
-    <main className="bg-[#f8faf5] min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <GeometricShapesCSS />
+    <main className="herb min-h-screen">
+      {/* One sheet, split: title and the confirmation label left; a ruled "what next" list right. */}
+      <section aria-labelledby="paid-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
+        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
+          <div className="flex flex-col">
+            <h1 id="paid-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Payment received. See you there.
+            </h1>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
+              Thank you. Your payment for the {CONFERENCE.shortForm} has gone through. Keep your order number handy, and use the
+              links on this page to get ready.
+            </p>
+            <AccessionLabel
+              className="mt-10"
+              title="Your conference"
+              rows={[
+                ["Conference", CONFERENCE.shortForm],
+                ["Dates", CONFERENCE.date],
+                ["Locality", `${CONFERENCE.venue.location.trim()} · and online`],
+                [
+                  "Questions",
+                  <a key="mail" href="mailto:info@icsift.com" className="herb-link">
+                    info@icsift.com
+                  </a>,
+                ],
+              ]}
+            />
+          </div>
 
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-8 md:p-12 shadow-sm relative">
-              <div className="absolute top-0 left-0 right-0 h-2 bg-[#4d724d]"></div>
-
-              <div className="flex flex-col items-center text-center mb-10">
-                <div className="h-20 w-20 rounded-full bg-[#edf6e1] flex items-center justify-center mb-6">
-                  <CheckCircle className="h-10 w-10 text-[#4d724d]" />
-                </div>
-
-                <h1 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">Registration Successful!</h1>
-                <p className="text-[#4d724d] text-lg max-w-2xl">
-                  Thank you for registering for the {CONFERENCE.name}. We look forward to your participation.
-                </p>
-              </div>
-
-              <div className="space-y-6 mb-10">
-                <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-6">
-                  <h2 className="text-xl font-bold text-[#1a2e1a] mb-4">What's Next?</h2>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">1</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Check Your Email</h3>
-                        <p className="text-[#4d724d]">
-                          We've sent a confirmation email to your registered email address with all the details of your
-                          registration.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">2</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Mark Your Calendar</h3>
-                        <p className="text-[#4d724d]">
-                          The conference will take place on The conference will take place on  Bangkok, Thailand And Exact detail will br share to you via Mail.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#4d724d] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">3</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Prepare Your Materials</h3>
-                        <p className="text-[#4d724d]">
-                          If you've registered for a paper presentation, please prepare your materials according to the
-                          guidelines provided on our website.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/schedule">
-                  <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full sm:w-auto">
-                    <Calendar className="mr-2 h-4 w-4" /> View Schedule
-                  </Button>
-                </Link>
-                <Link href="/papers-format">
-                  <Button
-                    variant="outline"
-                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full w-full sm:w-auto"
-                  >
-                    <FileText className="mr-2 h-4 w-4" /> Paper Guidelines
-                  </Button>
-                </Link>
-                <Link href="/">
-                  <Button
-                    variant="ghost"
-                    className="text-[#4d724d] hover:bg-[#d3e4c5]/30 rounded-full w-full sm:w-auto"
-                  >
-                    Return to Home <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+          <div>
+            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">What to do next</h2>
+            <ol className="mt-4 border-t border-[var(--ink)]">
+              {NEXT.map(([title, body, href], index) => {
+                const inner = (
+                  <>
+                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className={`block text-[19px] ${href ? "group-hover:text-[var(--green)]" : ""}`}>{title}</span>
+                      <span className="herb-muted mt-1 block text-[15.5px]">{body}</span>
+                    </span>
+                  </>
+                );
+                return (
+                  <li key={title} className="border-b border-[var(--rule)]">
+                    {href ? (
+                      <Link href={href} className="group grid grid-cols-[2.5rem_1fr] items-baseline py-5">
+                        {inner}
+                      </Link>
+                    ) : (
+                      <div className="grid grid-cols-[2.5rem_1fr] items-baseline py-5">{inner}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <ActionLink href="/schedule" primary>
+                See the schedule
+              </ActionLink>
+              <ActionLink href="/">Back to the home page</ActionLink>
             </div>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

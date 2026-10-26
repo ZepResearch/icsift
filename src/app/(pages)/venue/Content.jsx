@@ -1,475 +1,209 @@
-"use client"
+import Image from "next/image";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
+import VenueSpecimen from "./VenueSpecimen";
 
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, Navigation, Building, Utensils, Landmark, Trees, ShoppingBag, Palette, Globe, Mountain, LandPlot } from "lucide-react"
-import { CONFERENCE } from "@/constants/conference"
+const city = CONFERENCE.venue.location.trim();
+const venueName = CONFERENCE.venue.name.trim();
+const address = CONFERENCE.venue.address.trim();
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${venueName}, ${address}`)}`;
+const MAP_SRC =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12822.347855308904!2d100.54901064988289!3d13.746163635628616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ee677aa7f5b%3A0x297e4d6053920063!2sRadisson%20Suites%20Bangkok%20Sukhumvit!5e0!3m2!1sen!2sin!4v1793008677280!5m2!1sen!2sin";
 
-export default function VenuePage() {
-  return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large blob in top right */}
-          <div
-            className="absolute -right-40 -top-40 w-[30rem] h-[30rem] opacity-20"
-            style={{
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: "linear-gradient(45deg, #d3e4c5, #4d724d)",
-            }}
-          ></div>
+const TRAVEL = [
+  [
+    "From the airport",
+    [
+      ["Suvarnabhumi (BKK)", "Around 30 to 45 minutes to central Bangkok by Airport Rail Link, taxi or private transfer, depending on traffic."],
+      ["Don Mueang (DMK)", "About 30 to 50 minutes to the city centre by taxi, airport bus or ride-hailing."],
+      ["Hotel transfers", "Hotels across Bangkok commonly offer paid airport pickup and private transfers on request."],
+    ],
+  ],
+  [
+    "Getting around",
+    [
+      ["BTS Skytrain and MRT", "The fastest, most convenient way to cross the city."],
+      ["Grab, taxis and tuk-tuks", "Widely available for short trips."],
+      ["Chao Phraya Express Boat", "A scenic, efficient route to the attractions along the river."],
+    ],
+  ],
+  [
+    "Parking",
+    [["Malls, hotels and offices", "Most have parking, though traffic and spaces can be limited at peak hours."]],
+  ],
+];
 
-          {/* Small circle in bottom left */}
-          <div className="absolute left-20 bottom-20 w-16 h-16 rounded-full bg-[#d3e4c5]/40"></div>
-
-          {/* Medium circle in top left */}
-          <div className="absolute -left-10 top-40 w-32 h-32 rounded-full bg-[#b9d4a3]/30"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Conference
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">Venue</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
-            </h1>
-            <p className="text-xl text-[#4d724d] mb-8">Join us at {CONFERENCE.venue.location}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Venue Information */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-            {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#4d724d] p-0.5">
-                      <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                        <Building className="h-6 w-6 text-[#4d724d]" />
-                      </div>
-                    </div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-[#1a2e1a]">Conference Venue</h2>
-                  </div>
-
-                  <div className="space-y-6 text-[#4d724d]  text-justify">
-                    {/* change the content below */}
-                    <p>
-                 {CONFERENCE.venue.location} offers a modern, comfortable, and centrally appealing venue for {CONFERENCE.shortForm}. Renowned worldwide for its pristine white-sand beaches, clear turquoise waters, and vibrant island atmosphere, Boracay provides an inspiring setting for international academic exchange
-                    </p>
-
-                    <div className="space-y-4">
-                      <h3 className="text-xl font-medium text-[#1a2e1a]">Venue Features</h3>
-
-                      <ul className="space-y-3">
-                        <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>Flexible conference and meeting rooms with modern AV technology</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>On-site international dining and rooftop bar</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>Complimentary high-speed WiFi throughout the venue</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>Fitness center, outdoor pool, and wellness amenities</span>
-                        </li>
-                        {/* <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>Walking distance to BTS Skytrain and MRT stations</span>
-                        </li> */}
-                        <li className="flex items-start gap-3">
-                          <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                            <span className="text-xs font-bold text-white">✓</span>
-                          </div>
-                          <span>Central location near shopping, dining, and entertainment</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="bg-white rounded-xl border border-[#d3e4c5] p-5 mt-8">
-                      <div className="flex items-center gap-3 mb-3">
-                        <MapPin className="h-5 w-5 text-[#4d724d]" />
-                        <h3 className="text-lg font-medium text-[#1a2e1a]">{CONFERENCE.venue.name}</h3>
-                      </div>
-                      <p className="text-[#4d724d]">
-                     {CONFERENCE.venue.address}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-8">
-                    <Link href="https://maps.app.goo.gl/FWgRFSnHvycYa2im6" target="_blank" rel="noopener noreferrer">
-                    <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
-                      <Navigation className="mr-2 h-5 w-5" />
-                      Get Directions
-                    </Button>
-                    </Link>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="relative h-full w-full rounded-2xl overflow-hidden  ">
-                    <img
-                      src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="Radisson Suites Bangkok Sukhumvit"
-                      
-                      className="object-cover w-full rounded-2xl"
-                    />
-
-                    {/* Floating elements */}
-                  
-
-                    {/* Venue name overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-2xl font-bold text-white mb-1"> </h3> 
-                      <p className="text-white/90 text-sm drop-shadow-2xl"></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Location Map */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Location</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-          </div>
-
-          <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-4 shadow-sm">
-            <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-            <div className="relative rounded-2xl overflow-hidden h-[500px] w-full">
-              <iframe
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1178277.5118688908!2d99.97363989628013!3d13.723724826940103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d6032280d61f3%3A0x10100b25de24820!2sBangkok%2C%20Thailand!5e1!3m2!1sen!2sin!4v1789545403208!5m2!1sen!2sin"
-            width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-2xl"
-              ></iframe>
-            </div>
-          </div>
-<div className="max-w-3xl mx-auto mt-8">
-  <div className="bg-white rounded-3xl border border-[#d3e4c5] p-8 shadow-sm">
-    <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">
-      Getting Around
-    </h2>
-
-    <div className="space-y-6 text-[#4d724d]">
-      <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
-          From Airport:
-        </h3>
-        <ul className="list-disc pl-6 space-y-1">
-          <li>
-            <strong>Suvarnabhumi Airport (BKK):</strong> Around 30–45
-            minutes to central Bangkok via Airport Rail Link, taxi, or private
-            transfer depending on traffic.
-          </li>
-          <li>
-            <strong>Don Mueang International Airport (DMK):</strong>{" "}
-            Approximately 30–50 minutes by taxi, airport bus, or ride-hailing
-            services to the city center.
-          </li>
-          <li>
-            Hotels throughout Bangkok commonly provide paid airport pickup and
-            private transfer services upon request.
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
-          Local Transportation:
-        </h3>
-        <ul className="list-disc pl-6 space-y-1">
-          <li>
-            <strong>BTS Skytrain and MRT Metro</strong> are the fastest and most
-            convenient ways to travel across Bangkok.
-          </li>
-          <li>
-            <strong>Grab, taxis, and tuk-tuks</strong> are widely available for
-            short-distance travel throughout the city.
-          </li>
-          <li>
-            The <strong>Chao Phraya Express Boat</strong> offers a scenic and
-            efficient route to attractions along the river.
-          </li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold text-[#1a2e1a] mb-2">
-          Parking:
-        </h3>
-        <ul className="list-disc pl-6 space-y-1">
-          <li>
-            Parking is available at most shopping malls, hotels, and commercial
-            buildings, though traffic and parking availability can be limited
-            during peak hours.
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-        </div>
-      </section>
-
-      {/* Nearby Attractions */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Nearby Attractions</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg text-[#4d724d] max-w-2xl mx-auto">Explore {CONFERENCE.venue.location} during your visit to {CONFERENCE.shortForm} </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
+const SIGHTS = [
   {
     title: "Grand Palace",
-    description:
-      "Bangkok's iconic royal complex featuring ornate Thai architecture and the Temple of the Emerald Buddha",
-    distance: "2.5 km",
-    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1693501107615-a412a9e29ccf?auto=format&fit=crop&w=1548&q=80",
+    note: "The royal complex, with ornate Thai architecture and the Temple of the Emerald Buddha.",
+    image: "https://images.unsplash.com/photo-1693501107615-a412a9e29ccf?auto=format&fit=crop&w=1400&q=70",
+    span: "lg:col-span-7 lg:row-span-2",
+    ratio: "aspect-[4/3] lg:aspect-auto lg:h-full",
   },
   {
     title: "Wat Arun",
-    description:
-      "Beautiful riverside temple known for its distinctive central prang and stunning views along the Chao Phraya River",
-    distance: "3.2 km",
-    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1769850069367-6ad11e3fa8ed?auto=format&fit=crop&w=1548&q=80",
+    note: "The riverside temple known for its central prang and views over the Chao Phraya.",
+    image: "https://images.unsplash.com/photo-1769850069367-6ad11e3fa8ed?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-5",
+    ratio: "aspect-[3/2]",
   },
   {
     title: "Wat Pho",
-    description:
-      "Historic Buddhist temple famous for its enormous reclining Buddha and traditional Thai architecture",
-    distance: "2.7 km",
-    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1688577553676-3ba3ace2e0c2?auto=format&fit=crop&w=1548&q=80",
+    note: "Historic temple famous for its enormous reclining Buddha.",
+    image: "https://images.unsplash.com/photo-1688577553676-3ba3ace2e0c2?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-5",
+    ratio: "aspect-[3/2]",
   },
   {
-    title: "Chinatown Bangkok",
-    description:
-      "Lively Yaowarat district filled with street food, traditional markets, colorful signs, and vibrant nightlife",
-    distance: "1.8 km",
-    icon: <Globe className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1786299595406-4956eb496c77?auto=format&fit=crop&w=1548&q=80",
+    title: "Chinatown (Yaowarat)",
+    note: "Street food, traditional markets and bright signs.",
+    image: "https://images.unsplash.com/photo-1786299595406-4956eb496c77?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-4",
+    ratio: "aspect-[4/3]",
   },
   {
     title: "Lumphini Park",
-    description:
-      "Large green urban park offering peaceful walking paths, a lake, gardens, and views of Bangkok's skyline",
-    distance: "4.5 km",
-    icon: <Trees className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1774703699581-32d6b6bcc8f5?auto=format&fit=crop&w=1548&q=80",
+    note: "Walking paths, a lake and gardens below the skyline.",
+    image: "https://images.unsplash.com/photo-1774703699581-32d6b6bcc8f5?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-4",
+    ratio: "aspect-[4/3]",
   },
   {
     title: "ICONSIAM",
-    description:
-      "Luxury riverside shopping and lifestyle destination featuring international brands, restaurants, and Thai cultural experiences",
-    distance: "3.5 km",
-    icon: <ShoppingBag className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1739523915210-0d9ee6df3b61?auto=format&fit=crop&w=1548&q=80",
+    note: "Riverside shopping, dining and Thai cultural experiences.",
+    image: "https://images.unsplash.com/photo-1739523915210-0d9ee6df3b61?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-4",
+    ratio: "aspect-[4/3]",
   },
   {
     title: "Asiatique The Riverfront",
-    description:
-      "Popular riverside destination combining shopping, restaurants, entertainment, and scenic views of the Chao Phraya River",
-    distance: "5.2 km",
-    icon: <Landmark className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1694676468402-95f71a9fe89d?auto=format&fit=crop&w=1548&q=80",
+    note: "Shopping, restaurants and entertainment on the river.",
+    image: "https://images.unsplash.com/photo-1694676468402-95f71a9fe89d?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-6",
+    ratio: "aspect-[3/2]",
   },
   {
     title: "Jim Thompson House",
-    description:
-      "Traditional Thai-style house and museum surrounded by tropical gardens and a collection of Southeast Asian art",
-    distance: "3.8 km",
-    icon: <Mountain className="h-8 w-8 text-[#4d724d]" />,
-    image:
-      "https://images.unsplash.com/photo-1500109232983-ec562bebb685?auto=format&fit=crop&w=1548&q=80",
+    note: "A traditional Thai house and museum set in tropical gardens.",
+    image: "https://images.unsplash.com/photo-1500109232983-ec562bebb685?auto=format&fit=crop&w=1000&q=70",
+    span: "lg:col-span-6",
+    ratio: "aspect-[3/2]",
   },
-  
-].map((attraction, index) => (
-              <div
-                key={index}
-                className="relative bg-white rounded-2xl border border-[#d3e4c5] overflow-hidden group hover:shadow-md transition-all shadow-sm"
-              >
-                <div className="absolute -inset-px rounded-2xl bg-[#d3e4c5]/20 opacity-0 transition-opacity group-hover:opacity-100"></div>
+];
 
-                <div className="relative">
-                  <div className="h-80 w-full overflow-hidden">
-                    <Image
-                      src={attraction.image || "/placeholder.svg"}
-                      alt={attraction.title}
-                      width={400}
-                      height={200}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
+export default function VenuePage() {
+  return (
+    <main className="herb min-h-screen">
+      {/* Title sheet: title and the venue label left; the venue photo as the specimen right, switchable to the live map. */}
+      <section aria-labelledby="venue-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:p-12">
+          <div className="flex flex-col">
+            <h1 id="venue-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              {city}.
+            </h1>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
+              The {CONFERENCE.shortForm} meets at {venueName} on Sukhumvit Soi 13, and online. Here is how to get there, and
+              what to see once you arrive.
+            </p>
+            <AccessionLabel
+              className="mt-10"
+              title="Venue"
+              rows={[
+                ["Dates", CONFERENCE.date],
+                ["Venue", venueName],
+                ["Address", address],
+                ["City", city],
+                ["Format", `In person in ${city}, or online`],
+              ]}
+            />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:mt-auto lg:pt-10">
+              <ActionLink href="/registration" primary>
+                Register to attend
+              </ActionLink>
+              <ActionLink href={mapsUrl} external>
+                Open in Google Maps
+              </ActionLink>
+            </div>
+          </div>
 
-                  <div className="p-6">
-                    <div className="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-[#4d724d] p-0.5 mb-4 -mt-12 relative z-10">
-                      <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                        {attraction.icon}
-                      </div>
+          <VenueSpecimen venueName={venueName} mapSrc={MAP_SRC} />
+        </div>
+      </section>
+
+      {/* Getting there */}
+      <section aria-labelledby="travel-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <h2 id="travel-title" className="herb-h2 max-w-[16ch]">
+            Getting there, and around.
+          </h2>
+          <div className="mt-10 grid gap-px border-t border-[var(--ink)] bg-[var(--rule)] lg:grid-cols-3">
+            {TRAVEL.map(([heading, items]) => (
+              <div key={heading} className="bg-[var(--sheet)] py-6 lg:px-8 lg:first:pl-0 lg:last:pr-0">
+                <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">{heading}</h3>
+                <dl className="mt-4">
+                  {items.map(([term, value]) => (
+                    <div key={term} className="border-b border-[var(--rule)] py-3.5 last:border-b-0">
+                      <dt className="text-[17px]">{term}</dt>
+                      <dd className="herb-muted mt-1 text-[15.5px]">{value}</dd>
                     </div>
-
-                    <h3 className="text-xl font-semibold text-[#1a2e1a] mb-2">{attraction.title}</h3>
-                    <p className="text-[#4d724d] mb-3">{attraction.description}</p>
-
-                    <div className="flex items-center gap-2 text-[#4d724d]/60">
-                      <MapPin className="h-4 w-4" />
-                      <span>{attraction.distance} from venue</span>
-                    </div>
-                  </div>
-                </div>
+                  ))}
+                </dl>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
-{/* Dining Options */}
-<section className="py-16 bg-[#f8faf5]">
-  <div className="container mx-auto px-4">
-    <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden shadow-sm">
-      
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#d3e4c5]/50 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-[#4d724d]/30 rounded-full blur-3xl"></div>
 
-      <div className="relative p-8 md:p-12 lg:p-16">
-        <div className="max-w-3xl mx-auto">
-          
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#4d724d] p-0.5">
-              <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                <Utensils className="h-6 w-6 text-[#4d724d]" />
-              </div>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#1a2e1a]">
-              Dining Options
+      {/* Explore the city */}
+      <section aria-labelledby="sights-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-end">
+            <h2 id="sights-title" className="herb-h2 max-w-[14ch]">
+              Stay a day longer.
             </h2>
+            <p className="herb-muted max-w-[34rem] lg:justify-self-end">A few of the places worth your time in {city}, between sessions or after them.</p>
           </div>
-
-          <div className="space-y-6 text-[#4d724d]">
-            
-            <div>
-              <h3 className="text-xl font-semibold text-[#1a2e1a] mb-2">
-                Venue Dining & Resort Restaurants:
-              </h3>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>
-                  <strong>Beachfront Restaurant:</strong> Enjoy fresh seafood, Filipino specialties, and international dishes with ocean views.
-                </li>
-                <li>
-                  <strong>Poolside Bar & Lounge:</strong> Light meals, tropical cocktails, and refreshing beverages throughout the day.
-                </li>
-                <li>
-                  <strong>In-room dining:</strong> Available for guests who prefer private dining in the comfort of their room.
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold text-[#1a2e1a] mb-2">
-                Nearby Restaurants & Cafés:
-              </h3>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>
-                  <strong>D’Mall Boracay (5–10 min walk):</strong> A wide selection of local Filipino food, cafés, and international cuisine.
-                </li>
-                <li>
-                  <strong>White Beach Station Areas:</strong> Popular beachfront dining spots offering sunset views and live music.
-                </li>
-                <li>
-                  <strong>Local Eateries:</strong> Discover authentic Filipino flavors, fresh seafood grills, and budget-friendly meals nearby.
-                </li>
-              </ul>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-      {/* CTA Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-8 shadow-sm">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Join Us?</h3>
-                <p className="text-[#4d724d] mb-6">
-                  Register for {CONFERENCE.shortForm} today and experience our world-class venue in the heart of {CONFERENCE.venue.location}.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/registration">
-                    <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">Register Now</Button>
-                  </Link>
-                  <Link href="/contact">
-                    <Button
-                      variant="outline"
-                      className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full"
-                    >
-                      Contact Us <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+          <div className="mt-10 grid gap-x-6 gap-y-10 lg:grid-cols-12">
+            {SIGHTS.map((sight) => (
+              <figure key={sight.title} className={`flex flex-col ${sight.span}`}>
+                <div className={`herb-mount herb-photo relative ${sight.ratio}`}>
+                  <Image src={sight.image} alt={sight.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
                 </div>
-              </div>
-            </div>
+                <figcaption className="mt-3">
+                  <span className="block text-[17px]">{sight.title}</span>
+                  <span className="herb-italic mt-0.5 block text-[14.5px] text-[var(--ink-2)]">{sight.note}</span>
+                </figcaption>
+              </figure>
+            ))}
           </div>
-        </div>
+        </Reveal>
+      </section>
+
+      {/* Closing */}
+      <section aria-labelledby="venue-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="venue-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              See you in {CONFERENCE.venue.city || city.split(",")[0]}.
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              {CONFERENCE.date}. Questions about travel or the venue? Write to{" "}
+              <a href="mailto:info@icsift.com" className="herb-link">
+                info@icsift.com
+              </a>
+              .
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
+          </div>
+        </Reveal>
       </section>
     </main>
-  )
+  );
 }

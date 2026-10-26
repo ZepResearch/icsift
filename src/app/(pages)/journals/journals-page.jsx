@@ -1,191 +1,172 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { useState } from "react"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Search } from "lucide-react";
+import { ActionLink } from "@/components/home/primitives";
+import { INDEX_TABS, coverOf, indexName } from "@/lib/journals";
 
-// --- Types ---
-
-// --- Tab config ---
-const INDEX_TABS = [
-  { label: "All", value: "all" },
-  { label: "Scopus", value: "Scopus" },
-  { label: "ABDC", value: "ABDC" },
-  { label: "Web of Science", value: "Wos" },
-  { label: "Google Scholar", value: "GoogleScholar" },
-//   { label: "By ZEP", value: "by_zep" },
-]
-
-// Badge colors per index type
-const INDEX_BADGE = {
-  Scopus:        { bg: "bg-orange-100",  text: "text-orange-700",  label: "Scopus" },
-  ABDC:          { bg: "bg-blue-100",    text: "text-blue-700",    label: "ABDC" },
-  Wos:           { bg: "bg-purple-100",  text: "text-purple-700",  label: "WoS" },
-  GoogleScholar: { bg: "bg-green-100",   text: "text-green-700",   label: "Google Scholar" },
-}
-
-// --- Client component ---
 export default function JournalsPageClient({ journals }) {
-  const [activeTab, setActiveTab] = useState("all")
+  const [active, setActive] = useState("all");
+  const [query, setQuery] = useState("");
 
-  const filtered = journals.filter((j) => {
-    if (activeTab === "all") return true
-    if (activeTab === "by_zep") return j.by_zep === true
-    return j.indexType === activeTab
-  })
+  const counts = useMemo(
+    () => Object.fromEntries(INDEX_TABS.map(([value]) => [value, value === "all" ? journals.length : journals.filter((j) => j.indexType === value).length])),
+    [journals],
+  );
+  const tabs = INDEX_TABS.filter(([value]) => value === "all" || counts[value] > 0);
 
-  // Count per tab
-  const count = (tab) => {
-    if (tab === "all") return journals.length
-    if (tab === "by_zep") return journals.filter((j) => j.by_zep).length
-    return journals.filter((j) => j.indexType === tab).length
-  }
+  const needle = query.trim().toLowerCase();
+  const shown = journals.filter(
+    (j) =>
+      (active === "all" || j.indexType === active) &&
+      (!needle || (j.title || "").toLowerCase().includes(needle) || (j.issncode || "").replace(/\s/g, "").includes(needle.replace(/\s/g, ""))),
+  );
+
+  const onTabKey = (event, index) => {
+    const step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    event.preventDefault();
+    const next = (index + step + tabs.length) % tabs.length;
+    setActive(tabs[next][0]);
+    document.getElementById(`index-tab-${next}`)?.focus();
+  };
 
   return (
-    <div className="container mx-auto py-24 px-4">
-      {/* Header */}
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-          Academic Journals
-        </h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Explore our collection of academic journals and research publications
-        </p>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2 justify-center mb-10">
-        {INDEX_TABS.map((tab) => {
-          const isActive = activeTab === tab.value
-          const tabCount = count(tab.value)
-          return (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={`
-                inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200
-                ${isActive
-                  ? "bg-lime-600 text-white border-lime-600 shadow-sm"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-lime-400 hover:text-lime-700"
-                }
-              `}
-            >
-              {tab.label}
-              <span
-                className={`
-                  text-xs rounded-full px-2 py-0.5 font-semibold
-                  ${isActive ? "bg-lime-500 text-white" : "bg-gray-100 text-gray-500"}
-                `}
-              >
-                {tabCount}
-              </span>
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filtered.map((journal) => {
-          const badge = journal.indexType ? INDEX_BADGE[journal.indexType] : null
-          return (
-            <Link href={`/journals/${journal.id}`} key={journal.id} className="group">
-              <Card className="overflow-hidden h-full transition-all duration-300 hover:shadow-lg border-gray-200 hover:border-gray-300">
-                {/* Cover image */}
-                <div className="relative h-[300px] bg-gradient-to-t from-lime-300 to-lime-800 w-full overflow-hidden">
-                  {journal.imgs ? (
-                    <Image
-                      src={`https://zep-research.pockethost.io/api/files/Journals/${journal.id}/${journal.imgs}`}
-                      alt={journal.title || "Journal cover"}
-                      fill
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : journal.img ? (
-                    <Image
-                      src={journal.img || "/placeholder.svg"}
-                      alt={journal.title || "Journal cover"}
-                      fill
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                      <span className="text-gray-400 text-sm">No image available</span>
-                    </div>
-                  )}
-
-                  {/* Badges overlay */}
-                  <div className="absolute top-2 left-2 flex flex-col gap-1">
-                    {badge && (
-                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${badge.bg} ${badge.text}`}>
-                        {badge.label}
-                      </span>
-                    )}
-                    {/* {journal.by_zep && (
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-lime-100 text-lime-800">
-                        By ZEP
-                      </span>
-                    )} */}
-                  </div>
-                </div>
-
-                <CardContent className="flex-grow pt-4">
-                  <h2 className="text-lg font-medium line-clamp-2 group-hover:text-gray-700 transition-colors">
-                    {journal.title || "Untitled Journal"}
-                  </h2>
-                  {journal.issncode && (
-                    <p className="text-sm text-muted-foreground mt-2 font-mono">ISSN: {journal.issncode}</p>
-                  )}
-                </CardContent>
-
-                <CardFooter className="pt-0">
-                  <span className="text-sm font-medium text-primary transition-opacity flex items-center">
-                    View Details & Submit Paper
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="ml-1"
-                    >
-                      <path d="M5 12h14"></path>
-                      <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                  </span>
-                </CardFooter>
-              </Card>
-            </Link>
-          )
-        })}
-
-        {filtered.length === 0 && (
-          <div className="col-span-full text-center py-16">
-            <div className="mx-auto w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gray-400"
-              >
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-              </svg>
-            </div>
-            <p className="text-muted-foreground">No journals found for this category</p>
+    <main className="herb min-h-screen">
+      {/* Title sheet: title left; a search field with a live count right. */}
+      <section aria-labelledby="journals-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end lg:gap-16 lg:p-12">
+          <div>
+            <h1 id="journals-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Find a journal for your paper.
+            </h1>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
+              Indexed journals that accept submissions through Zep Research. Choose one to see its details and submit your
+              paper directly.
+            </p>
           </div>
-        )}
-      </div>
-    </div>
-  )
+
+          <div>
+            <label htmlFor="journal-search" className="text-[13px] font-semibold tracking-[0.08em] uppercase">
+              Search by title or ISSN
+            </label>
+            <div className="relative mt-3">
+              <Search aria-hidden="true" className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-[var(--ink-2)]" strokeWidth={1.6} />
+              <input
+                id="journal-search"
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="e.g. artificial intelligence, 2789-2557"
+                className="herb-input py-4 pl-12 text-[17px]"
+                autoComplete="off"
+              />
+            </div>
+            <p className="herb-italic mt-3 text-[15px] text-[var(--ink-2)]" aria-live="polite">
+              Showing {shown.length} of {journals.length} journals
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* The index */}
+      <section aria-labelledby="index-title" className="px-3 pt-16 sm:px-6 lg:px-10 lg:pt-20">
+        <div className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <h2 id="index-title" className="sr-only">
+            Journals
+          </h2>
+          <div role="tablist" aria-label="Filter by index" className="flex flex-wrap gap-x-7 gap-y-1 border-b border-[var(--rule)]">
+            {tabs.map(([value, label], index) => (
+              <button
+                key={value}
+                id={`index-tab-${index}`}
+                role="tab"
+                type="button"
+                aria-selected={active === value}
+                aria-controls="journal-list"
+                tabIndex={active === value ? 0 : -1}
+                onClick={() => setActive(value)}
+                onKeyDown={(event) => onTabKey(event, index)}
+                className="herb-tab"
+              >
+                {label} <span className="herb-italic text-[14px] text-[var(--ink-2)]">{counts[value]}</span>
+              </button>
+            ))}
+          </div>
+
+          <div id="journal-list" role="tabpanel" className="mt-8">
+            {journals.length === 0 ? (
+              <p className="herb-muted py-8 text-[17px]">The journal list could not load just now. Please refresh the page.</p>
+            ) : shown.length === 0 ? (
+              <p className="herb-muted py-8 text-[17px]">
+                No journals match {needle ? `“${query.trim()}”` : "this filter"}.{" "}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setQuery("");
+                    setActive("all");
+                  }}
+                  className="herb-link"
+                >
+                  Show all journals
+                </button>
+              </p>
+            ) : (
+              <ol className="border-t border-[var(--ink)]">
+                {shown.map((journal) => {
+                  const cover = coverOf(journal);
+                  const index = indexName(journal.indexType);
+                  return (
+                    <li key={journal.id} className="border-b border-[var(--rule)]">
+                      <Link
+                        href={`/journals/${journal.id}`}
+                        className="group grid grid-cols-[4rem_1fr] items-center gap-x-5 gap-y-2 py-4 sm:grid-cols-[4.5rem_minmax(0,1fr)_11rem_auto] sm:gap-x-8"
+                      >
+                        <div className="relative aspect-[3/4] border border-[var(--rule)] bg-[var(--rule-soft)]">
+                          {cover ? <Image src={cover} alt="" fill sizes="72px" className="object-contain" /> : null}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[18px] leading-snug group-hover:text-[var(--green)]">{journal.title || "Untitled journal"}</p>
+                          {journal.issncode ? (
+                            <p className="herb-italic mt-1 text-[14.5px] text-[var(--ink-2)]">ISSN {journal.issncode.trim()}</p>
+                          ) : null}
+                        </div>
+                        <p className="col-start-2 text-[15px] sm:col-start-auto">{index || <span className="text-[var(--ink-2)]">Not listed</span>}</p>
+                        <span className="col-start-2 inline-flex items-center gap-1.5 text-[15px] sm:col-start-auto">
+                          Submit a paper
+                          <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={1.6} />
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Closing */}
+      <section aria-labelledby="journals-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <div className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="journals-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Presenting at the conference first?
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              Papers accepted at the conference are recommended to indexed journals and proceedings.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }

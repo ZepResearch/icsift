@@ -1,324 +1,250 @@
-"use client"
+import Image from "next/image";
+import Link from "next/link";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
 
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Calendar, MapPin, Users, Award, Lightbulb, Globe, ArrowRight } from 'lucide-react'
-import {  CONFERENCE } from "@/constants/conference"
+const HIGHLIGHTS = [
+  ["Sustainable innovation", "Green technologies and sustainable solutions for global challenges."],
+  ["Global collaboration", "Experts, researchers and industry leaders from around the world in one programme."],
+  ["Future technologies", "The tools that will shape a more sustainable world, and the people building them."],
+];
+
+const REASONS = [
+  [
+    "Explore cutting-edge innovations",
+    "Research and future-focused technologies that are driving sustainable development and shaping what comes next.",
+  ],
+  [
+    "Engage with global experts",
+    "Network with 55+ academics, 125+ research scholars and 10+ industry professionals from more than ten countries.",
+  ],
+  [
+    "Foster collaboration and partnerships",
+    "Meet like-minded professionals and thought leaders, and leave with new ideas and joint projects.",
+  ],
+  [
+    "Industry recognition and awards",
+    "More than 15 awards recognise outstanding contributions to sustainability, innovation and future technologies.",
+  ],
+  [
+    "Practical, actionable insights",
+    "Sessions, discussions and workshops focused on real-world applications and strategies for sustainable growth.",
+  ],
+  ["Global exposure", "Show your work, share ideas and help shape solutions for a greener, more innovative future."],
+];
+
+const AUDIENCE = [
+  ["Academics and researchers", "Present your research, exchange knowledge and collaborate to advance sustainable technologies."],
+  ["Industry professionals", "Explore solutions and technologies that can drive sustainable growth in your industry."],
+  ["Policymakers and government officials", "Gain insight to develop and implement policies that support sustainability and innovation."],
+  ["Entrepreneurs and startups", "Discover trends, technologies and partners to fuel sustainable business growth."],
+  ["Students and emerging scholars", "Learn from experts, present your research and build a network to start your career."],
+  ["Environmental advocates and NGOs", "Connect with innovators and find strategies for sustainable change in communities."],
+];
+
+const COUNTRIES = ["All over the World", ];
 
 export default function AboutConferencePage() {
-  const conferenceHighlights = [
-    {
-      icon: <Lightbulb className="h-8 w-8 text-[#4d724d]" />,
-      title: "Sustainable Innovation",
-      description: "Explore cutting-edge green technologies and sustainable solutions for global challenges.",
-    },
-    {
-      icon: <Globe className="h-8 w-8 text-[#4d724d]" />,
-      title: "Global Collaboration",
-      description: "Connect with experts, researchers, and industry leaders from around the world.",
-    },
-    {
-      icon: <Award className="h-8 w-8 text-[#4d724d]" />,
-      title: "Future Technologies",
-      description: "Discover and shape tomorrow's solutions for a more sustainable world.",
-    },
-  ]
-
-  const whyAttendReasons = [
-    {
-      title: "Explore Cutting-Edge Innovations",
-      description:
-        "Gain insights into groundbreaking research and future-focused technologies that are driving sustainable development and shaping tomorrow's world.",
-    },
-    {
-      title: "Engage with Global Experts",
-      description:
-        "Network with 55+ certified academicians, 125+ research scholars, and 10+ industrial professionals from over 10 countries, all dedicated to sustainability and innovation.",
-    },
-    {
-      title: "Foster Collaboration and Partnerships",
-      description:
-        "Connect with like-minded professionals and thought leaders to spark new ideas, collaborations, and opportunities for joint projects.",
-    },
-    {
-      title: "Industry Recognition and Awards",
-      description:
-        "Stand a chance to receive one of 15+ prestigious awards recognizing outstanding contributions to sustainability, innovation, and future technologies.",
-    },
-    {
-      title: "Practical and Actionable Insights",
-      description:
-        "Participate in dynamic sessions, discussions, and workshops focused on real-world applications and strategies for sustainable growth.",
-    },
-    {
-      title: "Global Exposure",
-      description:
-        "Showcase your work, share ideas, and contribute to shaping global solutions for a greener, more innovative future.",
-    },
-  ]
+  const location = CONFERENCE.venue.location.trim();
 
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large circle in top right */}
-          <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[#d3e4c5]/30"></div>
-
-          {/* Small circle in top left */}
-          <div className="absolute left-10 top-20 w-24 h-24 rounded-full bg-[#d3e4c5]/50"></div>
-
-          {/* Medium circle in bottom left */}
-          <div className="absolute -left-10 bottom-40 w-40 h-40 rounded-full bg-[#d3e4c5]/40"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              About
-              <span className="relative inline-block mx-2 ml-4">
-                <span className="relative z-10 ">{CONFERENCE.shortForm}</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
-              {CONFERENCE.year}
+    <main className="herb min-h-screen">
+      {/* Title sheet: stacked title, ruled fact strip, panoramic specimen */}
+      <section aria-labelledby="about-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="about-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              A conference about what lasts.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              {CONFERENCE.name}
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mb-12">
-              <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
-                <Calendar className="h-5 w-5 text-[#4d724d] mr-2" />
-                <span>{CONFERENCE.date}</span>
-              </div>
-              <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
-                <MapPin className="h-5 w-5 text-[#4d724d] mr-2" />
-                <span>{CONFERENCE.venue.location}</span>
-              </div>
-              <div className="flex items-center bg-white rounded-full px-5 py-2 shadow-sm">
-                <Users className="h-5 w-5 text-[#4d724d] mr-2" />
-                <span>500+ Global Participants</span>
-              </div>
-            </div>
-            <Link href={"/registration"} >
-            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full px-8 py-6 text-lg">
-              Register Now
-            </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About the Conference Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">About the Conference</h2>
-              <p className="text-[#4d724d] mb-4  text-justify">
-                The {CONFERENCE.shortForm}, taking place in the vibrant city of {CONFERENCE.venue.location}, aims to engage in discussions and identify how and where
-                sustainability, technological innovation, and industrial futures intersect.
+              <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
+                The {CONFERENCE.name.trim()} gathers experts from every sphere to share research, eco-friendly solutions and
+                technological advances, in {location} and online.
               </p>
-              <p className="text-[#4d724d] mb-4  text-justify">
-                From {CONFERENCE.date}, {CONFERENCE.shortForm} will gather experts from every sphere to speak on innovative
-                research, eco-friendly solutions, and technological advancement.
-              </p>
-              <p className="text-[#4d724d] text-justify">
-                The conference involves keynote addresses, panels, and practical workshops to advance knowledge and start
-                partnerships to promote sustainable development. With an emphasis on practical, scalable solutions and
-                forward-thinking research, {CONFERENCE.shortForm} promises to be an inspiring showcase of how new technologies are
-                going to drive a more sustainable future for our planet.
-              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <ActionLink href="/submission" primary>
+                  Submit a paper
+                </ActionLink>
+                <ActionLink href="/registration">Register to attend</ActionLink>
+              </div>
             </div>
-            <div className="relative rounded-3xl overflow-hidden h-[400px]">
+          </div>
+
+          {/* The 1px gap shows the rule colour through, drawing hairlines between cells at every breakpoint. */}
+          <dl className="mt-12 grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Edition", CONFERENCE.shortForm],
+              ["Dates", CONFERENCE.date],
+              ["Locality", `${location} · and online`],
+              ["Format", "Keynotes, panels and workshops"],
+            ].map(([term, value]) => (
+              <div key={term} className="bg-[var(--sheet)] px-1 py-5 sm:px-5">
+                <dt className="herb-italic text-[14.5px] text-[var(--ink-2)]">{term}</dt>
+                <dd className="mt-1 text-[18px] leading-snug">{value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <figure className="mt-10">
+            <div className="herb-mount herb-photo herb-photo-settle relative aspect-[4/3] w-full sm:aspect-[21/9]">
               <Image
                 src="/gallery/3rd-icsift  (59).jpeg"
-                alt="Conference"
+                alt="Three delegates smiling at their table during a session at the 3rd ICSIFT"
                 fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a2e1a]/80 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <div className="bg-white/90 backdrop-blur-sm rounded-full py-3 px-6 inline-flex items-center">
-                  <span className="text-[#1a2e1a] font-medium">Join us in {CONFERENCE.venue.location}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Mission Section */}
-      <section className="py-16 bg-[#edf6e1]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Our Mission</h3>
-            <p className="text-xl text-[#4d724d] mb-8">
-              The Conference on Sustainable Development aims to bring together leading researchers, policymakers, and
-              industry experts to share knowledge, discuss challenges, and forge partnerships that will drive forward the
-              global sustainability agenda.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-              <div className="bg-white rounded-3xl p-6 shadow-sm">
-                <h3 className="text-3xl font-bold text-[#1a2e1a]">500+</h3>
-                <p className="text-[#4d724d]">Global Participants</p>
-              </div>
-
-              <div className="bg-white rounded-3xl p-6 shadow-sm">
-                <h3 className="text-3xl font-bold text-[#1a2e1a]">15+</h3>
-                <p className="text-[#4d724d]">Country</p>
-              </div>
-
-              {/* <div className="bg-white rounded-3xl p-6 shadow-sm">
-                <h3 className="text-3xl font-bold text-[#1a2e1a]">1</h3>
-                <p className="text-[#4d724d]">Goal: Actionable Strategies for a Sustainable Future</p>
-              </div> */}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Conference Highlights Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-12 text-center">Conference Highlights</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {conferenceHighlights.map((highlight, index) => (
-              <div key={index} className="bg-[#f8faf5] rounded-3xl p-8 text-center">
-                <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-sm">
-                  {highlight.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-4">{highlight.title}</h3>
-                <p className="text-[#4d724d]">{highlight.description}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <p className="text-xl text-[#4d724d] mb-6">
-              Join us in {CONFERENCE.venue.location} from {CONFERENCE.date}, to be part of a global movement dedicated to sustainability,
-              innovation, and the technologies of tomorrow!
-            </p>
-            <Link href="/schedule" >
-            <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full text-lg py-6">
-              View Conference Schedule
-            </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Attend Section */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Why Attend {CONFERENCE.shortForm}</h2>
-            <p className="text-[#4d724d]">
-              {CONFERENCE.name} is the ideal
-              platform for exploring transformative solutions and advancing sustainable technologies.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {whyAttendReasons.map((reason, index) => (
-              <div key={index} className="bg-white rounded-3xl p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">{reason.title}</h3>
-                <p className="text-[#4d724d] text-justify">{reason.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Who Can Attend Section */}
-      <section className="py-16 bg-[#edf6e1]">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-12 text-center">Who Can Attend</h2>
-<div className="mb-16">
-          <div className="grid grid-cols-1 gap-6">
-            <div className="rounded-3xl overflow-hidden rounded-3xl">
-              <Image
-              height={400}
-              width={420}
-                src="/assets/a5.jpeg"
-                alt="Conference highlight 1"
-                className="w-full h-64 md:h-130 object-contain"
+                priority
+                sizes="(min-width: 1400px) 1300px, 100vw"
+                className="object-cover object-[50%_40%]"
               />
             </div>
-            
-          </div>
+            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">Delegates in session, 3rd ICSIFT</figcaption>
+          </figure>
         </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Academicians & Researchers</h3>
-              <p className="text-[#4d724d] text-justify">
-                Present your research, exchange knowledge, and collaborate with peers to advance sustainable
-                technologies.
+      </section>
+
+      {/* About and mission */}
+      <section aria-labelledby="conference-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-20">
+            <div>
+              <h2 id="conference-title" className="herb-h2 max-w-[16ch]">
+                Where sustainability, technology and industry meet.
+              </h2>
+              <p className="mt-8 max-w-[38rem] text-[18px] leading-relaxed">
+                The {CONFERENCE.shortForm}, in {location}, asks how and where sustainability, technological innovation and
+                industrial futures intersect.
               </p>
+              <p className="herb-muted mt-5 max-w-[38rem]">
+                Over {CONFERENCE.date}, keynote addresses, panels and practical workshops advance knowledge and start
+                partnerships for sustainable development. The emphasis is on practical, scalable solutions and forward-thinking
+                research: how new technologies can drive a more sustainable future for the planet.
+              </p>
+
+              <figure className="mt-10 border-t border-[var(--ink)] pt-6">
+                <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Our mission</h3>
+                <blockquote className="herb-italic mt-4 max-w-[38rem] text-[clamp(1.25rem,1rem+0.8vw,1.6rem)] leading-[1.35] text-balance">
+                  To bring together leading researchers, policymakers and industry experts to share knowledge, discuss
+                  challenges and forge the partnerships that move the global sustainability agenda forward.
+                </blockquote>
+              </figure>
             </div>
 
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Industry Professionals</h3>
-              <p className="text-[#4d724d] text-justify">
-                Explore innovative solutions and technologies that can drive sustainable growth in your industry.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Policymakers & Government Officials</h3>
-              <p className="text-[#4d724d] text-justify">
-                Gain insights to develop and implement policies supporting sustainability and technological innovation.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Entrepreneurs & Startups</h3>
-              <p className="text-[#4d724d] text-justify">
-                Discover new trends, technologies, and collaboration opportunities to fuel sustainable business growth.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Students & Emerging Scholars</h3>
-              <p className="text-[#4d724d] text-justify">
-                Learn from experts, showcase your research, and build networks to kickstart your career in sustainability
-                and innovation.
-              </p>
-            </div>
-
-            <div className="bg-white rounded-3xl p-6 shadow-sm">
-              <h3 className="text-xl font-bold text-[#1a2e1a] mb-3">Environmental Advocates & NGOs</h3>
-              <p className="text-[#4d724d] text-justify">
-                Connect with innovators and explore strategies for driving sustainable change in communities and
-                organizations.
-              </p>
+            <div>
+              <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Conference highlights</h3>
+              <ol className="mt-4 border-t border-[var(--ink)]">
+                {HIGHLIGHTS.map(([title, body], index) => (
+                  <li key={title} className="grid grid-cols-[2.5rem_1fr] items-baseline border-b border-[var(--rule)] py-5">
+                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className="block text-[18px]">{title}</span>
+                      <span className="herb-muted mt-1 block text-[15.5px]">{body}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15.5px]">
+                <Link href="/schedule" className="herb-link">
+                  View the schedule
+                </Link>
+                <Link href="/theme-and-topics" className="herb-link">
+                  Theme and topics
+                </Link>
+              </div>
             </div>
           </div>
+        </Reveal>
+      </section>
 
-          <div className="bg-white rounded-3xl p-8 shadow-sm">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-6 md:mb-0 md:mr-6">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-2">Ready to join {CONFERENCE.shortForm}?</h3>
-                <p className="text-[#4d724d] max-w-xl">
-                  Register now to secure your spot at the premier conference on sustainability, innovation, and future
-                  technologies.
-                </p>
-              </div>
-              <Link
-                href="/registration"
-                className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white px-8 py-3 rounded-full font-medium transition-colors duration-300 flex items-center whitespace-nowrap"
+      {/* Why attend */}
+      <section aria-labelledby="why-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <h2 id="why-title" className="herb-h2 max-w-[13ch]">
+              Why attend.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[26rem]">
+              A platform for exploring transformative solutions and advancing sustainable technologies.
+            </p>
+          </div>
+          <Reveal as="ol" className="border-t border-[var(--ink)]">
+            {REASONS.map(([title, body], index) => (
+              <li
+                key={title}
+                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
               >
-                Register Now <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-          </div>
+                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
+                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
+              </li>
+            ))}
+          </Reveal>
         </div>
+      </section>
+
+      {/* Who can attend */}
+      <section aria-labelledby="who-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:p-12">
+          <div className="flex flex-col">
+            <h2 id="who-title" className="herb-h2 max-w-[14ch]">
+              Who can attend.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[32rem]">
+              Anyone working on sustainability, innovation or the technologies that connect them. Last edition&rsquo;s room
+              came from nine countries.
+            </p>
+
+            <figure className="mt-10">
+              <div className="herb-mount herb-photo relative aspect-[3/2]">
+                <Image
+                  src="/gallery/3rd-icsift (20).jpg"
+                  alt="A student from the University of the Cordilleras speaking at the lectern"
+                  fill
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="object-cover object-[50%_30%]"
+                />
+              </div>
+              <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">A student presenter, 3rd ICSIFT</figcaption>
+            </figure>
+
+            <AccessionLabel
+              className="mt-10"
+              rows={[["Countries", `${COUNTRIES.join(", ")}`], ["Edition", "3rd ICSIFT, 2026"]]}
+            />
+          </div>
+
+          <div>
+            <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Who it is for</h3>
+            <ul className="mt-4 border-t border-[var(--ink)]">
+              {AUDIENCE.map(([who, why]) => (
+                <li key={who} className="border-b border-[var(--rule)] py-5">
+                  <p className="text-[18px]">{who}</p>
+                  <p className="herb-muted mt-1 text-[15.5px]">{why}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Closing */}
+      <section aria-labelledby="about-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="about-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Ready to join the {CONFERENCE.shortForm}?
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              {CONFERENCE.date}, {location} and online. Submit a paper to present it, or register to attend.
+            </p>
+          </div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
+          </div>
+        </Reveal>
       </section>
     </main>
-  )
+  );
 }
-

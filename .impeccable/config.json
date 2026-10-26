@@ -1,0 +1,260 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/proceedings.html"
+        ],
+        "createdAt": "2026-10-23T18:24:07.197Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/proceedings.html"
+        ],
+        "createdAt": "2026-10-23T18:24:07.456Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/proceedings.html"
+        ],
+        "createdAt": "2026-10-23T18:24:07.704Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/proceedings.html"
+        ],
+        "createdAt": "2026-10-23T18:24:07.998Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/array.html"
+        ],
+        "createdAt": "2026-10-23T18:24:08.337Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/array.html"
+        ],
+        "createdAt": "2026-10-23T18:24:08.610Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/array.html"
+        ],
+        "createdAt": "2026-10-23T18:24:08.879Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/array.html"
+        ],
+        "createdAt": "2026-10-23T18:24:09.167Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/sdg-program.html"
+        ],
+        "createdAt": "2026-10-23T18:24:09.442Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/sdg-program.html"
+        ],
+        "createdAt": "2026-10-23T18:24:09.677Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/sdg-program.html"
+        ],
+        "createdAt": "2026-10-23T18:24:09.917Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/sdg-program.html"
+        ],
+        "createdAt": "2026-10-23T18:24:10.176Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/catalogue.html"
+        ],
+        "createdAt": "2026-10-23T18:24:10.448Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/catalogue.html"
+        ],
+        "createdAt": "2026-10-23T18:24:10.706Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/catalogue.html"
+        ],
+        "createdAt": "2026-10-23T18:24:10.946Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/catalogue.html"
+        ],
+        "createdAt": "2026-10-23T18:24:11.194Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/herbarium.html"
+        ],
+        "createdAt": "2026-10-23T18:24:11.443Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/herbarium.html"
+        ],
+        "createdAt": "2026-10-23T18:24:11.696Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/herbarium.html"
+        ],
+        "createdAt": "2026-10-23T18:24:11.949Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/herbarium.html"
+        ],
+        "createdAt": "2026-10-23T18:24:12.220Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/programme.html"
+        ],
+        "createdAt": "2026-10-23T18:24:12.475Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/programme.html"
+        ],
+        "createdAt": "2026-10-23T18:24:12.716Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/programme.html"
+        ],
+        "createdAt": "2026-10-23T18:24:13.001Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/programme.html"
+        ],
+        "createdAt": "2026-10-23T18:24:13.275Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "oversized-h1",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/skytrain.html"
+        ],
+        "createdAt": "2026-10-23T18:24:13.538Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/skytrain.html"
+        ],
+        "createdAt": "2026-10-23T18:24:13.796Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/skytrain.html"
+        ],
+        "createdAt": "2026-10-23T18:24:14.038Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/skytrain.html"
+        ],
+        "createdAt": "2026-10-23T18:24:14.277Z",
+        "reason": "decision-round skeleton sketch, not shipped; rendered only as a thumbnail on the decision page"
+      }
+    ]
+  }
+}

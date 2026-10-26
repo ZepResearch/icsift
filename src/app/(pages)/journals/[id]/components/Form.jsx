@@ -1,372 +1,201 @@
-"use client"
+"use client";
 
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import ReCAPTCHA from "react-google-recaptcha";
+import { ArrowUpRight } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import pb from "@/lib/zep-pocketbase";
+import { JOURNAL_FILE_EXTENSIONS, JOURNAL_TEXT_FIELDS, fileProblem, validateJournalSubmission } from "@/lib/paper-submission";
+import { Field, FormAlert, Honeypot, describedBy } from "@/components/forms/herb-fields";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import "react-phone-number-input/style.css"
-import PhoneInput from "react-phone-number-input"
-import {
-  FileText,
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Users,
-  BookOpen,
-  Building,
-  Upload,
-  MessageSquare,
-  ArrowRight,
-  Loader2,
-  BookMarked,
-} from "lucide-react"
-import { toast } from "@/hooks/use-toast"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useAuth } from '@/context/AuthContext'
-
+const RECAPTCHA_BYPASS_TOKEN = "localhost-bypass";
+const MAX = Object.fromEntries(JOURNAL_TEXT_FIELDS.map(([name, , max]) => [name, max]));
+const ACCEPT = [
+  ...JOURNAL_FILE_EXTENSIONS,
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+].join(",");
 
 export default function PaperSubmissionForm({ journalId, journalTitle }) {
-  const { user, openAuthModal } = useAuth()
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState(null)
-  const [selectedFile, setSelectedFile] = useState(null)
-  const [phoneNumber, setPhoneNumber] = useState()
+  const { user, openAuthModal } = useAuth();
+  const router = useRouter();
+  const recaptchaRef = useRef(null);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [errors, setErrors] = useState({});
+  const [formError, setFormError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
+  // Only true on localhost. The server ignores the bypass token in production builds.
+  const isLocalDev =
+    typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
 
+  if (!user) {
+    return (
+      <div>
+        <h2 className="text-[clamp(1.6rem,1.3rem+1vw,2.2rem)] leading-tight tracking-[-0.02em]">Sign in to submit.</h2>
+        <p className="herb-muted mt-4 max-w-[38rem]">
+          Submissions are tied to your Zep Research account, so you can track their status later. Create an account or sign in
+          to send your paper to {journalTitle}.
+        </p>
+        <button type="button" onClick={() => openAuthModal()} data-primary className="herb-btn mt-8 w-full sm:max-w-[22rem]">
+          <span>Sign in or create an account</span>
+          <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+        </button>
+      </div>
+    );
+  }
+
+  const showErrors = (next, message) => {
+    setErrors(next);
+    setFormError(message);
+    const first = Object.keys(next)[0];
+    if (first) document.getElementById(first)?.focus();
+  };
+
+  const onFileChange = (event) => {
+    const file = event.target.files?.[0] || null;
+    setSelectedFile(file);
+    setErrors((prev) => {
+      const { file: _drop, ...rest } = prev;
+      const problem = file ? fileProblem(file, JOURNAL_FILE_EXTENSIONS) : null;
+      return problem ? { ...rest, file: problem } : rest;
+    });
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+
+    const formData = new FormData(event.currentTarget);
+    formData.set("phone_number", phoneNumber || "");
+
+    // Instant feedback with the same rules the server enforces.
+    const { errors: found } = validateJournalSubmission(Object.fromEntries(formData.entries()));
+    const problem = fileProblem(selectedFile, JOURNAL_FILE_EXTENSIONS);
+    if (problem) found.file = problem;
+    if (!isLocalDev && !recaptchaToken) found.recaptcha = "Tick the reCAPTCHA box to show you are not a robot.";
+    if (Object.keys(found).length) {
+      showErrors(found, "Some fields need attention. Each one is marked below.");
+      return;
+    }
+
+    setSubmitting(true);
+    setErrors({});
+    setFormError(null);
     try {
-      const formData = new FormData(e.currentTarget )
+      // The server looks the journal up by id and takes its name from the record.
+      formData.set("journal_id", journalId);
+      formData.set("file", selectedFile);
+      formData.set("recaptcha_token", isLocalDev ? RECAPTCHA_BYPASS_TOKEN : recaptchaToken);
+      if (pb.authStore.token) formData.set("auth_token", pb.authStore.token);
 
-      // Add authenticated user id from auth state
-      if (user?.id) {
-        formData.set("user", user.id)
-      }
-
-      // Add journal ID and title to form data
-      formData.set("journal_id", journalId)
-      formData.set("journal_name", journalTitle)
-
-      // Add phone number to form data
-      if (phoneNumber) {
-        formData.set("phone_number", phoneNumber)
-      }
-
-      // Add file if selected
-      if (selectedFile) {
-        formData.set("file", selectedFile)
-      }
-
-      const response = await fetch("/api/journal-paper", {
-        method: "POST",
-        body: formData,
-      })
-
-      const data = await response.json()
+      const response = await fetch("/api/journal-paper", { method: "POST", body: formData });
+      const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
-        throw new Error(data.message || "Failed to submit paper")
+        if (response.status === 401) openAuthModal();
+        showErrors(data.errors || {}, data.message || "Your paper could not be submitted. Please try again.");
+        return;
       }
-
-      // Show success toast
-      toast({
-        title: "Success!",
-        description: "Your paper has been submitted successfully.",
-        variant: "default",
-      })
-
-      // Redirect to success page
-      router.push("/journals/success")
-    } catch (err) {
-      setError(err.message || "An error occurred while submitting your paper")
-      toast({
-        title: "Error",
-        description: err.message || "An error occurred while submitting your paper",
-        variant: "destructive",
-      })
-      setIsSubmitting(false)
+      router.push("/journals/success");
+    } catch {
+      setFormError("The connection dropped before your paper was sent. Check your internet and submit again.");
+    } finally {
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+      setSubmitting(false);
     }
-  }
+  };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0])
-    }
-  }
+  const err = (name) => errors[name];
+  const text = (name, extra = {}) => ({
+    id: name,
+    name,
+    maxLength: MAX[name],
+    "aria-invalid": Boolean(err(name)),
+    className: "herb-input",
+    ...extra,
+  });
 
   return (
-    <>
-      {!user ? (
-        <Card className="shadow-lg border-0 overflow-hidden bg-slate-50">
-          <div className="h-2 bg-gradient-to-r from-green-400 to-lime-500"></div>
-          <div className="p-8 text-center">
-            <h3 className="text-xl font-semibold mb-2">Please sign in to submit to this journal</h3>
-            <p className="mb-4">You need to be authenticated to submit your paper. Create an account or login to continue.</p>
-            <div className="flex justify-center">
-              <button onClick={() => openAuthModal()} className="px-4 py-2 bg-lime-700 text-white rounded">Sign in / Register</button>
-            </div>
-          </div>
-        </Card>
-      ) : (
-        <Card className="shadow-lg border-0 overflow-hidden bg-slate-50">
-      <div className="h-2 bg-gradient-to-r from-green-400 to-lime-500"></div>
+    <form onSubmit={onSubmit} noValidate className="grid gap-6" aria-busy={submitting}>
+      <FormAlert>{formError}</FormAlert>
+      <Honeypot />
 
-      <CardHeader className="space-y-1 pb-6 pt-6">
-        <CardTitle className="text-2xl font-bold tracking-tight bg-gradient-to-r from-lime-800 to-lime-900 bg-clip-text text-transparent">
-          Submit Your Research
-        </CardTitle>
-        <CardDescription className="text-muted-foreground">
-          Submit your paper for review and publication in this journal
-        </CardDescription>
-      </CardHeader>
+      <div className="herb-label">
+        <dl className="grid grid-cols-[7.5rem_1fr] gap-3 px-4 py-3 max-sm:grid-cols-1 max-sm:gap-0.5">
+          <dt>Submitting to</dt>
+          <dd>{journalTitle}</dd>
+        </dl>
+      </div>
 
-      {error && (
-        <div className="mx-6 mb-6 p-4 bg-destructive/10 border border-destructive/20 text-destructive rounded-md">
-          {error}
-        </div>
-      )}
+      <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">About you</h2>
+      <div className="grid gap-6 md:grid-cols-2">
+        <Field id="author" label="Author name" error={err("author")}>
+          <input {...text("author", { type: "text", required: true, autoComplete: "name", defaultValue: user?.name || "" })} aria-describedby={describedBy("author", err("author"))} />
+        </Field>
+        <Field id="email" label="Email" error={err("email")} hint="Your confirmation goes here.">
+          <input {...text("email", { type: "email", required: true, autoComplete: "email", defaultValue: user?.email || "" })} aria-describedby={describedBy("email", err("email"), true)} />
+        </Field>
+        <Field id="phone_number" label="Phone number" error={err("phone_number")} hint="With country code.">
+          <PhoneInput id="phone_number" international defaultCountry="US" value={phoneNumber} onChange={setPhoneNumber} aria-invalid={Boolean(err("phone_number"))} className="herb-input" />
+        </Field>
+        <Field id="country" label="Country" error={err("country")}>
+          <input {...text("country", { type: "text", required: true, autoComplete: "country-name" })} aria-describedby={describedBy("country", err("country"))} />
+        </Field>
+        <Field id="department" label="Department" error={err("department")}>
+          <input {...text("department", { type: "text", required: true })} aria-describedby={describedBy("department", err("department"))} />
+        </Field>
+        <Field id="organization" label="University or organization" error={err("organization")}>
+          <input {...text("organization", { type: "text", required: true, autoComplete: "organization" })} aria-describedby={describedBy("organization", err("organization"))} />
+        </Field>
+      </div>
 
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6 ">
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Journal Information</h3>
+      <h2 className="mt-4 border-t border-[var(--ink)] pt-6 text-[13px] font-semibold tracking-[0.08em] uppercase">Your paper</h2>
+      <Field id="paper_title" label="Paper title" error={err("paper_title")}>
+        <input {...text("paper_title", { type: "text", required: true })} aria-describedby={describedBy("paper_title", err("paper_title"))} />
+      </Field>
+      <Field id="co_author" label="Co-author(s), optional" error={err("co_author")} hint="Separate names with commas.">
+        <input {...text("co_author", { type: "text" })} aria-describedby={describedBy("co_author", err("co_author"), true)} />
+      </Field>
+      <Field id="file" label="Paper file" error={err("file")} hint="PDF, DOC or DOCX, up to 10 MB.">
+        <input
+          id="file"
+          name="file"
+          type="file"
+          required
+          accept={ACCEPT}
+          onChange={onFileChange}
+          aria-invalid={Boolean(err("file"))}
+          aria-describedby={describedBy("file", err("file"), true)}
+          className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border file:border-[var(--ink)] file:bg-[var(--sheet)] file:px-3 file:py-1.5 file:text-[15px] hover:file:bg-[var(--ink)] hover:file:text-white"
+        />
+      </Field>
+      <Field id="message" label="Message to the editors, optional" error={err("message")} hint="Anything the editors should know about your submission.">
+        <textarea {...text("message", { rows: 4, className: "herb-input resize-y" })} aria-describedby={describedBy("message", err("message"), true)} />
+      </Field>
 
-            <div className="space-y-4">
-              {/* Journal Name */}
-              <div className="space-y-2">
-                <Label htmlFor="journal_name" className="flex items-center gap-2">
-                  <BookMarked className="h-4 w-4 text-muted-foreground" />
-                  <span>Journal Name</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="journal_name"
-                  name="journal_name"
-                  value={journalTitle}
-                  readOnly
-                  className="bg-muted/50"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Author Information</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Author Name */}
-              <div className="space-y-2">
-                <Label htmlFor="author" className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  <span>Author Name</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="author"
-                  name="author"
-                  required
-                  placeholder="Enter your full name"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span>Email Address</span>
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="your.email@example.com"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Phone Number */}
-              <div className="space-y-2">
-                <Label htmlFor="phone_number" className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span>Phone Number</span>
-                </Label>
-                <PhoneInput
-                  international
-                  defaultCountry="US"
-                  value={phoneNumber}
-                  onChange={setPhoneNumber}
-                  required
-                  className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                />
-              </div>
-
-              {/* Country */}
-              <div className="space-y-2">
-                <Label htmlFor="country" className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span>Country</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="country"
-                  name="country"
-                  required
-                  placeholder="Your country of residence"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Paper Details</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Co-Author */}
-              <div className="space-y-2">
-                <Label htmlFor="co_author" className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                  <span>Co-Author(s)</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="co_author"
-                  name="co_author"
-                  placeholder="Separate multiple authors with commas"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Paper Title */}
-              <div className="space-y-2">
-                <Label htmlFor="paper_title" className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-muted-foreground" />
-                  <span>Paper Title</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="paper_title"
-                  name="paper_title"
-                  required
-                  placeholder="Enter the title of your paper"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Department */}
-              <div className="space-y-2">
-                <Label htmlFor="department" className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                  <span>Department</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="department"
-                  name="department"
-                  required
-                  placeholder="Your academic department"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Organization */}
-              <div className="space-y-2">
-                <Label htmlFor="organization" className="flex items-center gap-2">
-                  <Building className="h-4 w-4 text-muted-foreground" />
-                  <span>Organization</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="organization"
-                  name="organization"
-                  required
-                  placeholder="Your university or institution"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Submission</h3>
-
-            <div className="space-y-4">
-              {/* File Upload */}
-              <div className="space-y-2">
-                <Label htmlFor="file" className="flex items-center gap-2">
-                  <Upload className="h-4 w-4 text-muted-foreground" />
-                  <span>Upload Paper</span>
-                </Label>
-                <div className="border-2 border-dashed border-muted rounded-lg p-4 text-center transition-colors hover:bg-muted/5">
-                  <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    required
-                    accept=".pdf,.doc,.docx"
-                    className="hidden"
-                  />
-                  <label htmlFor="file" className="cursor-pointer flex flex-col items-center gap-2">
-                    <Upload className="h-6 w-6 text-muted-foreground" />
-                    <span className="text-sm font-medium">
-                      {selectedFile ? selectedFile.name : "Click to upload or drag and drop"}
-                    </span>
-                    <span className="text-xs text-muted-foreground">PDF, DOC, or DOCX (max 10MB)</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="space-y-2">
-                <Label htmlFor="message" className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                  <span>Additional Message</span>
-                </Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={3}
-                  placeholder="Any additional information or comments about your submission"
-                  className="resize-none transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
-          </div>
-
-          <CardFooter className="flex justify-end px-0 pt-4">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-gradient-to-r from-lime-950 to-lime-800 hover:scale-105 transition-all text-white w-full"
-              size="lg"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  Submit Paper
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </CardFooter>
-        </form>
-      </CardContent>
-      </Card>
-      )}
-    </>
-  )
+      <div className="border-t border-[var(--ink)] pt-6">
+        {isLocalDev ? (
+          <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">reCAPTCHA is skipped on localhost.</p>
+        ) : (
+          <>
+            <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} />
+            {err("recaptcha") ? <p className="mt-1.5 text-[14px] font-medium">{err("recaptcha")}</p> : null}
+          </>
+        )}
+        <button type="submit" disabled={submitting} data-primary className="herb-btn mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:max-w-[22rem]">
+          <span>{submitting ? "Submitting…" : "Submit paper"}</span>
+          <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+        </button>
+        <p className="herb-muted mt-3 text-[14px]">You will get a confirmation email once your paper is received.</p>
+      </div>
+    </form>
+  );
 }

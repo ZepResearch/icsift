@@ -1630,3 +1630,8 @@ export const cancellationMetadata = {
     }),
   },
 };
+export const venueMetadata = {
+  title: "Venue and Travel | ICSIFT",
+  description:
+    "Where the International Conference on Sustainability, Innovation and Future Technologies takes place, how to get there, and what to see nearby.",
+}

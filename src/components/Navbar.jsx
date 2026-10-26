@@ -1,388 +1,298 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, Menu, X, LogIn, LogOut, User } from "lucide-react"
-import { useAuth } from '@/context/AuthContext'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react"
+import { useAuth } from "@/context/AuthContext"
+import { CONFERENCE } from "@/constants/conference"
+
+const NAV = [
+  {
+    title: "About",
+    dropdown: [
+      { href: "/about-conference", title: "About the conference" },
+      { href: "/about-organizers", title: "About the organisers" },
+      { href: "/about-co-organizers", title: "About the co-organisers" },
+      { href: "/committee", title: "Committee" },
+    ],
+  },
+  {
+    title: "Programme",
+    dropdown: [
+      { href: "/theme-and-topics", title: "Themes and topics" },
+      { href: "/papers-format", title: "Paper format" },
+      { href: "/mode-of-presentation", title: "Mode of presentation" },
+      { href: "/schedule", title: "Schedule" },
+      { href: "/awards", title: "Awards" },
+      { href: "/gallery", title: "Gallery" },
+    ],
+  },
+  { title: "Submission", href: "/submission" },
+  { title: "Venue", href: "/venue" },
+  {
+    title: "Publications",
+    dropdown: [
+      { href: "/journals", title: "Journals" },
+      { href: "/proceedings", title: "Proceedings" },
+    ],
+  },
+  { title: "Sponsor", href: "/exhibit-and-sponsor" },
+  { title: "Contact", href: "/contact" },
+]
+
+function Dropdown({ item, isActive, active }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const pathname = usePathname()
+
+  useEffect(() => setOpen(false), [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const onDown = (event) => {
+      if (!ref.current?.contains(event.target)) setOpen(false)
+    }
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false)
+        ref.current?.querySelector("button")?.focus()
+      }
+    }
+    document.addEventListener("pointerdown", onDown)
+    document.addEventListener("keydown", onKey)
+    return () => {
+      document.removeEventListener("pointerdown", onDown)
+      document.removeEventListener("keydown", onKey)
+    }
+  }, [open])
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onBlur={(event) => {
+        if (!ref.current?.contains(event.relatedTarget)) setOpen(false)
+      }}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+        className="herb-nav-link flex items-center gap-1"
+        data-active={active || undefined}
+      >
+        {item.title}
+        <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} strokeWidth={1.6} />
+      </button>
+      {open ? (
+        <div className="absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3">
+          <ul className="herb-nav-menu min-w-[15rem] border border-[var(--ink)] bg-white py-2">
+            {item.dropdown.map((entry) => (
+              <li key={entry.href}>
+                <Link
+                  href={entry.href}
+                  aria-current={isActive(entry.href) ? "page" : undefined}
+                  className="block px-4 py-2 text-[15px] text-[var(--ink)] hover:bg-[var(--mount)] aria-[current=page]:text-[var(--green)]"
+                >
+                  {entry.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  )
+}
 
 export default function ConferenceNavbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState(null)
+  const [openSection, setOpenSection] = useState(null)
   const [mounted, setMounted] = useState(false)
+  const [menuTop, setMenuTop] = useState(0)
+  const headerRef = useRef(null)
   const { user, logout, openAuthModal } = useAuth()
   const pathname = usePathname()
 
-  // Guards against hydration mismatch: `user` can be populated synchronously
-  // on the client (e.g. from a persisted PocketBase auth store) before React
-  // has hydrated, while the server always renders the logged-out state.
-  // `isAuthed` stays false through the first client render, then flips once
-  // mounted — so the first client paint matches the server paint exactly.
+  // The server always renders the logged-out state; `isAuthed` flips only after
+  // mount so the first client paint matches the server paint.
   const isAuthed = mounted && !!user
+  const displayName = isAuthed ? user.name || user.username || user.email : ""
 
-  const navLinks = [
-    {
-      title: "ABOUT",
-      href: "#",
-      dropdown: [
-        { href: "/about-conference", title: "About Conference" },
-        { href: "/about-organizers", title: "About Organizers" },
-        { href: "/about-co-organizers", title: "About Co-Organizers" },
-      ],
-    },
-    {
-      title: "PROGRAM",
-      href: "#",
-      dropdown: [
-        { href: "/theme-and-topics", title: "Themes and Topics" },
-        { href: "/papers-format", title: "Paper Formats" },
-        { href: "/mode-of-presentation", title: "Mode of Presentation" },
-        { href: "/schedule", title: "Conference Schedule" },
-        { title: "Gallery", href: "/gallery" },
-        { title: "Awards", href: "/awards" },
-      ],
-    },
-    { title: "COMMITTEE", href: "/committee" },
-    { title: "SUBMISSION", href: "/submission" },
-    { title: "VENUE", href: "/venue" },
-    { title: "JOURNAL", href: "/journals" },
-    { title: "CONTACT", href: "/contact" },
-    { title: "EXHIBIT & SPONSOR", href: "/exhibit-and-sponsor" },
-    { title: "PROCEEDINGS", href: "/proceedings" },
-  ]
+  useEffect(() => setMounted(true), [])
+  useEffect(() => setIsMobileMenuOpen(false), [pathname])
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 10)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  // Flip mounted flag after first client render (see isAuthed above)
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Lock body scroll while the mobile drawer is open
-  useEffect(() => {
+    if (isMobileMenuOpen) setMenuTop(headerRef.current?.getBoundingClientRect().bottom ?? 0)
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : ""
+    if (!isMobileMenuOpen) setOpenSection(null)
     return () => {
       document.body.style.overflow = ""
     }
   }, [isMobileMenuOpen])
 
-  // Close drawer on Escape, and reset open sub-menu whenever the drawer closes
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setIsMobileMenuOpen(false)
+    const onKey = (event) => {
+      if (event.key === "Escape") setIsMobileMenuOpen(false)
     }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
-  useEffect(() => {
-    if (!isMobileMenuOpen) setOpenDropdown(null)
-  }, [isMobileMenuOpen])
-
-  const isActive = (href) => href !== "#" && pathname === href
-  const isParentActive = (link) =>
-    isActive(link.href) || (link.dropdown && link.dropdown.some((item) => isActive(item.href)))
+  const isActive = (href) => pathname === href
+  const isParentActive = (item) => (item.href ? isActive(item.href) : item.dropdown.some((entry) => isActive(entry.href)))
 
   return (
-    <header
-      className={`w-full transition-all duration-300 py-2 ${
-        isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-transparent"
-      }`}
-    >
-      <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
-        <div className="flex h-14 sm:h-16 md:h-20 items-center justify-between gap-2">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="bg-[#4d724d]/10 rounded-full p-1.5 sm:p-2">
-              <div className="w-9 h-9 sm:w-12 sm:h-12 md:w-16 md:h-16 relative">
-                <Image src="/singleLogo.svg?height=32&width=32" alt="ICSIFT Logo" fill className="object-contain" />
-              </div>
-            </div>
-            <span className="font-bold text-lg sm:text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-teal-700 to-lime-500 whitespace-nowrap">
-              ICSIFT
+    <header ref={headerRef} className="herb-nav w-full border-b border-[var(--rule)] bg-white">
+      <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between gap-6 px-4 sm:px-6">
+        <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="ICSIFT home">
+          <span className="relative h-10 w-10">
+            <Image src="/singleLogo.svg" alt="" fill sizes="40px" className="object-contain" priority />
+          </span>
+          <span className="flex flex-col leading-none">
+            <span className="text-[20px] font-semibold tracking-[-0.01em] text-[var(--ink)]">ICSIFT</span>
+            <span className="herb-italic mt-1 text-[12.5px] text-[var(--ink-2)]">
+              {CONFERENCE.shortForm.replace("ICSIFT", "edition").trim()} · {CONFERENCE.venue.location.split(",")[0].trim()} {CONFERENCE.year}
             </span>
-          </Link>
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center lg:gap-0.5 xl:gap-1 overflow-x-auto">
-            {navLinks.map((link, index) => {
-              const active = isParentActive(link)
-              return (
-                <div key={index} className="relative shrink-0">
-                  {link.dropdown ? (
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <button
-                          className={`px-2 xl:px-3 py-2 text-[11px] xl:text-xs font-medium rounded-full transition-colors flex items-center whitespace-nowrap ${
-                            active
-                              ? "text-[#4d724d] bg-[#edf6e1]"
-                              : "text-[#1a2e1a] hover:text-[#4d724d] hover:bg-[#edf6e1]/70"
-                          }`}
-                        >
-                          {link.title}
-                          <ChevronDown className="ml-1 h-3.5 w-3.5" />
-                        </button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="center" className="w-48 bg-white">
-                        {link.dropdown.map((item, idx) => (
-                          <DropdownMenuItem key={idx} asChild>
-                            <Link
-                              href={item.href}
-                              className={`w-full px-4 py-2 text-xs cursor-pointer ${
-                                isActive(item.href)
-                                  ? "text-[#4d724d] bg-[#edf6e1] font-semibold"
-                                  : "text-[#1a2e1a] hover:bg-[#edf6e1]"
-                              }`}
-                            >
-                              {item.title}
-                            </Link>
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className={`block px-2 xl:px-3 py-2 text-[11px] xl:text-xs font-medium rounded-full transition-colors whitespace-nowrap ${
-                        active
-                          ? "text-[#4d724d] bg-[#edf6e1]"
-                          : "text-[#1a2e1a] hover:text-[#4d724d] hover:bg-[#edf6e1]/70"
-                      }`}
-                    >
-                      {link.title}
-                    </Link>
-                  )}
-                </div>
-              )
-            })}
-          </nav>
-
-          {/* Register + Auth (desktop) */}
-          <div className="hidden lg:flex flex-row items-center gap-2 xl:gap-4 shrink-0">
-            <Link href="/registration">
-              <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full text-xs xl:text-sm">
-                Conference  Registration
-              </Button>
-            </Link>
-            {isAuthed ? (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-[#1a2e1a] whitespace-nowrap">
-                  Hi, {user.name || user.username || user.email}
-                </span>
-                <button
-                  onClick={() => logout()}
-                  className="px-3 py-2 text-sm bg-red-50 text-red-600 rounded-full hover:bg-red-100 transition-colors"
-                >
-                  Logout
-                </button>
-              </div>
+        <nav aria-label="Main" className="hidden items-center gap-6 xl:flex">
+          {NAV.map((item) =>
+            item.dropdown ? (
+              <Dropdown key={item.title} item={item} isActive={isActive} active={isParentActive(item)} />
             ) : (
-              <button
-                onClick={() => openAuthModal()}
-                className="px-4 py-2 text-xs xl:text-sm bg-transparent border border-[#4d724d] text-[#4d724d] rounded-full hover:bg-[#4d724d] hover:text-white transition-colors whitespace-nowrap"
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className="herb-nav-link"
+                data-active={isActive(item.href) || undefined}
               >
-                Login
-              </button>
-            )}
-          </div>
+                {item.title}
+              </Link>
+            ),
+          )}
+        </nav>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-full text-[#1a2e1a] hover:bg-[#edf6e1] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#4d724d]"
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileMenuOpen}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {isMobileMenuOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="block"
-                >
-                  <X className="h-6 w-6" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                  className="block"
-                >
-                  <Menu className="h-6 w-6" />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </button>
+        <div className="hidden shrink-0 items-center gap-5 xl:flex">
+          {isAuthed ? (
+            <div className="flex items-center gap-4 text-[14.5px]">
+              <span className="herb-italic max-w-[12rem] truncate text-[var(--ink-2)]">{displayName}</span>
+              <button type="button" onClick={() => logout()} className="herb-nav-link">
+                Log out
+              </button>
+            </div>
+          ) : (
+            <button type="button" onClick={() => openAuthModal()} className="herb-nav-link">
+              Log in
+            </button>
+          )}
+          <Link href="/registration" className="herb-btn !min-h-[44px] !text-[15px]" data-primary>
+            <span>Register</span>
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+          </Link>
         </div>
+
+        <button
+          type="button"
+          className="grid h-11 w-11 place-items-center border border-[var(--ink)] text-[var(--ink)] xl:hidden"
+          onClick={() => setIsMobileMenuOpen((value) => !value)}
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
+        >
+          {isMobileMenuOpen ? <X className="h-5 w-5" strokeWidth={1.6} /> : <Menu className="h-5 w-5" strokeWidth={1.6} />}
+        </button>
       </div>
 
-      {/* Backdrop */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="lg:hidden relative z-50 bg-white border-t border-[#edf6e1] shadow-xl"
-          >
-            <div className="container mx-auto px-4 py-4 max-h-[85vh] overflow-y-auto">
-              {/* Auth section — front and center on mobile */}
-              <div className="mb-4">
-                {isAuthed ? (
-                  <div className="flex items-center justify-between gap-3 rounded-2xl bg-[#edf6e1] px-4 py-3">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#4d724d] text-white">
-                        <User className="h-4 w-4" />
-                      </div>
-                      <span className="text-sm font-medium text-[#1a2e1a] truncate">
-                        Hi, {user.name || user.username || user.email}
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => {
-                        logout()
-                        setIsMobileMenuOpen(false)
-                      }}
-                      className="flex shrink-0 items-center gap-1.5 rounded-full bg-red-50 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-100 transition-colors"
-                    >
-                      <LogOut className="h-3.5 w-3.5" />
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      openAuthModal()
-                      setIsMobileMenuOpen(false)
-                    }}
-                    className="flex w-full items-center justify-center gap-2 rounded-full border border-[#4d724d] bg-[#4d724d]/5 px-4 py-3 text-sm font-semibold text-[#4d724d] hover:bg-[#4d724d] hover:text-white transition-colors"
-                  >
-                    <LogIn className="h-4 w-4" />
-                    Login
-                  </button>
-                )}
-              </div>
-
-              {/* Nav links */}
-              <nav className="flex flex-col gap-1">
-                {navLinks.map((link, index) => {
-                  const active = isParentActive(link)
-                  const isOpen = openDropdown === index
-
-                  if (link.dropdown) {
-                    return (
-                      <div
-                        key={index}
-                        className={`rounded-xl overflow-hidden transition-colors ${
-                          active || isOpen ? "bg-[#edf6e1]" : ""
-                        }`}
-                      >
-                        <button
-                          onClick={() => setOpenDropdown(isOpen ? null : index)}
-                          aria-expanded={isOpen}
-                          className={`flex w-full items-center justify-between px-4 py-3 text-sm font-semibold transition-colors ${
-                            active || isOpen ? "text-[#4d724d]" : "text-[#1a2e1a]"
-                          }`}
-                        >
-                          {link.title}
-                          <motion.span
-                            animate={{ rotate: isOpen ? 180 : 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <ChevronDown className="h-4 w-4" />
-                          </motion.span>
-                        </button>
-                        <AnimatePresence initial={false}>
-                          {isOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="overflow-hidden"
-                            >
-                              <div className="flex flex-col gap-1 px-3 pb-3">
-                                {link.dropdown.map((item, idx) => (
-                                  <Link
-                                    key={idx}
-                                    href={item.href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className={`rounded-lg border-l-2 py-2.5 pl-4 pr-3 text-sm transition-colors ${
-                                      isActive(item.href)
-                                        ? "border-[#4d724d] bg-white text-[#4d724d] font-semibold shadow-sm"
-                                        : "border-transparent text-[#3c5c3c] hover:border-[#4d724d] hover:bg-white"
-                                    }`}
-                                  >
-                                    {item.title}
-                                  </Link>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    )
-                  }
-
+      {isMobileMenuOpen ? (
+        <div id="mobile-menu" className="herb-mobile-menu fixed inset-x-0 bottom-0 z-50 overflow-y-auto bg-white xl:hidden"
+          style={{ top: menuTop }}>
+          <nav aria-label="Main" className="mx-auto max-w-[1400px] px-4 pb-10 sm:px-6">
+            <ul className="border-t border-[var(--ink)]">
+              {NAV.map((item, index) => {
+                if (!item.dropdown) {
                   return (
-                    <Link
-                      key={index}
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`rounded-xl px-4 py-3 text-sm font-semibold transition-colors ${
-                        active
-                          ? "bg-[#4d724d] text-white shadow-md"
-                          : "text-[#1a2e1a] hover:bg-[#edf6e1]"
-                      }`}
-                    >
-                      {link.title}
-                    </Link>
+                    <li key={item.href} className="border-b border-[var(--rule)]">
+                      <Link
+                        href={item.href}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                        className="block py-4 text-[20px] aria-[current=page]:text-[var(--green)]"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
                   )
-                })}
-              </nav>
+                }
+                const open = openSection === index
+                return (
+                  <li key={item.title} className="border-b border-[var(--rule)]">
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => setOpenSection(open ? null : index)}
+                      className={`flex w-full items-center justify-between py-4 text-[20px] ${isParentActive(item) ? "text-[var(--green)]" : ""}`}
+                    >
+                      {item.title}
+                      <ChevronDown aria-hidden="true" className={`h-5 w-5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} strokeWidth={1.4} />
+                    </button>
+                    {open ? (
+                      <ul className="pb-4">
+                        {item.dropdown.map((entry) => (
+                          <li key={entry.href}>
+                            <Link
+                              href={entry.href}
+                              aria-current={isActive(entry.href) ? "page" : undefined}
+                              className="block py-2 pl-4 text-[16.5px] text-[var(--ink-2)] aria-[current=page]:text-[var(--green)]"
+                            >
+                              {entry.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                )
+              })}
+            </ul>
 
-              <div className="mt-5 pt-5 border-t border-[#edf6e1]">
-                <Link href="/registration" onClick={() => setIsMobileMenuOpen(false)}>
-                  <Button className="w-full bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full py-6 text-sm">
-                    Conference  Registration
-                  </Button>
-                </Link>
-              </div>
+            <div className="mt-8 grid gap-3">
+              <Link href="/registration" className="herb-btn" data-primary>
+                <span>Register</span>
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              </Link>
+              <Link href="/submission" className="herb-btn">
+                <span>Submit a paper</span>
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              </Link>
+              {isAuthed ? (
+                <div className="flex items-center justify-between pt-4 text-[15.5px]">
+                  <span className="herb-italic truncate text-[var(--ink-2)]">Signed in as {displayName}</span>
+                  <button type="button" onClick={() => logout()} className="herb-link">
+                    Log out
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    openAuthModal()
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className="herb-link pt-4 text-left text-[16px]"
+                >
+                  Log in to your account
+                </button>
+              )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </nav>
+        </div>
+      ) : null}
     </header>
   )
 }

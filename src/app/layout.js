@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "@/styles/herbarium.css";
+import { grotesk, label } from "@/components/home/fonts";
 import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
@@ -75,9 +77,9 @@ export default function RootLayout({ children }) {
           data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
         ></script>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} ${label.variable} antialiased`}>
         <AuthProvider>
-          <div className="sticky top-0 z-50 bg-white">
+          <div className="sticky top-0 z-50">
             <GoogleTranslateMenu />
             <ConferenceNavbar />
           </div>

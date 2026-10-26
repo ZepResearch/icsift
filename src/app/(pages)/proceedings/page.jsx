@@ -7,11 +7,7 @@ export const metadata = {
 }
 
 function ProceedingsPage() {
-    return (
-        <main>
-            <ProceedingsContent />
-        </main>
-    )
+    return <ProceedingsContent />
 }
 
 export default ProceedingsPage

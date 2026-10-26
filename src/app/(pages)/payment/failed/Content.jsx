@@ -1,114 +1,56 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { XCircle, Calendar, RefreshCw, ArrowRight } from "lucide-react"
-import { GeometricShapesCSS } from "@/components/geometric-shapes"
-import { CONFERENCE } from "@/constants/conference"
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink } from "@/components/home/primitives";
+
+const REASONS = [
+  ["The card was declined", "Your bank may have declined the transaction. Check with them, or try another card or payment method."],
+  ["The gateway had a problem", "The payment service may have had a temporary issue. Wait a few minutes and try again."],
+  ["The connection dropped", "The connection was interrupted during payment. Make sure it is stable, then try again."],
+];
 
 export default function PaymentFailedPage() {
   return (
-    <main className="bg-[#f8faf5] min-h-screen">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <GeometricShapesCSS />
+    <main className="herb min-h-screen">
+      {/* One sheet: title, then a three-column hairline row of likely causes, then the recovery actions. */}
+      <section aria-labelledby="failed-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="failed-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              The payment did not go through.
+            </h1>
+            <p className="herb-muted max-w-[32rem] text-[17.5px] leading-relaxed">
+              Your payment for the {CONFERENCE.shortForm} was not completed, so your place is not confirmed yet. You can try
+              again now.
+            </p>
+          </div>
 
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-8 md:p-12 shadow-sm relative">
-              <div className="absolute top-0 left-0 right-0 h-2 bg-[#c15252]"></div>
+          <h2 className="mt-12 text-[13px] font-semibold tracking-[0.08em] uppercase">What may have happened</h2>
+          <ol className="mt-4 grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] md:grid-cols-3">
+            {REASONS.map(([title, body], index) => (
+              <li key={title} className="bg-[var(--sheet)] py-6 md:px-6 md:first:pl-0 md:last:pr-0">
+                <span className="herb-italic block text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mt-1 block text-[19px] leading-snug">{title}</span>
+                <span className="herb-muted mt-2 block text-[15.5px]">{body}</span>
+              </li>
+            ))}
+          </ol>
 
-              <div className="flex flex-col items-center text-center mb-10">
-                <div className="h-20 w-20 rounded-full bg-[#f6e1e1] flex items-center justify-center mb-6">
-                  <XCircle className="h-10 w-10 text-[#c15252]" />
-                </div>
-
-                <h1 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-4">Payment Unsuccessful</h1>
-                <p className="text-[#4d724d] text-lg max-w-2xl">
-                  We encountered an issue while processing your payment for {CONFERENCE.name}.
-                </p>
-              </div>
-
-              <div className="space-y-6 mb-10">
-                <div className="bg-[#f6e1e1] rounded-xl border border-[#e4c5c5] p-6">
-                  <h2 className="text-xl font-bold text-[#1a2e1a] mb-4">Possible Reasons</h2>
-
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#c15252] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">1</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Card Declined</h3>
-                        <p className="text-[#4d724d]">
-                          Your card issuer may have declined the transaction. Please check with your bank or try another payment method.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#c15252] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">2</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Gateway Issue</h3>
-                        <p className="text-[#4d724d]">
-                          There might have been a temporary issue with the payment gateway. Please try again after a few minutes.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-full bg-[#c15252] flex items-center justify-center flex-shrink-0 mt-1">
-                        <span className="text-white font-bold">3</span>
-                      </div>
-                      <div>
-                        <h3 className="text-[#1a2e1a] font-medium">Connection Interrupted</h3>
-                        <p className="text-[#4d724d]">
-                          The connection was interrupted during the payment process. Please ensure you have a stable internet connection.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-6">
-                  <p className="text-[#4d724d]">
-                    Please try again or contact our support team at{" "}
-                    <a href="mailto:info@icsift.com" className="text-[#4d724d] font-semibold hover:underline">
-                      info@icsift.com
-                    </a>{" "}
-                    if you continue to experience issues.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/registration">
-                  <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full w-full sm:w-auto">
-                    <RefreshCw className="mr-2 h-4 w-4" /> Try Again
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button
-                    variant="outline"
-                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full w-full sm:w-auto"
-                  >
-                    <Calendar className="mr-2 h-4 w-4" /> Contact Support
-                  </Button>
-                </Link>
-                <Link href="/">
-                  <Button
-                    variant="ghost"
-                    className="text-[#4d724d] hover:bg-[#d3e4c5]/30 rounded-full w-full sm:w-auto"
-                  >
-                    Return to Home <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <p className="max-w-[38rem] text-[16.5px]">
+              If money left your account but you landed here, do not pay again. Write to{" "}
+              <a href="mailto:info@icsift.com" className="herb-link">
+                info@icsift.com
+              </a>{" "}
+              with the order number from your &ldquo;Payment initiated&rdquo; email, and we will sort it out.
+            </p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <ActionLink href="/registration" primary>
+                Try the payment again
+              </ActionLink>
+              <ActionLink href="/contact">Contact support</ActionLink>
             </div>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

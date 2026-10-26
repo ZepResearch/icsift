@@ -1,97 +1,96 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { getJournalById } from "@/lib/pocketbase"
-import { ArrowLeft } from "lucide-react"
-import PaperSubmissionForm from "./components/Form"
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
+import { getJournalById } from "@/lib/pocketbase";
+import { coverOf, indexName } from "@/lib/journals";
+import { AccessionLabel } from "@/components/home/primitives";
+import PaperSubmissionForm from "./components/Form";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const journal = await getJournalById(id);
+  if (!journal || journal.not_visible) return { title: "Journal not found | ICSIFT" };
+  return {
+    title: `Submit to ${journal.title} | ICSIFT`,
+    description: `Submit your paper to ${journal.title}${journal.issncode ? ` (ISSN ${journal.issncode.trim()})` : ""} through Zep Research.`,
+  };
+}
 
 export default async function JournalDetailPage({ params }) {
-  const journal = await getJournalById(params.id)
+  const { id } = await params;
+  const journal = await getJournalById(id);
+  if (!journal || journal.not_visible) notFound();
 
-  if (!journal) {
-    notFound()
-  }
+  const title = journal.title || "Untitled journal";
+  const cover = coverOf(journal);
+  const website = /^https?:\/\//.test(journal.web_url || "") ? journal.web_url : null;
 
   return (
-    <div className="container mx-auto py-12">
-      <Link href="/journals">
-        <Button variant="ghost" className="mb-8 group hover:bg-transparent">
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          Back to Journals
-        </Button>
-      </Link>
-
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Journal Details - Left Side */}
-        <div className="space-y-8">
-          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-            {journal.title || "Untitled Journal"}
-          </h1>
-
-          <div className="relative h-96  w-full overflow-hidden ">
-            {journal.imgs ? (
-              <Image
-                src={`https://zep-research.pockethost.io/api/files/Journals/${journal.id}/${journal.imgs}`}
-                alt={journal.title || "Journal cover"}
-                fill
-                className="object-contain"
-                priority
-              />
-            ) : journal.img ? (
-              <Image
-                src={journal.img || "/placeholder.svg"}
-                alt={journal.title || "Journal cover"}
-                fill
-                className="object-cover"
-                priority
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <span className="text-gray-400">No image available</span>
-              </div>
-            )}
+    <main className="herb min-h-screen">
+      {/* One sheet: title over an ink rule; the form left, the journal's cover set as a specimen in the right rail. */}
+      <section aria-labelledby="journal-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="border-b border-[var(--ink)] pb-10">
+            <h1 id="journal-title" className="herb-display max-w-[24ch] text-[clamp(2.25rem,1.3rem+2.8vw,4rem)]">
+              {title}
+            </h1>
+            <p className="herb-muted mt-5 max-w-[40rem] text-[17.5px] leading-relaxed">
+              Submit your paper to this journal through Zep Research. You will get a confirmation email once it is received.
+            </p>
+            <Link href="/journals" className="herb-link mt-5 inline-flex items-center gap-2 text-[15.5px]">
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              All journals
+            </Link>
           </div>
 
-          {journal.issncode && (
-            <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-2">ISSN Code</h2>
-              <p className="px-4 py-2 bg-gray-50 rounded-md font-mono text-gray-700">{journal.issncode}</p>
-            </div>
-          )}
+          <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+            <PaperSubmissionForm journalId={journal.id} journalTitle={title} />
 
-          <div className="grid grid-cols-2 gap-6">
-            {/* <div>
-              <h2 className="text-lg font-semibold mb-2">Created</h2>
-              <p className="px-4 py-2 bg-gray-50 rounded-md text-gray-700">
-                {new Date(journal.created).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-            </div>
+            <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
+              <figure className="max-w-[260px]">
+                <div className="relative aspect-[3/4] border border-[var(--rule)] bg-[var(--rule-soft)]">
+                  {cover ? (
+                    <Image src={cover} alt={`Cover of ${title}`} fill priority sizes="260px" className="object-contain" />
+                  ) : (
+                    <span className="herb-italic absolute inset-0 grid place-items-center p-4 text-center text-[14px] text-[var(--ink-2)]">
+                      No cover on file
+                    </span>
+                  )}
+                </div>
+                <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">Journal cover</figcaption>
+              </figure>
 
-            <div>
-              <h2 className="text-lg font-semibold mb-2">Last Updated</h2>
-              <p className="px-4 py-2 bg-gray-50 rounded-md text-gray-700">
-                {new Date(journal.updated).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-            </div> */}
+              <AccessionLabel
+                title="This journal"
+                rows={[
+                  ["ISSN", journal.issncode?.trim() || "Not listed"],
+                  ["Indexed in", indexName(journal.indexType) || "Not listed"],
+                  ...(website
+                    ? [
+                        [
+                          "Website",
+                          <a key="web" href={website} target="_blank" rel="noopener noreferrer" className="herb-link break-all">
+                            Visit the journal
+                          </a>,
+                        ],
+                      ]
+                    : []),
+                  ["Files", "PDF, DOC or DOCX, up to 10 MB"],
+                  [
+                    "Help",
+                    <a key="help" href="mailto:info@icsift.com" className="herb-link">
+                      info@icsift.com
+                    </a>,
+                  ],
+                ]}
+              />
+            </aside>
           </div>
         </div>
-
-        {/* Submission Form - Right Side */}
-        <div>
-          <PaperSubmissionForm journalId={journal.id} journalTitle={journal.title || "Untitled Journal"} />
-        </div>
-      </div>
-    </div>
-  )
+      </section>
+    </main>
+  );
 }

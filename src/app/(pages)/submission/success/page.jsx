@@ -1,165 +1,93 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { CheckCircle, ArrowRight, ArrowLeft, Calendar, ExternalLink, Search } from "lucide-react"
-import { submissionSuccessMetadata } from "@/components/metadata"
+import Link from "next/link";
+import { submissionSuccessMetadata } from "@/components/metadata";
 import { CONFERENCE } from "@/constants/conference";
-
+import { ActionLink } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
 
 export const metadata = submissionSuccessMetadata;
+
+const TRACK_URL = "https://publication.zepresearch.com/";
+
+// Continues the submission page's step strip: what has happened, and what comes next.
+const STAGES = [
+  ["Received", "Your paper is with us, and a confirmation email is on its way.", "Done"],
+  ["Review", "The scientific committee evaluates it for relevance, originality and quality.", "Next"],
+  ["Decision", "You hear about the status of your submission within 4 to 6 weeks.", "Then"],
+  ["Final paper", "If accepted, you receive instructions for your final paper and presentation.", "Then"],
+];
+
 export default function SubmissionSuccess() {
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large blob in top right */}
-          <div
-            className="absolute -right-40 -top-40 w-[30rem] h-[30rem] opacity-20"
-            style={{
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: "linear-gradient(45deg, #d3e4c5, #4d724d)",
-            }}
-          ></div>
-
-          {/* Small circle in bottom left */}
-          <div className="absolute left-20 bottom-20 w-16 h-16 rounded-full bg-[#d3e4c5]/40"></div>
-
-          {/* Medium circle in top left */}
-          <div className="absolute -left-10 top-40 w-32 h-32 rounded-full bg-[#b9d4a3]/30"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Submission
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">Successful</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
+    <main className="herb min-h-screen">
+      {/* Title sheet: a receipt. Title and intro, then a four-stage timeline with the first stage done. */}
+      <section aria-labelledby="success-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="success-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Paper received. Thank you.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              Thank you for contributing to {CONFERENCE.name}
+            <p className="herb-muted max-w-[32rem] text-[17.5px] leading-relaxed">
+              Your submission to the {CONFERENCE.shortForm} is in. Check your inbox for the confirmation email, and your spam
+              folder if you cannot find it.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Success Message */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+          <ol className="mt-12 grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-4" aria-label="What happens next">
+            {STAGES.map(([title, body, state], index) => (
+              <li key={title} aria-current={index === 0 ? "step" : undefined} className="relative bg-[var(--sheet)] py-6 sm:px-5">
+                <span className="herb-italic block text-[14px] text-[var(--ink-2)]">
+                  {String(index + 1).padStart(2, "0")} · {state}
+                </span>
+                <span className="mt-1 block text-[clamp(1.25rem,1rem+0.6vw,1.55rem)] leading-tight tracking-[-0.01em]">{title}</span>
+                <span className="herb-muted mt-2 block text-[15px]">{body}</span>
+                {index === 0 ? <span aria-hidden="true" className="absolute inset-x-0 -bottom-px h-[3px] bg-[var(--green)]" /> : null}
+              </li>
+            ))}
+          </ol>
 
-              <div className="relative p-8 md:p-12 text-center">
-                <div className="relative inline-flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                  <div className="absolute inset-0 rounded-full bg-[#4d724d]/30 blur-xl -z-10"></div>
-                  <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                    <CheckCircle className="h-10 w-10 text-[#4d724d]" />
-                  </div>
-                </div>
-
-                <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">Your Paper Has Been Submitted</h2>
-
-                <div className="space-y-6 text-[#4d724d] max-w-2xl mx-auto">
-                  <p>
-                    Thank you for submitting your paper to {CONFERENCE.shortForm} International Conference on Sustainability,
-                    Innovation, and Future Technologies. Your contribution is an important part of advancing research
-                    and collaboration in sustainability and innovation.
-                  </p>
-
-                  <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 text-left">
-                    <h3 className="text-xl font-medium text-[#1a2e1a] mb-4">What Happens Next?</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                          <span className="text-xs font-bold text-white">1</span>
-                        </div>
-                        <span>
-                          Our scientific committee will review your submission and evaluate it based on relevance,
-                          originality, and quality.
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                          <span className="text-xs font-bold text-white">2</span>
-                        </div>
-                        <span>
-                          You will receive a notification regarding the status of your submission within 4-6 weeks.
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <div className="h-6 w-6 rounded-full bg-[#4d724d] flex items-center justify-center shrink-0 mt-0.5">
-                          <span className="text-xs font-bold text-white">3</span>
-                        </div>
-                        <span>
-                          If accepted, you will receive further instructions on preparing your final paper and
-                          presentation.
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Track submission callout */}
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 rounded-xl border border-[#d3e4c5] bg-white p-5 text-left">
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d]/10">
-                        <Search className="h-5 w-5 text-[#4d724d]" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-[#1a2e1a]">Track your submission</h4>
-                        <p className="text-sm text-[#4d724d]/90">
-                          You can check the status of your submission on this main website:{" "}
-                          <a
-                            href="https://publication.zepresearch.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium underline underline-offset-2 hover:text-[#3c5c3c]"
-                          >
-                            publication.zepresearch.com
-                          </a>
-                        </p>
-                      </div>
-                    </div>
-                    <a
-                      href="https://publication.zepresearch.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-[#4d724d] px-4 py-2 text-sm font-medium text-[#4d724d] transition-colors hover:bg-[#4d724d] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4d724d]"
-                    >
-                      Check Status
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-                  <Button asChild className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full transition-transform hover:-translate-y-0.5">
-                    <Link href="/">
-                      <ArrowLeft className="mr-2 h-5 w-5" />
-                      Return to Home
-                    </Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full transition-transform hover:-translate-y-0.5"
-                  >
-                    <Link href="/schedule">
-                      <Calendar className="mr-2 h-5 w-5" />
-                      View Conference Schedule
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
+          <div className="mt-8 grid gap-3 sm:max-w-[44rem] sm:grid-cols-2">
+            <ActionLink href={TRACK_URL} primary external>
+              Track your submission
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
           </div>
         </div>
       </section>
+
+      <section aria-labelledby="meanwhile-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-16 lg:p-12">
+          <div>
+            <h2 id="meanwhile-title" className="herb-h2 max-w-[14ch]">
+              While you wait.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[30rem]">
+              Status updates appear on{" "}
+              <a href={TRACK_URL} target="_blank" rel="noopener noreferrer" className="herb-link">
+                publication.zepresearch.com
+              </a>
+              . Questions about your submission go to{" "}
+              <a href="mailto:info@icsift.com" className="herb-link">
+                info@icsift.com
+              </a>
+              .
+            </p>
+          </div>
+          <ul className="border-t border-[var(--ink)] self-start">
+            {[
+              ["/schedule", "See the conference schedule"],
+              ["/mode-of-presentation", "Prepare your presentation"],
+              ["/venue", `Plan your trip to ${CONFERENCE.venue.location.trim()}`],
+              ["/", "Return to the home page"],
+            ].map(([href, label]) => (
+              <li key={href} className="border-b border-[var(--rule)]">
+                <Link href={href} className="block py-4 text-[18px] hover:text-[var(--green)]">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </section>
     </main>
-  )
+  );
 }

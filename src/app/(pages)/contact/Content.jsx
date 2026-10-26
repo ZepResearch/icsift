@@ -1,423 +1,188 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { ArrowRight, Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, Globe, YoutubeIcon } from "lucide-react"
-import "react-phone-number-input/style.css"
-import PhoneInput from "react-phone-number-input"
-import ReCAPTCHA from "react-google-recaptcha"
-import { GeometricShapesCSS } from "@/components/geometric-shapes"
-import { CONFERENCE } from "@/constants/conference"
+import { useRef, useState } from "react";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+import ReCAPTCHA from "react-google-recaptcha";
+import { ArrowUpRight } from "lucide-react";
+import { CONFERENCE } from "@/constants/conference";
+import { AccessionLabel } from "@/components/home/primitives";
+
+const EMPTY = { name: "", email: "", subject: "", message: "" };
+
+const SOCIAL = [
+  ["Facebook", "https://www.facebook.com/profile.php?id=61561809783777"],
+  ["Instagram", "https://www.instagram.com/zepresearch/"],
+  ["LinkedIn", "https://www.linkedin.com/company/zep-research/"],
+  ["YouTube", "https://www.youtube.com/@Zepresearch"],
+  ["Zep Research", "https://www.zepresearch.com/"],
+];
+
+function Field({ id, label, hint, required, children }) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-[15px]">
+        {label}
+        {required ? <span className="herb-italic text-[var(--ink-2)]"> (required)</span> : null}
+      </label>
+      <div className="mt-2">{children}</div>
+      {hint ? <p className="herb-muted mt-1.5 text-[14px]">{hint}</p> : null}
+    </div>
+  );
+}
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    phoneNumber: "",
-  })
-  const [phoneNumber, setPhoneNumber] = useState()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
-  const [errorMessage, setErrorMessage] = useState("")
-  const [recaptchaToken, setRecaptchaToken] = useState(null)
-  const recaptchaRef = useRef(null)
+  const [form, setForm] = useState(EMPTY);
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const recaptchaRef = useRef(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const onChange = (event) => setForm((prev) => ({ ...prev, [event.target.name]: event.target.value }));
 
-  // Update formData when phoneNumber changes
-  useEffect(() => {
-    setFormData((prev) => ({ ...prev, phoneNumber }))
-  }, [phoneNumber])
+  const resetCaptcha = () => {
+    recaptchaRef.current?.reset();
+    setRecaptchaToken(null);
+  };
 
-  const onRecaptchaChange = (token) => {
-    setRecaptchaToken(token)
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    
-    // Validate reCAPTCHA
+  const onSubmit = async (event) => {
+    event.preventDefault();
     if (!recaptchaToken) {
-      setSubmitStatus("error")
-      setErrorMessage("Please complete the reCAPTCHA verification")
-      return
+      setStatus("error");
+      setErrorMessage("Please tick the reCAPTCHA box above the button, then send again.");
+      return;
     }
 
-    setIsSubmitting(true)
-    setSubmitStatus(null)
-
+    setSubmitting(true);
+    setStatus(null);
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          recaptchaToken,
-        }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to send message")
-      }
-
-      setSubmitStatus("success")
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        phoneNumber: "",
-      })
-      setPhoneNumber(undefined)
-      setRecaptchaToken(null)
-      
-      // Reset reCAPTCHA
-      if (recaptchaRef.current) {
-        recaptchaRef.current.reset()
-      }
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, phoneNumber, recaptchaToken }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "The message could not be sent.");
+      setStatus("success");
+      setForm(EMPTY);
+      setPhoneNumber(undefined);
     } catch (error) {
-      setSubmitStatus("error")
-      setErrorMessage(error instanceof Error ? error.message : "An unknown error occurred")
-      
-      // Reset reCAPTCHA on error
-      if (recaptchaRef.current) {
-        recaptchaRef.current.reset()
-      }
-      setRecaptchaToken(null)
+      setStatus("error");
+      setErrorMessage(
+        `${error instanceof Error ? error.message : "The message could not be sent."} Please try again, or write to info@icsift.com.`,
+      );
     } finally {
-      setIsSubmitting(false)
+      resetCaptcha();
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-8 overflow-hidden">
-        {/* Background Elements */}
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              
-              <span className="relative inline-block mx-2 mr-4">
-                <span className="relative z-10">Contact</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
-              Us
+    <main className="herb min-h-screen">
+      {/* One sheet: title across the top, the form in the left 60%, direct lines in the right rail. */}
+      <section aria-labelledby="contact-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
+        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="grid gap-6 border-b border-[var(--ink)] pb-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h1 id="contact-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Write to the team.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              Get in touch with the {CONFERENCE.shortForm} team for any inquiries or support
+            <p className="herb-muted max-w-[30rem] text-[17.5px] leading-relaxed">
+              Questions about the {CONFERENCE.shortForm}, submissions, registration or partnering? We reply by email.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Contact Form Section */}
-      <section className="py-16">
-      <GeometricShapesCSS />
+          <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+            <form onSubmit={onSubmit} className="grid gap-6">
+              {status === "success" ? (
+                <p role="status" className="border border-[var(--ink)] px-4 py-3 text-[16px]">
+                  <strong className="font-semibold">Message sent. </strong>
+                  Thank you; we will get back to you as soon as we can.
+                </p>
+              ) : null}
+              {status === "error" ? (
+                <p role="alert" className="border border-[var(--ink)] px-4 py-3 text-[16px]">
+                  <strong className="font-semibold">Not sent. </strong>
+                  {errorMessage}
+                </p>
+              ) : null}
 
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
-            {/* Contact Information */}
-            <div className="lg:col-span-2">
-              <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden h-full shadow-sm">
-                {/* Decorative elements */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-                <div className="relative p-8 flex flex-col h-full">
-                  <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">Get In Touch</h2>
-
-                  <p className="text-[#4d724d] mb-8">
-                    Have questions about {CONFERENCE.shortForm}? Our team is here to help. Reach out to us using the contact
-                    information below or fill out the form.
-                  </p>
-
-                  <div className="space-y-6 flex-grow">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                        <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                          <Mail className="h-5 w-5 text-[#4d724d]" />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-sm text-[#4d724d]/70">Email</p>
-                        <p className="text-[#1a2e1a] font-medium">info@icsift.com</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                        <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                          <Phone className="h-5 w-5 text-[#4d724d]" />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-sm text-[#4d724d]/70">Phone</p>
-                        <p className="text-[#1a2e1a] font-medium">+91 82600 80050</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] p-0.5">
-                        <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                          <MapPin className="h-5 w-5 text-[#4d724d]" />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-sm text-[#4d724d]/70">Address</p>
-                        <p className="text-[#1a2e1a] font-medium">
-                          {CONFERENCE.venue.location}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 pt-8 border-t border-[#d3e4c5]">
-                    <h3 className="text-lg font-medium text-[#1a2e1a] mb-4">Connect With Us</h3>
-                    <div className="flex gap-4">
-                      <a
-                        href="https://www.facebook.com/profile.php?id=61561809783777"
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                      </a>
-                      <a
-                        href="https://www.instagram.com/zepresearch/"
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                      </a>
-                 
-                      <a
-                        href="https://www.linkedin.com/company/zep-research/"
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                          <rect x="2" y="9" width="4" height="12"></rect>
-                          <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                      </a>
-                      <a
-                        href="https://www.youtube.com/@Zepresearch"
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
-                      >
-                       <YoutubeIcon/>
-                      </a>
-                      <a
-                        href="https://www.zepresearch.com/"
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white border border-[#d3e4c5] text-[#4d724d] hover:text-white hover:bg-[#4d724d] transition-colors"
-                      >
-                        <Globe className="h-5 w-5" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Field id="name" label="Your name" required>
+                  <input id="name" name="name" type="text" autoComplete="name" required value={form.name} onChange={onChange} className="herb-input" />
+                </Field>
+                <Field id="email" label="Email" required hint="We reply to this address.">
+                  <input id="email" name="email" type="email" autoComplete="email" required value={form.email} onChange={onChange} className="herb-input" />
+                </Field>
+                <Field id="phoneNumber" label="Phone" hint="Optional, with country code.">
+                  <PhoneInput id="phoneNumber" international defaultCountry="TH" value={phoneNumber} onChange={setPhoneNumber} className="herb-input" />
+                </Field>
+                <Field id="subject" label="Subject" required>
+                  <input id="subject" name="subject" type="text" required value={form.subject} onChange={onChange} className="herb-input" />
+                </Field>
               </div>
-            </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-3">
-              <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-                {/* Decorative elements */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+              <Field id="message" label="Message" required>
+                <textarea id="message" name="message" rows={7} required value={form.message} onChange={onChange} className="herb-input resize-y" />
+              </Field>
 
-                <div className="relative p-8">
-                  <h2 className="text-2xl font-bold text-[#1a2e1a] mb-6">Send Us a Message</h2>
+              <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} />
 
-                  {submitStatus === "success" && (
-                    <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl flex items-start gap-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-medium">Message Sent Successfully!</p>
-                        <p className="text-green-700/80">
-                          Thank you for contacting us. We'll get back to you as soon as possible.
-                        </p>
-                      </div>
-                    </div>
-                  )}
+              <button
+                type="submit"
+                disabled={submitting}
+                data-primary
+                className="herb-btn w-full disabled:cursor-not-allowed disabled:opacity-60 sm:max-w-[22rem]"
+              >
+                <span>{submitting ? "Sending…" : "Send message"}</span>
+                <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+              </button>
+            </form>
 
-                  {submitStatus === "error" && (
-                    <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                      <div>
-                        <p className="font-medium">Error Sending Message</p>
-                        <p className="text-red-700/80">{errorMessage}</p>
-                      </div>
-                    </div>
-                  )}
+            <aside className="flex flex-col gap-8">
+              <AccessionLabel
+                title="Direct lines"
+                rows={[
+                  [
+                    "Email",
+                    <a key="email" href="mailto:info@icsift.com" className="herb-link">
+                      info@icsift.com
+                    </a>,
+                  ],
+                  [
+                    "Phone",
+                    <a key="phone" href="tel:+918260080050" className="herb-link">
+                      +91 82600 80050
+                    </a>,
+                  ],
+                  ["Conference", `${CONFERENCE.shortForm}, ${CONFERENCE.date}`],
+                  ["Locality", `${CONFERENCE.venue.location.trim()} · and online`],
+                ]}
+              />
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Name */}
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="block text-sm font-medium text-[#1a2e1a]">
-                          Your Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                          placeholder="Enter your name"
-                        />
-                      </div>
-
-                      {/* Phone Number */}
-                      <div className="space-y-2">
-                        <label htmlFor="phoneNumber" className="block text-sm font-medium text-[#1a2e1a]">
-                          Phone Number
-                        </label>
-                        <PhoneInput
-                          international
-                          defaultCountry="TH"
-                          value={phoneNumber}
-                          onChange={setPhoneNumber}
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        />
-                      </div>
-
-                      {/* Email */}
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-[#1a2e1a]">
-                          Your Email *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                          placeholder="your.email@example.com"
-                        />
-                      </div>
-
-                      {/* Subject */}
-                      <div className="space-y-2">
-                        <label htmlFor="subject" className="block text-sm font-medium text-[#1a2e1a]">
-                          Subject *
-                        </label>
-                        <input
-                          type="text"
-                          id="subject"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                          placeholder="What is your message about?"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Message */}
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="block text-sm font-medium text-[#1a2e1a]">
-                        Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        required
-                        rows={6}
-                        className="w-full px-4 py-3 bg-white border border-[#d3e4c5] rounded-xl text-[#1a2e1a] placeholder-[#4d724d]/50 focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:border-[#4d724d]/50"
-                        placeholder="How can we help you?"
-                      ></textarea>
-                    </div>
-
-                    {/* reCAPTCHA */}
-                    <div className="flex justify-center">
-                      <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                        onChange={onRecaptchaChange}
-                      />
-                    </div>
-
-                    {/* Submit Button */}
-                    <div className="flex justify-end pt-4">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting || !recaptchaToken}
-                        className="relative px-8 py-4 bg-[#4d724d] hover:bg-[#3c5c3c] text-white font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-[#4d724d]/50 focus:ring-offset-2 focus:ring-offset-[#edf6e1] disabled:opacity-50 disabled:cursor-not-allowed group overflow-hidden"
+              <div>
+                <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Elsewhere</h2>
+                <ul className="mt-3 border-t border-[var(--ink)]">
+                  {SOCIAL.map(([label, href]) => (
+                    <li key={label} className="border-b border-[var(--rule)]">
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between py-3 text-[16px] hover:text-[var(--green)]"
                       >
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="h-full w-full bg-[#3c5c3c] opacity-0 group-hover:opacity-50 group-hover:animate-pulse transition-all duration-1000"></div>
-                        </div>
-                        <div className="relative flex items-center">
-                          {isSubmitting ? (
-                            <>
-                              <div className="animate-spin mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full"></div>
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                              Send Message
-                            </>
-                          )}
-                        </div>
-                      </button>
-                    </div>
-                  </form>
-                </div>
+                        {label}
+                        <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 }

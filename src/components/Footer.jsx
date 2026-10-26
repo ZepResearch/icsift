@@ -1,389 +1,159 @@
-
-"use client"
-
-import { useState, useEffect } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  ArrowUp,
-  Calendar,
-  MapPin,
-  Youtube,
-  Mail,
-  Contact
-} from "lucide-react"
- import { CONFERENCE } from "@/constants/conference"
+import { ArrowUpRight } from "lucide-react"
+import { CONFERENCE } from "@/constants/conference"
+
+const COLUMNS = [
+  {
+    title: "Conference",
+    links: [
+      { href: "/about-conference", label: "About the conference" },
+      { href: "/about-organizers", label: "About the organisers" },
+      { href: "/about-co-organizers", label: "About the co-organisers" },
+      { href: "/committee", label: "Committee" },
+      { href: "/venue", label: "Venue" },
+      { href: "/gallery", label: "Gallery" },
+    ],
+  },
+  {
+    title: "Programme",
+    links: [
+      { href: "/theme-and-topics", label: "Themes and topics" },
+      { href: "/papers-format", label: "Paper format" },
+      { href: "/mode-of-presentation", label: "Mode of presentation" },
+      { href: "/schedule", label: "Schedule" },
+      { href: "/awards", label: "Awards" },
+      { href: "/journals", label: "Journals" },
+      { href: "/proceedings", label: "Proceedings" },
+    ],
+  },
+  {
+    title: "Take part",
+    links: [
+      { href: "/submission", label: "Submit a paper" },
+      { href: "/registration", label: "Register" },
+      { href: "/exhibit-and-sponsor", label: "Exhibit and sponsor" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+]
+
+const POLICIES = [
+  { href: "/terms-and-conditions", label: "Terms and conditions" },
+  { href: "/privacy-policy", label: "Privacy" },
+  { href: "/cancellation-policy", label: "Cancellation" },
+  { href: "/complaints-policy", label: "Complaints" },
+  { href: "/disability-discrimination-policy", label: "Disability discrimination" },
+  { href: "/health-and-safety-policy", label: "Health and safety" },
+  { href: "/equal-treatment-policy", label: "Equal treatment" },
+]
+
+const SOCIAL = [
+  { href: "https://www.linkedin.com/company/zep-research/", label: "LinkedIn" },
+  { href: "https://www.facebook.com/profile.php?id=61561809783777", label: "Facebook" },
+  { href: "https://www.instagram.com/zepresearch/", label: "Instagram" },
+  { href: "https://www.youtube.com/@Zepresearch", label: "YouTube" },
+]
+
 export default function ConferenceFooter() {
-  const [showScrollTop, setShowScrollTop] = useState(false)
-
-  // Navigation links grouped for footer
-  const footerLinks = [
-    {
-      title: "About",
-      links: [
-        { href: "/about-conference", label: "About Conference" },
-        { href: "/about-organizers", label: "About Organizers" },
-        { href: "/exhibit-and-sponsor", label: "Exhibit & Sponsor" },
-        { href: "/schedule", label: "Conference Schedule" },
-      
-
-      ],
-    },
-    {
-      title: "Program",
-      links: [
-        { href: "/theme-and-topics", label: "Themes and Topics" },
-        { href: "/papers-format", label: "Paper Formats" },
-        { href: "/mode-of-presentation", label: "Mode of Presentation" },
-        { href: "/registration", label: "Registration" },
-
-      ],
-    },
-    {
-      title: "Participate",
-      links: [
-        { href: "/committee", label: "Committee" },
-        { href: "/submission", label: "Submission" },
-        { href: "/venue", label: "Venue" },
-        { href: "/awards", label: "Awards" },
-        { href: "/contact", label: "Contact" },
-
-
-      ],
-    },
-    {
-      title: "Policy",
-      links: [
-        { href: "/privacy-policy", label: "Privacy Policy" },
-        { href: "/cancellation-policy", label: "Cancellation Policy" },
-        { href: "/terms-and-conditions", label: "Terms and Conditions" },
-        { href: "/complaints-policy", label: "Complaints Policy" },
-
-
-      ],
-    },
-  ]
-
-  // Conference information cards
-  const conferenceCards = [
-    // {
-    //   title: "NextGen-Synergy 2025",
-    //   logo: "/conf/nextgen.ico?height=40&width=40",
-    //   location: "Delhi, India",
-    //   date: "August 21st -22nd , 2025",
-    //   href: "https://www.thenextgensynergy.com/",
-    // },
-    {
-      title: "Wfcces 2025",
-      logo: "/conf/wfcces.png?height=40&width=40",
-      location: "Kuala Lumpur, Malaysia",
-      date: "May 22nd - 23rd, 2025",
-      href: "https://www.wfcces.com/",
-    },
-    {
-      title: "ICEMSS 2025",
-      logo: "/conf/icemss.ico?height=40&width=40",
-      location: "Goa, India",
-      date: "December 22-23, 2025",
-      href: "https://www.icemss.in",
-    },
-  ]
-
-  // Handle scroll to top button visibility
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollTop(true)
-      } else {
-        setShowScrollTop(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
-
   return (
-    <footer className="relative bg-[#1a2e1a] text-white overflow-hidden">
-      {/* 3D Geometric Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large sphere */}
-        <div
-          className="absolute -right-20 -bottom-40 w-80 h-80 rounded-full bg-gradient-to-br from-[#4d724d]/20 to-transparent"
-          style={{ filter: "blur(40px)" }}
-        ></div>
-        
-        {/* Small floating circles */}
-        <div
-          className="absolute left-1/4 top-1/4 w-16 h-16 rounded-full bg-[#d3e4c5]/10 animate-float-slow"
-          style={{ animationDelay: "0s" }}
-        ></div>
-        
-        <div
-          className="absolute right-1/3 top-1/2 w-12 h-12 rounded-full bg-[#d3e4c5]/10 animate-float"
-          style={{ animationDelay: "-2s" }}
-        ></div>
-        
-        <div
-          className="absolute left-1/2 bottom-1/4 w-20 h-20 rounded-full bg-[#d3e4c5]/10 animate-float-slow"
-          style={{ animationDelay: "-1s" }}
-        ></div>
-        
-        {/* Geometric shapes */}
-        <div
-          className="absolute left-10 bottom-10 w-32 h-32 bg-[#d3e4c5]/5"
-          style={{
-            clipPath: "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)",
-            transform: "rotate(15deg)",
-          }}
-        ></div>
-        
-        <div
-          className="absolute right-1/4 top-10 w-24 h-24 bg-[#d3e4c5]/5"
-          style={{
-            clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-            transform: "rotate(-10deg)",
-          }}
-        ></div>
-        
-        {/* Subtle grid lines */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="h-px w-full bg-white absolute top-1/4"></div>
-          <div className="h-px w-full bg-white absolute top-2/4"></div>
-          <div className="h-px w-full bg-white absolute top-3/4"></div>
-          <div className="w-px h-full bg-white absolute left-1/4"></div>
-          <div className="w-px h-full bg-white absolute left-2/4"></div>
-          <div className="w-px h-full bg-white absolute left-3/4"></div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        {/* Top Section with Logo/Description on left and Conference Cards on right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2  gap-12 mb-16">
-          {/* Left Side - Logo, Name, Description, Social Links */}
+    <footer className="herb-footer overflow-hidden bg-[var(--ink)] text-[#e9ece6]">
+      <div className="mx-auto max-w-[1400px] px-4 pt-16 sm:px-6 lg:pt-24">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-20">
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="bg-white/10 rounded-full p-2">
-                <div className="w-15 h-15 relative">
-                  <Image src="/singleLogo.svg?height=50&width=50" alt="ICSIFT Logo" fill className="object-contain" />
+            <p className="herb-italic text-[14px] text-[#aab5ad]">ICSIFT·04 — Back sheet</p>
+            <p className="mt-6 max-w-[24rem] text-[1.75rem] leading-tight tracking-[-0.02em]">{CONFERENCE.name.trim()}</p>
+            <dl className="mt-8 border-t border-[#3a463f] text-[15.5px]">
+              {[
+                ["Dates", CONFERENCE.date],
+                ["Locality", `${CONFERENCE.venue.location.trim()} · in person and online`],
+                ["Organised by", "Zep Research"],
+              ].map(([term, value]) => (
+                <div key={term} className="grid grid-cols-[7.5rem_1fr] gap-3 border-b border-[#3a463f] py-2.5">
+                  <dt className="herb-italic text-[14px] text-[#aab5ad]">{term}</dt>
+                  <dd>{value}</dd>
                 </div>
-              </div>
-              <span className="font-bold text-3xl text-white">ICSIFT</span>
-            </div>
-            <p className="text-white/80 mb-6 max-w-xl text-justify">
-              {CONFERENCE.name}. Join us {CONFERENCE.date} in {CONFERENCE.venue.location} for a transformative experience bringing together experts, researchers, and
-              industry leaders to explore groundbreaking advancements in sustainability and innovation.
-            </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://www.facebook.com/profile.php?id=61561809783777"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+              ))}
+            </dl>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/submission"
+                className="herb-btn !border-[#e9ece6] !bg-[#e9ece6] !text-[var(--ink)] hover:!bg-white"
               >
-                <Facebook size={18} />
-              </a>
-              <a
-                href="https://www.instagram.com/zepresearch/"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Instagram size={18} />
-              </a>
-              {/* <a
-                href="https://x.com/Zepresearch"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Twitter size={18} />
-              </a> */}
-              <a
-                href="https://www.linkedin.com/company/zep-research/"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Linkedin size={18} />
-              </a>
-              <a
-                href="https://www.youtube.com/@Zepresearch"
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-              >
-                <Youtube size={18} />
-              </a>
+                <span>Submit a paper</span>
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              </Link>
+              <Link href="/registration" className="herb-btn !border-[#e9ece6] !text-[#e9ece6] hover:!bg-[#e9ece6] hover:!text-[var(--ink)]">
+                <span>Register</span>
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              </Link>
             </div>
           </div>
 
-          {/* Right Side - Conference Cards */}
-          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {conferenceCards.map((card, index) => (
-              <div
-                key={index}
-                className="bg-white/5 rounded-2xl p-4 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all group"
-              >
-                <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 relative mr-2">
-                    <Image
-                      src={card.logo || "/placeholder.svg"}
-                      alt={`${card.title} Logo`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <h3 className="text-base font-bold">{card.title}</h3>
-                </div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 text-[#d3e4c5] mr-2 flex-shrink-0" />
-                    <span className="text-white/80">{card.date}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 text-[#d3e4c5] mr-2 flex-shrink-0" />
-                    <span className="text-white/80">{card.location}</span>
-                  </div>
-                </div>
-                <div className="mt-3 pt-2 border-t border-white/10">
-                  <Link
-                    href={`${card.href}`}
-                    className="text-[#d3e4c5] hover:text-white text-sm flex items-center group-hover:underline"
-                  >
-                    View Details
-                    <ArrowUp className="h-3 w-3 ml-1 rotate-45" />
-                  </Link>
-                </div>
-              </div>
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {COLUMNS.map((column) => (
+              <nav key={column.title} aria-label={column.title}>
+                <h2 className="text-[12.5px] font-semibold tracking-[0.08em] text-[#aab5ad] uppercase">{column.title}</h2>
+                <ul className="mt-4 space-y-2.5 text-[15.5px]">
+                  {column.links.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="herb-footer-link">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             ))}
-          </div> */}
-        
-
-        {/* Navigation Links */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 ">
-          {/* Contact Information */}
-          <div>
-            <h4 className="font-bold text-lg mb-4">Contact Us</h4>
-            <ul className="space-y-4">
-              <li>
-                <div className="space-y-1">
-                  
-                  <a
-                    href="mailto:info@icsift.com"
-                    className="inline-flex gap-4 text-white/70 hover:text-white transition-colors hover:underline "
-                  >
-                   <Mail/> info@icsift.com
+            <div>
+              <h2 className="text-[12.5px] font-semibold tracking-[0.08em] text-[#aab5ad] uppercase">Write to us</h2>
+              <ul className="mt-4 space-y-2.5 text-[15.5px]">
+                <li>
+                  <a href="mailto:info@icsift.com" className="herb-footer-link">
+                    info@icsift.com
                   </a>
-                </div>
-              </li>
-              <li>
-                <div className="space-y-1">
-                  {/* <p className="text-[#d3e4c5] text-sm">Phone</p> */}
-                  <a
-                    href="tel:+918260684845"
-                    className="inline-flex gap-2 text-white/70 hover:text-white transition-colors hover:underline "
-                  >
-                    <Contact/>+91 82600 80050
+                </li>
+                <li>
+                  <a href="tel:+918260684845" className="herb-footer-link">
+                    +91 82600 80050
                   </a>
-                </div>
-              </li>
-              <li>
-                <div className="space-y-1">
-                  <p className="text-white/70 inline-flex gap-2">
-                   <MapPin/> {CONFERENCE.venue.location}
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          {footerLinks.map((group, index) => (
-            <div key={index}>
-              <h4 className="font-bold text-lg mb-4">{group.title}</h4>
-              <ul className="space-y-2">
-                {group.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <Link href={link.href} className="text-white/70 hover:text-white transition-colors hover:underline">
-                      {link.label}
-                    </Link>
+                </li>
+              </ul>
+              <h2 className="mt-8 text-[12.5px] font-semibold tracking-[0.08em] text-[#aab5ad] uppercase">Follow</h2>
+              <ul className="mt-4 space-y-2.5 text-[15.5px]">
+                {SOCIAL.map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="herb-footer-link">
+                      {item.label}
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
+          </div>
         </div>
 
-        {/* Contact Information */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <div className="bg-white/5 rounded-2xl p-5 backdrop-blur-sm">
-            <div className="w-6 h-6 mb-3 text-[#d3e4c5] flex items-center justify-center">
-              <span className="text-xl font-bold">📧</span>
-            </div>
-            <h4 className="font-medium mb-1">Email Us</h4>
-            <p className="text-white/70">info@icsift.org</p>
-          </div>
-          <div className="bg-white/5 rounded-2xl p-5 backdrop-blur-sm">
-            <div className="w-6 h-6 mb-3 text-[#d3e4c5] flex items-center justify-center">
-              <span className="text-xl font-bold">📍</span>
-            </div>
-            <h4 className="font-medium mb-1">Location</h4>
-            <p className="text-white/70">Queen Sirikit National Convention Center, Bangkok, Thailand</p>
-          </div>
-          <div className="bg-white/5 rounded-2xl p-5 backdrop-blur-sm">
-            <div className="w-6 h-6 mb-3 text-[#d3e4c5] flex items-center justify-center">
-              <span className="text-xl font-bold">📅</span>
-            </div>
-            <h4 className="font-medium mb-1">Conference Dates</h4>
-            <p className="text-white/70">December 26-27, 2024</p>
-          </div>
-        </div> */}
-
-        {/* Bottom Section */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/60 text-sm mb-4 md:mb-0">
-            © 2026 ICSIFT. All rights reserved. Designed with sustainability in mind.
+        <div className="mt-16 border-t border-[#3a463f] pt-6">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[14px] text-[#aab5ad]">
+            {POLICIES.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="herb-footer-link !text-[#aab5ad] hover:!text-[#e9ece6]">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="herb-italic mt-4 text-[14px] text-[#aab5ad]">
+            © {new Date().getFullYear()} ICSIFT, organised by Zep Research. All rights reserved.
           </p>
-          <div className="grid md:grid-cols-4 grid-cols-2  gap-8 text-center">
-            <Link href="/terms-and-conditions" className="text-white/60 text-sm hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-            <Link href="/privacy-policy" className="text-white/60 text-sm hover:text-white transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/cancellation-policy" className="text-white/60 text-sm hover:text-white transition-colors">
-              Cancellation Policy
-            </Link>
-                  <Link href="/complaints-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
-             Complaints Policy
-            </Link>
-
-
-
-            <Link href="/disability-discrimination-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors ">
-             Disability Discrimination Policy
-            </Link>
-            <Link href="/health-and-safety-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
-             Health and Safety Policy
-            </Link>
-            <Link href="/equal-treatment-policy" className="text-white/60 text-sm hover:text-[#00adef] transition-colors">
-             Equal Treatment Policy
-            </Link>
-          </div>
         </div>
       </div>
 
-      {/* Scroll to top button */}
-      {/* <button
-        onClick={scrollToTop}
-        className={`fixed right-28 bottom-6 w-12 h-12 rounded-full bg-[#d3e4c5] text-[#1a2e1a] flex items-center justify-center shadow-lg transition-all duration-300 z-50 ${
-          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
+      <p
+        aria-hidden="true"
+        className="mt-10 -mb-[0.2em] text-center text-[clamp(5rem,22vw,20rem)] leading-[0.8] font-semibold tracking-[-0.05em] text-[#1c2a22] select-none"
       >
-        <ArrowUp size={20} />
-      </button> */}
+        ICSIFT
+      </p>
     </footer>
   )
 }

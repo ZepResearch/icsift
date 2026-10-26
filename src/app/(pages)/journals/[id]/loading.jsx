@@ -1,88 +1,22 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-
 export default function Loading() {
   return (
-    <div className="container mx-auto py-12">
-      <Button variant="ghost" className="mb-8" disabled>
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Back to Journals
-      </Button>
-
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Journal Details - Left Side */}
-        <div className="space-y-8">
-          <Skeleton className="h-12 w-3/4" />
-
-          <Skeleton className="aspect-[3/4] w-full rounded-xl" />
-
-          <div className="mb-6">
-            <Skeleton className="h-7 w-32 mb-2" />
-            <Skeleton className="h-10 w-full rounded-md" />
+    <main className="herb min-h-screen" aria-busy="true">
+      <div className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <div className="space-y-4 border-b border-[var(--ink)] pb-10">
+            <span className="block h-12 w-3/4 animate-pulse bg-[var(--rule-soft)]" />
+            <span className="block h-5 w-1/2 animate-pulse bg-[var(--rule-soft)]" />
           </div>
-
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <Skeleton className="h-7 w-32 mb-2" />
-              <Skeleton className="h-10 w-full rounded-md" />
+          <div className="mt-10 grid gap-12 lg:grid-cols-[3fr_2fr]">
+            <div className="grid gap-6 md:grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <span key={i} className="block h-12 animate-pulse bg-[var(--rule-soft)]" />
+              ))}
             </div>
-
-            <div>
-              <Skeleton className="h-7 w-32 mb-2" />
-              <Skeleton className="h-10 w-full rounded-md" />
-            </div>
+            <span className="block aspect-[3/4] max-w-[260px] animate-pulse bg-[var(--rule-soft)]" />
           </div>
-        </div>
-
-        {/* Submission Form - Right Side */}
-        <div>
-          <Card className="shadow-lg border-0 overflow-hidden">
-            <div className="h-2 bg-gradient-to-r from-green-400 to-blue-500"></div>
-            <CardHeader className="space-y-1 pb-6 pt-6">
-              <Skeleton className="h-8 w-48 mb-2" />
-              <Skeleton className="h-4 w-64" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div>
-                  <Skeleton className="h-5 w-32 mb-4" />
-                  <Skeleton className="h-10 w-full mb-4" />
-                </div>
-
-                <div>
-                  <Skeleton className="h-5 w-32 mb-4" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <Skeleton className="h-5 w-32 mb-4" />
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                    <Skeleton className="h-10 w-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <Skeleton className="h-5 w-32 mb-4" />
-                  <Skeleton className="h-24 w-full mb-4" />
-                  <Skeleton className="h-24 w-full" />
-                </div>
-
-                <Skeleton className="h-12 w-full" />
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

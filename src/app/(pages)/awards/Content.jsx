@@ -1,422 +1,221 @@
-"use client"
+import Image from "next/image";
+import { CONFERENCE } from "@/constants/conference";
+import { ActionLink } from "@/components/home/primitives";
+import Reveal from "@/components/home/Reveal";
 
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Award, Trophy, GraduationCap, Star, Users, FileText } from 'lucide-react'
-import Link from "next/link"
-import { CONFERENCE } from "@/constants/conference"
+const AWARDS = [
+  {
+    id: "best-presentation",
+    name: "Best paper presentation award",
+    description:
+      "For exceptional oral presentation: clarity, audience engagement, and the ability to make complex ideas in sustainability and innovation accessible and compelling.",
+    criteria: ["Clarity and organisation of the presentation", "Quality of visual materials", "Engagement with the audience", "Handling of the Q&A session"],
+  },
+  {
+    id: "best-paper",
+    name: "Best paper award",
+    description:
+      "For outstanding papers that show methodological rigour, new approaches and a significant contribution to sustainability and future technologies.",
+    criteria: ["Originality and innovation", "Methodological rigour", "Significance of findings", "Quality of writing and organisation"],
+  },
+  {
+    id: "outstanding-contributor",
+    name: "Outstanding contributor award",
+    description:
+      "For Advisory Committee members who actively bring research papers, participants, presenters and listeners, and contribute significantly to the conference's success.",
+    criteria: [
+      "Number and quality of papers facilitated",
+      "Participant registrations generated",
+      "Contribution in bringing presenters and attendees",
+      "Overall engagement and commitment",
+    ],
+    reward: "Special recognition, plus 10% remuneration per registration received through their contribution.",
+  },
+];
+
+const JUDGING = [
+  ["Initial screening", "The scientific committee reviews all eligible submissions and shortlists candidates for each award."],
+  ["Live evaluation", "Judges attend the presentations and score them against each award's criteria."],
+  ["Final selection", "The judging panel reviews every evaluation and selects the winners in each category."],
+  ["Award ceremony", `Winners are announced and recognised at the closing ceremony, ${CONFERENCE.date}.`],
+];
+
+const no = (index) => String(index + 1).padStart(2, "0");
+
 export default function AwardsPage() {
   return (
-    <main className="bg-[#f8faf5]">
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          {/* Large blob in top right */}
-          <div
-            className="absolute -right-40 -top-40 w-[30rem] h-[30rem] opacity-20"
-            style={{
-              borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-              background: "linear-gradient(45deg, #d3e4c5, #4d724d)",
-            }}
-          ></div>
-
-          {/* Small circle in bottom left */}
-          <div className="absolute left-20 bottom-20 w-16 h-16 rounded-full bg-[#d3e4c5]/40"></div>
-
-          {/* Medium circle in top left */}
-          <div className="absolute -left-10 top-40 w-32 h-32 rounded-full bg-[#b9d4a3]/30"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a2e1a] mb-6">
-              Conference
-              <span className="relative inline-block mx-2">
-                <span className="relative z-10">Awards</span>
-                <span className="absolute inset-0 bg-[#d3e4c5] rounded-full transform -rotate-1 scale-110 z-0"></span>
-              </span>
+    <main className="herb min-h-screen">
+      {/* Title sheet: title and a numbered index of the awards left, a tall photograph right. */}
+      <section aria-labelledby="awards-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16 lg:p-12">
+          <div className="flex flex-col">
+            <h1 id="awards-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
+              Work worth recognising.
             </h1>
-            <p className="text-xl text-[#4d724d] mb-8">
-              Recognizing excellence in sustainability, innovation, and future technologies research
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
+              Awards at the {CONFERENCE.shortForm} honour outstanding papers, presentations and contributors. They are merit
+              based, and the best papers earn a discount on your next registration.
+            </p>
+
+            <ol className="mt-10 border-t border-[var(--ink)]">
+              {AWARDS.map((award, index) => (
+                <li key={award.id} className="border-b border-[var(--rule)]">
+                  <a href={`#${award.id}`} className="grid grid-cols-[2.5rem_1fr] items-baseline py-4 text-[19px] hover:text-[var(--green)]">
+                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(index)}</span>
+                    {award.name}
+                  </a>
+                </li>
+              ))}
+              <li className="border-b border-[var(--rule)]">
+                <a href="#scholarships" className="grid grid-cols-[2.5rem_1fr] items-baseline py-4 text-[19px] hover:text-[var(--green)]">
+                  <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(AWARDS.length)}</span>
+                  Grants and scholarships
+                </a>
+              </li>
+            </ol>
+
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:mt-auto lg:pt-10">
+              <ActionLink href="/submission" primary>
+                Submit a paper
+              </ActionLink>
+              <ActionLink href="/registration">Register to attend</ActionLink>
+            </div>
+          </div>
+
+          <figure className="flex flex-col">
+            <div className="herb-mount herb-photo herb-photo-settle relative aspect-[4/5] w-full lg:aspect-auto lg:min-h-[600px] lg:flex-1">
+              <Image
+                src="/gallery/3rd-icsift (5).jpg"
+                alt="A conference co-chair receiving a recognition plaque on stage"
+                fill
+                priority
+                sizes="(min-width: 1024px) 40vw, 100vw"
+                className="object-cover object-[45%_50%]"
+              />
+            </div>
+            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">A recognition plaque presented on stage, 3rd ICSIFT</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* Award categories: three columns divided by hairlines. */}
+      <section aria-labelledby="categories-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+          <h2 id="categories-title" className="herb-h2 max-w-[16ch]">
+            Three awards, judged on merit.
+          </h2>
+          <div className="mt-10 grid gap-px border-t border-[var(--ink)] bg-[var(--rule)] lg:grid-cols-3">
+            {AWARDS.map((award, index) => (
+              <article key={award.id} id={award.id} className="flex scroll-mt-24 flex-col bg-[var(--sheet)] py-8 lg:px-8 lg:first:pl-0 lg:last:pr-0">
+                <p className="herb-italic text-[15px] text-[var(--ink-2)]">Award {no(index)}</p>
+                <h3 className="mt-2 text-[clamp(1.5rem,1.2rem+0.9vw,1.9rem)] leading-tight font-normal tracking-[-0.02em]">{award.name}</h3>
+                <p className="herb-muted mt-4 text-[16px] leading-relaxed">{award.description}</p>
+                <h4 className="mt-8 text-[13px] font-semibold tracking-[0.08em] uppercase">Criteria</h4>
+                <ul className="mt-3 border-t border-[var(--ink)]">
+                  {award.criteria.map((criterion) => (
+                    <li key={criterion} className="border-b border-[var(--rule)] py-2.5 text-[16px]">
+                      {criterion}
+                    </li>
+                  ))}
+                </ul>
+                {award.reward ? (
+                  <p className="mt-5 text-[15.5px]">
+                    <span className="herb-italic text-[var(--ink-2)]">Reward. </span>
+                    {award.reward}
+                  </p>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Scholarships */}
+      <section id="scholarships" aria-labelledby="scholarships-title" className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:p-12">
+          <div>
+            <h2 id="scholarships-title" className="herb-h2 max-w-[14ch]">
+              Grants and scholarships.
+            </h2>
+            <p className="mt-8 max-w-[38rem] text-[18px] leading-relaxed">
+              Zep Research helps young scholars reach their research and academic goals, and encourages them to bring
+              interdisciplinary thinking to their work.
+            </p>
+            <p className="herb-muted mt-5 max-w-[38rem]">
+              Full or partial scholarships covering registration fees go to selected postgraduate students and early-career
+              academics who might not otherwise afford to attend.
+            </p>
+            <p className="mt-8 max-w-[38rem] border-t border-[var(--ink)] pt-6 text-[clamp(1.25rem,1rem+0.8vw,1.6rem)] leading-snug">
+              Up to 20% off your next registration for the best paper and best paper presenters.
+            </p>
+            <p className="herb-italic mt-2 text-[15px] text-[var(--ink-2)]">Scholarships depend on available funds and vary by conference.</p>
+          </div>
+
+          <dl className="border-t border-[var(--ink)] self-start">
+            {[
+              [
+                "Who can receive one",
+                "Awards are based on how well the opportunity fits the applicant's field of study, their financial need, and their contribution to their community and to Zep Research's mission of interdisciplinarity.",
+              ],
+              [
+                "How recipients are selected",
+                `The ${CONFERENCE.shortForm} Program Committee awards scholarships to eligible applicants whose exceptional abstracts passed blind peer review and were accepted for presentation. Presenting your work exceptionally at the conference is a second route to a scholarship.`,
+              ],
+            ].map(([term, value]) => (
+              <div key={term} className="border-b border-[var(--rule)] py-6">
+                <dt className="text-[19px]">{term}</dt>
+                <dd className="herb-muted mt-2 text-[16px] leading-relaxed">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </section>
+
+      {/* Judging */}
+      <section aria-labelledby="judging-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div>
+            <h2 id="judging-title" className="herb-h2 max-w-[13ch]">
+              How winners are chosen.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[26rem]">
+              A panel of researchers, industry professionals and academic leaders evaluates every submission and presentation.
             </p>
           </div>
+          <Reveal as="ol" className="border-t border-[var(--ink)]">
+            {JUDGING.map(([title, body], index) => (
+              <li
+                key={title}
+                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
+              >
+                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(index)}</span>
+                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
+                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
+              </li>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      {/* Awards Scholarship */}
-      <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#d3e4c5]/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#4d724d]/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-
-          <div className="relative p-8 md:p-12 lg:p-16">
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#4d724d] p-0.5 mb-6">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#edf6e1]">
-                  <GraduationCap className="h-8 w-8 text-[#4d724d]" />
-                </div>
-              </div>
-
-              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-[#1a2e1a]">
-                About Zep Research's Grants and Scholarships
-              </h2>
-
-              <div className="space-y-6 text-[#4d724d] text-left max-w-3xl mx-auto">
-                <p>
-                  Zep Research is dedicated to helping young scholars achieve their research and academic goals, while
-                  encouraging them to apply the principles of interdisciplinary study to their work.
-                </p>
-
-                <p>
-                  Zep Research offers full or partial scholarships covering conference registration fees to select
-                  postgraduate students and early career academics who might not otherwise have the financial resources
-                  to attend our academic conferences.
-                </p>
-
-                <div className="bg-white rounded-xl border border-[#d3e4c5] p-6 mt-8">
-                  <h3 className="text-xl font-semibold text-[#1a2e1a] mb-4 flex items-center">
-                    <Users className="h-5 w-5 mr-2" />
-                    Who can receive Zep Research's grant or scholarship?
-                  </h3>
-                  <p className="text-[#4d724d]">
-                    Awards are based on the appropriateness of the educational opportunity in relation to the
-                    applicant's field of study, financial need, and contributions to their community and to Zep
-                    Research's mission of interdisciplinarity. Scholarships will be awarded based on the availability of
-                    funds from Zep Research and will vary with each conference.
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl border border-[#d3e4c5] p-6">
-                  <h3 className="text-xl font-semibold text-[#1a2e1a] mb-4 flex items-center">
-                    <Award className="h-5 w-5 mr-2" />
-                    How are recipients selected?
-                  </h3>
-                  <p className="text-[#4d724d] mb-4">
-                    The Conference Program Committee of The {CONFERENCE.shortForm} will award scholarships to eligible applicants
-                    who have submitted exceptional abstracts that have passed the blind peer review process and been
-                    accepted for presentation at the conference.
-                  </p>
-                  <p className="text-[#4d724d]">
-                    Another chance to get the scholarship is for those who presented their research work exceptionally
-                    in the conference.
-                  </p>
-                </div>
-
-                <div className="bg-gradient-to-r from-[#4d724d] to-[#6b8e6b] rounded-xl p-6 text-white">
-                  <h3 className="text-xl font-semibold mb-4">Details of Scholarship</h3>
-                  <p className="text-lg">
-                    Upto 20% Discount on the next registration will be provided to the best paper and best paper presenters. Scholarships cover full or partial conference registration fees based on fund availability.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
-                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                  <div className="text-3xl font-bold text-[#4d724d] mb-1">20%</div>
-                  <div className="text-[#4d724d]">Discount on Next Registration</div>
-                </div>
-
-                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                  <div className="text-3xl font-bold text-[#4d724d] mb-1">1</div>
-                  <div className="text-[#4d724d]">Award Categories</div>
-                </div>
-
-                <div className="bg-white rounded-xl border border-[#d3e4c5] p-4">
-                  <div className="text-3xl font-bold text-[#4d724d] mb-1">100%</div>
-                  <div className="text-[#4d724d]">Merit Based</div>
-                </div>
-              </div>
-            </div>
+      {/* Closing */}
+      <section aria-labelledby="awards-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+          <div>
+            <h2 id="awards-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+              Put your work in the running.
+            </h2>
+            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+              Submit your paper and register for the {CONFERENCE.shortForm} to be considered for an award.
+            </p>
           </div>
-        </div>
-      </div>
-    </section>
-
-      {/* Award Categories */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e1a] mb-6">Award Categories</h2>
-            <div className="h-1 w-20 bg-[#4d724d] mx-auto mb-8 rounded-full"></div>
+          <div className="grid gap-3">
+            <ActionLink href="/submission" primary>
+              Submit a paper
+            </ActionLink>
+            <ActionLink href="/registration">Register to attend</ActionLink>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Best Talk Award */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-[#d3e4c5]/50 rounded-3xl blur-xl opacity-70"></div>
-              
-              <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full shadow-sm">
-                <div className="absolute top-0 left-0 right-0 h-24 bg-[#d3e4c5]/50"></div>
-                
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="flex justify-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 -mt-4 mb-6 shadow-lg">
-                      <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                        <Trophy className="h-10 w-10 text-[#4d724d]" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">BEST PAPER PRESENTATION AWARD</h3>
-
-                  <div className="space-y-4 text-[#4d724d] flex-grow">
-                    <p>
-                      Recognizing exceptional oral presentation skills, clarity of communication, and audience
-                      engagement. This award celebrates researchers who can effectively convey complex ideas in
-                      sustainability and innovation in an accessible and compelling manner.
-                    </p>
-
-                    <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-4 space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Star className="h-5 w-5 text-[#4d724d]" />
-                        <span className="text-[#1a2e1a] font-medium">Award Criteria</span>
-                      </div>
-
-                      <ul className="space-y-2 pl-7">
-                        <li className="list-disc text-[#4d724d]">Clarity and organization of presentation</li>
-                        <li className="list-disc text-[#4d724d]">Quality of visual materials</li>
-                        <li className="list-disc text-[#4d724d]">Engagement with audience</li>
-                        <li className="list-disc text-[#4d724d]">Handling of Q&A session</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* <div className="mt-6 text-center">
-                    <div className="inline-flex items-center justify-center p-1 rounded-full bg-[#4d724d]">
-                      <div className="px-6 py-2 rounded-full bg-white text-[#1a2e1a] font-medium">
-                        $2,000 Prize
-                      </div>
-                    </div>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-
-            {/* Top Paper Award */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-[#b9d4a3]/50 rounded-3xl blur-xl opacity-70"></div>
-              
-              <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full shadow-sm">
-                <div className="absolute top-0 left-0 right-0 h-24 bg-[#b9d4a3]/50"></div>
-                
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="flex justify-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 -mt-4 mb-6 shadow-lg">
-                      <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                        <FileText className="h-10 w-10 text-[#4d724d]" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4">BEST PAPER AWARD</h3>
-
-                  <div className="space-y-4 text-[#4d724d] flex-grow">
-                    <p>
-                      Honoring outstanding research papers that demonstrate methodological rigor, innovative approaches,
-                      and significant contributions to sustainability and future technologies. This award recognizes the
-                      highest quality of written scholarship presented at the conference.
-                    </p>
-
-                    <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-4 space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Star className="h-5 w-5 text-[#4d724d]" />
-                        <span className="text-[#1a2e1a] font-medium">Award Criteria</span>
-                      </div>
-
-                      <ul className="space-y-2 pl-7">
-                        <li className="list-disc text-[#4d724d]">Originality and innovation</li>
-                        <li className="list-disc text-[#4d724d]">Methodological rigor</li>
-                        <li className="list-disc text-[#4d724d]">Significance of findings</li>
-                        <li className="list-disc text-[#4d724d]">Quality of writing and organization</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* <div className="mt-6 text-center">
-                    <div className="inline-flex items-center justify-center p-1 rounded-full bg-[#4d724d]">
-                      <div className="px-6 py-2 rounded-full bg-white text-[#1a2e1a] font-medium">
-                        $2,000 Prize
-                      </div>
-                    </div>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-
-            {/* Best Student Award */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-[#d3e4c5]/50 rounded-3xl blur-xl opacity-70"></div>
-              
-              <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden h-full shadow-sm">
-                <div className="absolute top-0 left-0 right-0 h-24 bg-[#d3e4c5]/50"></div>
-                
-                <div className="relative p-8 flex flex-col h-full">
-                  <div className="flex justify-center">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#4d724d] p-0.5 -mt-4 mb-6 shadow-lg">
-                      <div className="flex h-full w-full items-center justify-center rounded-full bg-white">
-                        <GraduationCap className="h-10 w-10 text-[#4d724d]" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-[#1a2e1a] text-center mb-4 uppercase">OUTSTANDING CONTRIBUTOR AWARD</h3>
-
-                  <div className="space-y-4 text-[#4d724d] flex-grow">
-                    <p>
-                     Celebrating exceptional contributions from Advisory Committee members.
-This award recognizes committee members who actively fulfill their responsibilities by bringing research papers, participants, presenters, and listeners, and who significantly contribute to the overall success of the conference.
-                    </p>
-
-                    <div className="bg-[#edf6e1] rounded-xl border border-[#d3e4c5] p-4 space-y-3">
-                      <div className="flex items-center gap-2">
-                        <Star className="h-5 w-5 text-[#4d724d]" />
-                        <span className="text-[#1a2e1a] font-medium">Award Criteria</span>
-                      </div>
-
-                      <ul className="space-y-2 pl-7">
-                   
-                        <li className="list-disc text-[#4d724d]">Number and quality of papers facilitated</li>
-                        <li className="list-disc text-[#4d724d]">Participant registrations generated</li>
-                        <li className="list-disc text-[#4d724d]">Contribution in bringing presenters and attendees</li>
-                        <li className="list-disc text-[#4d724d]">Overall engagement and commitment</li>
-                        <li className="list-disc text-[#4d724d]">Outstanding contributors will receive special recognition along with a 10% remuneration per registration received through their contribution.</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* <div className="mt-6 text-center">
-                    <div className="inline-flex items-center justify-center p-1 rounded-full bg-[#4d724d]">
-                      <div className="px-6 py-2 rounded-full bg-white text-[#1a2e1a] font-medium">
-                        $1,000 Prize
-                      </div>
-                    </div>
-                  </div> */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Judging Process */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="relative bg-[#edf6e1] rounded-3xl overflow-hidden shadow-sm">
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#d3e4c5]/50 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-[#4d724d]/30 rounded-full blur-3xl"></div>
-
-            <div className="relative p-8 md:p-12 lg:p-16">
-              <div className="max-w-3xl mx-auto">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#4d724d] p-0.5">
-                    <div className="flex h-full w-full items-center justify-center rounded-lg bg-white">
-                      <Users className="h-6 w-6 text-[#4d724d]" />
-                    </div>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-[#1a2e1a]">Judging Process</h2>
-                </div>
-
-                <div className="space-y-6 text-[#4d724d]">
-                  <p>
-                    All submissions and presentations at {CONFERENCE.shortForm} will be evaluated by our panel of expert judges,
-                    comprising leading researchers, industry professionals, and academic leaders in sustainability,
-                    innovation, and future technologies.
-                  </p>
-
-                  <div className="space-y-6 mt-8">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] text-white font-bold">
-                        1
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-medium text-[#1a2e1a] mb-2">Initial Screening</h3>
-                        <p className="text-[#4d724d]">
-                          All eligible submissions are reviewed by the scientific committee to create a shortlist of
-                          candidates for each award category.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] text-white font-bold">
-                        2
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-medium text-[#1a2e1a] mb-2">Live Evaluation</h3>
-                        <p className="text-[#4d724d]">
-                          Judges attend presentations and evaluate them based on the specific criteria for each award
-                          category.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] text-white font-bold">
-                        3
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-medium text-[#1a2e1a] mb-2">Final Selection</h3>
-                        <p className="text-[#4d724d]">
-                          The judging panel meets to review all evaluations and select the winners for each category.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#4d724d] text-white font-bold">
-                        4
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-medium text-[#1a2e1a] mb-2">Award Ceremony</h3>
-                        <p className="text-[#4d724d]">
-                          Winners are announced and recognized during the closing ceremony on {CONFERENCE.date}
-                          </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-[#f8faf5]">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="relative bg-white rounded-3xl border border-[#d3e4c5] overflow-hidden p-8 shadow-sm">
-              <div className="absolute -inset-px rounded-3xl bg-[#d3e4c5]/20 opacity-50"></div>
-
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-[#1a2e1a] mb-3">Ready to Showcase Your Research?</h3>
-                <p className="text-[#4d724d] mb-6">
-                  Submit your paper and register for {CONFERENCE.shortForm} to be considered for our prestigious awards.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/submission">
-
-                  <Button className="bg-[#4d724d] hover:bg-[#3c5c3c] text-white rounded-full">
-                    Submit Your Paper
-                  </Button>
-                  </Link>
-
-                  <Link href="/registration">
-                    <Button variant="outline" className="border-[#4d724d] text-[#1a2e1a] hover:bg-[#d3e4c5]/50 rounded-full">
-                      Register Now <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Reveal>
       </section>
     </main>
-  )
+  );
 }

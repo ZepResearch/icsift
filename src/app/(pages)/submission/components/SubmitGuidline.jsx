@@ -1,157 +1,78 @@
-import { FileText, Settings, Upload, User, Hash, Target, AlertCircle } from "lucide-react"
+import Reveal from "@/components/home/Reveal";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
+const FORMAT = [
+  ["Word limit", "250 to 300 words"],
+  ["Font", "Arial or Times New Roman, 12 point"],
+  ["Spacing", "Single-spaced"],
+  ["File", "Word (.doc or .docx)"],
+];
+
+const STRUCTURE = [
+  ["Title", "A clear, concise title of up to 15 words."],
+  ["Author(s)", "Full name, affiliation and email address for every author. Identify the corresponding author."],
+  ["Keywords", "Three to five keywords related to the topic."],
+  ["Abstract body", "The objective, methodology, results and significance of the research, briefly."],
+];
+
+const RULES = [
+  "Submit through this online form.",
+  "Abstracts sent by email are not accepted unless specifically permitted.",
+  "Abstracts that do not meet these requirements may be rejected without review.",
+];
 
 export default function AbstractSubmissionGuidelines() {
-  const formatRequirements = [
-    {
-      label: "Word Limit",
-      value: "250-300 words maximum",
-      icon: FileText,
-    },
-    {
-      label: "Font",
-      value: "Arial or Times New Roman, 12-point",
-      icon: Settings,
-    },
-    {
-      label: "Spacing",
-      value: "Single-spaced",
-      icon: Settings,
-    },
-  ]
-
-  const structureElements = [
-    {
-      title: "Title",
-      description: "Clear and concise title of the paper (up to 15 words)",
-      icon: Target,
-      limit: "15 words max",
-    },
-    {
-      title: "Author(s)",
-      description: "Full name, affiliation, and email address for all authors. Identify the corresponding author",
-      icon: User,
-      limit: "Required",
-    },
-    {
-      title: "Keywords",
-      description: "3-5 relevant keywords related to the topic",
-      icon: Hash,
-      limit: "3-5 keywords",
-    },
-    {
-      title: "Abstract Body",
-      description: "Briefly describe the objective, methodology, results, and significance of the research",
-      icon: FileText,
-      limit: "Main content",
-    },
-  ]
-
-  const submissionRequirements = [
-    "Submit through the conference's online submission portal",
-    "Ensure submissions are in  Word (.doc/.docx) format",
-    "Abstracts sent via email will not be accepted unless specifically permitted",
-  ]
-
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-white shadow-2xl">
-      <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-bold">Abstract Submission Guidelines</CardTitle>
-        <CardDescription className="text-lg">
-          Follow these requirements to ensure your abstract meets submission standards
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-8">
-        {/* Length & Format Section */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Settings className="w-5 h-5 text-[#4d724d]" />
-            <h3 className="text-xl font-semibold">Length & Format</h3>
-          </div>
-          <div className="grid gap-4 md:grid-cols-3">
-            {formatRequirements.map((req, index) => {
-              const IconComponent = req.icon
-              return (
-                <div key={index} className="p-4 rounded-lg border bg-card">
-                  <div className="flex items-center gap-2 mb-2">
-                    <IconComponent className="w-4 h-4 text-muted-foreground" />
-                    <span className="font-medium text-sm">{req.label}</span>
+    <section aria-labelledby="guidelines-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
+      <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-16">
+          <div>
+            <h2 id="guidelines-title" className="herb-h2 max-w-[14ch]">
+              Abstract guidelines.
+            </h2>
+            <p className="herb-muted mt-5 max-w-[30rem]">
+              Follow these so your abstract meets the submission standard. For technical problems, write to{" "}
+              <a href="mailto:info@icsift.com" className="herb-link">
+                info@icsift.com
+              </a>
+              .
+            </p>
+
+            <div className="herb-label mt-10">
+              <h3 className="border-b border-[var(--ink)] px-4 py-2 text-[13px] font-semibold tracking-[0.08em] uppercase">Length and format</h3>
+              <dl className="divide-y divide-[var(--rule)]">
+                {FORMAT.map(([term, value]) => (
+                  <div key={term} className="grid grid-cols-[7.5rem_1fr] gap-3 px-4 py-2.5 max-sm:grid-cols-1 max-sm:gap-0.5">
+                    <dt>{term}</dt>
+                    <dd>{value}</dd>
                   </div>
-                  <p className="text-sm text-muted-foreground">{req.value}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Structure Section */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#4d724d]" />
-            <h3 className="text-xl font-semibold">Required Structure</h3>
-          </div>
-          <div className="space-y-4">
-            {structureElements.map((element, index) => {
-              const IconComponent = element.icon
-              return (
-                <div key={index} className="p-4 rounded-lg border bg-card hover:bg-accent/50 transition-colors">
-                  <div className="flex items-start gap-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-muted flex-shrink-0 mt-1">
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1 space-y-2">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-semibold">{element.title}</h4>
-                        <Badge variant="secondary" className="text-xs">
-                          {element.limit}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{element.description}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Submission Platform Section */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Upload className="w-5 h-5 text-[#4d724d]" />
-            <h3 className="text-xl font-semibold">Submission Platform</h3>
-          </div>
-          <div className="space-y-3">
-            {submissionRequirements.map((requirement, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
-                <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                <p className="text-sm leading-relaxed">{requirement}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Important Notice */}
-        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
-          <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <h4 className="font-semibold text-amber-800 mb-1">Important Notice</h4>
-              <p className="text-sm text-amber-700">
-                Please review all guidelines carefully before submission. Abstracts that do not meet these requirements
-                may be rejected without review. For technical issues, contact the conference support team.
-              </p>
+                ))}
+              </dl>
             </div>
           </div>
+
+          <div>
+            <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Structure</h3>
+            <ol className="mt-4 border-t border-[var(--ink)]">
+              {STRUCTURE.map(([title, body], index) => (
+                <li key={title} className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-5 sm:grid-cols-[2.5rem_9rem_1fr] sm:gap-x-6">
+                  <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-[17px] font-medium">{title}</span>
+                  <span className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</span>
+                </li>
+              ))}
+            </ol>
+
+            <h3 className="mt-10 text-[13px] font-semibold tracking-[0.08em] uppercase">How to send it</h3>
+            <ul className="mt-4 border-t border-[var(--ink)]">
+              {RULES.map((rule) => (
+                <li key={rule} className="border-b border-[var(--rule)] py-3.5 text-[16.5px]">
+                  {rule}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </CardContent>
-    </Card>
-  )
+      </Reveal>
+    </section>
+  );
 }

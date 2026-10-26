@@ -1,0 +1,473 @@
+/* Herbarium tokens: shared by pages (.herb), the navbar and the footer. */
+.herb,
+.herb-nav,
+.herb-footer,
+.herb-mobile-menu {
+  --mount: #e9ece6;
+  --sheet: #ffffff;
+  --ink: #0f1a14;
+  --ink-2: #4f5a53;
+  --rule: #c9cfc8;
+  --rule-soft: #e1e5e0;
+  --green: #1f5e3b;
+  --green-deep: #174a2e;
+  --tape: rgba(236, 233, 220, 0.82);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.herb,
+.herb-nav,
+.herb-footer {
+  --font-sans: var(--font-sheet);
+  font-family: var(--font-sheet), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.herb {
+  background: var(--mount);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+}
+
+.herb ::selection,
+.herb-nav ::selection,
+.herb-footer ::selection {
+  background: var(--green);
+  color: #fff;
+}
+
+.herb :focus-visible,
+.herb-nav :focus-visible,
+.herb-footer :focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.herb a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+}
+
+.herb-sheet {
+  position: relative;
+  background: var(--sheet);
+  box-shadow: 0 1px 2px rgba(15, 26, 20, 0.05), 0 18px 40px -24px rgba(15, 26, 20, 0.22);
+}
+
+.herb-sheet-no {
+  font-family: var(--font-label), Georgia, serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1;
+}
+
+.herb-display {
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.herb-h2 {
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.6rem);
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.herb-italic {
+  font-family: var(--font-label), Georgia, serif;
+  font-style: italic;
+}
+
+.herb-muted {
+  color: var(--ink-2);
+}
+
+.herb-label {
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+}
+
+.herb-label dt {
+  font-family: var(--font-label), Georgia, serif;
+  font-style: italic;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+
+.herb-label dd {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.45;
+}
+
+.herb-rule {
+  border-top: 1px solid var(--rule);
+}
+
+.herb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 54px;
+  padding: 0 20px;
+  font-size: 16.5px;
+  font-weight: 500;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  text-decoration: none;
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+
+.herb-btn svg {
+  transition: transform 260ms var(--ease-out);
+}
+
+.herb-btn:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.herb-btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+.herb-btn[data-primary] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.herb-btn[data-primary]:hover {
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+}
+
+.herb-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  transition: text-decoration-color 200ms var(--ease-out);
+}
+
+.herb-link:hover {
+  text-decoration-color: var(--green);
+}
+
+/* A photograph mounted with two linen tape straps. */
+.herb-mount {
+  position: relative;
+}
+
+.herb-mount::before,
+.herb-mount::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 64px;
+  height: 20px;
+  background: var(--tape);
+  box-shadow: 0 1px 1px rgba(15, 26, 20, 0.08);
+  pointer-events: none;
+}
+
+.herb-mount::before {
+  top: -9px;
+  left: 18px;
+  transform: rotate(-4deg);
+}
+
+.herb-mount::after {
+  bottom: -9px;
+  right: 18px;
+  transform: rotate(-3deg);
+}
+
+.herb-photo {
+  overflow: hidden;
+  background: #d5dbd4;
+}
+
+.herb-photo img {
+  transition: transform 1200ms var(--ease-out);
+}
+
+.herb-settle {
+  animation: herb-settle 900ms var(--ease-out) both;
+}
+
+@keyframes herb-settle {
+  from {
+    transform: translateY(12px);
+    opacity: 0.001;
+  }
+}
+
+.herb-photo-settle img {
+  animation: herb-photo 1600ms var(--ease-out) both;
+}
+
+@keyframes herb-photo {
+  from {
+    transform: scale(1.03);
+  }
+}
+
+.herb-reveal {
+  transition: transform 800ms var(--ease-out), opacity 800ms var(--ease-out);
+}
+
+.herb-reveal[data-hidden] {
+  transform: translateY(12px);
+  opacity: 0;
+}
+
+.herb-tab {
+  position: relative;
+  padding: 8px 0;
+  font-size: 15.5px;
+  color: var(--ink-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 200ms var(--ease-out);
+}
+
+.herb-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease-out);
+}
+
+.herb-tab:hover {
+  color: var(--ink);
+}
+
+.herb-tab[aria-selected="true"] {
+  color: var(--ink);
+}
+
+.herb-tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.herb-faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.herb-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.herb-faq summary svg {
+  transition: transform 260ms var(--ease-out);
+}
+
+.herb-faq details[open] summary svg {
+  transform: rotate(45deg);
+}
+
+.herb-dialog {
+  margin: 0 0 0 auto;
+  height: 100dvh;
+  max-height: 100dvh;
+  width: min(460px, 100vw);
+  border: 0;
+  padding: 0;
+  background: var(--sheet);
+  color: var(--ink);
+}
+
+.herb-dialog::backdrop {
+  background: rgba(15, 26, 20, 0.42);
+}
+
+.herb-dialog[open] {
+  animation: herb-panel 420ms var(--ease-out);
+}
+
+/* Full-screen photo viewer: the photo laid on mount board. */
+.herb-lightbox {
+  margin: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border: 0;
+  padding: 0;
+  background: var(--mount);
+  color: var(--ink);
+}
+
+.herb-lightbox::backdrop {
+  background: rgba(15, 26, 20, 0.42);
+}
+
+.herb-lightbox[open] {
+  animation: herb-fade 260ms var(--ease-out);
+}
+
+@keyframes herb-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes herb-panel {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .herb *,
+  .herb *::before,
+  .herb *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .herb-reveal[data-hidden] {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* Navigation */
+.herb-nav {
+  color: var(--ink);
+}
+
+.herb-nav-link {
+  position: relative;
+  padding: 6px 0;
+  font-size: 15px;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.herb-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease-out);
+}
+
+.herb-nav-link:hover::after,
+.herb-nav-link[data-active]::after {
+  transform: scaleX(1);
+}
+
+.herb-nav-link[data-active] {
+  color: var(--green);
+}
+
+.herb-nav-menu {
+  animation: herb-menu 220ms var(--ease-out);
+  box-shadow: 0 18px 40px -24px rgba(15, 26, 20, 0.35);
+}
+
+@keyframes herb-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.herb-mobile-menu {
+  color: var(--ink);
+  font-family: var(--font-sheet), system-ui, sans-serif;
+  animation: herb-menu 260ms var(--ease-out);
+}
+
+/* Footer */
+.herb-footer-link {
+  color: #e9ece6;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+
+.herb-footer-link:hover {
+  text-decoration-color: currentColor;
+}
+
+.herb-footer :focus-visible {
+  outline-color: #e9ece6;
+}
+
+/* Hairline figures: the kernel's palette mapped onto the herbarium tokens. */
+.sdg-figure-stage {
+  --hairline-plate: #ffffff;
+  --hairline-hi: #1f5e3b;
+  --hairline-edge: #4f5a53;
+  --hairline-mid: #9aa59d;
+  --hairline-lo: #cfd5cf;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Form fields: square, ruled, ink on hover, green focus ring. */
+.herb-input {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: var(--sheet);
+  color: var(--ink);
+  padding: 0.8rem 1rem;
+  font-size: 16px;
+  border-radius: 0;
+  transition: border-color 200ms var(--ease-out);
+}
+
+.herb-input::placeholder {
+  color: var(--ink-2);
+  opacity: 0.75;
+}
+
+.herb-input:hover {
+  border-color: var(--ink);
+}
+
+.herb-input:focus,
+.herb-input:focus-within {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+  border-color: var(--ink);
+}
+
+/* react-phone-number-input inside a .herb-input wrapper: the inner field takes no chrome of its own. */
+.herb-input .PhoneInputInput {
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+}
