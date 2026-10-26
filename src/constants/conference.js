@@ -18,7 +18,7 @@ coOrganizers: [
  
    {
     name: "Polytechnic University of the Philippines",
-    logo: "/co-org/putp.jpeg",
+    logo: "/co-org/PUTP.jpeg",
   }, {
     name: "Department of Education – Schools Division Office of Bulacan",
     logo: "/co-org/bulacandeped.jpeg",

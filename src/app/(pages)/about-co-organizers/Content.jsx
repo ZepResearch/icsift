@@ -24,6 +24,43 @@ const CO_ORGANIZERS = [
       facebook: "https://www.facebook.com/ThePUPOfficials",
     },
   },
+  {
+  id: "bulacan-deped",
+  name: "Department of Education – Schools Division Office of Bulacan",
+  logo: "/co-org/bulacandeped.jpeg",
+  about:
+    "The Department of Education – Schools Division Office of Bulacan is a government education office under the Department of Education in the Philippines. Located in the Provincial Capitol Compound, Guinhawa, City of Malolos, Bulacan, it oversees and supports public and private elementary and secondary schools, promotes equitable access to quality basic education, and implements educational programs and initiatives that support learner development and lifelong learning.",
+  vision:
+    "We dream of Filipinos who passionately love their country and whose values and competencies enable them to realize their full potential and contribute meaningfully to building the nation. As a learner-centered public institution, the Department of Education continuously improves itself to better serve its stakeholders.",
+  mission:
+    "To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education. Students learn in a child-friendly, gender-sensitive, safe, and motivating environment; teachers facilitate learning and nurture every learner; administrators and staff ensure a supportive learning environment; and families, communities, and stakeholders share responsibility for developing lifelong learners.",
+  mandate:
+    "The Department of Education formulates, implements, and coordinates policies, plans, programs, and projects for formal and non-formal basic education. It supervises elementary and secondary education institutions, including alternative learning systems, and supports a complete, adequate, and integrated basic education system aligned with national development goals.",
+  values: [
+    "Maka-Diyos",
+    "Maka-tao",
+    "Makakalikasan",
+    "Makabansa"
+  ],
+  culture: [
+    "Inclusive and equitable education",
+    "Learner-centered teaching and learning",
+    "Community and stakeholder engagement",
+    "Safe and supportive learning environments"
+  ],
+  competencies: [
+    "Basic education governance and supervision",
+    "Curriculum implementation",
+    "Teacher development and instructional support",
+    "Inclusive education and learner support",
+  ],
+  contact: {
+    website: "https://bulacandeped.com.ph",
+    email: "bulacan@deped.gov.ph",
+    facebook: "https://www.facebook.com/sdobulacan/",
+    history: "https://bulacandeped.com.ph/history/"
+  }
+},
   // {
   //   id: "ssc",
   //   name: "Sulu State College",
