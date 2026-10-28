@@ -196,14 +196,14 @@ export default function AboutConferencePage() {
             <figure className="mt-10">
               <div className="herb-mount herb-photo relative aspect-[3/2]">
                 <Image
-                  src="/gallery/3rd-icsift (20).jpg"
+                  src="/gallery/ICSIFT_06.jpg"
                   alt="A student from the University of the Cordilleras speaking at the lectern"
                   fill
                   sizes="(min-width: 1024px) 45vw, 100vw"
                   className="object-cover object-[50%_30%]"
                 />
               </div>
-              <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">A student presenter, 3rd ICSIFT</figcaption>
+              <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">ICSIFT participants networking during the conference dinner at the 1st ICSIFT.</figcaption>
             </figure>
 
             <AccessionLabel

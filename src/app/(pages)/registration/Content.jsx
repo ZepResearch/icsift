@@ -224,7 +224,7 @@ export default function RegistrationPage() {
           <form onSubmit={chooseCustom} noValidate className="grid gap-5 self-end">
             <Field id="custom-amount" label="Amount in US dollars" error={customError} hint={`Between $1 and $10,000.`}>
               <div className="relative">
-                <span aria-hidden="true" className="absolute top-1/2 left-4 -translate-y-1/2 text-[var(--ink-2)]">
+                <span aria-hidden="true" className="absolute top-1/2 left-1 -translate-y-1/2 text-[var(--ink-2)]">
                   $
                 </span>
                 <input
@@ -234,7 +234,7 @@ export default function RegistrationPage() {
                   onChange={(event) => setCustomAmount(event.target.value)}
                   aria-invalid={Boolean(customError)}
                   aria-describedby={customError ? "custom-amount-error" : "custom-amount-hint"}
-                  className="herb-input pl-8 text-[18px]"
+                  className="herb-input p-8 text-[18px]"
                 />
               </div>
             </Field>

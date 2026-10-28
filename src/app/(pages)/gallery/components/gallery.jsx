@@ -18,7 +18,7 @@ const EDITIONS = [
       "/gallery/3rd-icsift (13).jpg",
       "/gallery/3rd-icsift  (59).jpeg",
       "/gallery/3rd-icsift  (34).jpeg",
-      "/gallery/3rd-icsift (14).jpg",
+      // "/gallery/3rd-icsift (14).jpg",
       "/gallery/3rd-icsift  (58).jpeg",
       ...range(1, 24)
         .filter((n) => ![13, 14, 15].includes(n))

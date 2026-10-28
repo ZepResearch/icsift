@@ -8,7 +8,7 @@ import Reveal from "./Reveal";
 
 const PHOTOS = [
   { src: "/gallery/3rd-icsift  (34).jpeg", caption: "Delegates on the terrace, 3rd ICSIFT, Philippines", span: "lg:col-span-7 lg:row-span-2", ratio: "aspect-[4/3] lg:aspect-auto lg:h-full" },
-  { src: "/gallery/3rd-icsift (14).jpg", caption: "Between sessions, 3rd ICSIFT", span: "lg:col-span-5", ratio: "aspect-[3/2]" },
+  { src: "/gallery/3rd-icsift (7).jpg", caption: "Between sessions, 3rd ICSIFT", span: "lg:col-span-5", ratio: "aspect-[3/2]" },
   { src: "/gallery/2nd-ICSIFT_03.jpg", caption: "Delegates on stage, 2nd ICSIFT, Bangkok 2025", span: "lg:col-span-5", ratio: "aspect-[3/2]" },
   { src: "/gallery/3rd-icsift (5).jpg", caption: "A certificate handed over, 3rd ICSIFT", span: "lg:col-span-4", ratio: "aspect-[4/3]" },
   { src: "/gallery/3rd-icsift  (58).jpeg", caption: "Plenary hall, 3rd ICSIFT", span: "lg:col-span-4", ratio: "aspect-[4/3]" },

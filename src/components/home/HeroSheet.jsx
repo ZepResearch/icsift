@@ -31,14 +31,12 @@ export default function HeroSheet() {
             <div>
               <h1
                 id="hero-title"
-                className="herb-display max-w-[12ch] text-[clamp(3rem,1.2rem+5.4vw,6.25rem)]"
+                className="herb-display max-w-[200ch] text-[clamp(2rem,1.2rem+3.4vw,4.25rem)]"
               >
-                Sustainable innovation, {city}.
+                {CONFERENCE.name.trim()}
               </h1>
               <p className="mt-6 max-w-[36rem] text-[18px] leading-relaxed bg-tranparent backdrop-blur-sm rounded-2xl p-1">
-                The {CONFERENCE.name.trim()}: two days of papers, keynotes and
-                working sessions, in the room or online, with a route to indexed
-                publication.
+                The {CONFERENCE.shortForm} in {city} brings together two days of research presentations, keynote speeches, and collaborative sessions, available both in person and online, with opportunities for publication in indexed journals.
               </p>
             </div>
 
@@ -90,7 +88,7 @@ export default function HeroSheet() {
               ],
               [
                 "Organised by",
-                `Zep Research, with ${CONFERENCE.coOrganizers.map((org) => org.name).join(" and ")}`,
+                `Zep Research`,
               ],
             ]}
           />
