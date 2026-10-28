@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { CONFERENCE } from "@/constants/conference";
 import { ActionLink } from "./primitives";
 import Reveal from "./Reveal";
+import VenueMedia from "./VenueMedia";
 
 export default function VenueSheet() {
   const { city, location, address } = CONFERENCE.venue;
@@ -45,16 +45,10 @@ export default function VenueSheet() {
 
         <div className="flex flex-col gap-10">
           <figure>
-            <div className="herb-mount herb-photo relative aspect-[4/3]">
-              <Image
-                src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?q=80&w=1600&auto=format&fit=crop"
-                alt="Loha Prasat at Wat Ratchanatdaram, Bangkok"
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">Loha Prasat, Wat Ratchanatdaram: {city} hosts the {CONFERENCE.edition} edition</figcaption>
+            <VenueMedia />
+            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">
+              Khon dancers and a Grand Palace guardian: {city} hosts the {CONFERENCE.edition} edition
+            </figcaption>
           </figure>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>

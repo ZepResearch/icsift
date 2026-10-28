@@ -15,7 +15,6 @@ const NAV = [
       { href: "/about-conference", title: "About the conference" },
       { href: "/about-organizers", title: "About the organisers" },
       { href: "/about-co-organizers", title: "About the co-organisers" },
-      { href: "/committee", title: "Committee" },
     ],
   },
   {
@@ -30,6 +29,8 @@ const NAV = [
     ],
   },
   { title: "Submission", href: "/submission" },
+      { href: "/committee", title: "Committee" },
+
   { title: "Venue", href: "/venue" },
   {
     title: "Publications",

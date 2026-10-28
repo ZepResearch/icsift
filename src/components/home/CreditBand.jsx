@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import { AwardFigure, HoursFigure } from "./CreditFigures";
 
 const ENTRIES = [
   {
@@ -17,6 +18,7 @@ const ENTRIES = [
     body: "Attending earns certified hours toward your Continuing Professional Development record.",
     href: "/registration",
     cta: "Registration details",
+    figure: HoursFigure,
   },
   {
     term: "Recognition",
@@ -24,6 +26,7 @@ const ENTRIES = [
     body: "Best Talk, Top Paper and Best Student are among the awards that honour outstanding work at the conference.",
     href: "/awards",
     cta: "View the awards",
+    figure: AwardFigure,
   },
 ];
 
@@ -44,9 +47,15 @@ export default function CreditBand() {
               <h3 className="mt-3 text-[1.6rem] leading-tight font-normal tracking-[-0.02em]">{entry.title}</h3>
               <p className="herb-muted mt-3 max-w-[36ch] text-[16px]">{entry.body}</p>
               {entry.marks ? (
-                <div className="mt-6 flex items-center gap-6">
+                <div className="mt-6 flex flex-wrap items-center gap-6">
                   <Image src="/assets/scopus.png" alt="Scopus" width={120} height={40} className="h-8 w-auto object-contain" />
                   <Image src="/assets/clarivate.png" alt="Clarivate" width={140} height={42} className="h-11 w-auto object-contain" />
+                  <Image src="/assets/zepresearch.png" alt="Web of Science" width={140} height={42} className="h-11 w-auto object-contain" />
+                </div>
+              ) : null}
+              {entry.figure ? (
+                <div className="mt-8 w-full max-w-[240px]">
+                  <entry.figure />
                 </div>
               ) : null}
               <Link href={entry.href} className="herb-link mt-auto pt-8 text-[15.5px]">
