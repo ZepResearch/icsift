@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { ActionPair, BarList, CallBand, FactCells, Field, PageHero, SPLIT } from "@/components/signal/page";
 
-// Current co-organisers. Each entry renders as its own sheet; past partners are kept below, commented out.
+// Current co-organisers. Each entry renders as its own field; past partners are kept below, commented out.
 const CO_ORGANIZERS = [
   {
     id: "pup",
@@ -139,46 +138,38 @@ function contactRows({ website, email, phone, facebook }) {
   ].filter(Boolean);
 }
 
-function RuledList({ title, items }) {
-  return (
-    <div>
-      <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">{title}</h3>
-      <ul className="mt-3 border-t border-[var(--ink)]">
-        {items.map((item) => (
-          <li key={item} className="border-b border-[var(--rule)] py-2.5 text-[16px]">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function OrganizerSheet({ org }) {
+// One field per co-organiser, alternating cream and forest. Left (sticky): logo tile, name, values, contacts.
+// Right: about, vision / mission / mandate as panels, then culture and competencies as bar lists.
+function OrganizerField({ org, tone }) {
   const contacts = contactRows(org.contact);
   return (
-    <section id={org.id} aria-labelledby={`${org.id}-name`} className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-      <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20 lg:p-12">
-        <div>
-          <div className="flex aspect-square w-full max-w-[220px] items-center justify-center border border-[var(--rule)] p-6">
+    <Field tone={tone} id={org.id} labelledBy={`${org.id}-name`}>
+      <div className={SPLIT}>
+        <div className="lg:sticky lg:top-40 lg:self-start">
+          <div data-enter className="flex aspect-square w-full max-w-[200px] items-center justify-center bg-white p-6">
             <Image src={org.logo} alt={`${org.name} logo`} width={200} height={200} className="max-h-full w-auto object-contain" />
           </div>
-          <h2 id={`${org.id}-name`} className="mt-8 text-[clamp(1.75rem,1.3rem+1.4vw,2.5rem)] leading-[1.1] font-normal tracking-[-0.02em] text-balance">
+          <h2 id={`${org.id}-name`} data-enter style={{ "--i": 1 }} className="sig-display mt-8 text-[clamp(2.2rem,1.5rem+2.2vw,3.6rem)]">
             {org.name}
           </h2>
           {org.values?.length ? (
-            <p className="herb-italic mt-3 text-[15px] text-[var(--ink-2)]">{org.values.join(" · ")}</p>
+            <ul data-enter style={{ "--i": 2 }} className="mt-5 flex flex-wrap gap-2">
+              {org.values.map((value) => (
+                <li key={value} className="bg-[var(--panel)] px-3 py-1.5 text-[15px] font-semibold">
+                  {value}
+                </li>
+              ))}
+            </ul>
           ) : null}
-
           {contacts.length ? (
-            <dl className="herb-label mt-8 divide-y divide-[var(--rule)]">
+            <dl data-enter style={{ "--i": 3 }} className="mt-8 grid gap-3 text-[16.5px]">
               {contacts.map(([term, label, href]) => (
-                <div key={term} className="grid grid-cols-[6.5rem_1fr] gap-3 px-4 py-2.5">
-                  <dt>{term}</dt>
+                <div key={term}>
+                  <dt className="text-[15px] text-[var(--muted)]">{term}</dt>
                   <dd className="min-w-0 break-words">
                     <a
                       href={href}
-                      className="herb-link"
+                      className="sig-link font-semibold"
                       {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     >
                       {label}
@@ -190,10 +181,11 @@ function OrganizerSheet({ org }) {
           ) : null}
         </div>
 
-        <div>
-          <p className="max-w-[44rem] text-[18px] leading-relaxed">{org.about}</p>
-
-          <dl className="mt-10 border-t border-[var(--ink)]">
+        <div className="grid content-start gap-10">
+          <p data-enter style={{ "--i": 2 }} className="max-w-[44rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug">
+            {org.about}
+          </p>
+          <dl data-enter style={{ "--i": 3 }} className="grid gap-2">
             {[
               ["Vision", org.vision],
               ["Mission", org.mission],
@@ -201,93 +193,83 @@ function OrganizerSheet({ org }) {
             ]
               .filter(([, value]) => value)
               .map(([term, value]) => (
-                <div key={term} className="grid gap-x-6 gap-y-1 border-b border-[var(--rule)] py-5 sm:grid-cols-[7rem_1fr]">
-                  <dt className="herb-italic text-[15px] text-[var(--ink-2)]">{term}</dt>
-                  <dd className="text-[16.5px] leading-relaxed">{value}</dd>
+                <div key={term} className="bg-[var(--panel)] p-6 sm:p-7">
+                  <dt className="sig-display text-[24px] leading-none">{term}</dt>
+                  <dd className="mt-3 text-[17px] text-[var(--muted)]">{value}</dd>
                 </div>
               ))}
           </dl>
-
-          <div className="mt-10 grid gap-10 sm:grid-cols-2">
-            {org.culture?.length ? <RuledList title="Culture" items={org.culture} /> : null}
-            {org.competencies?.length ? <RuledList title="Core competencies" items={org.competencies} /> : null}
+          <div data-enter style={{ "--i": 4 }} className="grid gap-10 sm:grid-cols-2">
+            {org.culture?.length ? (
+              <div>
+                <h3 className="sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Culture</h3>
+                <BarList items={org.culture.map((item) => [item])} className="mt-5 !gap-3" titleClass="text-[17px] font-medium" />
+              </div>
+            ) : null}
+            {org.competencies?.length ? (
+              <div>
+                <h3 className="sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Core competencies</h3>
+                <BarList items={org.competencies.map((item) => [item])} className="mt-5 !gap-3" titleClass="text-[17px] font-medium" />
+              </div>
+            ) : null}
           </div>
         </div>
-      </Reveal>
-    </section>
+      </div>
+    </Field>
   );
 }
 
 export default function AboutCoOrganizersPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: full-width title over three ruled columns (intro, facts, action). */}
-      <section aria-labelledby="coorg-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <h1 id="coorg-title" className="herb-display max-w-[20ch] text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-            The institutions that host the work with us.
-          </h1>
-
-          {/* The 1px gap shows the rule colour through, drawing hairlines between the columns. */}
-          <div className="mt-12 grid gap-px border-t border-[var(--ink)] bg-[var(--rule)] lg:grid-cols-3">
-            <div className="bg-[var(--sheet)] py-6 lg:pr-8">
-              <p className="herb-muted text-[17px] leading-relaxed">
-                Each edition of ICSIFT is co-organised with universities and academic bodies that share its work on
-                sustainability, innovation and future technologies.
-              </p>
-            </div>
-            <dl className="bg-[var(--sheet)] py-6 lg:px-8">
-              {[
+    <main className="sig min-h-screen">
+      {/* Hero: title and lead left; the conference facts and a jump link to each co-organiser right. */}
+      <PageHero
+        id="coorg-title"
+        tag="Co-organisers"
+        title="The institutions that host the work with us"
+        titleClass="text-[clamp(2.8rem,1.4rem+4.6vw,6rem)]"
+        lead="Each edition of ICSIFT is co-organised with universities and academic bodies that share its work on sustainability, innovation and future technologies."
+        actions={<ActionPair tone="forest" primary={["#partner", "Become a co-organiser"]} secondary={null} />}
+        aside={
+          <div className="grid gap-2">
+            <FactCells
+              facts={[
                 ["Conference", CONFERENCE.shortForm],
                 ["Dates", CONFERENCE.date],
-                ["Locality", `${CONFERENCE.venue.location.trim()} · and online`],
-              ].map(([term, value]) => (
-                <div key={term} className="grid grid-cols-[6.5rem_1fr] gap-3 py-1">
-                  <dt className="herb-italic text-[15px] text-[var(--ink-2)]">{term}</dt>
-                  <dd className="text-[16px]">{value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="flex flex-col gap-3 bg-[var(--sheet)] py-6 lg:pl-8">
-              <ActionLink href="#partner" primary>
-                Become a co-organiser
-              </ActionLink>
+              ]}
+              size="text-[clamp(1.3rem,1.1rem+0.6vw,1.7rem)]"
+            />
+            <ul className="grid gap-2">
               {CO_ORGANIZERS.map((org) => (
-                <a key={org.id} href={`#${org.id}`} className="herb-link w-fit text-[15.5px]">
-                  {org.name}
-                </a>
+                <li key={org.id}>
+                  <a
+                    href={`#${org.id}`}
+                    className="flex items-center gap-4 bg-[var(--panel)] p-4 transition-colors duration-200 hover:bg-[var(--signal)] hover:text-[var(--forest)]"
+                  >
+                    <span className="grid h-12 w-12 shrink-0 place-items-center bg-white p-1.5">
+                      <Image src={org.logo} alt="" width={48} height={48} className="max-h-full w-auto object-contain" />
+                    </span>
+                    <span className="text-[17px] leading-snug font-semibold">{org.name}</span>
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {CO_ORGANIZERS.map((org) => (
-        <OrganizerSheet key={org.id} org={org} />
+      {CO_ORGANIZERS.map((org, index) => (
+        <OrganizerField key={org.id} org={org} tone={index % 2 ? "forest" : "cream"} />
       ))}
 
-      {/* Closing: invite partners, keep Submit and Register reachable. */}
-      <section id="partner" aria-labelledby="partner-title" className="scroll-mt-24 px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="partner-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Co-organise the {CONFERENCE.shortForm}.
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
-              Interested in partnering with us? Get in touch to explore how your institution can join the conference.
-            </p>
-          </div>
-          <div className="grid gap-3">
-            <ActionLink href="/contact" primary>
-              Contact the organisers
-            </ActionLink>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <ActionLink href="/submission">Submit a paper</ActionLink>
-              <ActionLink href="/registration">Register to attend</ActionLink>
-            </div>
-          </div>
-        </Reveal>
-      </section>
+      <div id="partner" className="scroll-mt-28">
+        <CallBand
+          title={`Co-organise the ${CONFERENCE.shortForm}`}
+          text="Interested in partnering with us? Get in touch to explore how your institution can join the conference."
+          primary={["/contact", "Contact the organisers"]}
+          secondary={["/submission", "Submit a paper"]}
+        />
+      </div>
     </main>
   );
 }

@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { pb } from "@/lib/pocketbase";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { CallBand, Field, PageHero } from "@/components/signal/page";
 
 const fileUrl = (record, filename) =>
   filename ? `${process.env.NEXT_PUBLIC_POCKETBASE_URL}/api/files/${record.collectionId}/${record.id}/${filename}` : null;
@@ -26,11 +25,11 @@ function factsOf(record) {
 function Cover({ record, sizes, priority = false }) {
   const cover = fileUrl(record, record.cover_img);
   return (
-    <div className="herb-photo relative aspect-[3/4] w-full border border-[var(--rule)] bg-[var(--rule-soft)]">
+    <div className="herb-photo relative aspect-[3/4] w-full bg-[var(--panel)]">
       {cover ? (
         <Image src={cover} alt={`Cover of the ${record.conference_name} proceedings`} fill sizes={sizes} priority={priority} className="object-cover" />
       ) : (
-        <span className="herb-italic absolute inset-0 grid place-items-center p-4 text-center text-[14px] text-[var(--ink-2)]">
+        <span className="sig-display absolute inset-0 grid place-items-center p-4 text-center text-[22px]">
           {record.conference_acronym || "Proceedings"}
         </span>
       )}
@@ -38,14 +37,65 @@ function Cover({ record, sizes, priority = false }) {
   );
 }
 
-function DownloadLink({ record, className = "" }) {
+function DownloadButton({ record, tone = "dark" }) {
   const pdf = fileUrl(record, record.proceedings_pdf);
-  if (!pdf) return <span className="herb-italic text-[14.5px] text-[var(--ink-2)]">PDF to be published</span>;
+  if (!pdf) return <span className="text-[15.5px] text-[var(--muted)]">PDF to be published</span>;
   return (
-    <a href={pdf} target="_blank" rel="noopener noreferrer" className={`herb-link inline-flex items-center gap-2 text-[15.5px] ${className}`}>
-      <Download aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
-      Download PDF
+    <a href={pdf} target="_blank" rel="noopener noreferrer" className="sig-btn" {...{ [`data-${tone}`]: "" }}>
+      <Download aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />
+      <span>Download PDF</span>
     </a>
+  );
+}
+
+// The newest volume as the hero's specimen: cover on a panel beside its name, facts and the download.
+function LatestVolume({ loading, failed, latest }) {
+  return (
+    <div aria-busy={loading} aria-live="polite">
+      <p className="text-[16px] text-[var(--muted)]">Latest volume</p>
+      <div className="mt-3 grid gap-5 bg-[var(--panel)] p-5 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] sm:p-6">
+        {loading ? (
+          <>
+            <div className="aspect-[3/4] animate-pulse bg-[var(--forest)]" />
+            <div className="space-y-3">
+              <span className="block h-7 w-4/5 animate-pulse bg-[var(--forest)]" />
+              <span className="block h-5 w-2/3 animate-pulse bg-[var(--forest)]" />
+              <span className="block h-5 w-1/2 animate-pulse bg-[var(--forest)]" />
+            </div>
+          </>
+        ) : latest ? (
+          <>
+            <Cover record={latest} sizes="(min-width: 1024px) 18vw, (min-width: 640px) 35vw, 100vw" priority />
+            <div className="flex flex-col">
+              {latest.conference_acronym ? <p className="text-[15.5px] text-[var(--muted)]">{latest.conference_acronym}</p> : null}
+              <p className="sig-display mt-1 text-[clamp(1.5rem,1.2rem+0.9vw,2.1rem)] leading-[1.04]">{latest.conference_name}</p>
+              <dl className="mt-5 grid gap-3">
+                {factsOf(latest).map(([term, value]) => (
+                  <div key={term}>
+                    <dt className="text-[14.5px] text-[var(--muted)]">{term}</dt>
+                    <dd className="mt-0.5 text-[16.5px] font-semibold">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mt-5">
+                {fileUrl(latest, latest.proceedings_pdf) ? (
+                  <a href={fileUrl(latest, latest.proceedings_pdf)} target="_blank" rel="noopener noreferrer" className="sig-btn" data-fill="">
+                    <Download aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />
+                    <span className="whitespace-nowrap">Download PDF</span>
+                  </a>
+                ) : (
+                  <p className="text-[16px] text-[var(--muted)]">The PDF will be published here soon.</p>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <p className="text-[17px] sm:col-span-2">
+            {failed ? "The proceedings could not load just now. Please refresh the page." : "Proceedings will be published here soon."}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -67,138 +117,79 @@ export default function ProceedingsContent() {
   const latest = records?.[0];
 
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: title left; the newest volume, with cover and facts, set as a specimen on the right. */}
-      <section aria-labelledby="proceedings-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
-          <div className="flex flex-col">
-            <h1 id="proceedings-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              The research, bound and published.
-            </h1>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
-              Published conference proceedings, with research and scholarly contributions from academics around the world.
-              Download any volume as a PDF.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15.5px] lg:mt-auto lg:pt-10">
-              <a href="#catalogue" className="herb-link">
-                All volumes
-              </a>
-              <Link href="/journals" className="herb-link">
-                Indexed journals
-              </Link>
-              <Link href="/papers-format" className="herb-link">
-                Paper format
-              </Link>
-            </div>
+    <main className="sig min-h-screen">
+      {/* Hero: title, lead and links left; the newest volume as a specimen right. */}
+      <PageHero
+        id="proceedings-title"
+        tag="Proceedings"
+        title="The research, bound and published"
+        lead="Published conference proceedings, with research and scholarly contributions from academics around the world. Download any volume as a PDF."
+        actions={
+          <div className="flex flex-wrap gap-x-8 gap-y-3 text-[16px] font-semibold">
+            <a href="#catalogue" className="sig-link">
+              All volumes
+            </a>
+            <Link href="/journals" className="sig-link">
+              Indexed journals
+            </Link>
+            <Link href="/papers-format" className="sig-link">
+              Paper format
+            </Link>
           </div>
+        }
+        aside={<LatestVolume loading={loading} failed={failed} latest={latest} />}
+      />
 
-          <div aria-busy={loading} aria-live="polite">
-            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Latest volume</h2>
-            <div className="mt-4 grid gap-6 border-t border-[var(--ink)] pt-6 sm:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)]">
-              {loading ? (
-                <>
-                  <div className="aspect-[3/4] animate-pulse bg-[var(--rule-soft)]" />
-                  <div className="space-y-3">
-                    <span className="block h-6 w-4/5 animate-pulse bg-[var(--rule-soft)]" />
-                    <span className="block h-4 w-2/3 animate-pulse bg-[var(--rule-soft)]" />
-                    <span className="block h-4 w-1/2 animate-pulse bg-[var(--rule-soft)]" />
-                  </div>
-                </>
-              ) : latest ? (
-                <>
-                  <Cover record={latest} sizes="(min-width: 1024px) 20vw, (min-width: 640px) 40vw, 100vw" priority />
-                  <div>
-                    {latest.conference_acronym ? (
-                      <p className="herb-italic text-[15px] text-[var(--ink-2)]">{latest.conference_acronym}</p>
-                    ) : null}
-                    <p className="mt-1 text-[clamp(1.35rem,1.1rem+0.7vw,1.7rem)] leading-tight tracking-[-0.02em]">{latest.conference_name}</p>
-                    <dl className="mt-5 divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
-                      {factsOf(latest).map(([term, value]) => (
-                        <div key={term} className="grid grid-cols-[6.5rem_1fr] gap-3 py-2">
-                          <dt className="herb-italic text-[14.5px] text-[var(--ink-2)]">{term}</dt>
-                          <dd className="text-[15px]">{value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                    {fileUrl(latest, latest.proceedings_pdf) ? (
-                      <ActionLink href={fileUrl(latest, latest.proceedings_pdf)} external primary className="mt-6">
-                        Download the proceedings
-                      </ActionLink>
-                    ) : (
-                      <p className="herb-italic mt-6 text-[15px] text-[var(--ink-2)]">The PDF will be published here soon.</p>
-                    )}
-                  </div>
-                </>
-              ) : (
-                <p className="herb-muted sm:col-span-2">
-                  {failed ? "The proceedings could not load just now. Please refresh the page." : "Proceedings will be published here soon."}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Catalogue: a ruled index of every volume. */}
+      {/* Catalogue: every volume as a panel with its cover, facts and download. */}
       {records?.length ? (
-        <section id="catalogue" aria-labelledby="catalogue-title" className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-          <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 id="catalogue-title" className="herb-h2">
-                All volumes.
-              </h2>
-              <p className="herb-italic text-[16px] text-[var(--ink-2)]">
-                {records.length} {records.length === 1 ? "volume" : "volumes"}, newest first
-              </p>
-            </div>
-            <ol className="mt-10 border-t border-[var(--ink)]">
-              {records.map((record) => (
-                <li
-                  key={record.id}
-                  className="grid grid-cols-[5.5rem_1fr] gap-x-6 gap-y-4 border-b border-[var(--rule)] py-6 sm:grid-cols-[7rem_minmax(0,1fr)_auto] sm:items-start"
-                >
-                  <Cover record={record} sizes="112px" />
-                  <div className="min-w-0">
-                    {record.conference_acronym ? (
-                      <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">{record.conference_acronym}</p>
-                    ) : null}
-                    <h3 className="mt-0.5 text-[19px] leading-snug">{record.conference_name}</h3>
-                    <dl className="mt-3 grid gap-x-6 gap-y-1 text-[14.5px] md:grid-cols-2">
-                      {factsOf(record).map(([term, value]) => (
-                        <div key={term} className="flex gap-2">
-                          <dt className="herb-italic shrink-0 text-[var(--ink-2)]">{term}</dt>
-                          <dd className="min-w-0 break-words">{value}</dd>
-                        </div>
-                      ))}
-                    </dl>
+        <Field tone="cream" id="catalogue" labelledBy="catalogue-title">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 id="catalogue-title" data-enter className="sig-h2">
+              All volumes
+            </h2>
+            <p data-enter style={{ "--i": 1 }} className="text-[17px] font-semibold text-[var(--muted)]">
+              {records.length} {records.length === 1 ? "volume" : "volumes"}, newest first
+            </p>
+          </div>
+          <ol className="mt-12 grid gap-2 lg:grid-cols-2">
+            {records.map((record, index) => (
+              <li
+                key={record.id}
+                data-enter
+                style={{ "--i": 2 + (index % 4) }}
+                className="grid grid-cols-[5.5rem_1fr] gap-x-5 gap-y-5 bg-[var(--panel)] p-5 sm:grid-cols-[8rem_1fr] sm:grid-rows-[auto_1fr] sm:p-6"
+              >
+                <div className="sm:row-span-2">
+                  <Cover record={record} sizes="128px" />
+                </div>
+                <div className="min-w-0">
+                  {record.conference_acronym ? <p className="text-[15px] text-[var(--muted)]">{record.conference_acronym}</p> : null}
+                  <h3 className="sig-display mt-1 text-[clamp(1.25rem,1.1rem+0.6vw,1.7rem)] leading-[1.05]">{record.conference_name}</h3>
+                </div>
+                <div className="col-span-2 flex min-w-0 flex-col sm:col-span-1 sm:col-start-2">
+                  <dl className="grid gap-y-1 text-[15.5px]">
+                    {factsOf(record).map(([term, value]) => (
+                      <div key={term} className="flex gap-2">
+                        <dt className="shrink-0 text-[var(--muted)]">{term}</dt>
+                        <dd className="min-w-0 break-words font-medium">{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="mt-5 sm:mt-auto sm:pt-5">
+                    <DownloadButton record={record} />
                   </div>
-                  <div className="col-start-2 sm:col-start-3">
-                    <DownloadLink record={record} className="whitespace-nowrap" />
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
-        </section>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Field>
       ) : null}
 
-      {/* Closing */}
-      <section aria-labelledby="proceedings-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="proceedings-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Get your paper into the next volume.
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">Submit your paper to present it at the next edition.</p>
-          </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
-        </Reveal>
-      </section>
+      <CallBand
+        id="proceedings-closing-title"
+        title="Get your paper into the next volume"
+        text="Submit your paper to present it at the next edition."
+      />
     </main>
   );
 }

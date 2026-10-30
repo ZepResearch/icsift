@@ -3,13 +3,13 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReCAPTCHA from "react-google-recaptcha";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
+import { BarList, FactCells, PageHero } from "@/components/signal/page";
+import SigButton from "@/components/signal/SigButton";
 import { useAuth } from "@/context/AuthContext";
 import pb from "@/lib/zep-pocketbase";
 import {
@@ -34,9 +34,10 @@ const ASKS = [
   ["The file", "Your paper as a Word file, .doc or .docx, up to 10 MB."],
 ];
 
+// The three steps as panels in the hero; the current one turns yellow and tracks real progress.
 function StepStrip({ current }) {
   return (
-    <ol className="mt-12 grid gap-2 sm:grid-cols-3" aria-label="Submission steps">
+    <ol className="grid gap-2" aria-label="Submission steps">
       {STEPS.map((step, index) => {
         const state = index < current ? "Done" : index === current ? "Now" : "Next";
         const now = index === current;
@@ -44,60 +45,21 @@ function StepStrip({ current }) {
           <li
             key={step}
             aria-current={now ? "step" : undefined}
-            className={`px-5 py-5 transition-colors duration-300 ${
-              now ? "bg-[var(--green)] text-white" : index < current ? "bg-[var(--mount)]" : "bg-[var(--mount)] text-[var(--ink-2)]"
+            className={`grid grid-cols-[3.5rem_1fr] items-center gap-x-4 px-5 py-4 transition-colors duration-300 ${
+              now ? "bg-[var(--signal)] text-[var(--forest)]" : "bg-[var(--panel)]"
             }`}
           >
-            <span className={`herb-italic block text-[14px] ${now ? "text-white/80" : "text-[var(--ink-2)]"}`}>{state}</span>
-            <span className="mt-1 block text-[clamp(1.2rem,1rem+0.6vw,1.5rem)] leading-tight tracking-[-0.01em]">{step}</span>
+            <span aria-hidden="true" className="sig-display text-[2.8rem] leading-none">
+              {index + 1}
+            </span>
+            <span>
+              <span className={`block text-[15px] font-semibold ${now ? "" : "text-[var(--muted)]"}`}>{state}</span>
+              <span className="sig-display mt-0.5 block text-[clamp(1.4rem,1.15rem+0.7vw,1.9rem)] leading-[1.04]">{step}</span>
+            </span>
           </li>
         );
       })}
     </ol>
-  );
-}
-
-function TitleRow() {
-  const location = CONFERENCE.venue.location.trim();
-  return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-      <div>
-        <h1 id="submission-title" className="herb-display text-[clamp(2.75rem,1.2rem+4.4vw,5.75rem)]">
-          Submit your paper.
-        </h1>
-        <p className="mt-6 text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] leading-snug tracking-[-0.01em]">
-          <span className="block">{CONFERENCE.date}</span>
-          <span className="block">
-            {location}
-            <span className="text-[var(--green)]"> · </span>
-            and online
-          </span>
-        </p>
-        <p className="mt-6 max-w-[32rem] text-[17px] leading-relaxed">
-          Send your abstract or full paper to the {CONFERENCE.shortForm} and present it in person, online or as a poster. Read
-          the{" "}
-          <a href="#guidelines" className="herb-link">
-            abstract guidelines
-          </a>{" "}
-          first; submissions that do not follow them may be returned.
-        </p>
-      </div>
-      <figure>
-        <div className="herb-mount herb-photo herb-photo-settle relative aspect-[3/2]">
-          <Image
-            src="/gallery/2nd-ICSIFT_05.jpg"
-            alt="A presenter at the lectern with his paper title projected on the screen behind him"
-            fill
-            priority
-            sizes="(min-width: 1024px) 600px, 100vw"
-            className="object-cover object-[60%_50%]"
-          />
-        </div>
-        <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">
-          A paper presented at the 2nd ICSIFT, Bangkok. Yours could be on that screen next.
-        </figcaption>
-      </figure>
-    </div>
   );
 }
 
@@ -179,127 +141,138 @@ export default function PaperSubmissionPage() {
   const step = !user ? 0 : selectedFile ? 2 : 1;
   const err = (name) => errors[name];
 
+  const location = CONFERENCE.venue.location.trim();
+
   return (
-    <main className="herb min-h-screen">
-      <section aria-labelledby="submission-title" className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <TitleRow />
-          <StepStrip current={step} />
+    <main className="sig min-h-screen">
+      {/* Hero: title, dates and place left; the three-step strip right, tracking real progress. */}
+      <PageHero
+        id="submission-title"
+        tag="Submission"
+        title="Submit your paper"
+        lead={
+          <>
+            {CONFERENCE.date}, {location} and online. Send your abstract or full paper to the {CONFERENCE.shortForm} and present it
+            in person, online or as a poster. Read the{" "}
+            <a href="#guidelines" className="sig-link font-semibold text-[var(--signal)]">
+              abstract guidelines
+            </a>{" "}
+            first; submissions that do not follow them may be returned.
+          </>
+        }
+        aside={<StepStrip current={step} />}
+      />
 
+      {/* The form (or the sign-in prompt) on cream, with the sticky "Before you submit" rail. */}
+      <section aria-labelledby="form-title" className="sig-cream">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16 lg:px-10 lg:py-28">
           {!user ? (
-            <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
-              <div>
-                <h2 className="text-[clamp(1.6rem,1.3rem+1vw,2.2rem)] leading-tight tracking-[-0.02em]">Sign in to submit.</h2>
-                <p className="herb-muted mt-4 max-w-[38rem]">
-                  Submissions are tied to your Zep Research account, so you can track their status later. Create an account or
-                  sign in to continue.
-                </p>
-                <button type="button" onClick={() => openAuthModal()} data-primary className="herb-btn mt-8 w-full sm:max-w-[22rem]">
-                  <span>Sign in or create an account</span>
-                  <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
-                </button>
+            <div>
+              <h2 id="form-title" className="sig-h2">
+                Sign in to submit
+              </h2>
+              <p className="mt-6 max-w-[38rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug">
+                Submissions are tied to your Zep Research account, so you can track their status later. Create an account or
+                sign in to continue.
+              </p>
+              <button type="button" onClick={() => openAuthModal()} className="sig-btn mt-8" data-dark="">
+                <span>Sign in or create an account</span>
+                <ArrowRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={2.2} />
+              </button>
 
-                <h3 className="mt-14 text-[22px] leading-tight tracking-[-0.01em]">What the form asks for</h3>
-                <ul className="mt-6 grid gap-6 sm:grid-cols-2">
-                  {ASKS.map(([title, body]) => (
-                    <li key={title} className="border-l-[3px] border-[var(--green)] pl-5">
-                      <p className="text-[20px] leading-snug">{title}</p>
-                      <p className="herb-muted mt-1 text-[16px]">{body}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <SubmissionRail />
+              <h3 className="sig-display mt-16 text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)]">What the form asks for</h3>
+              <BarList items={ASKS} className="mt-6 sm:grid-cols-2" />
             </div>
           ) : (
-            <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
-              <form onSubmit={onSubmit} noValidate className="grid gap-6" aria-busy={submitting}>
-                <FormAlert>{formError}</FormAlert>
+            <form onSubmit={onSubmit} noValidate className="grid gap-6" aria-busy={submitting}>
+              <h2 id="form-title" className="sig-h2">
+                Your submission
+              </h2>
+              <FormAlert>{formError}</FormAlert>
 
-                <Honeypot />
+              <Honeypot />
 
-                <h2 className="text-[22px] leading-tight tracking-[-0.01em]">About you</h2>
-                <div className="grid gap-6 md:grid-cols-2">
-                  <Field id="author" label="Author name" error={err("author")}>
-                    <input id="author" name="author" type="text" autoComplete="name" required maxLength={MAX.author} defaultValue={user?.name || ""} aria-invalid={Boolean(err("author"))} aria-describedby={describedBy("author", err("author"))} className="herb-input" />
-                  </Field>
-                  <Field id="email" label="Email" error={err("email")} hint="Your confirmation goes here.">
-                    <input id="email" name="email" type="email" autoComplete="email" required maxLength={MAX.email} defaultValue={user?.email || ""} aria-invalid={Boolean(err("email"))} aria-describedby={describedBy("email", err("email"), true)} className="herb-input" />
-                  </Field>
-                  <Field id="phone_number" label="Phone number" error={err("phone_number")} hint="With country code.">
-                    <PhoneInput id="phone_number" international defaultCountry="US" value={phoneNumber} onChange={setPhoneNumber} aria-invalid={Boolean(err("phone_number"))} className="herb-input" />
-                  </Field>
-                  <Field id="country" label="Country" error={err("country")}>
-                    <input id="country" name="country" type="text" autoComplete="country-name" required maxLength={MAX.country} aria-invalid={Boolean(err("country"))} aria-describedby={describedBy("country", err("country"))} className="herb-input" />
-                  </Field>
-                  <Field id="department" label="Department" error={err("department")}>
-                    <input id="department" name="department" type="text" required maxLength={MAX.department} aria-invalid={Boolean(err("department"))} aria-describedby={describedBy("department", err("department"))} className="herb-input" />
-                  </Field>
-                  <Field id="organization" label="University or organization" error={err("organization")}>
-                    <input id="organization" name="organization" type="text" autoComplete="organization" required maxLength={MAX.organization} aria-invalid={Boolean(err("organization"))} aria-describedby={describedBy("organization", err("organization"))} className="herb-input" />
-                  </Field>
-                </div>
-
-                <h2 className="mt-8 text-[22px] leading-tight tracking-[-0.01em]">Your paper</h2>
-                <Field id="paper_title" label="Paper title" error={err("paper_title")}>
-                  <input id="paper_title" name="paper_title" type="text" required maxLength={MAX.paper_title} aria-invalid={Boolean(err("paper_title"))} aria-describedby={describedBy("paper_title", err("paper_title"))} className="herb-input" />
+              <h3 className="sig-display mt-4 text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">About you</h3>
+              <div className="grid gap-6 md:grid-cols-2">
+                <Field id="author" label="Author name" error={err("author")}>
+                  <input id="author" name="author" type="text" autoComplete="name" required maxLength={MAX.author} defaultValue={user?.name || ""} aria-invalid={Boolean(err("author"))} aria-describedby={describedBy("author", err("author"))} className="herb-input" />
                 </Field>
-                <Field id="co_author" label="Co-author(s)" error={err("co_author")} hint="Separate names with commas. Write “None” if you are the only author.">
-                  <input id="co_author" name="co_author" type="text" required maxLength={MAX.co_author} aria-invalid={Boolean(err("co_author"))} aria-describedby={describedBy("co_author", err("co_author"), true)} className="herb-input" />
+                <Field id="email" label="Email" error={err("email")} hint="Your confirmation goes here.">
+                  <input id="email" name="email" type="email" autoComplete="email" required maxLength={MAX.email} defaultValue={user?.email || ""} aria-invalid={Boolean(err("email"))} aria-describedby={describedBy("email", err("email"), true)} className="herb-input" />
                 </Field>
-                <div className="grid gap-6 md:grid-cols-3">
-                  <Field id="paper_type" label="Paper type" error={err("paper_type")}>
-                    <Select id="paper_type" placeholder="Choose one" options={PAPER_TYPES.map((t) => [t, t])} error={err("paper_type")} />
-                  </Field>
-                  <Field id="presentation_type" label="Presentation" error={err("presentation_type")}>
-                    <Select id="presentation_type" placeholder="Choose one" options={PRESENTATION_TYPES} error={err("presentation_type")} />
-                  </Field>
-                  <Field id="know_to_you" label="How did you hear of us?" error={err("know_to_you")}>
-                    <Select id="know_to_you" placeholder="Choose one" options={HEARD_FROM} error={err("know_to_you")} />
-                  </Field>
-                </div>
-
-                <Field id="file" label="Paper file" error={err("file")} hint="Word only (.doc or .docx), up to 10 MB.">
-                  <input
-                    id="file"
-                    name="file"
-                    type="file"
-                    required
-                    accept={`${FILE_EXTENSIONS.join(",")},application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document`}
-                    onChange={onFileChange}
-                    aria-invalid={Boolean(err("file"))}
-                    aria-describedby={describedBy("file", err("file"), true)}
-                    className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border-0 file:bg-[var(--mount)] file:px-3 file:py-1.5 file:text-[15px] file:transition-colors hover:file:bg-[var(--green)] hover:file:text-white"
-                  />
+                <Field id="phone_number" label="Phone number" error={err("phone_number")} hint="With country code.">
+                  <PhoneInput id="phone_number" international defaultCountry="US" value={phoneNumber} onChange={setPhoneNumber} aria-invalid={Boolean(err("phone_number"))} className="herb-input" />
                 </Field>
-
-                <Field id="message" label="Message to the committee" error={err("message")} hint="Anything the reviewers should know, such as a preferred session.">
-                  <textarea id="message" name="message" rows={5} required maxLength={MAX.message} aria-invalid={Boolean(err("message"))} aria-describedby={describedBy("message", err("message"), true)} className="herb-input resize-y" />
+                <Field id="country" label="Country" error={err("country")}>
+                  <input id="country" name="country" type="text" autoComplete="country-name" required maxLength={MAX.country} aria-invalid={Boolean(err("country"))} aria-describedby={describedBy("country", err("country"))} className="herb-input" />
                 </Field>
+                <Field id="department" label="Department" error={err("department")}>
+                  <input id="department" name="department" type="text" required maxLength={MAX.department} aria-invalid={Boolean(err("department"))} aria-describedby={describedBy("department", err("department"))} className="herb-input" />
+                </Field>
+                <Field id="organization" label="University or organization" error={err("organization")}>
+                  <input id="organization" name="organization" type="text" autoComplete="organization" required maxLength={MAX.organization} aria-invalid={Boolean(err("organization"))} aria-describedby={describedBy("organization", err("organization"))} className="herb-input" />
+                </Field>
+              </div>
 
-                <div className="mt-4 sm:bg-[var(--mount)] sm:p-6">
-                  {isLocalDev ? (
-                    <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">reCAPTCHA is skipped on localhost.</p>
-                  ) : (
-                    <>
-                      <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} />
-                      {err("recaptcha") ? <p className="mt-1.5 text-[14px] font-medium">{err("recaptcha")}</p> : null}
-                    </>
-                  )}
-                  <button type="submit" disabled={submitting} data-primary className="herb-btn mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:max-w-[22rem]">
-                    <span>{submitting ? "Submitting…" : "Submit paper"}</span>
-                    <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
-                  </button>
-                  <p className="herb-muted mt-3 text-[14px]">You will get a confirmation email once your paper is received.</p>
-                </div>
-              </form>
-              <SubmissionRail />
-            </div>
+              <h3 className="sig-display mt-8 text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Your paper</h3>
+              <Field id="paper_title" label="Paper title" error={err("paper_title")}>
+                <input id="paper_title" name="paper_title" type="text" required maxLength={MAX.paper_title} aria-invalid={Boolean(err("paper_title"))} aria-describedby={describedBy("paper_title", err("paper_title"))} className="herb-input" />
+              </Field>
+              <Field id="co_author" label="Co-author(s)" error={err("co_author")} hint="Separate names with commas. Write “None” if you are the only author.">
+                <input id="co_author" name="co_author" type="text" required maxLength={MAX.co_author} aria-invalid={Boolean(err("co_author"))} aria-describedby={describedBy("co_author", err("co_author"), true)} className="herb-input" />
+              </Field>
+              <div className="grid gap-6 md:grid-cols-3">
+                <Field id="paper_type" label="Paper type" error={err("paper_type")}>
+                  <Select id="paper_type" placeholder="Choose one" options={PAPER_TYPES.map((t) => [t, t])} error={err("paper_type")} />
+                </Field>
+                <Field id="presentation_type" label="Presentation" error={err("presentation_type")}>
+                  <Select id="presentation_type" placeholder="Choose one" options={PRESENTATION_TYPES} error={err("presentation_type")} />
+                </Field>
+                <Field id="know_to_you" label="How did you hear of us?" error={err("know_to_you")}>
+                  <Select id="know_to_you" placeholder="Choose one" options={HEARD_FROM} error={err("know_to_you")} />
+                </Field>
+              </div>
+
+              <Field id="file" label="Paper file" error={err("file")} hint="Word only (.doc or .docx), up to 10 MB.">
+                <input
+                  id="file"
+                  name="file"
+                  type="file"
+                  required
+                  accept={`${FILE_EXTENSIONS.join(",")},application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document`}
+                  onChange={onFileChange}
+                  aria-invalid={Boolean(err("file"))}
+                  aria-describedby={describedBy("file", err("file"), true)}
+                  className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border-0 file:bg-[var(--forest)] file:px-3 file:py-1.5 file:text-[15px] file:font-semibold file:text-[var(--signal)] file:transition-colors hover:file:bg-[var(--forest-deep)]"
+                />
+              </Field>
+
+              <Field id="message" label="Message to the committee" error={err("message")} hint="Anything the reviewers should know, such as a preferred session.">
+                <textarea id="message" name="message" rows={5} required maxLength={MAX.message} aria-invalid={Boolean(err("message"))} aria-describedby={describedBy("message", err("message"), true)} className="herb-input resize-y" />
+              </Field>
+
+              <div className="mt-4 sm:bg-[var(--panel)] sm:p-6">
+                {isLocalDev ? (
+                  <p className="text-[15px] text-[var(--muted)]">reCAPTCHA is skipped on localhost.</p>
+                ) : (
+                  <>
+                    <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={setRecaptchaToken} />
+                    {err("recaptcha") ? <p className="mt-1.5 text-[14px] font-medium">{err("recaptcha")}</p> : null}
+                  </>
+                )}
+                <button type="submit" disabled={submitting} className="sig-btn mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:w-auto" data-dark="">
+                  <span>{submitting ? "Submitting…" : "Submit paper"}</span>
+                  <ArrowRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={2.2} />
+                </button>
+                <p className="mt-3 text-[15px] text-[var(--muted)]">You will get a confirmation email once your paper is received.</p>
+              </div>
+            </form>
           )}
+          <SubmissionRail />
         </div>
       </section>
 
-      <div id="guidelines" className="scroll-mt-24">
+      <div id="guidelines" className="scroll-mt-28">
         <AbstractSubmissionGuidelines />
       </div>
     </main>
@@ -315,33 +288,26 @@ const BEFORE = [
 
 function SubmissionRail() {
   return (
-    <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
-      <div className="bg-[var(--mount)] p-5 sm:p-6">
-        <h2 className="text-[22px] leading-tight tracking-[-0.01em]">Before you submit</h2>
-        <dl className="mt-5 grid gap-4">
-          {BEFORE.map(([term, value]) => (
-            <div key={term}>
-              <dt className="herb-italic text-[14px] text-[var(--ink-2)]">{term}</dt>
-              <dd className="mt-0.5 text-[17px] leading-snug">{value}</dd>
-            </div>
-          ))}
-          <div>
-            <dt className="herb-italic text-[14px] text-[var(--ink-2)]">Help</dt>
-            <dd className="mt-0.5 text-[17px] leading-snug">
-              <a href="mailto:info@icsift.com" className="herb-link">
-                info@icsift.com
-              </a>
-            </dd>
-          </div>
-        </dl>
+    <aside className="flex flex-col gap-6 lg:sticky lg:top-40 lg:self-start">
+      <h2 className="sig-display text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)]">Before you submit</h2>
+      <FactCells facts={BEFORE} columns="" size="text-[clamp(1.2rem,1.05rem+0.5vw,1.5rem)]" />
+      <p className="text-[16.5px]">
+        Help:{" "}
+        <a href="mailto:info@icsift.com" className="sig-link font-semibold">
+          info@icsift.com
+        </a>
+      </p>
+      <div className="flex flex-wrap gap-3">
+        <SigButton href="/papers-format" tone="dark-outline">
+          Templates and format
+        </SigButton>
+        <SigButton href="/mode-of-presentation" tone="dark-outline">
+          Modes of presentation
+        </SigButton>
       </div>
-      <div className="grid gap-3">
-        <ActionLink href="/papers-format">Templates and format</ActionLink>
-        <ActionLink href="/mode-of-presentation">Modes of presentation</ActionLink>
-      </div>
-      <p className="text-[16px]">
+      <p className="text-[16px] text-[var(--muted)]">
         Already submitted? Track it at{" "}
-        <Link href="https://publication.zepresearch.com/" target="_blank" rel="noopener noreferrer" className="herb-link">
+        <Link href="https://publication.zepresearch.com/" target="_blank" rel="noopener noreferrer" className="sig-link font-semibold text-[var(--bark)]">
           publication.zepresearch.com
         </Link>
         .

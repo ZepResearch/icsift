@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { ActionPair, CallBand, Field, LEAD, PageHero, SPLIT, StickyIntro, Steps } from "@/components/signal/page";
 
 const TRACKS = [
   {
@@ -83,148 +82,113 @@ const STEPS = [
   ],
 ];
 
-const trackNo = (index) => String(index + 1).padStart(2, "0");
+const topicCount = TRACKS.reduce((sum, track) => sum + track.topics.length, 0);
 
 export default function ThemeAndTopicsPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: the theme itself is the headline, over a six-cell index of tracks. */}
-      <section aria-labelledby="theme-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <h1 id="theme-title" className="herb-display text-[clamp(2.5rem,1.3rem+3.2vw,4.5rem)]">
-              Sustainable innovation: bridging technology and environmental stewardship.
-            </h1>
-            <div>
-              <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
-                The theme of the {CONFERENCE.shortForm}, and six tracks to submit under. Pick the track closest to your
-                research.
-              </p>
-              <ActionLink href="/submission" primary className="mt-6 sm:max-w-[22rem]">
-                Submit a paper
-              </ActionLink>
-            </div>
-          </div>
-
-          <nav aria-label="Tracks" className="mt-12">
-            <ol className="grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-3">
+    <main className="sig min-h-screen">
+      {/* Hero: the theme itself is the headline; the six tracks as a jump index right. */}
+      <PageHero
+        id="theme-title"
+        tag="Theme"
+        title="Sustainable innovation: bridging technology and environmental stewardship"
+        titleClass="text-[clamp(2.4rem,1.2rem+3.8vw,5rem)]"
+        lead={`The theme of the ${CONFERENCE.shortForm}, and six tracks to submit under. Pick the track closest to your research.`}
+        actions={<ActionPair tone="forest" secondary={["/papers-format", "Paper format"]} />}
+        aside={
+          <nav aria-label="Tracks">
+            <ul className="grid gap-2 sm:grid-cols-2">
               {TRACKS.map((track, index) => (
-                <li key={track.title} className="bg-[var(--sheet)]">
-                  <a href={`#track-${index + 1}`} className="group flex h-full gap-4 py-5 sm:px-5">
-                    <span className="herb-italic pt-0.5 text-[14.5px] text-[var(--ink-2)]">{trackNo(index)}</span>
-                    <span className="text-[17px] leading-snug group-hover:text-[var(--green)]">{track.title}</span>
+                <li key={track.title}>
+                  <a
+                    href={`#track-${index + 1}`}
+                    className="flex h-full flex-col gap-2 bg-[var(--panel)] p-5 transition-colors duration-200 hover:bg-[var(--signal)] hover:text-[var(--forest)]"
+                  >
+                    <span aria-hidden="true" className="sig-display text-[30px] leading-none">
+                      {index + 1}
+                    </span>
+                    <span className="text-[16px] leading-snug font-semibold">{track.title}</span>
                   </a>
                 </li>
               ))}
-            </ol>
+            </ul>
           </nav>
-        </div>
-      </section>
+        }
+      />
 
       {/* The theme in full */}
-      <section aria-labelledby="about-theme-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <h2 id="about-theme-title" className="herb-h2 max-w-[13ch]">
-            What the theme asks.
-          </h2>
-          <Reveal className="border-t border-[var(--ink)] pt-8">
-            <p className="max-w-[42rem] text-[18px] leading-relaxed">
+      <Field tone="cream" labelledBy="about-theme-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="The theme" id="about-theme-title" title="What the theme asks" />
+          <div data-enter style={{ "--i": 2 }}>
+            <p className="max-w-[44rem] text-[clamp(1.3rem,1.05rem+0.8vw,1.8rem)] leading-[1.35] font-medium">
               The {CONFERENCE.shortForm} explores how new technologies are changing our approach to sustainability and
-              environmental challenges. As the boundary between technology and sustainability blurs, innovation opens new ways
-              to address climate change, resource scarcity and environmental degradation.
+              environmental challenges. As the boundary between technology and sustainability blurs, innovation opens new ways to
+              address climate change, resource scarcity and environmental degradation.
             </p>
-            <p className="herb-muted mt-5 max-w-[42rem]">
+            <p className="mt-6 max-w-[44rem] text-[18px] text-[var(--muted)]">
               We invite work that brings new approaches to environmental challenges, new applications of technology for
               sustainability, and critical perspectives on the methods and ethics of these emerging solutions.
             </p>
-          </Reveal>
+          </div>
         </div>
-      </section>
+      </Field>
 
-      {/* Tracks */}
-      <section aria-labelledby="tracks-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <h2 id="tracks-title" className="herb-h2 max-w-[14ch]">
-              Six tracks, thirty-one topics.
-            </h2>
-            <p className="herb-muted max-w-[28rem]">Topics are a guide, not a fence. Interdisciplinary work is welcome in any track.</p>
-          </div>
-
-          <div className="mt-10 border-t border-[var(--ink)]">
-            {TRACKS.map((track, index) => (
-              <div
-                key={track.title}
-                id={`track-${index + 1}`}
-                className="grid scroll-mt-24 gap-x-10 gap-y-4 border-b border-[var(--rule)] py-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]"
-              >
-                <div>
-                  <p className="herb-italic text-[15px] text-[var(--ink-2)]">Track {trackNo(index)}</p>
-                  <h3 className="mt-2 max-w-[22ch] text-[clamp(1.4rem,1.15rem+0.8vw,1.85rem)] leading-tight font-normal tracking-[-0.02em]">
-                    {track.title}
-                  </h3>
-                </div>
-                <ul className="grid gap-x-8 sm:grid-cols-2">
-                  {track.topics.map((topic) => (
-                    <li key={topic} className="border-b border-[var(--rule-soft)] py-2.5 text-[16px]">
-                      {topic}
-                    </li>
-                  ))}
-                </ul>
+      {/* Tracks: each track a panel with its number large, title, and topics in two columns. */}
+      <Field tone="forest" labelledBy="tracks-title">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+          <h2 id="tracks-title" data-enter className="sig-h2">
+            Six tracks, {topicCount} topics
+          </h2>
+          <p data-enter style={{ "--i": 1 }} className="max-w-[32rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug text-[var(--muted)]">
+            Topics are a guide, not a fence. Interdisciplinary work is welcome in any track.
+          </p>
+        </div>
+        <ul className="mt-12 grid gap-2 lg:grid-cols-2">
+          {TRACKS.map((track, index) => (
+            <li
+              key={track.title}
+              id={`track-${index + 1}`}
+              data-enter
+              style={{ "--i": 2 + (index % 2) }}
+              className="scroll-mt-28 bg-[var(--panel)] p-6 sm:p-8"
+            >
+              <div className="grid grid-cols-[3.5rem_1fr] gap-x-4">
+                <span aria-hidden="true" className="sig-display text-[3.4rem] leading-[0.85]">
+                  {index + 1}
+                </span>
+                <h3 className="sig-display text-[clamp(1.5rem,1.2rem+0.9vw,2.1rem)] leading-[1.04]">{track.title}</h3>
               </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
+              <ul className="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+                {track.topics.map((topic) => (
+                  <li key={topic} className="border-l-2 border-[var(--line)] pl-3 text-[16.5px] text-[var(--cream)]">
+                    {topic}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </Field>
 
       {/* How to submit */}
-      <section aria-labelledby="steps-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <h2 id="steps-title" className="herb-h2 max-w-[13ch]">
-              From abstract to lectern.
-            </h2>
-            <p className="herb-muted mt-5 max-w-[26rem]">
+      <Field tone="cream" labelledBy="steps-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Process" id="steps-title" title="From abstract to lectern">
+            <p className={LEAD}>
               We welcome submissions from researchers, practitioners and students across all disciplines.{" "}
-              <Link href="/papers-format" className="herb-link">
+              <Link href="/papers-format" className="sig-link font-semibold">
                 Paper format
               </Link>
             </p>
+          </StickyIntro>
+          <div data-enter style={{ "--i": 2 }}>
+            <Steps steps={STEPS} />
           </div>
-          <Reveal as="ol" className="border-t border-[var(--ink)]">
-            {STEPS.map(([title, body], index) => (
-              <li
-                key={title}
-                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
-              >
-                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{trackNo(index)}</span>
-                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
-                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
-              </li>
-            ))}
-          </Reveal>
         </div>
-      </section>
+      </Field>
 
-      {/* Closing */}
-      <section aria-labelledby="theme-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="theme-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Found your track?
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
-              Submit your paper and join the conversation on sustainability, innovation and future technologies.
-            </p>
-          </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
-        </Reveal>
-      </section>
+      <CallBand title="Found your track?" text="Submit your paper and join the conversation on sustainability, innovation and future technologies." />
     </main>
   );
 }

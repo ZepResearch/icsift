@@ -83,7 +83,7 @@ export default function Dates() {
   return (
     <section id="dates" aria-labelledby="dates-title" className="sig-on-signal bg-[var(--signal)] text-[var(--forest)]">
       <Reveal className="mx-auto grid max-w-[1400px] gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.4fr)] lg:gap-20 lg:px-10 lg:py-32">
-        <div data-enter>
+        <div data-enter className="lg:sticky lg:top-40 lg:self-start">
           <h2 id="dates-title" className="sig-h2">
             What happens, and when
           </h2>

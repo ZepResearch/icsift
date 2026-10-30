@@ -109,6 +109,41 @@ export default function Speakers() {
                 ? "Speakers could not load just now. Please refresh the page."
                 : `${active} speakers for the ${CONFERENCE.shortForm} will be announced here soon.`}
             </p>
+          ) : list.length <= 2 ? (
+            // One or two people in a role: each gets a wide card (portrait beside the start of the biography) so the
+            // row is filled rather than one small portrait on an empty line.
+            <ul className={`grid gap-3 ${list.length === 2 ? "lg:grid-cols-2" : ""}`}>
+              {list.map((speaker) => (
+                <li key={speaker.id}>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(speaker)}
+                    className={`group grid w-full gap-6 bg-[var(--cream-deep)] p-5 text-left sm:grid-cols-[minmax(0,14rem)_1fr] sm:p-8 ${
+                      list.length === 1 ? "lg:grid-cols-[minmax(0,18rem)_1fr] lg:gap-12 lg:p-10" : ""
+                    }`}
+                  >
+                    <div className="sig-portrait relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden rounded-t-full bg-[var(--cream)]">
+                      <Image src={photoOf(speaker)} alt="" fill sizes="(min-width: 640px) 18rem, 70vw" className="object-cover object-[50%_20%]" />
+                    </div>
+                    <div className="flex flex-col">
+                      <p className="sig-display text-[clamp(2rem,1.5rem+1.6vw,3.2rem)] leading-[1.02]">{plain(speaker.name)}</p>
+                      <p className="mt-3 text-[18px] leading-snug font-semibold">{plain(speaker.role)}</p>
+                      <p className="mt-1 text-[16px] leading-snug text-[var(--bark-2)]">
+                        {[speaker.college, speaker.country].filter(Boolean).map(plain).join(", ")}
+                      </p>
+                      {speaker.bio ? (
+                        <p className={`mt-5 max-w-[44rem] text-[17px] leading-relaxed ${list.length === 1 ? "line-clamp-6" : "line-clamp-4"}`}>
+                          {plain(speaker.bio)}
+                        </p>
+                      ) : null}
+                      <span className="sig-btn mt-6 self-start" data-dark="">
+                        Read biography
+                      </span>
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
           ) : (
             <ul className="grid grid-cols-2 gap-x-6 gap-y-14 md:grid-cols-3 lg:grid-cols-5">
               {list.map((speaker) => (

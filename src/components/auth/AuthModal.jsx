@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, Eye, EyeOff, X } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, Eye, EyeOff, X } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { toast } from 'react-hot-toast'
 
@@ -172,33 +173,39 @@ export default function AuthModal() {
   return (
     <dialog
       ref={dialog}
-      className="herb herb-dialog sm:!w-[min(500px,100vw)]"
+      className="sig herb-dialog !max-w-[100vw] !w-screen sm:!w-[min(520px,100vw)]"
       aria-labelledby="auth-title"
       onClose={() => isOpen && closeAuthModal()}
       onClick={(event) => event.target === dialog.current && !isLoading && dialog.current.close()}
     >
       {isOpen ? (
-        <div className="flex h-full flex-col overflow-y-auto p-6 sm:p-8">
-          <div className="flex items-start justify-between gap-6">
-            <div>
-              <h2 id="auth-title" className="text-[2rem] leading-tight tracking-[-0.02em]">
-                {mode === 'login' ? 'Welcome back.' : 'Create your account.'}
-              </h2>
-              <p className="herb-muted mt-2 text-[15.5px]">
-                One Zep Research account for registration, paper submission and tracking.
-              </p>
+        <div className="flex h-full flex-col overflow-y-auto">
+          {/* Forest header: logo, the greeting in the display face, and the close button. */}
+          <div className="sig-forest px-6 pt-6 pb-8 sm:px-8">
+            <div className="flex items-start justify-between gap-6">
+              <span className="flex items-center gap-3">
+                <Image src="/singleLogo.svg" alt="" width={44} height={44} className="h-11 w-11 object-contain" />
+                <span className="sig-display text-[26px] leading-none">ICSIFT</span>
+              </span>
+              <button
+                type="button"
+                onClick={() => dialog.current?.close()}
+                className="grid h-11 w-11 shrink-0 place-items-center bg-[var(--signal)] text-[var(--forest)] hover:bg-[var(--signal-deep)]"
+                aria-label="Close sign-in"
+              >
+                <X className="h-5 w-5" strokeWidth={2} />
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => dialog.current?.close()}
-              className="grid h-10 w-10 shrink-0 place-items-center border border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
-              aria-label="Close sign-in"
-            >
-              <X className="h-4 w-4" strokeWidth={1.6} />
-            </button>
+            <h2 id="auth-title" className="sig-display mt-8 text-[clamp(2.4rem,2rem+1.6vw,3.2rem)]">
+              {mode === 'login' ? 'Welcome back' : 'Create your account'}
+            </h2>
+            <p className="mt-3 text-[16px] text-[var(--muted)]">
+              One Zep Research account for registration, paper submission and tracking.
+            </p>
           </div>
 
-          <div role="tablist" aria-label="Account" className="mt-8 flex gap-x-7 border-b border-[var(--rule)]">
+          <div className="flex-1 px-6 pt-6 pb-8 sm:px-8">
+          <div role="tablist" aria-label="Account" className="grid grid-cols-2 gap-2">
             {TABS.map(([value, label], index) => (
               <button
                 key={value}
@@ -210,7 +217,7 @@ export default function AuthModal() {
                 tabIndex={mode === value ? 0 : -1}
                 onClick={() => switchMode(value)}
                 onKeyDown={(event) => onTabKey(event, index)}
-                className="herb-tab"
+                className="sig-chip justify-center"
               >
                 {label}
               </button>
@@ -219,7 +226,7 @@ export default function AuthModal() {
 
           <form id="auth-panel" role="tabpanel" aria-labelledby={`auth-tab-${mode}`} onSubmit={onSubmit} className="mt-6 grid gap-5" aria-busy={isLoading}>
             {formError ? (
-              <p role="alert" className="border border-[var(--ink)] px-4 py-3 text-[15.5px]">
+              <p role="alert" className="bg-[var(--cream-deep)] px-4 py-3 text-[15.5px]">
                 {formError}
               </p>
             ) : null}
@@ -283,18 +290,18 @@ export default function AuthModal() {
               </>
             )}
 
-            <button type="submit" disabled={isLoading} data-primary className="herb-btn mt-1 w-full disabled:cursor-wait disabled:opacity-70">
+            <button type="submit" disabled={isLoading} data-dark="" className="sig-btn mt-1 w-full disabled:cursor-wait disabled:opacity-70">
               <span>{isLoading ? (mode === 'login' ? 'Signing in…' : 'Creating account…') : mode === 'login' ? 'Sign in' : 'Create account'}</span>
-              <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
+              <ArrowRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={2.2} />
             </button>
 
             <div className="flex items-center gap-4 text-[14px] text-[var(--ink-2)]" aria-hidden="true">
-              <span className="h-px flex-1 bg-[var(--rule)]" />
-              <span className="herb-italic">or</span>
-              <span className="h-px flex-1 bg-[var(--rule)]" />
+              <span className="h-[1.5px] flex-1 bg-[var(--cream-deep)]" />
+              <span className="font-semibold">or</span>
+              <span className="h-[1.5px] flex-1 bg-[var(--cream-deep)]" />
             </div>
 
-            <button type="button" onClick={googleAuth} className="herb-btn w-full">
+            <button type="button" onClick={googleAuth} className="flex min-h-[52px] w-full items-center justify-center bg-white text-[16px] font-semibold text-[var(--bark)] transition-colors hover:bg-[var(--cream-deep)]">
               <span className="flex items-center gap-3">
                 <svg viewBox="0 0 533.5 544.3" className="h-[18px] w-[18px]" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M533.5 278.4c0-17.4-1.6-34.4-4.7-51H272v96.8h146.9c-6.4 34.8-25.6 64.3-54.5 84.1v69.7h88.1c51.6-47.6 81-117.5 81-199.6z" fill="#4285F4" />
@@ -307,12 +314,13 @@ export default function AuthModal() {
             </button>
           </form>
 
-          <p className="herb-muted mt-8 border-t border-[var(--rule)] pt-5 text-[15px]">
+          <p className="mt-8 text-[15.5px] text-[var(--bark-2)]">
             {mode === 'login' ? 'New here? ' : 'Already have an account? '}
-            <button type="button" className="herb-link" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}>
+            <button type="button" className="sig-link font-semibold text-[var(--bark)]" onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}>
               {mode === 'login' ? 'Create an account' : 'Sign in instead'}
             </button>
           </p>
+          </div>
         </div>
       ) : null}
     </dialog>

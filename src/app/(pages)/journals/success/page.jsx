@@ -1,5 +1,6 @@
-import Link from "next/link"
-import { CheckCircle2, Mail, ExternalLink, ArrowRight } from "lucide-react"
+import { ExternalLink, Mail } from "lucide-react"
+import { Field, PageHero } from "@/components/signal/page"
+import SigButton from "@/components/signal/SigButton"
 
 export const metadata = {
   title: "Submission Successful - International Conference on Sustainable Tourism & Hospitality Management",
@@ -7,79 +8,55 @@ export const metadata = {
     "Your paper has been successfully submitted to the International Conference on Sustainable Tourism & Hospitality Management",
 }
 
+// A receipt: the confirmation as the hero, then what happens next as two panels.
 export default function SuccessPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-          {/* Accent bar */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-teal-600 to-lime-500" />
+    <main className="sig min-h-screen">
+      <PageHero
+        id="journal-success-title"
+        tag="Submitted"
+        title="Submission successful"
+        lead="Your journal paper has been successfully submitted to the ICSIFT."
+        actions={
+          <div className="flex flex-wrap gap-3">
+            <SigButton href="/">Return to homepage</SigButton>
+            <SigButton href="https://publication.zepresearch.com/" tone="outline" external>
+              Check submission status
+            </SigButton>
+          </div>
+        }
+      />
 
-          <div className="p-8 sm:p-10">
-            {/* Icon badge */}
-            <div className="flex justify-center">
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-green-100 blur-md opacity-70" />
-                <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-green-50 ring-4 ring-green-100">
-                  <CheckCircle2 className="h-9 w-9 text-green-600" strokeWidth={2} />
-                </div>
-              </div>
-            </div>
-
-            <h2 className="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-[#2f761a] text-balance">
-              Submission Successful!
-            </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Your journal paper has been successfully submitted to the ICSIFT.
+      <Field tone="cream" labelledBy="journal-next-title">
+        <h2 id="journal-next-title" data-enter className="sig-h2">
+          What happens next
+        </h2>
+        <div className="mt-12 grid gap-2 md:grid-cols-2">
+          <div data-enter style={{ "--i": 1 }} className="bg-[var(--panel)] p-7 sm:p-9">
+            <Mail aria-hidden="true" className="h-9 w-9" strokeWidth={1.5} />
+            <h3 className="sig-display mt-5 text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Check your email</h3>
+            <p className="mt-3 text-[18px] text-[var(--muted)]">
+              A confirmation email has been sent to your email address. Our team will review your submission and get back to you
+              soon.
             </p>
-
-            {/* Info card */}
-            <div className="mt-6 rounded-xl bg-gray-50 border border-gray-100 p-4 space-y-3">
-              <div className="flex items-start gap-3">
-                <Mail className="h-4 w-4 text-gray-500 mt-0.5 shrink-0" />
-                <p className="text-sm text-gray-700">
-                  A confirmation email has been sent to your email address. Our team will review your submission and
-                  get back to you soon.
-                </p>
-              </div>
-              <div className="flex items-start gap-3 pt-3 border-t border-gray-200">
-                <ExternalLink className="h-4 w-4 text-gray-500 mt-0.5 shrink-0" />
-                <p className="text-sm text-gray-700">
-                  You can check the status of your submission on the main website:{" "}
-                  <a
-                    href="https://publication.zepresearch.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-medium text-[#22761a] underline underline-offset-2 hover:text-[#15602e] transition-colors"
-                  >
-                    publication.zepresearch.com
-                  </a>
-                </p>
-              </div>
-            </div>
-
-            {/* Actions */}
-            <div className="mt-8 flex flex-col gap-3">
-              <Link
-                href="/"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold text-white bg-[#22761a] hover:bg-[#15602e] shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1a5276]"
-              >
-                Return to Homepage
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+          </div>
+          <div data-enter style={{ "--i": 2 }} className="bg-[var(--panel)] p-7 sm:p-9">
+            <ExternalLink aria-hidden="true" className="h-9 w-9" strokeWidth={1.5} />
+            <h3 className="sig-display mt-5 text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Track its status</h3>
+            <p className="mt-3 text-[18px] text-[var(--muted)]">
+              You can check the status of your submission on the main website:{" "}
               <a
                 href="https://publication.zepresearch.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold text-[#22761a] border border-[#22761a]/30 hover:bg-[#22761a]/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1a5276]"
+                className="sig-link font-semibold text-[var(--bark)]"
               >
-                Check Submission Status
-                <ExternalLink className="h-3.5 w-3.5" />
+                publication.zepresearch.com
               </a>
-            </div>
+            </p>
           </div>
         </div>
-      </div>
-    </div>
+      </Field>
+    </main>
   )
 }

@@ -34,52 +34,57 @@ const EARNS = [
   },
 ];
 
-// Cream field: "Schedule" tag left; the when / where / who facts set in the display face; then who should come and
-// what a paper earns, side by side.
+// Forest field, two filled columns: the tag, heading and lead left (sticky on wide screens); the when / where / who
+// facts as three large rows right. Beneath, who should come and what a paper earns, side by side.
 export default function Participate() {
   const city = CONFERENCE.venue.location.trim();
   const facts = [
-    [CalendarDays, "When?", conferenceDates()],
-    [MapPin, "Where?", `${city}, and online`],
-    [Users, "Who can join?", "Researchers, students and industry"],
+    [CalendarDays, "When?", conferenceDates(), CONFERENCE.date],
+    [MapPin, "Where?", CONFERENCE.venue.name.trim(), `${CONFERENCE.venue.address.trim()} · and online`],
+    [Users, "Who can join?", "Researchers, students and industry", "Present a paper, or attend in person or online"],
   ];
 
   return (
-    <section aria-labelledby="participate-title" className="sig-on-cream bg-[var(--cream)] text-[var(--bark)]">
-      <Reveal className="mx-auto max-w-[1400px] px-4 py-28 sm:px-6 lg:px-10 lg:py-40">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)] lg:gap-16">
-          <p data-enter className="sig-tag">
-            Schedule
-          </p>
-          <div>
-            <h2 id="participate-title" data-enter style={{ "--i": 1 }} className="sig-h2">
+    <section aria-labelledby="participate-title" className="bg-[var(--forest)] text-[var(--signal)]">
+      <Reveal className="mx-auto max-w-[1400px] px-4 py-28 sm:px-6 lg:px-10 lg:py-36">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
+          <div className="lg:sticky lg:top-40 lg:self-start">
+            <p data-enter className="sig-tag">
+              Schedule
+            </p>
+            <h2 id="participate-title" data-enter style={{ "--i": 1 }} className="sig-h2 mt-6">
               When, where, and who can take part
             </h2>
-            <p data-enter style={{ "--i": 2 }} className="mt-6 max-w-[40rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug">
-              Two days of research, conversation and connection at {CONFERENCE.venue.name.trim()}, with every session also
-              open online.
+            <p data-enter style={{ "--i": 2 }} className="mt-6 max-w-[34rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug">
+              Two days of research, conversation and connection in {city}, with every session also open online.
             </p>
-
-            <dl className="mt-14 grid gap-10 sm:grid-cols-3">
-              {facts.map(([Icon, term, value], index) => (
-                <div key={term} data-enter style={{ "--i": 3 + index }}>
-                  <Icon aria-hidden="true" className="h-8 w-8" strokeWidth={1.5} />
-                  <dt className="mt-5 text-[17px] text-[var(--bark-2)]">{term}</dt>
-                  <dd className="sig-display mt-2 text-[clamp(1.7rem,1.3rem+1vw,2.3rem)] leading-[1.02]">{value}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
+
+          <dl className="grid gap-3">
+            {facts.map(([Icon, term, value, note], index) => (
+              <div
+                key={term}
+                data-enter
+                style={{ "--i": 2 + index }}
+                className="grid grid-cols-[3rem_1fr] gap-x-5 bg-[var(--forest-deep)] p-6 sm:grid-cols-[3.5rem_1fr] sm:p-8"
+              >
+                <Icon aria-hidden="true" className="row-span-3 h-9 w-9 sm:h-11 sm:w-11" strokeWidth={1.5} />
+                <dt className="text-[17px] text-[var(--signal)]/75">{term}</dt>
+                <dd className="sig-display mt-1 text-[clamp(1.8rem,1.3rem+1.4vw,2.6rem)] leading-[1.02]">{value}</dd>
+                <dd className="mt-2 text-[16px] text-[var(--cream)]/85">{note}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className="mt-28 grid gap-16 lg:mt-36 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-20">
+        <div className="mt-28 grid gap-16 lg:mt-36 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16">
           <div data-enter>
             <h3 className="sig-display text-[clamp(2rem,1.5rem+1.6vw,3rem)]">Who should attend</h3>
             <ul className="mt-8 grid gap-6">
               {AUDIENCE.map(([who, why]) => (
-                <li key={who} className="border-l-4 border-[var(--forest)] pl-5">
+                <li key={who} className="border-l-4 border-[var(--signal)] pl-5">
                   <p className="text-[20px] leading-snug font-semibold">{who}</p>
-                  <p className="mt-1 text-[17px] text-[var(--bark-2)]">{why}</p>
+                  <p className="mt-1 text-[17px] text-[var(--cream)]/85">{why}</p>
                 </li>
               ))}
             </ul>
@@ -89,16 +94,16 @@ export default function Participate() {
             <h3 className="sig-display text-[clamp(2rem,1.5rem+1.6vw,3rem)]">What your paper earns</h3>
             <ul className="mt-8 grid gap-3">
               {EARNS.map((item) => (
-                <li key={item.title} className="bg-[var(--cream-deep)] p-6">
+                <li key={item.title} className="bg-[var(--forest-deep)] p-6">
                   <p className="sig-display text-[26px] leading-none">{item.title}</p>
-                  <p className="mt-3 text-[17px]">{item.body}</p>
+                  <p className="mt-3 text-[17px] text-[var(--cream)]">{item.body}</p>
                   <Link href={item.href} className="sig-link mt-4 inline-block text-[16px] font-semibold">
                     {item.cta}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-6 flex flex-wrap items-center gap-8">
+            <div className="mt-3 flex flex-wrap items-center gap-8 bg-[var(--cream)] px-6 py-5">
               <Image src="/assets/scopus.png" alt="Scopus" width={120} height={40} className="h-8 w-auto object-contain" />
               <Image src="/assets/clarivate.png" alt="Clarivate" width={140} height={42} className="h-10 w-auto object-contain" />
             </div>

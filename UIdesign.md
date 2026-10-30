@@ -4,14 +4,14 @@ The site currently runs two design systems:
 
 | System | Where | Files |
 |---|---|---|
-| **Signal** (Part 1) | Home page, navbar, footer, translate strip | `src/styles/signal.css`, `src/components/signal/*`, `Navbar.jsx`, `Footer.jsx` |
-| **Herbarium** (Part 2) | Every inner page (About, Venue, Submission, Contact…) | `src/styles/herbarium.css`, `src/components/home/primitives.jsx` |
+| **Signal** (Part 1) | Home, navbar, footer, translate strip, sign-in panel, checkout panel, and every inner page except the payment result pages: About the conference, About the organisers, About the co-organisers, Mode of presentation, Papers format, Theme and topics, Schedule, Awards, Gallery, Venue, Contact, Committee, Proceedings, Submission (and success), Journals (list, detail, submit, success, loading, not found), Registration, Exhibit and sponsor, and all seven policy pages | `src/styles/signal.css`, `src/components/signal/*` (inner-page kit: `page.jsx`), `Navbar.jsx`, `Footer.jsx`, `auth/AuthModal.jsx`, `payments/checkout-panel.jsx`, `policy/PolicyDocument.jsx` |
+| **Herbarium** (Part 2) | Only the payment result pages (payment success, payment failed) are left | `src/styles/herbarium.css`, `src/components/home/primitives.jsx` |
 
-New inner pages still follow Herbarium until they are moved to Signal one by one. Never mix the two on one page; the shared navbar and footer are the only Signal parts that appear on inner pages.
+Pages move from Herbarium to Signal one at a time; a new page is built in Signal. Never mix the two systems on one page; the shared navbar, footer and sign-in panel are the only Signal parts on a Herbarium page.
 
 ---
 
-# Part 1: the Signal system (home, navbar, footer)
+# Part 1: the Signal system (home, navbar, footer and Signal inner pages)
 
 The idea in one line: **whole fields of deep forest green, cream paper and signal yellow, stacked down the page, with headlines set huge in a condensed uppercase face.** Each section is one field of one colour that runs edge to edge; the colour change is the section break. The model is the Convoke event template, adapted to ICSIFT's content.
 
@@ -56,7 +56,7 @@ Pairings (always one of these, never others):
 | Cream | Bark | `tone="dark"` + `tone="dark-outline"` |
 | Signal yellow | Forest | `tone="dark"` + `tone="dark-outline"` |
 
-Rhythm on the home page: photo hero → forest → cream → **yellow** → cream → forest → cream → forest → cream → forest → **yellow** → footer. Yellow fields are rare (two per page): the dates and the closing call. Never put two fields of the same colour next to each other.
+Rhythm on the home page: photo hero → cream (Organised with) → forest (Purpose) → **yellow** (Dates) → forest (Schedule) → cream (Speakers) → forest (Moments) → cream (Goals) → forest (Venue) → cream (Voices) → forest (FAQ) → **yellow** (Closing) → footer. When you reorder sections, re-colour them so the alternation holds. Yellow fields are rare (two per page): the dates and the closing call. Never put two fields of the same colour next to each other.
 
 No gradients except the scrim over the hero photograph. No shadows except on menus. No glass or blur.
 
@@ -84,8 +84,11 @@ Rules:
 
 - Every field is full width; its content sits in `mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10`.
 - Field padding: `py-28 lg:py-40` (yellow fields `py-24 lg:py-32`).
-- **Tag-left layout** (Purpose, Schedule): `lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)]`, with the `sig-tag` in the left column and the heading, lead and content in the right.
-- **Split layout** (Dates, Goals, Venue, FAQ): heading and lead left, the working content right.
+- **Both columns carry content. No empty column.** A left column that holds only a tag ("Purpose") with everything else on the right reads as a hole; it was removed.
+- **Text-and-object layout** (Purpose, Schedule, Dates, FAQ): `lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]`. Left: the `sig-tag` (optional), the `h2`, the lead and any links or buttons. Right: the object of the section (a photograph, the fact rows, the timeline, the questions).
+- **Sticky text column:** when the right side is taller than the left, make the left column `lg:sticky lg:top-40 lg:self-start` so it travels with the content instead of leaving a void beneath it.
+- **Fill the right side with large items:** facts are full-width rows on `--forest-deep` (icon, label, value, note), not small cells; a photograph is 4:3 at the column's full width.
+- **Centred layout** (Goals uses a centred split, Moments a centred heading): only where the content is itself centred (a dial, a strip).
 - **Centred** is used once: the "Moments" gallery heading.
 - Corners are square, except speaker portraits, which sit in a cream arch (`rounded-t-full`).
 
@@ -99,19 +102,23 @@ Rules:
 Square, 52px tall, Anton uppercase with a right arrow that nudges on hover. Tones: `fill` (yellow), `outline` (yellow line), `dark` (forest fill), `dark-outline` (forest line). Submit and Register always appear as a pair: the first filled, the second outlined.
 
 ### Hero (`Hero.jsx`)
-Full-bleed photograph in green duotone (`sig-duotone`: grey picture over forest, with a scrim toward the type). Place and date with icons above the headline, the giant yellow headline bottom-left, the lead and the two buttons bottom-right.
+Full-bleed photograph in green duotone (`sig-duotone`: grey picture over forest, with a scrim toward the type). Every word comes from `CONFERENCE`: the city and dates with icons above the headline; the full conference name as the yellow `h1` bottom-left (`clamp(2.6rem, 1rem + 5vw, 6rem)`, in a `1.6fr` column); bottom-right, the venue block (venue name in Anton, address, edition with dates and location) above the Submit/Register pair.
+
+### Organised with (`Partners.jsx`)
+A short cream band directly under the hero: the heading left with a "Co-host the next edition" link; right, white tiles for the organiser, every co-organiser in `CONFERENCE.coOrganizers` and the media partner (logo, name, role). Adding a co-organiser to the constants adds a tile; nothing else changes.
 
 ### Figures row (`Purpose.jsx`)
 Big Anton numbers, each with a short Figtree label under it. Use only figures already published on the site.
 
 ### Fact trio (`Participate.jsx`)
-Icon, a "When? / Where? / Who can join?" label, and the value in Anton. Three across.
+Three full-width rows on `--forest-deep` in the right column: a large icon, the "When? / Where? / Who can join?" label, the value in Anton, and a one-line note (the written date, the address). The section heading sits sticky on the left.
 
 ### Timeline (`Dates.jsx`)
 On yellow: `sig-chip` tabs over a vertical forest line with square markers. Each item has its title in Anton, the date with a calendar icon, the description and its state. The next deadline gets a ringed marker and a forest tag.
 
 ### Speaker portraits (`Speakers.jsx`)
 Grey photo in a cream arch, gaining colour and a slight zoom on hover (`sig-portrait`); name in Anton, role and institution in Figtree. Role tabs use `sig-chip`. The biography opens in the `herb-dialog` side panel.
+When a role has only one or two people, each becomes a wide feature card on `--cream-deep` instead: the portrait beside the name, role, institution, the start of the biography and a "Read biography" button. A lone small portrait on an empty row is not allowed.
 
 ### Gallery strip (`Moments.jsx`)
 An endless marquee (`sig-marquee`) of photographs at two alternating heights; hovering pauses it.
@@ -121,9 +128,21 @@ Native `<details>` rows on `--forest-deep`, the question in Anton, and a plus th
 
 ### Navbar
 A forest bar under a `--forest-deep` translate strip: the logo with ICSIFT in Anton, uppercase yellow links that underline on hover (the active link is white), dropdowns on `--forest-deep`, and a yellow "Register now" button. The mobile menu is a forest panel with Anton links at 32px.
+- The full link row shows from **1360px** (`min-[1360px]:`); below that the menu button takes over. Nine links, the account control and the button do not fit at 1280px.
+- Signed in, the bar shows only a compact **account button** (the user's initial in a yellow square and a chevron). Its menu holds "Signed in as" with the full name and a Log out button. Never put the name or a text "Log out" in the bar itself; a long name overflows the row.
+- Adding a top-level link costs width: check the bar at 1360px signed in before adding one.
 
 ### Footer
-`--forest-deep` ground: the conference name, facts and the Submit/Register pair left; four link columns with yellow Anton heads right; policies on a forest strip; then **ICSIFT** at full width in yellow Anton as the close.
+`--forest-deep` ground: the logo (`/singleLogo.svg`, 64px) with ICSIFT in Anton and the edition line, then the conference name, facts and the Submit/Register pair left; four link columns with yellow Anton heads right; policies on a forest strip; then **ICSIFT** at full width in yellow Anton as the close.
+
+### Sign-in panel (`components/auth/AuthModal.jsx`)
+A right-side `herb-dialog` with the `sig` class: full screen width on phones, 520px from `sm`. A forest header (logo, ICSIFT, the greeting in Anton, a yellow square close button), then a cream body: Sign in / Create account as two `sig-chip` tabs, white fields, a forest `sig-btn` submit, and a white "Continue with Google" button. Errors sit in a plain `--cream-deep` panel (no side bar).
+
+### Checkout panel (`components/payments/checkout-panel.jsx`)
+Same frame as the sign-in panel: a forest header with "Checkout", the item in Anton, its lines (accommodation, fee, tax) and the total set large on a `--panel` block; then a cream body with the sign-in prompt or the billing form and a forest "Pay … securely" button. Used by Registration and Exhibit and sponsor.
+
+### Policy pages
+All seven policies render through `PolicyDocument`: a forest hero (title, intro, numbered contents), then one cream field with a sticky rail of every policy (the current one forest) beside the numbered sections, and a yellow "Questions about this policy?" band. Paragraphs, bar lists, term panels, tables (forest header row, panel rows) and yellow notes are the only block types. Add a policy by passing data to `PolicyDocument`, never by building a page.
 
 ### PocketBase data
 Every fetched block keeps all three states: loading skeletons (`animate-pulse` in a tint of the field's text colour), a plain empty sentence, and an error sentence with the recovery. Decode HTML entities in PocketBase text before showing it (see `plain()` in `Speakers.jsx`).
@@ -135,7 +154,81 @@ Every fetched block keeps all three states: loading skeletons (`animate-pulse` i
 - Hover: buttons fill and their arrows nudge, portraits gain colour, nav underlines draw in.
 - The gallery marquee is the only loop. `prefers-reduced-motion` turns all of it off (in `signal.css`).
 
-## 7. Checklist for a Signal section
+## 7. Inner pages: the page kit (`src/components/signal/page.jsx`)
+
+Every Signal inner page is built from these parts. Wrap the page in `<main className="sig min-h-screen">`.
+
+### Field tones
+A page is a stack of `<Field tone="…">` sections. The tone class sets the ground and text, plus four variables every kit component reads, so the same list or card works on any field:
+
+| Tone | Class | Ground / text | `--muted` | `--panel` | `--line` |
+|---|---|---|---|---|---|
+| `forest` | `sig-forest` | forest / yellow | cream 86% | forest-deep | yellow |
+| `deep` | `sig-deep` | forest-deep / yellow | cream 86% | forest | yellow |
+| `cream` | `sig-cream` | cream / bark | bark-2 | cream-deep | forest |
+| `yellow` | `sig-yellow` | yellow / forest | forest 82% | forest 8% | forest |
+
+Use `text-[var(--muted)]`, `bg-[var(--panel)]` and `border-[var(--line)]` inside a field; never hard-code a colour that only works on one tone.
+
+### Parts
+| Part | Use |
+|---|---|
+| `PageHero` | The page's opening field, always forest: optional `tag`, the `h1` in Anton (`titleClass` to resize a long title), the `lead`, optional `actions`, and an `aside` on the right. Optional `photo` adds a full-width duotone band underneath. |
+| `Field` | A full-width section of one tone; wraps its content in `Reveal` so `[data-enter]` parts rise in turn. `reveal={false}` for interactive panels that re-render (the schedule). |
+| `StickyIntro` | Left column of a text-and-object field: tag, `h2`, lead; sticky on wide screens. Pair with the `SPLIT` grid and the `LEAD` paragraph class. |
+| `FactCells` | Term/value panels with the value in Anton. Facts in heroes and rails. |
+| `BarList` | Titled items with an accent bar (audiences, highlights, criteria, culture). |
+| `Steps` | An ordered process: the number set large in Anton, title and body beside it (judging, submission steps, requirements, guidelines). |
+| `ActionPair` | Two buttons with the right tones for the field (`tone` = the field's tone). |
+| `CallBand` | The yellow closing field every inner page ends with: a huge Anton call, a sentence, and an action pair. |
+
+### Hero asides in use
+Each inner page's hero differs by what fills its right side, never by colour or type:
+
+| Page | Hero aside |
+|---|---|
+| About the conference | Four fact panels; a duotone room photograph under the hero |
+| About the organisers | "On this page" as four large jump panels |
+| About the co-organisers | Two fact panels and a logo jump card per co-organiser |
+| Mode of presentation | The two modes as large icon cards that jump to each mode |
+| Papers format | The six-part specification as fact panels |
+| Theme and topics | The six tracks as numbered jump panels |
+| Schedule | The day switch (`role="tablist"`): two large Day panels, the selected one yellow |
+| Awards | A 4:5 photograph; the awards index sits under the lead |
+| Gallery | A ledger of editions as panels with the photo count set large |
+| Venue | The live Bangkok clock (time now, days until the desk opens), address and hours, and an "Open in Google Maps" outline button |
+| Contact | The email and phone number set large as two panels, the first yellow |
+| Committee | Members and countries (from PocketBase) as big figures on two panels |
+| Proceedings | The newest volume as a specimen: cover, facts and a yellow download button |
+| Submission | The three-step strip (Sign in, Fill in, Upload and send) as numbered panels, the current step yellow |
+| Submission success | The four review stages as numbered panels, "Received" yellow |
+| Journals | The search field with the live "N of M journals showing" count set large |
+| Journal detail | The journal's cover on a panel with ISSN, index and file type as fact panels; "All journals" link under the title |
+| Registration | The two fee choices (accommodation; local or international) as toggle panels, the selected one yellow; they drive the fee table below |
+| Exhibit and sponsor | The tier ladder: each tier on a panel with its price and a yellow bar scaled to that price |
+| Policy pages (`components/policy/PolicyDocument.jsx`) | The document's contents as numbered jump panels |
+
+### Herbarium parts inside Signal pages (the bridge)
+Forms, fetched archives and dialogs written for Herbarium keep working inside `.sig`: `signal.css` restyles them under `.sig`, so they need no rewrite.
+
+| Class | Inside `.sig` it becomes |
+|---|---|
+| `herb-input` (and `components/forms/herb-fields.jsx`) | White field, 1.5px `--cream-deep` border, forest on hover, forest focus ring (yellow on forest fields) |
+| `herb-btn` / `herb-btn[data-primary]` | Anton uppercase button; primary is forest with yellow text (yellow with forest text on forest fields) |
+| `herb-link` | Underline in the current text colour |
+| `herb-italic` | Figtree, upright (no Spectral on Signal pages) |
+| `herb-label` | A borderless `--panel` block |
+| `herb-sheet`, `herb-dialog` | No shadow; cream ground |
+
+Put forms on **cream** fields (the inputs are white). For new code, prefer the Signal classes (`sig-btn`, `sig-link`, `sig-chip`, the kit parts); the bridge is for reuse.
+
+### Recipe
+1. `PageHero` (forest).
+2. Alternate `cream` and `forest` fields, one subject each. Use the text-and-object layout (`SPLIT` + `StickyIntro`) wherever there is a heading and a body of content.
+3. Large items on the right: panels, `Steps`, `BarList`, photographs at full column width. No empty column.
+4. End with `CallBand` (yellow). Submit and Register stay reachable on every page.
+
+## 8. Checklist for a Signal section
 
 - [ ] One field colour from the pairings table, different from its neighbours.
 - [ ] One `h2` in `sig-h2` (or `sig-display`), two lines or fewer.
@@ -147,6 +240,8 @@ Every fetched block keeps all three states: loading skeletons (`animate-pulse` i
 ---
 
 # Part 2: inner pages, the Herbarium Sheet system
+
+Applies only to the Herbarium pages listed in the table at the top. Pages already moved to Signal are documented in Part 1, section 7.
 
 How to build inner pages until they move to Signal.
 
@@ -239,28 +334,8 @@ Patterns already in use. Pick an unused one or invent a new arrangement, and add
 
 | Page | Hero pattern |
 |---|---|
-| About the conference | Title large left with intro and buttons right, a four-cell ruled fact strip across the sheet, then a panoramic 21:9 photo |
-| About the organisers | No photo. Title large left with buttons pinned to the bottom; an "On this page" numbered contents index and a short label on the right |
-| About the co-organisers | No photo. Full-width title, then three hairline-ruled columns beneath it: intro, facts, and the primary action with jump links to each co-organiser |
-| Committee | No photo. Title left, intro and a two-cell count (members, countries, from PocketBase) right; beneath, a full-width "Roll call" of every member's name as running text, each linking to their portrait |
-| Papers format | No photo. Full-width title and intro; beneath, the template downloads as a ruled list (with the primary button) beside a "Specification" label |
-| Mode of presentation | Title left, intro right; the two modes split side by side in hairline-ruled columns that jump to each mode; Submit/Register beneath |
-| Theme and topics | The theme statement itself is the `h1`; intro and primary button right; a six-cell hairline grid indexing the tracks |
-| Schedule | Title left, intro right; the day switch (`role="tablist"`) runs across the sheet's foot as two large cells, with a green underline on the active day |
-| Gallery | Title and photo count left; a ruled ledger table of editions (edition, locality, photo count) right, each row jumping to its edition |
-| Awards | Title, intro and a numbered index of the awards left, with Submit/Register pinned to the bottom; a tall 4:5 photograph right |
-| Contact (form page) | One sheet: title and intro across the top over an ink rule; the form in the left 60%, a "Direct lines" label and an "Elsewhere" link list in the right rail |
-| Proceedings | Title and links left; the newest volume from PocketBase set as a specimen right: cover, facts and a primary download, with skeleton, empty and error states |
-| Submission (form page) | One sheet: title and intro, a three-step strip (Sign in, Fill in, Upload and send) tracking real progress, then the form in the left 60% and a "Before you submit" rail |
-| Submission success | A receipt: title and intro, then a four-stage hairline timeline (Received, Review, Decision, Final paper) with the first stage done; Track/Register beneath |
-| Journals | Title and intro left; a large search field (title or ISSN) with a live "Showing N of M" count right; the list below is a ruled index with `herb-tab` index filters |
-| Journal detail (form page) | One sheet: the journal title as `h1` over an ink rule with an "All journals" link; the form left, the journal's cover as a specimen plus a "This journal" label in the right rail |
-| Venue | Title (the city) and a "Venue" label (name, address, dates) left, buttons pinned to the bottom; right, the venue photo fills the frame with the live map pinned as a small framed thumbnail bottom-left. Selecting the thumbnail grows it to full size and shrinks the photo to the bottom-right corner, and back |
-| Registration | Title and intro left; two segmented choices right (accommodation, local or international) that drive the fee table below; checkout opens in a `herb-dialog` side panel |
-| Exhibit and sponsor | Title, intro and buttons left; a ruled "Tiers" ladder right, each tier with its price and an ink bar scaled to that price |
 | Payment success | One sheet, split: title, intro and a "Your conference" label left; a numbered, linked "What to do next" list right |
 | Payment failed | One sheet: title and intro, a three-column hairline row of likely causes, then what to do if money left the account, and Try again |
-| Policy pages (shared `components/policy/PolicyDocument.jsx`) | One family layout for all seven policies: title and intro left, a numbered "Contents" index right; the body is one ruled document with numbered sections beside a sticky "Policies" rail marking the current page. Add a new policy by passing data to `PolicyDocument`, not by building a page |
 
 Rules for a new hero:
 - Keep it to one sheet with `herb-settle`, a single `h1` in `herb-display`, and at most one primary button.

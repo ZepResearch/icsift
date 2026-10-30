@@ -38,8 +38,8 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
   if (!user) {
     return (
       <div>
-        <h2 className="text-[clamp(1.6rem,1.3rem+1vw,2.2rem)] leading-tight tracking-[-0.02em]">Sign in to submit.</h2>
-        <p className="herb-muted mt-4 max-w-[38rem]">
+        <h3 className="sig-display text-[clamp(2rem,1.5rem+1.6vw,3rem)]">Sign in to submit</h3>
+        <p className="mt-4 max-w-[38rem] text-[18px] text-[var(--muted)]">
           Submissions are tied to your Zep Research account, so you can track their status later. Create an account or sign in
           to send your paper to {journalTitle}.
         </p>
@@ -135,7 +135,7 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
         </dl>
       </div>
 
-      <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">About you</h2>
+      <h3 className="sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">About you</h3>
       <div className="grid gap-6 md:grid-cols-2">
         <Field id="author" label="Author name" error={err("author")}>
           <input {...text("author", { type: "text", required: true, autoComplete: "name", defaultValue: user?.name || "" })} aria-describedby={describedBy("author", err("author"))} />
@@ -157,7 +157,7 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
         </Field>
       </div>
 
-      <h2 className="mt-4 border-t border-[var(--ink)] pt-6 text-[13px] font-semibold tracking-[0.08em] uppercase">Your paper</h2>
+      <h3 className="sig-display mt-6 text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]">Your paper</h3>
       <Field id="paper_title" label="Paper title" error={err("paper_title")}>
         <input {...text("paper_title", { type: "text", required: true })} aria-describedby={describedBy("paper_title", err("paper_title"))} />
       </Field>
@@ -174,14 +174,14 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
           onChange={onFileChange}
           aria-invalid={Boolean(err("file"))}
           aria-describedby={describedBy("file", err("file"), true)}
-          className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border file:border-[var(--ink)] file:bg-[var(--sheet)] file:px-3 file:py-1.5 file:text-[15px] hover:file:bg-[var(--ink)] hover:file:text-white"
+          className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border-0 file:bg-[var(--cream-deep)] file:px-3 file:py-1.5 file:text-[15px] file:font-semibold file:transition-colors hover:file:bg-[var(--forest)] hover:file:text-[var(--signal)]"
         />
       </Field>
       <Field id="message" label="Message to the editors, optional" error={err("message")} hint="Anything the editors should know about your submission.">
         <textarea {...text("message", { rows: 4, className: "herb-input resize-y" })} aria-describedby={describedBy("message", err("message"), true)} />
       </Field>
 
-      <div className="border-t border-[var(--ink)] pt-6">
+      <div className="mt-4 sm:bg-[var(--panel)] sm:p-6">
         {isLocalDev ? (
           <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">reCAPTCHA is skipped on localhost.</p>
         ) : (

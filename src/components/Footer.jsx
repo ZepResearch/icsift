@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import { CONFERENCE } from "@/constants/conference"
 
@@ -62,7 +63,16 @@ export default function ConferenceFooter() {
       <div className="mx-auto max-w-[1400px] px-4 pt-20 sm:px-6 lg:px-10 lg:pt-28">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-20">
           <div>
-            <p className="max-w-[26rem] text-[clamp(1.4rem,1.2rem+0.6vw,1.75rem)] leading-tight font-semibold text-[var(--signal)]">
+            <Link href="/" className="inline-flex items-center gap-4" aria-label="ICSIFT home">
+              <Image src="/singleLogo.svg" alt="" width={64} height={64} className="h-16 w-16 object-contain" />
+              <span className="flex flex-col leading-none">
+                <span className="sig-display text-[34px] text-[var(--signal)]">ICSIFT</span>
+                <span className="mt-1.5 text-[14px] text-[var(--cream)]/75">
+                  {CONFERENCE.shortForm} · {CONFERENCE.venue.location.split(",")[0].trim()} {CONFERENCE.year}
+                </span>
+              </span>
+            </Link>
+            <p className="mt-6 max-w-[26rem] text-[clamp(1.4rem,1.2rem+0.6vw,1.75rem)] leading-tight font-semibold text-[var(--signal)]">
               {CONFERENCE.name.trim()}
             </p>
             <dl className="mt-8 grid gap-4 text-[16px]">

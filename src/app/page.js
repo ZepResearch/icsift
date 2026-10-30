@@ -1,4 +1,5 @@
 import Hero from "@/components/signal/Hero";
+import Partners from "@/components/signal/Partners";
 import Purpose from "@/components/signal/Purpose";
 import Participate from "@/components/signal/Participate";
 import Dates from "@/components/signal/Dates";
@@ -15,9 +16,10 @@ export default function Home() {
   return (
     <main className="sig min-h-screen">
       <Hero />
+      <Partners />
       <Purpose />
-      <Participate />
       <Dates />
+      <Participate />
       <Speakers />
       <Moments />
       <Goals />

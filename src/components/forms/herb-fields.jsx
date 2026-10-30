@@ -63,7 +63,7 @@ export function Honeypot() {
 export function FormAlert({ children }) {
   if (!children) return null;
   return (
-    <div role="alert" className="border border-[var(--ink)] px-4 py-3 text-[16px]">
+    <div role="alert" className="bg-[var(--rule-soft)] px-4 py-3 text-[16px]">
       <strong className="font-semibold">Not submitted. </strong>
       {children}
     </div>

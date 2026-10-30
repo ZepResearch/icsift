@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
 import { pb } from "@/lib/pocketbase";
 import { matchSpeaker, getSpeakerImageUrl } from "@/lib/matchSpeaker";
-import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+import { ActionPair, CallBand, FactCells, Field, PageHero } from "@/components/signal/page";
 
 const { year, month, days } = CONFERENCE.scheduleDates;
 
@@ -88,23 +88,30 @@ const initialsOf = (name) =>
     .join("")
     .toUpperCase();
 
+
 function Speaker({ speaker, match }) {
   return (
     <li className="flex items-center gap-4">
       {match?.imageUrl ? (
-        <Image src={match.imageUrl} alt="" width={52} height={52} className="h-[52px] w-[52px] shrink-0 object-cover object-top" />
+        <Image
+          src={match.imageUrl}
+          alt=""
+          width={56}
+          height={56}
+          className="h-14 w-14 shrink-0 rounded-t-full object-cover object-top grayscale"
+        />
       ) : (
         <span
           aria-hidden="true"
-          className="grid h-[52px] w-[52px] shrink-0 place-items-center border border-[var(--rule)] text-[15px] text-[var(--ink-2)]"
+          className="sig-display grid h-14 w-14 shrink-0 place-items-center rounded-t-full bg-[var(--forest)] text-[18px] text-[var(--signal)]"
         >
           {initialsOf(speaker.name)}
         </span>
       )}
       <span className="min-w-0">
-        <span className="block text-[16px] leading-snug">{speaker.name}</span>
-        <span className="herb-muted block text-[14.5px] leading-snug">{speaker.affiliation}</span>
-        {match?.category ? <span className="herb-italic block text-[14px] text-[var(--ink-2)]">{match.category}</span> : null}
+        <span className="block text-[16.5px] leading-snug font-semibold">{speaker.name}</span>
+        <span className="block text-[15px] leading-snug text-[var(--muted)]">{speaker.affiliation}</span>
+        {match?.category ? <span className="block text-[14.5px] text-[var(--muted)]">{match.category}</span> : null}
       </span>
     </li>
   );
@@ -133,37 +140,37 @@ function MonthCalendar({ activeDay, onPick }) {
   const title = new Date(view.y, view.m).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 
   return (
-    <div className="herb-label">
-      <div className="flex items-center justify-between border-b border-[var(--ink)] px-2 py-1.5">
+    <div className="bg-[var(--forest)] p-3 text-[var(--signal)]">
+      <div className="flex items-center justify-between px-1 py-1">
         <button
           type="button"
           onClick={() => move(-1)}
-          className="grid h-9 w-9 place-items-center hover:bg-[var(--ink)] hover:text-white"
+          className="grid h-10 w-10 place-items-center hover:bg-[var(--signal)] hover:text-[var(--forest)]"
           aria-label="Previous month"
         >
-          <ChevronLeft className="h-4 w-4" strokeWidth={1.6} />
+          <ChevronLeft className="h-5 w-5" strokeWidth={2} />
         </button>
-        <p className="text-[13px] font-semibold tracking-[0.08em] uppercase" aria-live="polite">
+        <p className="sig-display text-[22px]" aria-live="polite">
           {title}
         </p>
         <button
           type="button"
           onClick={() => move(1)}
-          className="grid h-9 w-9 place-items-center hover:bg-[var(--ink)] hover:text-white"
+          className="grid h-10 w-10 place-items-center hover:bg-[var(--signal)] hover:text-[var(--forest)]"
           aria-label="Next month"
         >
-          <ChevronRight className="h-4 w-4" strokeWidth={1.6} />
+          <ChevronRight className="h-5 w-5" strokeWidth={2} />
         </button>
       </div>
 
-      <div className="grid grid-cols-7 px-2 pt-2" aria-hidden="true">
+      <div className="mt-2 grid grid-cols-7" aria-hidden="true">
         {WEEKDAYS.map((day) => (
-          <span key={day} className="herb-italic py-1 text-center text-[13px] text-[var(--ink-2)]">
+          <span key={day} className="py-1 text-center text-[13px] font-semibold text-[var(--cream)]/70">
             {day}
           </span>
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-1 px-2 pb-2">
+      <div className="grid grid-cols-7 gap-1">
         {cells.map((day, index) => {
           if (!day) return <span key={`blank-${index}`} className="aspect-square" />;
           const conference = isConferenceMonth && days.includes(day);
@@ -172,7 +179,7 @@ function MonthCalendar({ activeDay, onPick }) {
           const base = "grid aspect-square place-items-center text-[15px]";
           if (!conference) {
             return (
-              <span key={day} className={`${base} ${isToday ? "font-semibold underline underline-offset-4" : "text-[var(--ink-2)]"}`}>
+              <span key={day} className={`${base} ${isToday ? "font-bold text-white underline underline-offset-4" : "text-[var(--cream)]/75"}`}>
                 {day}
                 {isToday ? <span className="sr-only"> (today)</span> : null}
               </span>
@@ -185,8 +192,8 @@ function MonthCalendar({ activeDay, onPick }) {
               onClick={() => onPick(day)}
               aria-pressed={selected}
               aria-label={`${dayLabel(day)}, day ${days.indexOf(day) + 1} of the conference`}
-              className={`${base} font-medium ${
-                selected ? "bg-[var(--green)] text-white" : "border border-[var(--ink)] hover:bg-[var(--ink)] hover:text-white"
+              className={`${base} sig-display text-[19px] ${
+                selected ? "bg-[var(--signal)] text-[var(--forest)]" : "outline-2 -outline-offset-2 outline-[var(--signal)] hover:bg-[var(--signal)] hover:text-[var(--forest)]"
               }`}
             >
               {day}
@@ -194,9 +201,11 @@ function MonthCalendar({ activeDay, onPick }) {
           );
         })}
       </div>
-      <p className="herb-italic border-t border-[var(--rule)] px-4 py-2.5 text-[14px] text-[var(--ink-2)]">
-        {isConferenceMonth ? "Framed dates are conference days. Select one to see its agenda." : (
-          <button type="button" onClick={() => setView({ y: year, m: month })} className="herb-link">
+      <p className="mt-2 px-1 pb-1 text-[14.5px] text-[var(--cream)]/80">
+        {isConferenceMonth ? (
+          "Outlined dates are conference days. Select one to see its agenda."
+        ) : (
+          <button type="button" onClick={() => setView({ y: year, m: month })} className="sig-link font-semibold text-[var(--signal)]">
             Back to the conference month
           </button>
         )}
@@ -244,21 +253,15 @@ export default function ConferenceSchedule() {
   const current = SCHEDULE[active];
 
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: title and intro, with the day switch built into the sheet's foot. */}
-      <section aria-labelledby="schedule-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <h1 id="schedule-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              Two days, hour by hour.
-            </h1>
-            <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
-              The programme for the {CONFERENCE.shortForm}, {CONFERENCE.date}, in {CONFERENCE.venue.location.trim()} and online.
-              Pick a day to see its sessions.
-            </p>
-          </div>
-
-          <div role="tablist" aria-label="Conference days" className="mt-12 grid border-y border-[var(--ink)] sm:grid-cols-2">
+    <main className="sig min-h-screen">
+      {/* Hero: title and lead left; the day switch as two large panels right (the selected day turns yellow). */}
+      <PageHero
+        id="schedule-title"
+        tag="Schedule"
+        title="Two days, hour by hour"
+        lead={`The programme for the ${CONFERENCE.shortForm}, ${CONFERENCE.date}, in ${CONFERENCE.venue.location.trim()} and online. Pick a day to see its sessions.`}
+        aside={
+          <div role="tablist" aria-label="Conference days" className="grid gap-2 sm:grid-cols-2">
             {SCHEDULE.map((entry, index) => {
               const selected = active === index;
               return (
@@ -272,48 +275,43 @@ export default function ConferenceSchedule() {
                   tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(index)}
                   onKeyDown={(event) => onTabKey(event, index)}
-                  className={`relative py-6 text-left sm:px-6 sm:first:pl-0 ${index ? "border-t border-[var(--rule)] sm:border-t-0 sm:border-l" : ""} ${
-                    selected ? "" : "text-[var(--ink-2)] hover:text-[var(--ink)]"
+                  className={`p-6 text-left transition-colors duration-200 ${
+                    selected ? "bg-[var(--signal)] text-[var(--forest)]" : "bg-[var(--panel)] hover:bg-[var(--forest-deep)]/60"
                   }`}
                 >
-                  <span className="herb-italic block text-[14.5px] text-[var(--ink-2)]">Day {index + 1}</span>
-                  <span className="mt-1 block text-[clamp(1.5rem,1.2rem+1vw,2.1rem)] leading-tight tracking-[-0.02em]">
-                    {dayLabel(entry.day)}
-                  </span>
-                  {selected ? <span aria-hidden="true" className="absolute inset-x-0 -bottom-px h-[3px] bg-[var(--green)]" /> : null}
+                  <span className="sig-display block text-[clamp(3rem,2rem+2.6vw,4.5rem)] leading-none">Day {index + 1}</span>
+                  <span className="mt-3 block text-[17px] font-semibold">{dayLabel(entry.day)}</span>
                 </button>
               );
             })}
           </div>
-        </div>
-      </section>
+        }
+      />
 
-      {/* Agenda */}
-      <section aria-labelledby="agenda-title" className="px-3 pt-16 pb-16 sm:px-6 lg:px-10 lg:pt-20 lg:pb-24">
-        <div className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div
-            id="day-panel"
-            role="tabpanel"
-            aria-labelledby={`day-tab-${active}`}
-            className="grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16"
-          >
-            <div>
-              <h2 id="agenda-title" className="herb-h2">
-                Day {active + 1}.
-              </h2>
-              <p className="herb-italic mt-2 text-[16px] text-[var(--ink-2)]">{dayLabel(current.day)}</p>
+      {/* Agenda: the day's timeline left; the calendar, the on-the-day facts and the actions in a sticky rail right. */}
+      <Field tone="cream" labelledBy="agenda-title" reveal={false}>
+        <div id="day-panel" role="tabpanel" aria-labelledby={`day-tab-${active}`} className="grid gap-12 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16">
+          <div>
+            <h2 id="agenda-title" className="sig-h2">
+              Day {active + 1}
+            </h2>
+            <p className="mt-3 text-[18px] font-semibold text-[var(--muted)]">{dayLabel(current.day)}</p>
 
-              <ol className="mt-8 border-t border-[var(--ink)]">
-                {current.items.map((item, index) => (
+            <ol className="mt-10 grid gap-2">
+              {current.items.map((item, index) => {
+                const isBreak = item.kind === "break";
+                return (
                   <li
                     key={`${item.time}-${item.title}-${index}`}
-                    className={`grid gap-x-6 gap-y-2 border-b border-[var(--rule)] py-5 sm:grid-cols-[10.5rem_1fr] ${
-                      item.kind === "break" ? "text-[var(--ink-2)]" : ""
+                    className={`grid gap-x-6 gap-y-2 p-5 sm:grid-cols-[10rem_1fr] sm:p-6 ${
+                      isBreak ? "bg-transparent outline-2 -outline-offset-2 outline-dashed outline-[var(--rule)]" : "bg-[var(--panel)]"
                     }`}
                   >
-                    <p className="text-[15.5px] font-medium whitespace-nowrap">{item.time || "Close"}</p>
+                    <p className="sig-display text-[19px] leading-tight whitespace-nowrap">{item.time || "Close"}</p>
                     <div>
-                      <p className={item.kind === "break" ? "herb-italic text-[16px]" : "text-[18px] leading-snug"}>{item.title}</p>
+                      <p className={isBreak ? "text-[17px] text-[var(--muted)]" : "sig-display text-[clamp(1.35rem,1.1rem+0.6vw,1.75rem)] leading-[1.05]"}>
+                        {item.title}
+                      </p>
                       {item.speakers?.length ? (
                         <ul className="mt-4 grid gap-4 md:grid-cols-2">
                           {item.speakers.map((speaker) => (
@@ -323,32 +321,33 @@ export default function ConferenceSchedule() {
                       ) : null}
                     </div>
                   </li>
-                ))}
-              </ol>
-            </div>
-
-            <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
-              <MonthCalendar activeDay={current.day} onPick={(day) => setActive(SCHEDULE.findIndex((entry) => entry.day === day))} />
-              <AccessionLabel
-                title="On the day"
-                rows={[
-                  ["Locality", `${CONFERENCE.venue.location.trim()} · and online`],
-                  ["Address", CONFERENCE.venue.address],
-                  ["Registration", "Opens at 8:30 AM on both days"],
-                  ["Bring", "Your confirmation email and ID"],
-                ]}
-              />
-              <div className="grid gap-3">
-                <ActionLink href="/registration" primary>
-                  Register to attend
-                </ActionLink>
-                <ActionLink href="/submission">Submit a paper</ActionLink>
-              </div>
-            </aside>
+                );
+              })}
+            </ol>
           </div>
-        </div>
-      </section>
 
+          <aside className="flex flex-col gap-6 lg:sticky lg:top-40 lg:self-start">
+            <MonthCalendar activeDay={current.day} onPick={(day) => setActive(SCHEDULE.findIndex((entry) => entry.day === day))} />
+            <FactCells
+              columns=""
+              size="text-[clamp(1.2rem,1.05rem+0.5vw,1.5rem)]"
+              facts={[
+                ["Where", `${CONFERENCE.venue.name.trim()}, ${CONFERENCE.venue.location.trim()}, and online`],
+                ["Registration", "Opens at 8:30 AM on both days"],
+                ["Bring", "Your confirmation email and ID"],
+              ]}
+            />
+            <ActionPair tone="cream" primary={["/registration", "Register"]} secondary={["/submission", "Submit a paper"]} />
+          </aside>
+        </div>
+      </Field>
+
+      <CallBand
+        title="Two days in the room"
+        text={`${CONFERENCE.date}, ${CONFERENCE.venue.name.trim()}, ${CONFERENCE.venue.location.trim()}, and online.`}
+        primary={["/registration", "Register"]}
+        secondary={["/submission", "Submit a paper"]}
+      />
     </main>
   );
 }

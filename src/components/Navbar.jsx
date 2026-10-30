@@ -110,6 +110,74 @@ function Dropdown({ item, isActive, active }) {
   )
 }
 
+// Signed-in state in the bar: one compact button (the initial) that opens a small menu with the full name and
+// Log out, so a long name never pushes the navigation off the row.
+function AccountMenu({ name, onLogout }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  const pathname = usePathname()
+
+  useEffect(() => setOpen(false), [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const onDown = (event) => {
+      if (!ref.current?.contains(event.target)) setOpen(false)
+    }
+    const onKey = (event) => {
+      if (event.key === "Escape") {
+        setOpen(false)
+        ref.current?.querySelector("button")?.focus()
+      }
+    }
+    document.addEventListener("pointerdown", onDown)
+    document.addEventListener("keydown", onKey)
+    return () => {
+      document.removeEventListener("pointerdown", onDown)
+      document.removeEventListener("keydown", onKey)
+    }
+  }, [open])
+
+  const initial = (name || "?").trim().charAt(0).toUpperCase()
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="true"
+        aria-label={`Account: ${name}`}
+        onClick={() => setOpen((value) => !value)}
+        className="flex h-[46px] items-center gap-1.5 bg-[var(--forest-deep)] pr-2.5 pl-1.5 text-[var(--signal)] transition-colors hover:bg-black/20"
+      >
+        <span aria-hidden="true" className="sig-display grid h-[34px] w-[34px] place-items-center bg-[var(--signal)] text-[18px] text-[var(--forest)]">
+          {initial}
+        </span>
+        <ChevronDown aria-hidden="true" className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} strokeWidth={2} />
+      </button>
+      {open ? (
+        <div className="absolute top-full right-0 z-50 pt-3">
+          <div className="sig-nav-menu w-[16rem] bg-[var(--forest-deep)] p-4">
+            <p className="text-[13px] text-[var(--cream)]/70">Signed in as</p>
+            <p className="mt-0.5 truncate text-[16px] font-semibold text-[var(--cream)]">{name}</p>
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false)
+                onLogout()
+              }}
+              className="sig-btn mt-4 w-full !min-h-[44px] !text-[17px]"
+              data-outline=""
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
 export default function ConferenceNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openSection, setOpenSection] = useState(null)
@@ -151,8 +219,8 @@ export default function ConferenceNavbar() {
     <header ref={headerRef} className="sig-nav w-full">
       <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
         <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="ICSIFT home">
-          <span className="relative h-10 w-10">
-            <Image src="/singleLogo.svg" alt="" fill sizes="40px" className="object-contain" priority />
+          <span className="relative h-16 w-16">
+            <Image src="/singleLogo.svg" alt="" fill sizes="70px" className="object-contain" priority />
           </span>
           <span className="flex flex-col leading-none">
             <span className="sig-display text-[26px] leading-none text-[var(--signal)]">ICSIFT</span>
@@ -162,7 +230,7 @@ export default function ConferenceNavbar() {
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-6 xl:flex">
+        <nav aria-label="Main" className="hidden items-center gap-4 min-[1360px]:flex 2xl:gap-6">
           {NAV.map((item) =>
             item.dropdown ? (
               <Dropdown key={item.title} item={item} isActive={isActive} active={isParentActive(item)} />
@@ -180,14 +248,9 @@ export default function ConferenceNavbar() {
           )}
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-5 xl:flex">
+        <div className="hidden shrink-0 items-center gap-4 min-[1360px]:flex">
           {isAuthed ? (
-            <div className="flex items-center gap-4 text-[14.5px]">
-              <span className="max-w-[12rem] truncate text-[var(--cream)]/80">{displayName}</span>
-              <button type="button" onClick={() => logout()} className="sig-nav-link">
-                Log out
-              </button>
-            </div>
+            <AccountMenu name={displayName} onLogout={() => logout()} />
           ) : (
             <button type="button" onClick={() => openAuthModal()} className="sig-nav-link">
               Log in
@@ -201,7 +264,7 @@ export default function ConferenceNavbar() {
 
         <button
           type="button"
-          className="grid h-11 w-11 place-items-center bg-[var(--signal)] text-[var(--forest)] xl:hidden"
+          className="grid h-11 w-11 place-items-center bg-[var(--signal)] text-[var(--forest)] min-[1360px]:hidden"
           onClick={() => setIsMobileMenuOpen((value) => !value)}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
@@ -212,7 +275,7 @@ export default function ConferenceNavbar() {
       </div>
 
       {isMobileMenuOpen ? (
-        <div id="mobile-menu" className="sig-mobile-menu fixed inset-x-0 bottom-0 z-50 overflow-y-auto xl:hidden"
+        <div id="mobile-menu" className="sig-mobile-menu fixed inset-x-0 bottom-0 z-50 overflow-y-auto min-[1360px]:hidden"
           style={{ top: menuTop }}>
           <nav aria-label="Main" className="mx-auto max-w-[1400px] px-4 pt-4 pb-10 sm:px-6">
             <ul>

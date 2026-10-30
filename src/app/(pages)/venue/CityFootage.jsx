@@ -25,7 +25,7 @@ export default function CityFootage() {
           className="absolute inset-0 size-full object-cover"
         />
       </div>
-      <figcaption className="herb-italic mt-3 text-[14px] text-white/75">Bangkok, between the sessions</figcaption>
+      <figcaption className="mt-3 text-[15px] text-[var(--muted)]">Bangkok, between the sessions</figcaption>
     </figure>
   );
 }

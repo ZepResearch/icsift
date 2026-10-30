@@ -35,7 +35,7 @@ export default function Faq() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="bg-[var(--forest)] text-[var(--signal)]">
       <Reveal className="mx-auto grid max-w-[1400px] gap-12 px-4 py-28 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-20 lg:px-10 lg:py-40">
-        <div data-enter>
+        <div data-enter className="lg:sticky lg:top-40 lg:self-start">
           <h2 id="faq-title" className="sig-h2">
             Before you ask
           </h2>

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { CallBand, Field, PageHero } from "@/components/signal/page";
 import PhotoArchive from "./photo-archive";
 import VideoSection from "./video-section";
 
@@ -51,112 +50,83 @@ const VIDEOS = [
 
 export default function Gallery() {
   const total = EDITIONS.reduce((sum, edition) => sum + edition.photos.length, 0);
+  const ledger = [
+    ...EDITIONS.map((edition) => [edition.id, edition.name, edition.locality, edition.photos.length, "photos"]),
+    ["films", "Films", "1st and 2nd editions", VIDEOS.length, "films"],
+  ];
 
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: title and intro left, a ruled ledger of editions right. */}
-      <section aria-labelledby="gallery-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end lg:gap-16 lg:p-12">
-          <div>
-            <h1 id="gallery-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              Three editions, in pictures.
-            </h1>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
-              {total} photographs and two films from the rooms where ICSIFT happened. Select any photo to see it full size.
-            </p>
-          </div>
-
-          <table className="w-full border-collapse text-left">
-            <caption className="sr-only">Editions in the gallery</caption>
-            <thead>
-              <tr className="border-b border-[var(--ink)] text-[13px] font-semibold tracking-[0.08em] uppercase">
-                <th scope="col" className="py-2 pr-4 font-semibold">Edition</th>
-                <th scope="col" className="py-2 pr-4 font-semibold">Locality</th>
-                <th scope="col" className="py-2 text-right font-semibold">Photos</th>
-              </tr>
-            </thead>
-            <tbody>
-              {EDITIONS.map((edition) => (
-                <tr key={edition.id} className="border-b border-[var(--rule)]">
-                  <th scope="row" className="py-4 pr-4 text-[18px] font-normal">
-                    <a href={`#${edition.id}`} className="herb-link">
-                      {edition.name}
-                    </a>
-                  </th>
-                  <td className="herb-italic py-4 pr-4 text-[15px] text-[var(--ink-2)]">{edition.locality}</td>
-                  <td className="py-4 text-right text-[18px]">{edition.photos.length}</td>
-                </tr>
-              ))}
-              <tr className="border-b border-[var(--rule)]">
-                <th scope="row" className="py-4 pr-4 text-[18px] font-normal">
-                  <a href="#films" className="herb-link">
-                    Films
+    <main className="sig min-h-screen">
+      {/* Hero: title and count left; each edition as a jump panel with its photo count set large right. */}
+      <PageHero
+        id="gallery-title"
+        tag="Gallery"
+        title="Three editions, in pictures"
+        lead={`${total} photographs and two films from the rooms where ICSIFT happened. Select any photo to see it full size.`}
+        aside={
+          <nav aria-label="Editions in the gallery">
+            <ul className="grid gap-2">
+              {ledger.map(([id, name, locality, count, unit]) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className="grid grid-cols-[1fr_auto] items-center gap-4 bg-[var(--panel)] px-5 py-4 transition-colors duration-200 hover:bg-[var(--signal)] hover:text-[var(--forest)]"
+                  >
+                    <span>
+                      <span className="sig-display block text-[clamp(1.5rem,1.2rem+0.8vw,2rem)] leading-none">{name}</span>
+                      <span className="mt-1.5 block text-[15.5px] opacity-80">{locality}</span>
+                    </span>
+                    <span className="text-right">
+                      <span className="sig-display block text-[clamp(2rem,1.6rem+1.2vw,2.8rem)] leading-none">{count}</span>
+                      <span className="block text-[14px] opacity-80">{unit}</span>
+                    </span>
                   </a>
-                </th>
-                <td className="herb-italic py-4 pr-4 text-[15px] text-[var(--ink-2)]">1st and 2nd editions</td>
-                <td className="py-4 text-right text-[18px]">{VIDEOS.length}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        }
+      />
 
       {EDITIONS.map((edition, index) => (
-        <section
-          key={edition.id}
-          id={edition.id}
-          aria-labelledby={`${edition.id}-title`}
-          className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32"
-        >
-          <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-            <div className="mb-10 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
-              <div>
-                <h2 id={`${edition.id}-title`} className="herb-h2">
-                  {edition.name}.
-                </h2>
-                <p className="herb-italic mt-2 text-[16px] text-[var(--ink-2)]">
-                  {edition.locality} · {edition.photos.length} photos
-                </p>
-              </div>
-              <p className="herb-muted max-w-[34rem] lg:justify-self-end">{edition.summary}</p>
+        <Field key={edition.id} tone={index % 2 ? "forest" : "cream"} id={edition.id} labelledBy={`${edition.id}-title`}>
+          <div className="mb-12 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <div data-enter>
+              <h2 id={`${edition.id}-title`} className="sig-h2">
+                {edition.name}
+              </h2>
+              <p className="mt-3 text-[17px] font-semibold">
+                {edition.locality} · {edition.photos.length} photos
+              </p>
             </div>
-            <PhotoArchive photos={edition.photos} edition={edition.name} eager={index === 0} />
-          </Reveal>
-        </section>
-      ))}
-
-      <section id="films" aria-labelledby="films-title" className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <h2 id="films-title" className="herb-h2">
-              The films.
-            </h2>
-            <Link href="/previous-conference-report" className="herb-link text-[15.5px]">
-              Previous conference report
-            </Link>
-          </div>
-          <VideoSection videos={VIDEOS} />
-        </Reveal>
-      </section>
-
-      <section aria-labelledby="gallery-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="gallery-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Be in the next set of photographs.
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
-              {CONFERENCE.shortForm}, {CONFERENCE.date}, {CONFERENCE.venue.location.trim()} and online.
+            <p data-enter style={{ "--i": 1 }} className="max-w-[32rem] text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug text-[var(--muted)]">
+              {edition.summary}
             </p>
           </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
+          <div data-enter style={{ "--i": 2 }}>
+            <PhotoArchive photos={edition.photos} edition={edition.name} eager={index === 0} />
           </div>
-        </Reveal>
-      </section>
+        </Field>
+      ))}
+
+      <Field tone="cream" id="films" labelledBy="films-title">
+        <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
+          <h2 id="films-title" data-enter className="sig-h2">
+            The films
+          </h2>
+          <Link href="/previous-conference-report" data-enter style={{ "--i": 1 }} className="sig-link text-[17px] font-semibold">
+            Previous conference report
+          </Link>
+        </div>
+        <div data-enter style={{ "--i": 2 }}>
+          <VideoSection videos={VIDEOS} />
+        </div>
+      </Field>
+
+      <CallBand
+        title="Be in the next set of photographs"
+        text={`${CONFERENCE.shortForm}, ${CONFERENCE.date}, ${CONFERENCE.venue.location.trim()} and online.`}
+      />
     </main>
   );
 }

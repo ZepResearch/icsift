@@ -1,25 +1,25 @@
+// Skeleton in the shape of the journals page: a forest hero (title and search panel), then the cream list of panels.
 export default function Loading() {
   return (
-    <main className="herb min-h-screen" aria-busy="true">
-      <div className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-2 lg:p-12">
+    <main className="sig min-h-screen" aria-busy="true">
+      <div className="sig-forest">
+        <div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-end lg:px-10 lg:py-28">
           <div className="space-y-4">
-            <span className="block h-14 w-4/5 animate-pulse bg-[var(--rule-soft)]" />
-            <span className="block h-14 w-3/5 animate-pulse bg-[var(--rule-soft)]" />
+            <span className="block h-7 w-32 animate-pulse bg-[var(--panel)]" />
+            <span className="block h-20 w-4/5 animate-pulse bg-[var(--panel)]" />
+            <span className="block h-20 w-3/5 animate-pulse bg-[var(--panel)]" />
           </div>
-          <span className="block h-14 w-full self-end animate-pulse bg-[var(--rule-soft)]" />
+          <span className="block h-56 w-full animate-pulse bg-[var(--panel)]" />
         </div>
       </div>
-      <div className="px-3 pt-16 sm:px-6 lg:px-10 lg:pt-20">
-        <div className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="border-t border-[var(--ink)]">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="grid grid-cols-[4.5rem_1fr] items-center gap-6 border-b border-[var(--rule)] py-4">
-                <span className="aspect-[3/4] animate-pulse bg-[var(--rule-soft)]" />
-                <span className="h-5 w-2/3 animate-pulse bg-[var(--rule-soft)]" />
-              </div>
-            ))}
-          </div>
+      <div className="sig-cream">
+        <div className="mx-auto grid max-w-[1400px] gap-2 px-4 py-24 sm:px-6 lg:grid-cols-2 lg:px-10">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="grid grid-cols-[5.5rem_1fr] gap-5 bg-[var(--panel)] p-6">
+              <span className="aspect-[3/4] animate-pulse bg-[var(--cream)]" />
+              <span className="h-6 w-2/3 animate-pulse bg-[var(--cream)]" />
+            </div>
+          ))}
         </div>
       </div>
     </main>

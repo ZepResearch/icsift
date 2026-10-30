@@ -376,3 +376,142 @@ button:focus-visible .sig-portrait img {
     transition: none !important;
   }
 }
+
+/* Field tones for inner pages (components/signal/page.jsx). Each sets the ground, the text, and four helpers that
+   components read, so one component works on any field: --muted (secondary text), --panel (a block one step off the
+   ground), --line (accent rules and list bars), --on-panel (text on --panel). */
+.sig-forest {
+  background: var(--forest);
+  color: var(--signal);
+  --muted: rgb(244 241 236 / 0.86);
+  --panel: var(--forest-deep);
+  --line: var(--signal);
+}
+
+.sig-deep {
+  background: var(--forest-deep);
+  color: var(--signal);
+  --muted: rgb(244 241 236 / 0.86);
+  --panel: var(--forest);
+  --line: var(--signal);
+}
+
+.sig-cream {
+  background: var(--cream);
+  color: var(--bark);
+  --muted: var(--bark-2);
+  --panel: var(--cream-deep);
+  --line: var(--forest);
+}
+
+.sig-yellow {
+  background: var(--signal);
+  color: var(--forest);
+  --muted: rgb(33 54 41 / 0.82);
+  --panel: rgb(33 54 41 / 0.08);
+  --line: var(--forest);
+}
+
+.sig .sig-cream :focus-visible,
+.sig .sig-yellow :focus-visible {
+  outline-color: var(--forest);
+}
+
+/* Bridge: Herbarium parts reused inside Signal pages (form fields, buttons, links, labels, archives, dialogs) take
+   Signal's look, so forms and fetched lists keep working without being rebuilt. */
+.sig .herb-input {
+  background: #fff;
+  border: 1.5px solid var(--cream-deep);
+  color: var(--bark);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.sig .herb-input:hover {
+  border-color: var(--forest);
+}
+
+.sig .herb-input:focus,
+.sig .herb-input:focus-within {
+  outline: 2px solid var(--forest);
+  outline-offset: 1px;
+  border-color: var(--forest);
+}
+
+.sig-forest .herb-input:focus,
+.sig-forest .herb-input:focus-within {
+  outline-color: var(--signal);
+}
+
+.sig .herb-btn {
+  min-height: 52px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--forest);
+  color: var(--forest);
+}
+
+.sig .herb-btn:hover {
+  background: var(--forest);
+  color: var(--signal);
+}
+
+.sig .herb-btn[data-primary] {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--signal);
+}
+
+.sig .herb-btn[data-primary]:hover {
+  background: var(--forest-deep);
+  border-color: var(--forest-deep);
+}
+
+.sig-forest .herb-btn,
+.sig-deep .herb-btn {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.sig-forest .herb-btn[data-primary],
+.sig-deep .herb-btn[data-primary] {
+  background: var(--signal);
+  color: var(--forest);
+}
+
+.sig .herb-italic {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-style: normal;
+}
+
+.sig .herb-link {
+  color: inherit;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.sig .herb-link:hover {
+  text-decoration-color: currentColor;
+}
+
+.sig .herb-sheet {
+  box-shadow: none;
+}
+
+.sig .herb-label {
+  border: 0;
+  background: var(--panel, var(--cream-deep));
+}
+
+.sig .herb-label dt {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-style: normal;
+}
+
+.sig.herb-dialog,
+.sig .herb-dialog {
+  background: var(--cream);
+  color: var(--bark);
+}

@@ -91,7 +91,7 @@ export default function PhotoArchive({ photos, edition, eager = false }) {
             })}
           </ul>
           {rest.length > COLLAPSED ? (
-            <button type="button" onClick={() => setExpanded((v) => !v)} className="herb-link mt-6 text-[15.5px]">
+            <button type="button" onClick={() => setExpanded((v) => !v)} className="sig-link mt-6 text-[16px] font-semibold">
               {expanded ? "Show fewer photos" : `Show all ${photos.length} photos`}
             </button>
           ) : null}

@@ -47,7 +47,7 @@ export default function VenueSpecimen({ venueName, mapSrc }) {
 
   return (
     <figure className="flex flex-col">
-      <div className="herb-mount relative aspect-[3/4] w-full sm:aspect-[4/3] lg:aspect-auto lg:min-h-[600px] lg:flex-1">
+      <div className="relative aspect-[3/4] w-full sm:aspect-[4/3] lg:aspect-auto lg:min-h-[600px] lg:flex-1">
         <Layer isMain={main === "photo"} place="right" label="Photo" onExpand={() => setMain("photo")}>
           <div className="herb-photo herb-photo-settle absolute inset-0">
             <Image
@@ -73,7 +73,7 @@ export default function VenueSpecimen({ venueName, mapSrc }) {
           />
         </Layer>
       </div>
-      <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]" aria-live="polite">
+      <figcaption className="mt-3 text-[15px] text-[var(--muted)]" aria-live="polite">
         {main === "photo" ? `${venueName} at dusk. Select the map to enlarge it.` : `${venueName} on the map. Select the photo to go back.`}
       </figcaption>
     </figure>

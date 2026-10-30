@@ -5,27 +5,8 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import "react-phone-number-input/style.css"
 import PhoneInput from "react-phone-number-input"
-import {
-  FileText,
-  User,
-  Mail,
-  Phone,
-  MapPin,
-  Users,
-  BookOpen,
-  Building,
-  Upload,
-  MessageSquare,
-  ArrowRight,
-  Loader2,
-  BookMarked,
-} from "lucide-react"
+import { ArrowRight, Loader2, Upload } from "lucide-react"
 import { toast } from "@/hooks/use-toast"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { useAuth } from '@/context/AuthContext'
 
 
@@ -83,7 +64,7 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
       })
 
       // Redirect to success page
-      router.push("/journal/success")
+      router.push("/journals/success")
     } catch (err) {
       setError(err.message || "An error occurred while submitting your paper")
       toast({
@@ -101,257 +82,118 @@ export default function PaperSubmissionForm({ journalId, journalTitle }) {
     }
   }
 
+  const label = "block text-[15.5px] font-semibold";
+  const group = "sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)]";
+
   return (
-    <Card className="shadow-lg border-0 overflow-hidden">
-      <div className="h-2 bg-gradient-to-r from-green-400 to-blue-500"></div>
-
-      <CardHeader className="space-y-1 pb-6 pt-6">
-        <CardTitle className="text-2xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-          Submit Your Research
-        </CardTitle>
-        <CardDescription className="text-muted-foreground">
-          Submit your paper for review and publication in this journal
-        </CardDescription>
-      </CardHeader>
-
-      {error && (
-        <div className="mx-6 mb-6 p-4 bg-destructive/10 border border-destructive/20 text-destructive rounded-md">
+    <form onSubmit={handleSubmit} className="grid gap-10">
+      {error ? (
+        <p role="alert" className="border-l-4 border-[var(--forest)] bg-[var(--panel)] px-5 py-4 text-[16px]">
+          <strong className="font-semibold">Not submitted. </strong>
           {error}
+        </p>
+      ) : null}
+
+      <div className="grid gap-5">
+        <h3 className={group}>Journal</h3>
+        <div>
+          <label htmlFor="journal_name" className={label}>
+            Journal name
+          </label>
+          <input type="text" id="journal_name" name="journal_name" value={journalTitle ?? ""} readOnly className="herb-input mt-2 !bg-[var(--cream-deep)]" />
         </div>
-      )}
+      </div>
 
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Journal Information</h3>
-
-            <div className="space-y-4">
-              {/* Journal Name */}
-              <div className="space-y-2">
-                <Label htmlFor="journal_name" className="flex items-center gap-2">
-                  <BookMarked className="h-4 w-4 text-muted-foreground" />
-                  <span>Journal Name</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="journal_name"
-                  name="journal_name"
-                  value={journalTitle}
-                  readOnly
-                  className="bg-muted/50"
-                />
-              </div>
-            </div>
+      <div className="grid gap-5">
+        <h3 className={group}>About you</h3>
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label htmlFor="author" className={label}>
+              Author name
+            </label>
+            <input type="text" id="author" name="author" required placeholder="Enter your full name" autoComplete="name" className="herb-input mt-2" />
           </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Author Information</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Author Name */}
-              <div className="space-y-2">
-                <Label htmlFor="author" className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  <span>Author Name</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="author"
-                  name="author"
-                  required
-                  placeholder="Enter your full name"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  <span>Email Address</span>
-                </Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="your.email@example.com"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Phone Number */}
-              <div className="space-y-2">
-                <Label htmlFor="phone_number" className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  <span>Phone Number</span>
-                </Label>
-                <PhoneInput
-                  international
-                  defaultCountry="US"
-                  value={phoneNumber}
-                  onChange={setPhoneNumber}
-                  required
-                  className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                />
-              </div>
-
-              {/* Country */}
-              <div className="space-y-2">
-                <Label htmlFor="country" className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span>Country</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="country"
-                  name="country"
-                  required
-                  placeholder="Your country of residence"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
+          <div>
+            <label htmlFor="email" className={label}>
+              Email address
+            </label>
+            <input type="email" id="email" name="email" required placeholder="your.email@example.com" autoComplete="email" className="herb-input mt-2" />
           </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Paper Details</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Co-Author */}
-              <div className="space-y-2">
-                <Label htmlFor="co_author" className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-muted-foreground" />
-                  <span>Co-Author(s)</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="co_author"
-                  name="co_author"
-                  placeholder="Separate multiple authors with commas"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Paper Title */}
-              <div className="space-y-2">
-                <Label htmlFor="paper_title" className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-muted-foreground" />
-                  <span>Paper Title</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="paper_title"
-                  name="paper_title"
-                  required
-                  placeholder="Enter the title of your paper"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Department */}
-              <div className="space-y-2">
-                <Label htmlFor="department" className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-muted-foreground" />
-                  <span>Department</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="department"
-                  name="department"
-                  required
-                  placeholder="Your academic department"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-
-              {/* Organization */}
-              <div className="space-y-2">
-                <Label htmlFor="organization" className="flex items-center gap-2">
-                  <Building className="h-4 w-4 text-muted-foreground" />
-                  <span>Organization</span>
-                </Label>
-                <Input
-                  type="text"
-                  id="organization"
-                  name="organization"
-                  required
-                  placeholder="Your university or institution"
-                  className="transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
+          <div>
+            <label htmlFor="phone_number" className={label}>
+              Phone number
+            </label>
+            <PhoneInput id="phone_number" international defaultCountry="US" value={phoneNumber} onChange={setPhoneNumber} required className="herb-input mt-2" />
           </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm font-medium border-b pb-2">Submission</h3>
-
-            <div className="space-y-4">
-              {/* File Upload */}
-              <div className="space-y-2">
-                <Label htmlFor="file" className="flex items-center gap-2">
-                  <Upload className="h-4 w-4 text-muted-foreground" />
-                  <span>Upload Paper</span>
-                </Label>
-                <div className="border-2 border-dashed border-muted rounded-lg p-4 text-center transition-colors hover:bg-muted/5">
-                  <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    onChange={handleFileChange}
-                    required
-                    accept=".pdf,.doc,.docx"
-                    className="hidden"
-                  />
-                  <label htmlFor="file" className="cursor-pointer flex flex-col items-center gap-2">
-                    <Upload className="h-6 w-6 text-muted-foreground" />
-                    <span className="text-sm font-medium">
-                      {selectedFile ? selectedFile.name : "Click to upload or drag and drop"}
-                    </span>
-                    <span className="text-xs text-muted-foreground">PDF, DOC, or DOCX (max 10MB)</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Message */}
-              <div className="space-y-2">
-                <Label htmlFor="message" className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                  <span>Additional Message</span>
-                </Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows={3}
-                  placeholder="Any additional information or comments about your submission"
-                  className="resize-none transition-all duration-200 focus:ring-2 focus:ring-purple-500/20"
-                />
-              </div>
-            </div>
+          <div>
+            <label htmlFor="country" className={label}>
+              Country
+            </label>
+            <input type="text" id="country" name="country" required placeholder="Your country of residence" autoComplete="country-name" className="herb-input mt-2" />
           </div>
+        </div>
+      </div>
 
-          <CardFooter className="flex justify-end px-0 pt-4">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:scale-105 transition-all text-white w-full"
-              size="lg"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  Submit Paper
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </CardFooter>
-        </form>
-      </CardContent>
-    </Card>
+      <div className="grid gap-5">
+        <h3 className={group}>Your paper</h3>
+        <div className="grid gap-5 md:grid-cols-2">
+          <div>
+            <label htmlFor="co_author" className={label}>
+              Co-author(s)
+            </label>
+            <input type="text" id="co_author" name="co_author" placeholder="Separate multiple authors with commas" className="herb-input mt-2" />
+          </div>
+          <div>
+            <label htmlFor="paper_title" className={label}>
+              Paper title
+            </label>
+            <input type="text" id="paper_title" name="paper_title" required placeholder="Enter the title of your paper" className="herb-input mt-2" />
+          </div>
+          <div>
+            <label htmlFor="department" className={label}>
+              Department
+            </label>
+            <input type="text" id="department" name="department" required placeholder="Your academic department" className="herb-input mt-2" />
+          </div>
+          <div>
+            <label htmlFor="organization" className={label}>
+              Organization
+            </label>
+            <input type="text" id="organization" name="organization" required placeholder="Your university or institution" autoComplete="organization" className="herb-input mt-2" />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid gap-5">
+        <h3 className={group}>Submission</h3>
+        <div>
+          <span className={label}>Upload paper</span>
+          <input type="file" id="file" name="file" onChange={handleFileChange} required accept=".pdf,.doc,.docx" className="peer sr-only" />
+          <label
+            htmlFor="file"
+            className="mt-2 flex cursor-pointer flex-col items-center gap-2 border-2 border-dashed border-[var(--forest)]/40 bg-white p-6 text-center transition-colors hover:border-[var(--forest)] peer-focus-visible:outline-2 peer-focus-visible:outline-[var(--forest)]"
+          >
+            <Upload aria-hidden="true" className="h-7 w-7" strokeWidth={1.8} />
+            <span className="text-[16.5px] font-semibold">{selectedFile ? selectedFile.name : "Click to choose a file"}</span>
+            <span className="text-[15px] text-[var(--muted)]">PDF, DOC or DOCX, up to 10 MB</span>
+          </label>
+        </div>
+        <div>
+          <label htmlFor="message" className={label}>
+            Additional message
+          </label>
+          <textarea id="message" name="message" rows={3} placeholder="Any additional information or comments about your submission" className="herb-input mt-2 resize-y" />
+        </div>
+      </div>
+
+      <button type="submit" disabled={isSubmitting} data-primary className="herb-btn w-full disabled:cursor-wait disabled:opacity-70 sm:max-w-[22rem]">
+        <span>{isSubmitting ? "Submitting…" : "Submit paper"}</span>
+        {isSubmitting ? (
+          <Loader2 aria-hidden="true" className="h-[18px] w-[18px] animate-spin" />
+        ) : (
+          <ArrowRight aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />
+        )}
+      </button>
+    </form>
   )
 }

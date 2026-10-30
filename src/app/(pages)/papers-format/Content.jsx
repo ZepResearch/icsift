@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { CallBand, FactCells, Field, LEAD, PageHero, SPLIT, StickyIntro, Steps } from "@/components/signal/page";
 
 const SPECIFICATION = [
   ["Abstract", "Up to 300 words"],
-  ["Full paper", "8 to 12 pages, including figures, tables and references"],
-  ["Poster", "A0 (841 × 1189 mm), portrait"],
+  ["Full paper", "8 to 12 pages"],
+  ["Poster", "A0, portrait"],
   ["File type", "Microsoft Word"],
   ["Citations", "IEEE style"],
   ["Language", "English"],
@@ -38,168 +37,103 @@ const TEMPLATES = [
 ];
 
 const REQUIREMENTS = [
-  "Use the provided templates without modifying margins, font sizes or styles.",
-  "Abstract submissions should not exceed 300 words.",
-  "Full papers should be 8 to 12 pages, including figures, tables and references.",
-  "Poster presentations follow the A0 format (841 × 1189 mm) in portrait orientation.",
-  "All submissions must be Word files.",
+  ["Use the templates as they are", "Do not modify margins, font sizes or styles."],
+  ["Keep the abstract short", "Abstract submissions should not exceed 300 words."],
+  ["Mind the page count", "Full papers should be 8 to 12 pages, including figures, tables and references."],
+  ["Posters are A0", "Poster presentations follow the A0 format (841 × 1189 mm) in portrait orientation."],
+  ["Send Word files", "All submissions must be Word files."],
 ];
 
 export default function PapersFormatPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: full-width title, then the downloads themselves beside the specification table. */}
-      <section aria-labelledby="format-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <h1 id="format-title" className="herb-display max-w-[18ch] text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-            Format your paper, then send it.
-          </h1>
-          <p className="herb-muted mt-6 max-w-[40rem] text-[17.5px] leading-relaxed">
-            Every submission to the {CONFERENCE.shortForm} follows the same templates. Papers that do not may be returned for
-            revision before review.
-          </p>
+    <main className="sig min-h-screen">
+      {/* Hero: title and lead left; the specification as six panels right. */}
+      <PageHero
+        id="format-title"
+        tag="Paper format"
+        title="Format your paper, then send it"
+        lead={`Every submission to the ${CONFERENCE.shortForm} follows the same templates. Papers that do not may be returned for revision before review.`}
+        aside={<FactCells facts={SPECIFICATION} size="text-[clamp(1.3rem,1.1rem+0.6vw,1.7rem)]" />}
+      />
 
-          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            <div>
-              <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Templates</h2>
-              <ul className="mt-4 border-t border-[var(--ink)]">
-                {TEMPLATES.map((template) => (
-                  <li key={template.title} className="border-b border-[var(--rule)]">
-                    <a
-                      href={template.file}
-                      download
-                      className="group flex items-center justify-between gap-6 py-5 hover:text-[var(--green)]"
-                    >
-                      <span>
-                        <span className="block text-[20px]">{template.title} template</span>
-                        <span className="herb-italic mt-0.5 block text-[14.5px] text-[var(--ink-2)]">{template.type}</span>
-                      </span>
-                      <Download aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.6} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <ActionLink href="/submission" primary className="mt-8 sm:max-w-[22rem]">
-                Submit a paper
-              </ActionLink>
-            </div>
-
-            <div className="herb-label self-start">
-              <h2 className="border-b border-[var(--ink)] px-4 py-2 text-[13px] font-semibold tracking-[0.08em] uppercase">
-                Specification
-              </h2>
-              <dl className="divide-y divide-[var(--rule)]">
-                {SPECIFICATION.map(([term, value]) => (
-                  <div key={term} className="grid grid-cols-[7.5rem_1fr] gap-3 px-4 py-3 max-sm:grid-cols-1 max-sm:gap-0.5">
-                    <dt>{term}</dt>
-                    <dd>{value}</dd>
+      {/* Templates: sticky intro left; each template as a large download panel with its description right. */}
+      <Field tone="cream" id="templates" labelledBy="templates-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Templates" id="templates-title" title="Download the templates">
+            <p className={LEAD}>Three templates, one for each kind of submission. Download the one you need and write into it.</p>
+          </StickyIntro>
+          <ul className="grid gap-2">
+            {TEMPLATES.map((template, index) => (
+              <li key={template.title} data-enter style={{ "--i": 2 + index }} className="bg-[var(--panel)] p-6 sm:p-8">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <h3 className="sig-display text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)] leading-none">{template.title} template</h3>
+                    <p className="mt-2 text-[15.5px] text-[var(--muted)]">{template.type}</p>
                   </div>
-                ))}
-              </dl>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* General requirements */}
-      <section aria-labelledby="requirements-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <h2 id="requirements-title" className="herb-h2 max-w-[13ch]">
-              General requirements.
-            </h2>
-            <p className="herb-muted mt-5 max-w-[26rem]">Check these before you send anything. They apply to every type of submission.</p>
-          </div>
-          <Reveal as="ol" className="border-t border-[var(--ink)]">
-            {REQUIREMENTS.map((requirement, index) => (
-              <li key={requirement} className="grid grid-cols-[2.5rem_1fr] items-baseline border-b border-[var(--rule)] py-5">
-                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
-                <span className="text-[17px]">{requirement}</span>
+                  <a href={template.file} download className="sig-btn" data-dark="">
+                    <Download aria-hidden="true" className="h-[18px] w-[18px]" strokeWidth={2.2} />
+                    <span>Download</span>
+                  </a>
+                </div>
+                <p className="mt-5 max-w-[46rem] text-[17px] text-[var(--muted)]">{template.description}</p>
               </li>
             ))}
-          </Reveal>
+          </ul>
         </div>
-      </section>
+      </Field>
 
-      {/* Template details */}
-      <section aria-labelledby="templates-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <h2 id="templates-title" className="herb-h2 max-w-[16ch]">
-            What each template expects.
-          </h2>
-          <div className="mt-10 border-t border-[var(--ink)]">
-            {TEMPLATES.map((template) => (
-              <div
-                key={template.title}
-                className="grid gap-x-10 gap-y-3 border-b border-[var(--rule)] py-7 lg:grid-cols-[14rem_minmax(0,1fr)_auto] lg:items-baseline"
-              >
-                <h3 className="text-[22px] leading-tight font-normal tracking-[-0.01em]">{template.title}</h3>
-                <p className="herb-muted max-w-[44rem] text-[16px] leading-relaxed">{template.description}</p>
-                <a href={template.file} download className="herb-link inline-flex items-center gap-2 text-[15.5px] whitespace-nowrap">
-                  <Download aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
-                  Download
-                </a>
-              </div>
-            ))}
+      {/* General requirements */}
+      <Field tone="forest" labelledBy="requirements-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Requirements" id="requirements-title" title="Check before you send">
+            <p className={LEAD}>These apply to every type of submission.</p>
+          </StickyIntro>
+          <div data-enter style={{ "--i": 2 }}>
+            <Steps steps={REQUIREMENTS} />
           </div>
-        </Reveal>
-      </section>
+        </div>
+      </Field>
 
-      {/* Citation and language */}
-      <section aria-labelledby="style-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <h2 id="style-title" className="herb-h2 max-w-[16ch]">
-            Citations and language.
-          </h2>
-          <div className="mt-10 grid gap-10 border-t border-[var(--ink)] pt-8 md:grid-cols-2 md:gap-16">
-            <div>
-              <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Citation style</h3>
-              <p className="mt-4 max-w-[38rem] text-[17px] leading-relaxed">
-                The {CONFERENCE.shortForm} uses the IEEE citation style for all submissions. The templates include examples of
-                how to format different types of references.
-              </p>
-              <p className="herb-muted mt-4 max-w-[38rem]">
-                For details, see the IEEE Reference Guide or the IEEE Editorial Style Manual.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Language</h3>
-              <p className="mt-4 max-w-[38rem] text-[17px] leading-relaxed">
-                All submissions must be in English. We recommend having your paper proofread by a native speaker or a
-                professional editing service.
-              </p>
-              <p className="herb-muted mt-4 max-w-[38rem]">
-                Pay particular attention to your abstract, introduction and conclusion: they are what readers use to judge the
-                significance of your work.
-              </p>
-            </div>
+      {/* Citations and language: two panels side by side. */}
+      <Field tone="cream" labelledBy="style-title">
+        <h2 id="style-title" data-enter className="sig-h2">
+          Citations and language
+        </h2>
+        <div className="mt-12 grid gap-2 md:grid-cols-2">
+          <div data-enter style={{ "--i": 1 }} className="bg-[var(--panel)] p-7 sm:p-9">
+            <h3 className="sig-display text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)]">Citation style</h3>
+            <p className="mt-4 text-[18px]">
+              The {CONFERENCE.shortForm} uses the IEEE citation style for all submissions. The templates include examples of how
+              to format different types of references.
+            </p>
+            <p className="mt-4 text-[17px] text-[var(--muted)]">For details, see the IEEE Reference Guide or the IEEE Editorial Style Manual.</p>
           </div>
-        </Reveal>
-      </section>
-
-      {/* Closing */}
-      <section aria-labelledby="format-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="format-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Formatted? Send it in.
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
-              Not sure your topic fits? See the{" "}
-              <Link href="/theme-and-topics" className="herb-link">
-                theme and topics
-              </Link>{" "}
-              first.
+          <div data-enter style={{ "--i": 2 }} className="bg-[var(--panel)] p-7 sm:p-9">
+            <h3 className="sig-display text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)]">Language</h3>
+            <p className="mt-4 text-[18px]">
+              All submissions must be in English. We recommend having your paper proofread by a native speaker or a professional
+              editing service.
+            </p>
+            <p className="mt-4 text-[17px] text-[var(--muted)]">
+              Pay particular attention to your abstract, introduction and conclusion: they are what readers use to judge the
+              significance of your work.
             </p>
           </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
-        </Reveal>
-      </section>
+        </div>
+      </Field>
+
+      <CallBand
+        title="Formatted? Send it in"
+        text={
+          <>
+            Not sure your topic fits? See the{" "}
+            <Link href="/theme-and-topics" className="sig-link">
+              theme and topics
+            </Link>{" "}
+            first.
+          </>
+        }
+      />
     </main>
   );
 }

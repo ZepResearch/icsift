@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ActionLink } from "@/components/home/primitives";
+import { CallBand, Field, PageHero } from "@/components/signal/page";
 
 // Every policy page renders through this one layout, so the family reads as a set of documents.
 // sections: [{ title, body: [block] }] where a block is one of:
@@ -19,16 +19,15 @@ export const POLICIES = [
   ["/health-and-safety-policy", "Health and safety policy"],
 ];
 
-const no = (index) => String(index + 1).padStart(2, "0");
 const anchor = (index) => `section-${index + 1}`;
 
 function Block({ block }) {
-  if (typeof block === "string") return <p className="max-w-[44rem] text-[17px] leading-relaxed">{block}</p>;
+  if (typeof block === "string") return <p className="max-w-[46rem] text-[18px] leading-relaxed">{block}</p>;
   if (block.list)
     return (
-      <ul className="max-w-[44rem] border-t border-[var(--rule)]">
+      <ul className="grid max-w-[46rem] gap-3">
         {block.list.map((item) => (
-          <li key={item} className="border-b border-[var(--rule)] py-2.5 text-[16.5px]">
+          <li key={item} className="border-l-[3px] border-[var(--forest)] pl-4 text-[17px] leading-snug">
             {item}
           </li>
         ))}
@@ -36,44 +35,46 @@ function Block({ block }) {
     );
   if (block.terms)
     return (
-      <dl className="max-w-[44rem] border-t border-[var(--rule)]">
+      <dl className="grid max-w-[46rem] gap-2">
         {block.terms.map(([term, value]) => (
-          <div key={term} className="grid gap-x-6 gap-y-1 border-b border-[var(--rule)] py-3.5 sm:grid-cols-[12rem_1fr]">
-            <dt className="text-[16.5px] font-medium">{term}</dt>
-            <dd className="herb-muted text-[16px]">{value}</dd>
+          <div key={term} className="grid gap-x-6 gap-y-1 bg-[var(--panel)] px-5 py-4 sm:grid-cols-[12rem_1fr]">
+            <dt className="text-[17px] font-semibold">{term}</dt>
+            <dd className="text-[16.5px] text-[var(--muted)]">{value}</dd>
           </div>
         ))}
       </dl>
     );
   if (block.table)
     return (
-      <table className="w-full max-w-[44rem] border-collapse text-left">
-        <thead>
-          <tr className="border-b border-[var(--ink)] text-[13px] tracking-[0.08em] uppercase">
-            {block.table.head.map((cell) => (
-              <th key={cell} scope="col" className="py-2.5 pr-6 font-semibold">
-                {cell}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {block.table.rows.map((row) => (
-            <tr key={row.join("|")} className="border-b border-[var(--rule)]">
-              {row.map((cell, i) => (
-                <td key={i} className="py-3.5 pr-6 text-[16.5px]">
+      <div className="max-w-[46rem] overflow-x-auto">
+        <table className="w-full border-separate border-spacing-y-1.5 text-left">
+          <thead>
+            <tr>
+              {block.table.head.map((cell) => (
+                <th key={cell} scope="col" className="bg-[var(--forest)] px-4 py-3 text-[15.5px] font-semibold text-[var(--signal)]">
                   {cell}
-                </td>
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {block.table.rows.map((row) => (
+              <tr key={row.join("|")} className="bg-[var(--panel)]">
+                {row.map((cell, i) => (
+                  <td key={i} className="px-4 py-3.5 text-[16.5px]">
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     );
   if (block.note)
     return (
-      <p className="max-w-[44rem] border border-[var(--ink)] px-4 py-3 text-[16px]">
-        <span className="herb-italic text-[var(--ink-2)]">Note. </span>
+      <p className="max-w-[46rem] bg-[var(--signal)] px-5 py-4 text-[17px] text-[var(--forest)]">
+        <span className="font-semibold">Note: </span>
         {block.note}
       </p>
     );
@@ -82,46 +83,52 @@ function Block({ block }) {
 
 export default function PolicyDocument({ path, title, intro, sections, closing }) {
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: the document's title and intro left; its numbered contents right. */}
-      <section aria-labelledby="policy-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
-          <div>
-            <h1 id="policy-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              {title}.
-            </h1>
-            <p className="herb-muted mt-6 max-w-[36rem] text-[17.5px] leading-relaxed">{intro}</p>
-          </div>
-          <nav aria-label="Contents" className="lg:pt-3">
-            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Contents</h2>
-            <ol className="mt-4 border-t border-[var(--ink)]">
+    <main className="sig min-h-screen">
+      {/* Hero: the document's title and intro left; its contents as numbered jump panels right. */}
+      <PageHero
+        id="policy-title"
+        tag="Policy"
+        title={title}
+        titleClass="text-[clamp(2.6rem,1.3rem+4.2vw,5.5rem)]"
+        lead={intro}
+        aside={
+          <nav aria-label="Contents">
+            <p className="text-[16px] text-[var(--muted)]">Contents</p>
+            <ol className="mt-3 grid gap-2">
               {sections.map((section, index) => (
-                <li key={section.title} className="border-b border-[var(--rule)]">
-                  <a href={`#${anchor(index)}`} className="grid grid-cols-[2.5rem_1fr] items-baseline py-3 text-[17px] hover:text-[var(--green)]">
-                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(index)}</span>
-                    {section.title}
+                <li key={section.title}>
+                  <a
+                    href={`#${anchor(index)}`}
+                    className="grid grid-cols-[2.5rem_1fr] items-center bg-[var(--panel)] px-4 py-3 transition-colors duration-200 hover:bg-[var(--signal)] hover:text-[var(--forest)]"
+                  >
+                    <span aria-hidden="true" className="sig-display text-[24px] leading-none">
+                      {index + 1}
+                    </span>
+                    <span className="text-[16.5px] leading-snug font-semibold">{section.title}</span>
                   </a>
                 </li>
               ))}
             </ol>
           </nav>
-        </div>
-      </section>
+        }
+      />
 
-      {/* The document */}
-      <section aria-label={title} className="px-3 pt-16 sm:px-6 lg:px-10 lg:pt-20">
-        <div className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-16 lg:p-12">
-          <nav aria-label="Policies" className="lg:sticky lg:top-24 lg:self-start">
-            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Policies</h2>
-            <ul className="mt-3 border-t border-[var(--ink)]">
+      {/* The document: a sticky rail of every policy left (the current one forest), the numbered sections right. */}
+      <Field tone="cream" pad="py-20 lg:py-28" reveal={false}>
+        <div className="grid gap-12 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-16">
+          <nav aria-label="Policies" className="lg:sticky lg:top-40 lg:self-start">
+            <p className="sig-tag">Policies</p>
+            <ul className="mt-4 grid gap-1.5">
               {POLICIES.map(([href, label]) => {
                 const current = href === path;
                 return (
-                  <li key={href} className="border-b border-[var(--rule)]">
+                  <li key={href}>
                     <Link
                       href={href}
                       aria-current={current ? "page" : undefined}
-                      className={`block py-2.5 text-[15.5px] ${current ? "font-medium text-[var(--green)]" : "hover:text-[var(--green)]"}`}
+                      className={`block px-4 py-2.5 text-[16px] font-semibold transition-colors duration-200 ${
+                        current ? "bg-[var(--forest)] text-[var(--signal)]" : "bg-[var(--panel)] hover:bg-[var(--forest)] hover:text-[var(--signal)]"
+                      }`}
                     >
                       {label}
                     </Link>
@@ -131,54 +138,44 @@ export default function PolicyDocument({ path, title, intro, sections, closing }
             </ul>
           </nav>
 
-          <div>
+          <div className="grid gap-16">
             {sections.map((section, index) => (
-              <article
-                key={section.title}
-                id={anchor(index)}
-                className={`grid scroll-mt-24 gap-5 pb-10 ${index ? "border-t border-[var(--rule)] pt-10" : ""}`}
-              >
-                <h2 className="flex items-baseline gap-4 text-[clamp(1.5rem,1.2rem+0.9vw,2rem)] leading-tight tracking-[-0.02em]">
-                  <span className="herb-italic text-[16px] text-[var(--ink-2)]">{no(index)}</span>
-                  {section.title}
+              <article key={section.title} id={anchor(index)} className="grid scroll-mt-40 gap-6">
+                <h2 className="grid grid-cols-[3rem_1fr] items-baseline gap-x-2 sm:grid-cols-[3.75rem_1fr]">
+                  <span aria-hidden="true" className="sig-display text-[clamp(2.4rem,2rem+1.2vw,3.2rem)] leading-none">
+                    {index + 1}
+                  </span>
+                  <span className="sig-display text-[clamp(1.7rem,1.35rem+1vw,2.4rem)] leading-[1.04]">{section.title}</span>
                 </h2>
                 {section.body.map((block, i) => (
                   <Block key={i} block={block} />
                 ))}
               </article>
             ))}
-            {closing ? <p className="herb-muted max-w-[44rem] border-t border-[var(--ink)] pt-6 text-[16px]">{closing}</p> : null}
+            {closing ? <p className="max-w-[46rem] bg-[var(--panel)] px-5 py-4 text-[17px]">{closing}</p> : null}
           </div>
         </div>
-      </section>
+      </Field>
 
-      {/* Questions */}
-      <section aria-labelledby="policy-help-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <div className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="policy-help-title" className="herb-h2 max-w-[16ch]">
-              Questions about this policy?
-            </h2>
-            <p className="herb-muted mt-5 max-w-[34rem] text-[17px]">
-              Write to{" "}
-              <a href="mailto:info@icsift.com" className="herb-link">
-                info@icsift.com
-              </a>{" "}
-              or call{" "}
-              <a href="tel:+918260080050" className="herb-link">
-                +91 82600 80050
-              </a>
-              .
-            </p>
-          </div>
-          <div className="grid gap-3">
-            <ActionLink href="/contact" primary>
-              Contact the team
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
-        </div>
-      </section>
+      <CallBand
+        id="policy-help-title"
+        title="Questions about this policy?"
+        text={
+          <>
+            Write to{" "}
+            <a href="mailto:info@icsift.com" className="sig-link">
+              info@icsift.com
+            </a>{" "}
+            or call{" "}
+            <a href="tel:+918260080050" className="sig-link">
+              +91 82600 80050
+            </a>
+            .
+          </>
+        }
+        primary={["/contact", "Contact the team"]}
+        secondary={["/registration", "Register"]}
+      />
     </main>
   );
 }

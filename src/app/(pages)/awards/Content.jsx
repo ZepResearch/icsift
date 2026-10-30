@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
-import Reveal from "@/components/home/Reveal";
+import { ActionPair, BarList, CallBand, Field, LEAD, PageHero, SPLIT, StickyIntro, Steps } from "@/components/signal/page";
 
 const AWARDS = [
   {
@@ -40,50 +39,36 @@ const JUDGING = [
   ["Award ceremony", `Winners are announced and recognised at the closing ceremony, ${CONFERENCE.date}.`],
 ];
 
-const no = (index) => String(index + 1).padStart(2, "0");
-
 export default function AwardsPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* Title sheet: title and a numbered index of the awards left, a tall photograph right. */}
-      <section aria-labelledby="awards-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
-        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16 lg:p-12">
-          <div className="flex flex-col">
-            <h1 id="awards-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              Work worth recognising.
-            </h1>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
-              Awards at the {CONFERENCE.shortForm} honour outstanding papers, presentations and contributors. They are merit
-              based, and the best papers earn a discount on your next registration.
-            </p>
-
-            <ol className="mt-10 border-t border-[var(--ink)]">
-              {AWARDS.map((award, index) => (
-                <li key={award.id} className="border-b border-[var(--rule)]">
-                  <a href={`#${award.id}`} className="grid grid-cols-[2.5rem_1fr] items-baseline py-4 text-[19px] hover:text-[var(--green)]">
-                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(index)}</span>
-                    {award.name}
+    <main className="sig min-h-screen">
+      {/* Hero: title, lead and an index of the awards left; the plaque photograph right. */}
+      <PageHero
+        id="awards-title"
+        tag="Awards"
+        title="Work worth recognising"
+        lead={`Awards at the ${CONFERENCE.shortForm} honour outstanding papers, presentations and contributors. They are merit based, and the best papers earn a discount on your next registration.`}
+        actions={
+          <div className="grid gap-8">
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {[...AWARDS.map((award) => [award.id, award.name]), ["scholarships", "Grants and scholarships"]].map(([id, name]) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className="flex h-full items-center justify-between gap-3 bg-[var(--panel)] px-4 py-3 text-[16px] font-semibold transition-colors duration-200 hover:bg-[var(--signal)] hover:text-[var(--forest)]"
+                  >
+                    {name}
+                    <span aria-hidden="true">&darr;</span>
                   </a>
                 </li>
               ))}
-              <li className="border-b border-[var(--rule)]">
-                <a href="#scholarships" className="grid grid-cols-[2.5rem_1fr] items-baseline py-4 text-[19px] hover:text-[var(--green)]">
-                  <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(AWARDS.length)}</span>
-                  Grants and scholarships
-                </a>
-              </li>
-            </ol>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:mt-auto lg:pt-10">
-              <ActionLink href="/submission" primary>
-                Submit a paper
-              </ActionLink>
-              <ActionLink href="/registration">Register to attend</ActionLink>
-            </div>
+            </ul>
+            <ActionPair tone="forest" />
           </div>
-
-          <figure className="flex flex-col">
-            <div className="herb-mount herb-photo herb-photo-settle relative aspect-[4/5] w-full lg:aspect-auto lg:min-h-[600px] lg:flex-1">
+        }
+        aside={
+          <figure>
+            <div className="herb-photo relative aspect-[4/5] bg-[var(--forest-deep)]">
               <Image
                 src="/gallery/3rd-icsift (5).jpg"
                 alt="A conference co-chair receiving a recognition plaque on stage"
@@ -93,65 +78,65 @@ export default function AwardsPage() {
                 className="object-cover object-[45%_50%]"
               />
             </div>
-            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">A recognition plaque presented on stage, 3rd ICSIFT</figcaption>
+            <figcaption className="mt-3 text-[15px] text-[var(--muted)]">A recognition plaque presented on stage, 3rd ICSIFT</figcaption>
           </figure>
-        </div>
-      </section>
+        }
+      />
 
-      {/* Award categories: three columns divided by hairlines. */}
-      <section aria-labelledby="categories-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <h2 id="categories-title" className="herb-h2 max-w-[16ch]">
-            Three awards, judged on merit.
-          </h2>
-          <div className="mt-10 grid gap-px border-t border-[var(--ink)] bg-[var(--rule)] lg:grid-cols-3">
-            {AWARDS.map((award, index) => (
-              <article key={award.id} id={award.id} className="flex scroll-mt-24 flex-col bg-[var(--sheet)] py-8 lg:px-8 lg:first:pl-0 lg:last:pr-0">
-                <p className="herb-italic text-[15px] text-[var(--ink-2)]">Award {no(index)}</p>
-                <h3 className="mt-2 text-[clamp(1.5rem,1.2rem+0.9vw,1.9rem)] leading-tight font-normal tracking-[-0.02em]">{award.name}</h3>
-                <p className="herb-muted mt-4 text-[16px] leading-relaxed">{award.description}</p>
-                <h4 className="mt-8 text-[13px] font-semibold tracking-[0.08em] uppercase">Criteria</h4>
-                <ul className="mt-3 border-t border-[var(--ink)]">
-                  {award.criteria.map((criterion) => (
-                    <li key={criterion} className="border-b border-[var(--rule)] py-2.5 text-[16px]">
-                      {criterion}
-                    </li>
-                  ))}
-                </ul>
-                {award.reward ? (
-                  <p className="mt-5 text-[15.5px]">
-                    <span className="herb-italic text-[var(--ink-2)]">Reward. </span>
-                    {award.reward}
-                  </p>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        </Reveal>
-      </section>
+      {/* The three awards as tall panels side by side. */}
+      <Field tone="cream" labelledBy="categories-title">
+        <h2 id="categories-title" data-enter className="sig-h2">
+          Three awards, judged on merit
+        </h2>
+        <div className="mt-12 grid gap-2 lg:grid-cols-3">
+          {AWARDS.map((award, index) => (
+            <article
+              key={award.id}
+              id={award.id}
+              data-enter
+              style={{ "--i": 1 + index }}
+              className="flex scroll-mt-28 flex-col bg-[var(--panel)] p-7 sm:p-8"
+            >
+              <span aria-hidden="true" className="sig-display text-[4rem] leading-[0.85]">
+                {index + 1}
+              </span>
+              <h3 className="sig-display mt-5 text-[clamp(1.7rem,1.3rem+1vw,2.3rem)] leading-[1.02]">{award.name}</h3>
+              <p className="mt-4 text-[17px] text-[var(--muted)]">{award.description}</p>
+              <h4 className="mt-8 text-[17px] font-semibold">Criteria</h4>
+              <BarList items={award.criteria.map((c) => [c])} className="mt-4 !gap-3" titleClass="text-[16.5px] font-medium" />
+              {award.reward ? (
+                <p className="mt-8 bg-[var(--forest)] p-4 text-[16px] text-[var(--signal)]">
+                  <span className="font-semibold">Reward: </span>
+                  {award.reward}
+                </p>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </Field>
 
       {/* Scholarships */}
-      <section id="scholarships" aria-labelledby="scholarships-title" className="scroll-mt-24 px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:p-12">
-          <div>
-            <h2 id="scholarships-title" className="herb-h2 max-w-[14ch]">
-              Grants and scholarships.
-            </h2>
-            <p className="mt-8 max-w-[38rem] text-[18px] leading-relaxed">
+      <Field tone="forest" id="scholarships" labelledBy="scholarships-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Support" id="scholarships-title" title="Grants and scholarships">
+            <p className={LEAD}>
               Zep Research helps young scholars reach their research and academic goals, and encourages them to bring
               interdisciplinary thinking to their work.
             </p>
-            <p className="herb-muted mt-5 max-w-[38rem]">
+            <p className="mt-5 max-w-[34rem] text-[17px] text-[var(--muted)]">
               Full or partial scholarships covering registration fees go to selected postgraduate students and early-career
               academics who might not otherwise afford to attend.
             </p>
-            <p className="mt-8 max-w-[38rem] border-t border-[var(--ink)] pt-6 text-[clamp(1.25rem,1rem+0.8vw,1.6rem)] leading-snug">
-              Up to 20% off your next registration for the best paper and best paper presenters.
-            </p>
-            <p className="herb-italic mt-2 text-[15px] text-[var(--ink-2)]">Scholarships depend on available funds and vary by conference.</p>
-          </div>
+          </StickyIntro>
 
-          <dl className="border-t border-[var(--ink)] self-start">
+          <div className="grid content-start gap-2">
+            <div data-enter style={{ "--i": 2 }} className="bg-[var(--signal)] p-7 text-[var(--forest)] sm:p-9">
+              <p className="sig-display text-[clamp(4rem,2.4rem+4.6vw,7rem)] leading-none">20%</p>
+              <p className="mt-3 text-[clamp(1.1rem,1rem+0.4vw,1.3rem)] leading-snug font-semibold">
+                Up to 20% off your next registration for the best paper and best paper presenters.
+              </p>
+              <p className="mt-2 text-[15.5px]">Scholarships depend on available funds and vary by conference.</p>
+            </div>
             {[
               [
                 "Who can receive one",
@@ -161,61 +146,34 @@ export default function AwardsPage() {
                 "How recipients are selected",
                 `The ${CONFERENCE.shortForm} Program Committee awards scholarships to eligible applicants whose exceptional abstracts passed blind peer review and were accepted for presentation. Presenting your work exceptionally at the conference is a second route to a scholarship.`,
               ],
-            ].map(([term, value]) => (
-              <div key={term} className="border-b border-[var(--rule)] py-6">
-                <dt className="text-[19px]">{term}</dt>
-                <dd className="herb-muted mt-2 text-[16px] leading-relaxed">{value}</dd>
+            ].map(([term, value], index) => (
+              <div key={term} data-enter style={{ "--i": 3 + index }} className="bg-[var(--panel)] p-7 sm:p-8">
+                <h3 className="sig-display text-[clamp(1.5rem,1.2rem+0.8vw,2rem)]">{term}</h3>
+                <p className="mt-3 text-[17px] text-[var(--muted)]">{value}</p>
               </div>
             ))}
-          </dl>
-        </Reveal>
-      </section>
+          </div>
+        </div>
+      </Field>
 
       {/* Judging */}
-      <section aria-labelledby="judging-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <h2 id="judging-title" className="herb-h2 max-w-[13ch]">
-              How winners are chosen.
-            </h2>
-            <p className="herb-muted mt-5 max-w-[26rem]">
+      <Field tone="cream" labelledBy="judging-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Judging" id="judging-title" title="How winners are chosen">
+            <p className={LEAD}>
               A panel of researchers, industry professionals and academic leaders evaluates every submission and presentation.
             </p>
+          </StickyIntro>
+          <div data-enter style={{ "--i": 2 }}>
+            <Steps steps={JUDGING} />
           </div>
-          <Reveal as="ol" className="border-t border-[var(--ink)]">
-            {JUDGING.map(([title, body], index) => (
-              <li
-                key={title}
-                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
-              >
-                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{no(index)}</span>
-                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
-                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
-              </li>
-            ))}
-          </Reveal>
         </div>
-      </section>
+      </Field>
 
-      {/* Closing */}
-      <section aria-labelledby="awards-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
-          <div>
-            <h2 id="awards-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
-              Put your work in the running.
-            </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
-              Submit your paper and register for the {CONFERENCE.shortForm} to be considered for an award.
-            </p>
-          </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
-        </Reveal>
-      </section>
+      <CallBand
+        title="Put your work in the running"
+        text={`Submit your paper and register for the ${CONFERENCE.shortForm} to be considered for an award.`}
+      />
     </main>
   );
 }
