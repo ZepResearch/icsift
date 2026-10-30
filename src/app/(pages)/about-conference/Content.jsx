@@ -45,22 +45,43 @@ const AUDIENCE = [
 
 const COUNTRIES = ["All over the World", ];
 
+// Figures already stated in the reasons below, set large.
+const FIGURES = [
+  ["55+", "Academics"],
+  ["125+", "Research scholars"],
+  ["10+", "Industry professionals"],
+  // ["15+", "Awards presented"],
+];
+
+const ROOM = [
+  ["/gallery/3rd-icsift (11).jpg", "A full session room at the 3rd ICSIFT", "The session room, 3rd ICSIFT"],
+  ["/gallery/3rd-icsift (12).jpg", "A presenter at the lectern during a paper session", "A paper session in progress"],
+  ["/gallery/3rd-icsift (5).jpg", "Two delegates holding a certificate in front of the conference backdrop", "Awards and certificates, 3rd ICSIFT"],
+];
+
 export default function AboutConferencePage() {
   const location = CONFERENCE.venue.location.trim();
 
   return (
     <main className="herb min-h-screen">
-      {/* Title sheet: stacked title, ruled fact strip, panoramic specimen */}
-      <section aria-labelledby="about-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+      {/* Title sheet: the title with its date and place, the facts on tone-stepped cells, a panoramic photograph */}
+      <section aria-labelledby="about-title" className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
         <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <h1 id="about-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              A conference about what lasts.
-            </h1>
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
             <div>
-              <p className="herb-muted max-w-[34rem] text-[17.5px] leading-relaxed">
+              <h1 id="about-title" className="herb-display text-[clamp(2.75rem,1.2rem+4.4vw,5.75rem)]">
+                A conference about what lasts.
+              </h1>
+              <p className="mt-6 text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] leading-snug tracking-[-0.01em]">
+                {CONFERENCE.date}
+                <span className="text-[var(--green)]"> · </span>
+                {location} and online
+              </p>
+            </div>
+            <div>
+              <p className="max-w-[34rem] text-[17px] leading-relaxed">
                 The {CONFERENCE.name.trim()} gathers experts from every sphere to share research, eco-friendly solutions and
-                technological advances, in {location} and online.
+                technological advances.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <ActionLink href="/submission" primary>
@@ -71,23 +92,22 @@ export default function AboutConferencePage() {
             </div>
           </div>
 
-          {/* The 1px gap shows the rule colour through, drawing hairlines between cells at every breakpoint. */}
-          <dl className="mt-12 grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-12 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["Edition", CONFERENCE.shortForm],
-              ["Dates", CONFERENCE.date],
-              ["Locality", `${location} · and online`],
+              ["Venue", CONFERENCE.venue.name.trim()],
               ["Format", "Keynotes, panels and workshops"],
+              ["Attend", "In person or online"],
             ].map(([term, value]) => (
-              <div key={term} className="bg-[var(--sheet)] px-1 py-5 sm:px-5">
-                <dt className="herb-italic text-[14.5px] text-[var(--ink-2)]">{term}</dt>
-                <dd className="mt-1 text-[18px] leading-snug">{value}</dd>
+              <div key={term} className="bg-[var(--mount)] px-5 py-5">
+                <dt className="herb-italic text-[14px] text-[var(--ink-2)]">{term}</dt>
+                <dd className="mt-1 text-[17px] leading-snug">{value}</dd>
               </div>
             ))}
           </dl>
 
           <figure className="mt-10">
-            <div className="herb-mount herb-photo herb-photo-settle relative aspect-[4/3] w-full sm:aspect-[21/9]">
+            <div className="herb-mount herb-photo herb-photo-settle relative aspect-[4/3] w-full sm:aspect-[2/1]">
               <Image
                 src="/gallery/3rd-icsift  (59).jpeg"
                 alt="Three delegates smiling at their table during a session at the 3rd ICSIFT"
@@ -102,47 +122,45 @@ export default function AboutConferencePage() {
         </div>
       </section>
 
-      {/* About and mission */}
-      <section aria-labelledby="conference-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
+      {/* About, mission and highlights */}
+      <section aria-labelledby="conference-title" className="px-4 pt-28 sm:px-6 lg:px-10 lg:pt-40">
         <Reveal className="herb-sheet mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-20">
-            <div>
-              <h2 id="conference-title" className="herb-h2 max-w-[16ch]">
-                Where sustainability, technology and industry meet.
-              </h2>
-              <p className="mt-8 max-w-[38rem] text-[18px] leading-relaxed">
+          <h2 id="conference-title" data-enter className="herb-h2 max-w-[22ch]">
+            Where sustainability meets industry.
+          </h2>
+
+          <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-20">
+            <div data-enter style={{ "--i": 1 }}>
+              <p className="max-w-[38rem] text-[clamp(1.2rem,1rem+0.5vw,1.45rem)] leading-[1.45]">
                 The {CONFERENCE.shortForm}, in {location}, asks how and where sustainability, technological innovation and
                 industrial futures intersect.
               </p>
-              <p className="herb-muted mt-5 max-w-[38rem]">
+              <p className="mt-5 max-w-[38rem] text-[17px]">
                 Over {CONFERENCE.date}, keynote addresses, panels and practical workshops advance knowledge and start
                 partnerships for sustainable development. The emphasis is on practical, scalable solutions and forward-thinking
                 research: how new technologies can drive a more sustainable future for the planet.
               </p>
 
-              <figure className="mt-10 border-t border-[var(--ink)] pt-6">
-                <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Our mission</h3>
-                <blockquote className="herb-italic mt-4 max-w-[38rem] text-[clamp(1.25rem,1rem+0.8vw,1.6rem)] leading-[1.35] text-balance">
+              <figure className="mt-10 bg-[var(--green)] p-6 text-white sm:p-8">
+                <h3 className="herb-italic text-[17px] text-white/80">Our mission</h3>
+                <blockquote className="mt-3 max-w-[36rem] text-[clamp(1.2rem,1rem+0.6vw,1.6rem)] leading-[1.35] tracking-[-0.01em] text-balance">
                   To bring together leading researchers, policymakers and industry experts to share knowledge, discuss
                   challenges and forge the partnerships that move the global sustainability agenda forward.
                 </blockquote>
               </figure>
             </div>
 
-            <div>
-              <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Conference highlights</h3>
-              <ol className="mt-4 border-t border-[var(--ink)]">
-                {HIGHLIGHTS.map(([title, body], index) => (
-                  <li key={title} className="grid grid-cols-[2.5rem_1fr] items-baseline border-b border-[var(--rule)] py-5">
-                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
-                    <span>
-                      <span className="block text-[18px]">{title}</span>
-                      <span className="herb-muted mt-1 block text-[15.5px]">{body}</span>
-                    </span>
+            <div data-enter style={{ "--i": 2 }}>
+              <h3 className="text-[22px] leading-tight tracking-[-0.01em]">Conference highlights</h3>
+              <ul className="mt-6 grid gap-6">
+                {HIGHLIGHTS.map(([title, body]) => (
+                  <li key={title} className="border-l-[3px] border-[var(--green)] pl-5">
+                    <p className="text-[20px] leading-snug">{title}</p>
+                    <p className="herb-muted mt-1 text-[16px]">{body}</p>
                   </li>
                 ))}
-              </ol>
-              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15.5px]">
+              </ul>
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[16px]">
                 <Link href="/schedule" className="herb-link">
                   View the schedule
                 </Link>
@@ -152,52 +170,97 @@ export default function AboutConferencePage() {
               </div>
             </div>
           </div>
+
+          <div data-enter style={{ "--i": 3 }} className="mt-14 grid gap-4 sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+            <figure>
+              <div className="herb-photo relative aspect-[3/2]">
+                <Image
+                  src="/gallery/3rd-icsift (19).jpg"
+                  alt="A delegate speaking into a microphone during a round-table discussion"
+                  fill
+                  sizes="(min-width: 1024px) 860px, 100vw"
+                  className="object-cover object-[50%_35%]"
+                />
+              </div>
+              <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">Round-table discussion, 3rd ICSIFT</figcaption>
+            </figure>
+            <figure className="flex flex-col">
+              <div className="herb-photo relative aspect-[3/2] sm:aspect-auto sm:flex-1">
+                <Image
+                  src="/gallery/3rd-icsift (8).jpg"
+                  alt="A pile of green ICSIFT lanyards ready for delegates"
+                  fill
+                  sizes="(min-width: 1024px) 430px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">Delegate lanyards</figcaption>
+            </figure>
+          </div>
         </Reveal>
       </section>
 
-      {/* Why attend */}
-      <section aria-labelledby="why-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <div className="mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
-          <div>
-            <h2 id="why-title" className="herb-h2 max-w-[13ch]">
+      {/* Why attend: the field turns green and the figures are set large */}
+      <section aria-labelledby="why-title" className="px-4 pt-28 sm:px-6 lg:px-10 lg:pt-40">
+        <Reveal className="mx-auto max-w-[1400px] bg-[var(--green)] p-5 text-white sm:p-8 lg:p-12">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+            <h2 id="why-title" data-enter className="herb-display text-[clamp(2.6rem,1.4rem+3.6vw,5rem)]">
               Why attend.
             </h2>
-            <p className="herb-muted mt-5 max-w-[26rem]">
-              A platform for exploring transformative solutions and advancing sustainable technologies.
+            <p data-enter style={{ "--i": 1 }} className="max-w-[30rem] text-[18px] text-white/85">
+              A platform for exploring transformative solutions and advancing sustainable technologies, with people from more
+              than ten countries.
             </p>
           </div>
-          <Reveal as="ol" className="border-t border-[var(--ink)]">
+
+          <dl data-enter style={{ "--i": 2 }} className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+            {FIGURES.map(([figure, label]) => (
+              <div key={label} className="flex flex-col-reverse justify-end">
+                <dt className="herb-italic mt-2 text-[17px] text-white/85">{label}</dt>
+                <dd className="herb-display text-[clamp(3.25rem,1.8rem+4.4vw,6.5rem)]">{figure}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <ul className="mt-16 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {REASONS.map(([title, body], index) => (
-              <li
-                key={title}
-                className="grid grid-cols-[2.5rem_1fr] gap-y-1 border-b border-[var(--rule)] py-6 sm:grid-cols-[2.5rem_14rem_1fr] sm:gap-x-6"
-              >
-                <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
-                <h3 className="text-[18px] leading-snug font-medium">{title}</h3>
-                <p className="herb-muted col-start-2 text-[15.5px] sm:col-start-3">{body}</p>
+              <li key={title} data-enter style={{ "--i": 3 + (index % 3) }}>
+                <h3 className="text-[20px] leading-snug">{title}</h3>
+                <p className="mt-2 text-[16px] text-white/80">{body}</p>
               </li>
             ))}
-          </Reveal>
-        </div>
+          </ul>
+
+          <div className="mt-16 grid gap-4 sm:grid-cols-3">
+            {ROOM.map(([src, alt, caption], index) => (
+              <figure key={src} data-enter style={{ "--i": 3 + index }}>
+                <div className="herb-photo relative aspect-[4/3] bg-[var(--green-deep)]">
+                  <Image src={src} alt={alt} fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
+                </div>
+                <figcaption className="herb-italic mt-3 text-[14px] text-white/75">{caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </Reveal>
       </section>
 
       {/* Who can attend */}
-      <section aria-labelledby="who-title" className="px-3 pt-24 sm:px-6 lg:px-10 lg:pt-32">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16 lg:p-12">
-          <div className="flex flex-col">
+      <section aria-labelledby="who-title" className="px-4 pt-28 sm:px-6 lg:px-10 lg:pt-40">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20 lg:p-12">
+          <div className="flex flex-col" data-enter>
             <h2 id="who-title" className="herb-h2 max-w-[14ch]">
               Who can attend.
             </h2>
-            <p className="herb-muted mt-5 max-w-[32rem]">
+            <p className="mt-5 max-w-[32rem] text-[17px]">
               Anyone working on sustainability, innovation or the technologies that connect them. Last edition&rsquo;s room
               came from nine countries.
             </p>
 
-            <figure className="mt-10">
+            <figure className="mt-10 lg:mt-auto lg:pt-10">
               <div className="herb-mount herb-photo relative aspect-[3/2]">
                 <Image
                   src="/gallery/ICSIFT_06.jpg"
-                  alt="A student from the University of the Cordilleras speaking at the lectern"
+                  alt="Participants seated around a dinner table at the 1st ICSIFT"
                   fill
                   sizes="(min-width: 1024px) 45vw, 100vw"
                   className="object-cover object-[50%_30%]"
@@ -206,45 +269,60 @@ export default function AboutConferencePage() {
               <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">ICSIFT participants networking during the conference dinner at the 1st ICSIFT.</figcaption>
             </figure>
 
-            <AccessionLabel
+            {/* <AccessionLabel
               className="mt-10"
-              rows={[["Countries", `${COUNTRIES.join(", ")}`], ["Edition", "3rd ICSIFT, 2026"]]}
-            />
+              rows={[["Countries", `${COUNTRIES.join(", ")}`], ["Edition", ]]}
+            /> */}
           </div>
 
-          <div>
-            <h3 className="text-[13px] font-semibold tracking-[0.08em] uppercase">Who it is for</h3>
-            <ul className="mt-4 border-t border-[var(--ink)]">
-              {AUDIENCE.map(([who, why]) => (
-                <li key={who} className="border-b border-[var(--rule)] py-5">
-                  <p className="text-[18px]">{who}</p>
-                  <p className="herb-muted mt-1 text-[15.5px]">{why}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="grid content-start gap-2">
+            {AUDIENCE.map(([who, why], index) => (
+              <li
+                key={who}
+                data-enter
+                style={{ "--i": 1 + index }}
+                className="group bg-[var(--mount)] px-5 py-5 transition-colors duration-300 hover:bg-[var(--green)] hover:text-white sm:px-6"
+              >
+                <h3 className="text-[20px] leading-snug">{who}</h3>
+                <p className="mt-1 text-[16px] text-[var(--ink-2)] transition-colors duration-300 group-hover:text-white/85">{why}</p>
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 
       {/* Closing */}
-      <section aria-labelledby="about-closing-title" className="px-3 pt-24 pb-16 sm:px-6 lg:px-10 lg:pt-32 lg:pb-24">
-        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:items-end lg:p-12">
+      <section aria-labelledby="about-closing-title" className="px-4 pt-28 pb-16 sm:px-6 lg:px-10 lg:pt-40 lg:pb-24">
+        <Reveal className="herb-sheet mx-auto grid max-w-[1400px] gap-10 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16 lg:p-12">
           <div>
-            <h2 id="about-closing-title" className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
+            <h2 id="about-closing-title" data-enter className="herb-display text-[clamp(2.4rem,1.6rem+3vw,4.5rem)]">
               Ready to join the {CONFERENCE.shortForm}?
             </h2>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px]">
+            <p data-enter style={{ "--i": 1 }} className="mt-6 max-w-[34rem] text-[17px]">
               {CONFERENCE.date}, {location} and online. Submit a paper to present it, or register to attend.
             </p>
+            <div data-enter style={{ "--i": 2 }} className="mt-8 grid gap-3 sm:grid-cols-2">
+              <ActionLink href="/submission" primary>
+                Submit a paper
+              </ActionLink>
+              <ActionLink href="/registration">Register to attend</ActionLink>
+            </div>
           </div>
-          <div className="grid gap-3">
-            <ActionLink href="/submission" primary>
-              Submit a paper
-            </ActionLink>
-            <ActionLink href="/registration">Register to attend</ActionLink>
-          </div>
+          <figure data-enter style={{ "--i": 2 }}>
+            <div className="herb-mount herb-photo relative aspect-[4/3]">
+              <Image
+                src="/gallery/3rd-icsift (18).jpg"
+                alt="Delegates of the 3rd ICSIFT gathered for a group photograph outside the venue"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+            <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">The delegates of the 3rd ICSIFT</figcaption>
+          </figure>
         </Reveal>
       </section>
     </main>
   );
 }
+

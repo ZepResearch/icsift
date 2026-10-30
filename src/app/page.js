@@ -1,31 +1,30 @@
-import HeroSheet from "@/components/home/HeroSheet";
-import CreditBand from "@/components/home/CreditBand";
-import ScopeSheet from "@/components/home/ScopeSheet";
-import DatesSheet from "@/components/home/DatesSheet";
-import SpeakersSheet from "@/components/home/SpeakersSheet";
-import SdgSheet from "@/components/home/SdgSheet";
-import EvidenceSheet from "@/components/home/EvidenceSheet";
-import VenueSheet from "@/components/home/VenueSheet";
-import OutcomesSheet from "@/components/home/OutcomesSheet";
-import VoicesSheet from "@/components/home/VoicesSheet";
-import FaqSheet from "@/components/home/FaqSheet";
-import ClosingSheet from "@/components/home/ClosingSheet";
+import Hero from "@/components/signal/Hero";
+import Purpose from "@/components/signal/Purpose";
+import Participate from "@/components/signal/Participate";
+import Dates from "@/components/signal/Dates";
+import Speakers from "@/components/signal/Speakers";
+import Moments from "@/components/signal/Moments";
+import Goals from "@/components/signal/Goals";
+import Venue from "@/components/signal/Venue";
+import Voices from "@/components/signal/Voices";
+import Faq from "@/components/signal/Faq";
+import Closing from "@/components/signal/Closing";
 
+// The home page in the Signal system: fields of forest, cream and signal yellow alternate down the page.
 export default function Home() {
   return (
-    <main className="herb min-h-screen">
-      <HeroSheet />
-      <CreditBand />
-      <ScopeSheet />
-      <DatesSheet />
-      <SpeakersSheet />
-      <SdgSheet />
-      <EvidenceSheet />
-      <VenueSheet />
-      <OutcomesSheet />
-      <VoicesSheet />
-      <FaqSheet />
-      <ClosingSheet />
+    <main className="sig min-h-screen">
+      <Hero />
+      <Purpose />
+      <Participate />
+      <Dates />
+      <Speakers />
+      <Moments />
+      <Goals />
+      <Venue />
+      <Voices />
+      <Faq />
+      <Closing />
     </main>
   );
 }

@@ -1,0 +1,378 @@
+/* Signal system: the home page, the navbar and the footer.
+   Deep green fields, one signal yellow, cream paper, and a condensed uppercase display face.
+   Herbarium variables are re-mapped inside .sig so shared parts (Reveal, SdgWheel, herb-photo) keep working. */
+.sig,
+.sig-nav,
+.sig-footer,
+.sig-mobile-menu {
+  --forest: #213629;
+  --forest-deep: #182a1f;
+  --forest-line: #35503f;
+  --signal: #fdfd60;
+  --signal-deep: #eaea3c;
+  --cream: #f4f1ec;
+  --cream-deep: #e9e4da;
+  --bark: #3a3020;
+  --bark-2: #6b604c;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Herbarium names, re-pointed for components shared with inner pages. */
+  --mount: var(--cream);
+  --sheet: var(--cream);
+  --ink: var(--bark);
+  --ink-2: var(--bark-2);
+  --rule: #d9d2c4;
+  --rule-soft: #e4ded2;
+  --green: var(--forest);
+  --green-deep: var(--forest-deep);
+
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sig {
+  background: var(--cream);
+  color: var(--bark);
+  font-size: 18px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+}
+
+.sig ::selection,
+.sig-nav ::selection,
+.sig-footer ::selection {
+  background: var(--signal);
+  color: var(--forest);
+}
+
+.sig :focus-visible,
+.sig-nav :focus-visible,
+.sig-footer :focus-visible,
+.sig-mobile-menu :focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.sig .sig-on-cream :focus-visible,
+.sig .sig-on-signal :focus-visible {
+  outline-color: var(--forest);
+}
+
+/* Display type: condensed, uppercase, tight. */
+.sig-display {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.sig-h2 {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 1.6rem + 3.4vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+/* The small display-face tag that names a section on its left column ("Purpose", "Schedule"). */
+.sig-tag {
+  font-family: var(--font-display), Impact, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+  line-height: 1;
+}
+
+/* Buttons: square, display face, arrow. Signal fill or outline. */
+.sig-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 22px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  border: 1.5px solid currentColor;
+  text-decoration: none;
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out), border-color 200ms var(--ease-out),
+    transform 150ms var(--ease-out);
+}
+
+.sig-btn:active {
+  transform: scale(0.98);
+}
+
+.sig-btn svg {
+  transition: transform 260ms var(--ease-out);
+}
+
+.sig-btn:hover svg {
+  transform: translateX(3px);
+}
+
+.sig-btn[data-fill] {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--forest);
+}
+
+.sig-btn[data-fill]:hover {
+  background: var(--signal-deep);
+  border-color: var(--signal-deep);
+}
+
+.sig-btn[data-outline] {
+  color: var(--signal);
+}
+
+.sig-btn[data-outline]:hover {
+  background: var(--signal);
+  color: var(--forest);
+  border-color: var(--signal);
+}
+
+.sig-btn[data-dark] {
+  background: var(--forest);
+  border-color: var(--forest);
+  color: var(--signal);
+}
+
+.sig-btn[data-dark]:hover {
+  background: var(--forest-deep);
+}
+
+.sig-btn[data-dark-outline] {
+  color: var(--forest);
+}
+
+.sig-btn[data-dark-outline]:hover {
+  background: var(--forest);
+  color: var(--signal);
+  border-color: var(--forest);
+}
+
+.sig-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  transition: text-decoration-color 200ms var(--ease-out);
+}
+
+.sig-link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Hero photograph in green duotone: grey picture, forest multiplied over it, a scrim toward the type. */
+.sig-duotone {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--forest);
+}
+
+.sig-duotone img {
+  filter: grayscale(1) contrast(1.05) brightness(1.08);
+  mix-blend-mode: luminosity;
+  opacity: 0.55;
+}
+
+.sig-duotone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(24 42 31 / 0.85) 0%, rgb(24 42 31 / 0.15) 55%, rgb(24 42 31 / 0.35) 100%);
+}
+
+.sig-hero-photo img {
+  animation: sig-zoom 2400ms var(--ease-out) both;
+}
+
+@keyframes sig-zoom {
+  from {
+    transform: scale(1.06);
+  }
+}
+
+/* Entrances: parts of a revealed block rise in turn by --i (works inside <Reveal>). */
+.sig-rise {
+  animation: sig-rise 900ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes sig-rise {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+}
+
+/* Gallery marquee: two copies of the strip slide left forever; hovering holds it. */
+.sig-marquee {
+  display: flex;
+  width: max-content;
+  animation: sig-marquee 60s linear infinite;
+}
+
+.sig-marquee-wrap:hover .sig-marquee,
+.sig-marquee-wrap:focus-within .sig-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes sig-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Speaker portraits: grey at rest, colour on hover, set in an arch of cream. */
+.sig-portrait img {
+  filter: grayscale(1);
+  transition: filter 500ms var(--ease-out), transform 700ms var(--ease-out);
+}
+
+.sig-portrait:hover img,
+button:focus-visible .sig-portrait img {
+  filter: grayscale(0);
+  transform: scale(1.04);
+}
+
+/* Tabs on the signal field. */
+.sig-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 18px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 18px;
+  text-transform: uppercase;
+  border: 1.5px solid var(--forest);
+  color: var(--forest);
+  transition: background-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+
+.sig-chip:hover {
+  background: rgb(33 54 41 / 0.08);
+}
+
+.sig-chip[aria-selected="true"],
+.sig-chip[aria-pressed="true"] {
+  background: var(--forest);
+  color: var(--signal);
+}
+
+/* FAQ rows. */
+.sig-faq summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.sig-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.sig-faq summary svg {
+  transition: transform 300ms var(--ease-out);
+}
+
+.sig-faq details[open] summary svg {
+  transform: rotate(45deg);
+}
+
+/* Navbar */
+.sig-nav {
+  background: var(--forest);
+  color: var(--signal);
+}
+
+.sig-nav-link {
+  position: relative;
+  padding: 6px 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--signal);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sig-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms var(--ease-out);
+}
+
+.sig-nav-link:hover::after,
+.sig-nav-link[data-active]::after {
+  transform: scaleX(1);
+}
+
+.sig-nav-link[data-active] {
+  color: #fff;
+}
+
+.sig-nav-menu {
+  animation: sig-menu 220ms var(--ease-out);
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.5);
+}
+
+.sig-mobile-menu {
+  background: var(--forest);
+  color: var(--signal);
+  animation: sig-menu 260ms var(--ease-out);
+}
+
+@keyframes sig-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* Footer */
+.sig-footer {
+  background: var(--forest-deep);
+  color: var(--cream);
+}
+
+.sig-footer-link {
+  color: var(--cream);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+
+.sig-footer-link:hover {
+  color: var(--signal);
+  text-decoration-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sig *,
+  .sig *::before,
+  .sig *::after,
+  .sig-nav *,
+  .sig-footer * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

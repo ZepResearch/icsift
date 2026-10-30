@@ -70,11 +70,10 @@ export default function GoogleTranslate() {
       </div>
 
       <style jsx global>{`
-        /* Light top bar */
+        /* Top strip, a step darker than the forest navbar beneath it */
         .translate-top-bar {
           width: 100%;
-          background: #e9ece6;
-          border-bottom: 1px solid #c9cfc8;
+          background: #182a1f;
         }
 
         .translate-inner {
@@ -88,9 +87,8 @@ export default function GoogleTranslate() {
         }
 
         .translate-label {
-          color: #4f5a53;
-          font-family: var(--font-label), Georgia, serif;
-          font-style: italic;
+          color: #f4f1ec;
+          font-family: var(--font-body), system-ui, sans-serif;
           font-size: 13px;
         }
 
@@ -108,17 +106,17 @@ export default function GoogleTranslate() {
           min-width: 150px;
           padding: 3px 8px;
           border-radius: 0;
-          border: 1px solid #c9cfc8;
-          background: #ffffff;
-          color: #0f1a14;
+          border: 0;
+          background: #213629;
+          color: #fdfd60;
           font-size: 12.5px;
           cursor: pointer;
         }
 
         .goog-te-combo:focus {
           outline: none;
-          border-color: #1f5e3b;
-          box-shadow: 0 0 0 2px rgba(31, 94, 59, 0.2);
+          outline: 2px solid #fdfd60;
+          outline-offset: 2px;
         }
 
         /* Hide Google branding */

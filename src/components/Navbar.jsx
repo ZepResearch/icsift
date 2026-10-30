@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { ChevronDown, Menu, X, ArrowUpRight } from "lucide-react"
+import { ChevronDown, Menu, X, ArrowRight } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 import { CONFERENCE } from "@/constants/conference"
 
@@ -83,7 +83,7 @@ function Dropdown({ item, isActive, active }) {
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
-        className="herb-nav-link flex items-center gap-1"
+        className="sig-nav-link flex items-center gap-1"
         data-active={active || undefined}
       >
         {item.title}
@@ -91,13 +91,13 @@ function Dropdown({ item, isActive, active }) {
       </button>
       {open ? (
         <div className="absolute top-full left-1/2 z-50 -translate-x-1/2 pt-3">
-          <ul className="herb-nav-menu min-w-[15rem] border border-[var(--ink)] bg-white py-2">
+          <ul className="sig-nav-menu min-w-[16rem] bg-[var(--forest-deep)] py-2">
             {item.dropdown.map((entry) => (
               <li key={entry.href}>
                 <Link
                   href={entry.href}
                   aria-current={isActive(entry.href) ? "page" : undefined}
-                  className="block px-4 py-2 text-[15px] text-[var(--ink)] hover:bg-[var(--mount)] aria-[current=page]:text-[var(--green)]"
+                  className="block px-5 py-2.5 text-[15.5px] font-medium text-[var(--cream)] transition-colors hover:bg-[var(--forest)] hover:text-[var(--signal)] aria-[current=page]:text-[var(--signal)]"
                 >
                   {entry.title}
                 </Link>
@@ -148,15 +148,15 @@ export default function ConferenceNavbar() {
   const isParentActive = (item) => (item.href ? isActive(item.href) : item.dropdown.some((entry) => isActive(entry.href)))
 
   return (
-    <header ref={headerRef} className="herb-nav w-full border-b border-[var(--rule)] bg-white">
-      <div className="mx-auto flex h-[72px] max-w-[1400px] items-center justify-between gap-6 px-4 sm:px-6">
+    <header ref={headerRef} className="sig-nav w-full">
+      <div className="mx-auto flex h-[76px] max-w-[1400px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
         <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="ICSIFT home">
           <span className="relative h-10 w-10">
             <Image src="/singleLogo.svg" alt="" fill sizes="40px" className="object-contain" priority />
           </span>
           <span className="flex flex-col leading-none">
-            <span className="text-[20px] font-semibold tracking-[-0.01em] text-[var(--ink)]">ICSIFT</span>
-            <span className="herb-italic mt-1 text-[12.5px] text-[var(--ink-2)]">
+            <span className="sig-display text-[26px] leading-none text-[var(--signal)]">ICSIFT</span>
+            <span className="mt-1 text-[12.5px] font-medium text-[var(--cream)]/80">
               {CONFERENCE.shortForm.replace("ICSIFT", "edition").trim()} · {CONFERENCE.venue.location.split(",")[0].trim()} {CONFERENCE.year}
             </span>
           </span>
@@ -171,7 +171,7 @@ export default function ConferenceNavbar() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                className="herb-nav-link"
+                className="sig-nav-link"
                 data-active={isActive(item.href) || undefined}
               >
                 {item.title}
@@ -183,25 +183,25 @@ export default function ConferenceNavbar() {
         <div className="hidden shrink-0 items-center gap-5 xl:flex">
           {isAuthed ? (
             <div className="flex items-center gap-4 text-[14.5px]">
-              <span className="herb-italic max-w-[12rem] truncate text-[var(--ink-2)]">{displayName}</span>
-              <button type="button" onClick={() => logout()} className="herb-nav-link">
+              <span className="max-w-[12rem] truncate text-[var(--cream)]/80">{displayName}</span>
+              <button type="button" onClick={() => logout()} className="sig-nav-link">
                 Log out
               </button>
             </div>
           ) : (
-            <button type="button" onClick={() => openAuthModal()} className="herb-nav-link">
+            <button type="button" onClick={() => openAuthModal()} className="sig-nav-link">
               Log in
             </button>
           )}
-          <Link href="/registration" className="herb-btn !min-h-[44px] !text-[15px]" data-primary>
-            <span>Register</span>
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+          <Link href="/registration" className="sig-btn !min-h-[46px] !text-[18px]" data-fill="">
+            <span>Register now</span>
+            <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
           </Link>
         </div>
 
         <button
           type="button"
-          className="grid h-11 w-11 place-items-center border border-[var(--ink)] text-[var(--ink)] xl:hidden"
+          className="grid h-11 w-11 place-items-center bg-[var(--signal)] text-[var(--forest)] xl:hidden"
           onClick={() => setIsMobileMenuOpen((value) => !value)}
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMobileMenuOpen}
@@ -212,18 +212,18 @@ export default function ConferenceNavbar() {
       </div>
 
       {isMobileMenuOpen ? (
-        <div id="mobile-menu" className="herb-mobile-menu fixed inset-x-0 bottom-0 z-50 overflow-y-auto bg-white xl:hidden"
+        <div id="mobile-menu" className="sig-mobile-menu fixed inset-x-0 bottom-0 z-50 overflow-y-auto xl:hidden"
           style={{ top: menuTop }}>
-          <nav aria-label="Main" className="mx-auto max-w-[1400px] px-4 pb-10 sm:px-6">
-            <ul className="border-t border-[var(--ink)]">
+          <nav aria-label="Main" className="mx-auto max-w-[1400px] px-4 pt-4 pb-10 sm:px-6">
+            <ul>
               {NAV.map((item, index) => {
                 if (!item.dropdown) {
                   return (
-                    <li key={item.href} className="border-b border-[var(--rule)]">
+                    <li key={item.href}>
                       <Link
                         href={item.href}
                         aria-current={isActive(item.href) ? "page" : undefined}
-                        className="block py-4 text-[20px] aria-[current=page]:text-[var(--green)]"
+                        className="sig-display block py-3 text-[32px] leading-none aria-[current=page]:text-white"
                       >
                         {item.title}
                       </Link>
@@ -232,12 +232,12 @@ export default function ConferenceNavbar() {
                 }
                 const open = openSection === index
                 return (
-                  <li key={item.title} className="border-b border-[var(--rule)]">
+                  <li key={item.title}>
                     <button
                       type="button"
                       aria-expanded={open}
                       onClick={() => setOpenSection(open ? null : index)}
-                      className={`flex w-full items-center justify-between py-4 text-[20px] ${isParentActive(item) ? "text-[var(--green)]" : ""}`}
+                      className={`sig-display flex w-full items-center justify-between py-3 text-[32px] leading-none ${isParentActive(item) ? "text-white" : ""}`}
                     >
                       {item.title}
                       <ChevronDown aria-hidden="true" className={`h-5 w-5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} strokeWidth={1.4} />
@@ -249,7 +249,7 @@ export default function ConferenceNavbar() {
                             <Link
                               href={entry.href}
                               aria-current={isActive(entry.href) ? "page" : undefined}
-                              className="block py-2 pl-4 text-[16.5px] text-[var(--ink-2)] aria-[current=page]:text-[var(--green)]"
+                              className="block py-2 pl-4 text-[17px] font-medium text-[var(--cream)] aria-[current=page]:text-[var(--signal)]"
                             >
                               {entry.title}
                             </Link>
@@ -263,18 +263,18 @@ export default function ConferenceNavbar() {
             </ul>
 
             <div className="mt-8 grid gap-3">
-              <Link href="/registration" className="herb-btn" data-primary>
-                <span>Register</span>
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+              <Link href="/registration" className="sig-btn" data-fill="">
+                <span>Register now</span>
+                <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
               </Link>
-              <Link href="/submission" className="herb-btn">
+              <Link href="/submission" className="sig-btn" data-outline="">
                 <span>Submit a paper</span>
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
+                <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
               </Link>
               {isAuthed ? (
                 <div className="flex items-center justify-between pt-4 text-[15.5px]">
-                  <span className="herb-italic truncate text-[var(--ink-2)]">Signed in as {displayName}</span>
-                  <button type="button" onClick={() => logout()} className="herb-link">
+                  <span className="truncate text-[var(--cream)]/80">Signed in as {displayName}</span>
+                  <button type="button" onClick={() => logout()} className="sig-link">
                     Log out
                   </button>
                 </div>
@@ -285,7 +285,7 @@ export default function ConferenceNavbar() {
                     openAuthModal()
                     setIsMobileMenuOpen(false)
                   }}
-                  className="herb-link pt-4 text-left text-[16px]"
+                  className="sig-link pt-4 text-left text-[16px] font-semibold"
                 >
                   Log in to your account
                 </button>

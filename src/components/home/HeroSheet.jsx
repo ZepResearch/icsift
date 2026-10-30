@@ -46,7 +46,11 @@ export default function HeroSheet() {
                 <span className="block">
                   {when.month} {when.year}
                 </span>
+                <span className="block text-[clamp(1.2rem,0.8rem+1vw,1.9rem)] mr-2">
+                  {CONFERENCE.venue.location.trim()}
+                </span>
               </p>
+            
               <div className="grid w-full gap-3 sm:grid-cols-2 lg:w-auto lg:min-w-[26rem]">
                 <ActionLink href="/submission" primary>
                   Submit a paper
@@ -68,9 +72,9 @@ export default function HeroSheet() {
               sizes="(min-width: 1440px) 1320px, 100vw"
               className="object-cover object-[50%_60%]"
             />
-            <figcaption className="herb-italic absolute bottom-0 left-0 z-[1] bg-white px-3 py-1.5 text-[13px] text-[var(--ink-2)]">
-              Delegates of the 3rd ICSIFT, Philippines, 2026
-            </figcaption>
+            {/* <figcaption className="herb-italic absolute bottom-0 left-0 z-[1] bg-white px-3 py-1.5 text-[13px] text-[var(--ink-2)]">
+              {CONFERENCE.venue.name}
+            </figcaption> */}
           </figure>
 
           <AccessionLabel

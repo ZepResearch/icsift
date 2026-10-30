@@ -1,6 +1,154 @@
-# ICSIFT UI design: the Herbarium Sheet system
+# ICSIFT UI design
 
-How to build new pages for icsift.com so they match the home page, navbar and footer. Read this before adding or redesigning a page.
+The site currently runs two design systems:
+
+| System | Where | Files |
+|---|---|---|
+| **Signal** (Part 1) | Home page, navbar, footer, translate strip | `src/styles/signal.css`, `src/components/signal/*`, `Navbar.jsx`, `Footer.jsx` |
+| **Herbarium** (Part 2) | Every inner page (About, Venue, Submission, Contact…) | `src/styles/herbarium.css`, `src/components/home/primitives.jsx` |
+
+New inner pages still follow Herbarium until they are moved to Signal one by one. Never mix the two on one page; the shared navbar and footer are the only Signal parts that appear on inner pages.
+
+---
+
+# Part 1: the Signal system (home, navbar, footer)
+
+The idea in one line: **whole fields of deep forest green, cream paper and signal yellow, stacked down the page, with headlines set huge in a condensed uppercase face.** Each section is one field of one colour that runs edge to edge; the colour change is the section break. The model is the Convoke event template, adapted to ICSIFT's content.
+
+## 1. Where things live
+
+| What | Where |
+|---|---|
+| Tokens and classes | `src/styles/signal.css` (imported in `src/app/layout.js`) |
+| Fonts | `src/components/home/fonts.js`: **Anton** as `--font-display`, **Figtree** as `--font-body` (both on `<body>`) |
+| Button | `src/components/signal/SigButton.jsx` |
+| Home sections | `src/components/signal/*.jsx`, assembled in `src/app/page.js` |
+| Scroll entrance | `src/components/home/Reveal.jsx`, with `data-enter` and `style={{ "--i": n }}` on each part |
+| Navbar / footer | `src/components/Navbar.jsx`, `src/components/Footer.jsx` |
+| Conference facts | `src/constants/conference.js` and PocketBase only. Never hard-code a date, venue or edition. |
+
+Wrap the page's `<main>` in `sig`:
+
+```jsx
+<main className="sig min-h-screen">…fields…</main>
+```
+
+`.sig` re-points the Herbarium variable names (`--ink`, `--sheet`, `--green`…) to Signal colours, so shared parts such as `SdgWheel`, `VenueMedia` and `herb-photo` render correctly inside it.
+
+## 2. Colour
+
+| Token | Value | Use |
+|---|---|---|
+| `--forest` | `#213629` | Main dark field, navbar, text on yellow |
+| `--forest-deep` | `#182a1f` | Footer, translate strip, FAQ rows, menus |
+| `--signal` | `#fdfd60` | Text and buttons on forest; the yellow field |
+| `--signal-deep` | `#eaea3c` | Yellow button hover |
+| `--cream` | `#f4f1ec` | Light field |
+| `--cream-deep` | `#e9e4da` | Panels on cream (fact cards, quotes, SDG rows) |
+| `--bark` | `#3a3020` | Text on cream |
+| `--bark-2` | `#6b604c` | Secondary text on cream |
+
+Pairings (always one of these, never others):
+
+| Field | Text | Buttons |
+|---|---|---|
+| Forest | Signal yellow (cream for long answers) | `tone="fill"` + `tone="outline"` |
+| Cream | Bark | `tone="dark"` + `tone="dark-outline"` |
+| Signal yellow | Forest | `tone="dark"` + `tone="dark-outline"` |
+
+Rhythm on the home page: photo hero → forest → cream → **yellow** → cream → forest → cream → forest → cream → forest → **yellow** → footer. Yellow fields are rare (two per page): the dates and the closing call. Never put two fields of the same colour next to each other.
+
+No gradients except the scrim over the hero photograph. No shadows except on menus. No glass or blur.
+
+## 3. Type
+
+| Role | Face | Size | Class |
+|---|---|---|---|
+| Hero headline | Anton, uppercase | `clamp(3.6rem, 1.2rem + 8.4vw, 10rem)`, leading 0.92 | `sig-display` |
+| Section heading (h2) | Anton, uppercase | `clamp(2.6rem, 1.6rem + 3.4vw, 5rem)` | `sig-h2` |
+| Section tag (left column) | Anton, uppercase | `clamp(1.5rem, 1.2rem + 0.8vw, 2rem)` | `sig-tag` |
+| Card title, list title, fact value | Anton, uppercase | 22–38px | `sig-display` + size |
+| Big figures (55+, 94%) | Anton | `clamp(3.2rem, 2rem + 3.4vw, 5.5rem)` | `sig-display` |
+| Lead sentence | Figtree 400–500 | `clamp(1.1rem, 1rem + 0.4vw, 1.3rem)` | Tailwind |
+| Body | Figtree 400 | 17–18px, line-height 1.55 | inherited from `.sig` |
+| Labels ("When?", "Venue") | Figtree 400 | 16–17px, `--bark-2` or 75% yellow | Tailwind |
+| Nav links | Figtree 700, uppercase | 14px | `sig-nav-link` |
+
+Rules:
+- Anton is for headlines, figures, card titles and buttons only. Running text is always Figtree, in sentence case.
+- Headlines have no full stop, except a two-sentence headline such as "Seventeen goals. Four we work on."
+- The hero headline may run to three deliberate lines (one `<span className="block">` per line). Every other heading stays at two lines or fewer.
+- Two faces only: Anton and Figtree. Spectral appears only inside the SDG dial's captions.
+
+## 4. Layout
+
+- Every field is full width; its content sits in `mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10`.
+- Field padding: `py-28 lg:py-40` (yellow fields `py-24 lg:py-32`).
+- **Tag-left layout** (Purpose, Schedule): `lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)]`, with the `sig-tag` in the left column and the heading, lead and content in the right.
+- **Split layout** (Dates, Goals, Venue, FAQ): heading and lead left, the working content right.
+- **Centred** is used once: the "Moments" gallery heading.
+- Corners are square, except speaker portraits, which sit in a cream arch (`rounded-t-full`).
+
+## 5. Components
+
+### Buttons: `SigButton`
+```jsx
+<SigButton href="/submission">Submit a paper</SigButton>
+<SigButton href="/registration" tone="outline">Register</SigButton>
+```
+Square, 52px tall, Anton uppercase with a right arrow that nudges on hover. Tones: `fill` (yellow), `outline` (yellow line), `dark` (forest fill), `dark-outline` (forest line). Submit and Register always appear as a pair: the first filled, the second outlined.
+
+### Hero (`Hero.jsx`)
+Full-bleed photograph in green duotone (`sig-duotone`: grey picture over forest, with a scrim toward the type). Place and date with icons above the headline, the giant yellow headline bottom-left, the lead and the two buttons bottom-right.
+
+### Figures row (`Purpose.jsx`)
+Big Anton numbers, each with a short Figtree label under it. Use only figures already published on the site.
+
+### Fact trio (`Participate.jsx`)
+Icon, a "When? / Where? / Who can join?" label, and the value in Anton. Three across.
+
+### Timeline (`Dates.jsx`)
+On yellow: `sig-chip` tabs over a vertical forest line with square markers. Each item has its title in Anton, the date with a calendar icon, the description and its state. The next deadline gets a ringed marker and a forest tag.
+
+### Speaker portraits (`Speakers.jsx`)
+Grey photo in a cream arch, gaining colour and a slight zoom on hover (`sig-portrait`); name in Anton, role and institution in Figtree. Role tabs use `sig-chip`. The biography opens in the `herb-dialog` side panel.
+
+### Gallery strip (`Moments.jsx`)
+An endless marquee (`sig-marquee`) of photographs at two alternating heights; hovering pauses it.
+
+### FAQ (`Faq.jsx`)
+Native `<details>` rows on `--forest-deep`, the question in Anton, and a plus that turns to ×.
+
+### Navbar
+A forest bar under a `--forest-deep` translate strip: the logo with ICSIFT in Anton, uppercase yellow links that underline on hover (the active link is white), dropdowns on `--forest-deep`, and a yellow "Register now" button. The mobile menu is a forest panel with Anton links at 32px.
+
+### Footer
+`--forest-deep` ground: the conference name, facts and the Submit/Register pair left; four link columns with yellow Anton heads right; policies on a forest strip; then **ICSIFT** at full width in yellow Anton as the close.
+
+### PocketBase data
+Every fetched block keeps all three states: loading skeletons (`animate-pulse` in a tint of the field's text colour), a plain empty sentence, and an error sentence with the recovery. Decode HTML entities in PocketBase text before showing it (see `plain()` in `Speakers.jsx`).
+
+## 6. Motion
+
+- Hero: the photo eases from scale 1.06; the place, headline and lead rise in turn (`sig-rise`).
+- Every field: wrap it in `<Reveal>` and mark its parts `data-enter` with `--i` for an 80ms stagger.
+- Hover: buttons fill and their arrows nudge, portraits gain colour, nav underlines draw in.
+- The gallery marquee is the only loop. `prefers-reduced-motion` turns all of it off (in `signal.css`).
+
+## 7. Checklist for a Signal section
+
+- [ ] One field colour from the pairings table, different from its neighbours.
+- [ ] One `h2` in `sig-h2` (or `sig-display`), two lines or fewer.
+- [ ] Body text in Figtree at 17px or more, in the field's full text colour.
+- [ ] Submit and Register reachable.
+- [ ] Every date, venue and edition from `CONFERENCE` or PocketBase.
+- [ ] Checked at 390, 768 and 1440 wide: no sideways scroll, nothing clipped.
+
+---
+
+# Part 2: inner pages, the Herbarium Sheet system
+
+How to build inner pages until they move to Signal.
 
 The idea in one line: **every page is a set of white herbarium sheets mounted on grey-green board.** Each sheet holds one subject, one photograph as its specimen, and its facts in a ruled accession label. The look is premium and minimal. Restraint does the work, not decoration.
 
@@ -15,7 +163,7 @@ The idea in one line: **every page is a set of white herbarium sheets mounted on
 | Building blocks | `src/components/home/primitives.jsx`: `ActionLink`, `AccessionLabel` |
 | Scroll settle | `src/components/home/Reveal.jsx` |
 | Reference sections | `src/components/home/*Sheet.jsx` (copy the closest one) |
-| Navbar / footer | `src/components/Navbar.jsx`, `src/components/Footer.jsx` |
+| Navbar / footer | Shared with the home page; they follow **Signal** (Part 1) |
 | SDG figure | `src/components/home/SdgTurntable.jsx` hosts the Hairline figure `public/hairline/turntable.js` (engine: `public/hairline/kernel.js`, never edited; source copy in `hairline/`) |
 | Conference facts | `src/constants/conference.js` and PocketBase only. Never hard-code a date, venue or edition. |
 
@@ -41,7 +189,6 @@ One accent colour. Everything else is ink, board and paper.
 | `--rule-soft` | `#e1e5e0` | Loading skeletons |
 | `--green` | `#1f5e3b` | **Only** the primary action, the active/current state, and "next" markers |
 | `--green-deep` | `#174a2e` | Primary hover |
-| Footer ink | `--ink` ground, `#e9ece6` text, `#aab5ad` muted, `#3a463f` rules | Footer only |
 
 Rules:
 - Green is never a background field, never decoration, and never used for headings.
@@ -86,13 +233,12 @@ Rules:
 ## 5. Components
 
 ### Heroes: one per page, never the same twice
-The home hero (photo left, title and accession label right) belongs to the home page only. Every other page gets its own title sheet, built from the same parts (`herb-sheet`, `herb-display`, ruled rules, `ActionLink`, Spectral italic terms) but arranged differently, so each page is recognisable at a glance while still reading as one system.
+Every inner page gets its own title sheet, built from the same parts (`herb-sheet`, `herb-display`, ruled rules, `ActionLink`, Spectral italic terms) but arranged differently, so each page is recognisable at a glance while still reading as one system.
 
 Patterns already in use. Pick an unused one or invent a new arrangement, and add it to this list:
 
 | Page | Hero pattern |
 |---|---|
-| Home (`HeroSheet.jsx`) | Tall photo left; title, intro, buttons and accession label right |
 | About the conference | Title large left with intro and buttons right, a four-cell ruled fact strip across the sheet, then a panoramic 21:9 photo |
 | About the organisers | No photo. Title large left with buttons pinned to the bottom; an "On this page" numbered contents index and a short label on the right |
 | About the co-organisers | No photo. Full-width title, then three hairline-ruled columns beneath it: intro, facts, and the primary action with jump links to each co-organiser |
@@ -190,7 +336,7 @@ Explanatory figures use the **Hairline** style: one-stroke isometric line drawin
 ## 8. Page recipes
 
 **Content page** (About, Venue, Awards, Committee):
-1. Title sheet: `herb-display` title, 1–2 sentence intro, key facts, and one photo when one exists. Its layout must differ from the home hero and from other pages' heroes (see **Heroes** below).
+1. Title sheet: `herb-display` title, 1–2 sentence intro, key facts, and one photo when one exists. Its layout must differ from other pages' heroes (see **Heroes** below).
 2. One sheet per topic, with a ruled list or label for its facts.
 3. Close with the Submit/Register pair (copy `ClosingSheet`).
 
@@ -221,7 +367,7 @@ Explanatory figures use the **Hairline** style: one-stroke isometric line drawin
 ## 10. Checklist before shipping a page
 
 - [ ] `<main className="herb">`, no sheet numbers.
-- [ ] The hero layout is not a copy of the home hero or another page's hero.
+- [ ] The hero layout is not a copy of another page's hero.
 - [ ] Every date, venue and edition comes from `CONFERENCE` or PocketBase.
 - [ ] Submit and Register reachable on the page.
 - [ ] Loading, empty and error states for fetched data.

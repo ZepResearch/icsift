@@ -3,12 +3,13 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import ReCAPTCHA from "react-google-recaptcha";
 import { ArrowUpRight } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
-import { AccessionLabel, ActionLink } from "@/components/home/primitives";
+import { ActionLink } from "@/components/home/primitives";
 import { useAuth } from "@/context/AuthContext";
 import pb from "@/lib/zep-pocketbase";
 import {
@@ -26,25 +27,29 @@ import AbstractSubmissionGuidelines from "./SubmitGuidline";
 const RECAPTCHA_BYPASS_TOKEN = "localhost-bypass";
 const MAX = Object.fromEntries(TEXT_FIELDS.map(([name, , max]) => [name, max]));
 const STEPS = ["Sign in", "Fill in your details", "Upload and send"];
+const ASKS = [
+  ["About you", "Your name, email, phone number, country, department and university or organization."],
+  ["Your paper", "The title and every co-author, or “None” if you wrote it alone."],
+  ["How you will present", "The paper type, and whether you present in person, online or as a poster."],
+  ["The file", "Your paper as a Word file, .doc or .docx, up to 10 MB."],
+];
 
 function StepStrip({ current }) {
   return (
-    <ol className="mt-12 grid border-y border-[var(--ink)] sm:grid-cols-3" aria-label="Submission steps">
+    <ol className="mt-12 grid gap-2 sm:grid-cols-3" aria-label="Submission steps">
       {STEPS.map((step, index) => {
         const state = index < current ? "Done" : index === current ? "Now" : "Next";
+        const now = index === current;
         return (
           <li
             key={step}
-            aria-current={index === current ? "step" : undefined}
-            className={`relative py-5 sm:px-5 sm:first:pl-0 ${index ? "border-t border-[var(--rule)] sm:border-t-0 sm:border-l" : ""} ${
-              index > current ? "text-[var(--ink-2)]" : ""
+            aria-current={now ? "step" : undefined}
+            className={`px-5 py-5 transition-colors duration-300 ${
+              now ? "bg-[var(--green)] text-white" : index < current ? "bg-[var(--mount)]" : "bg-[var(--mount)] text-[var(--ink-2)]"
             }`}
           >
-            <span className="herb-italic block text-[14px] text-[var(--ink-2)]">
-              Step {index + 1} · {state}
-            </span>
+            <span className={`herb-italic block text-[14px] ${now ? "text-white/80" : "text-[var(--ink-2)]"}`}>{state}</span>
             <span className="mt-1 block text-[clamp(1.2rem,1rem+0.6vw,1.5rem)] leading-tight tracking-[-0.01em]">{step}</span>
-            {index === current ? <span aria-hidden="true" className="absolute inset-x-0 -bottom-px h-[3px] bg-[var(--green)]" /> : null}
           </li>
         );
       })}
@@ -53,18 +58,45 @@ function StepStrip({ current }) {
 }
 
 function TitleRow() {
+  const location = CONFERENCE.venue.location.trim();
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-      <h1 id="submission-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-        Submit your paper.
-      </h1>
-      <p className="herb-muted max-w-[32rem] text-[17.5px] leading-relaxed">
-        Send your abstract or full paper to the {CONFERENCE.shortForm}. Read the{" "}
-        <a href="#guidelines" className="herb-link">
-          guidelines
-        </a>{" "}
-        first; submissions that do not follow them may be returned.
-      </p>
+    <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
+      <div>
+        <h1 id="submission-title" className="herb-display text-[clamp(2.75rem,1.2rem+4.4vw,5.75rem)]">
+          Submit your paper.
+        </h1>
+        <p className="mt-6 text-[clamp(1.25rem,1rem+0.8vw,1.75rem)] leading-snug tracking-[-0.01em]">
+          <span className="block">{CONFERENCE.date}</span>
+          <span className="block">
+            {location}
+            <span className="text-[var(--green)]"> · </span>
+            and online
+          </span>
+        </p>
+        <p className="mt-6 max-w-[32rem] text-[17px] leading-relaxed">
+          Send your abstract or full paper to the {CONFERENCE.shortForm} and present it in person, online or as a poster. Read
+          the{" "}
+          <a href="#guidelines" className="herb-link">
+            abstract guidelines
+          </a>{" "}
+          first; submissions that do not follow them may be returned.
+        </p>
+      </div>
+      <figure>
+        <div className="herb-mount herb-photo herb-photo-settle relative aspect-[3/2]">
+          <Image
+            src="/gallery/2nd-ICSIFT_05.jpg"
+            alt="A presenter at the lectern with his paper title projected on the screen behind him"
+            fill
+            priority
+            sizes="(min-width: 1024px) 600px, 100vw"
+            className="object-cover object-[60%_50%]"
+          />
+        </div>
+        <figcaption className="herb-italic mt-3 text-[14px] text-[var(--ink-2)]">
+          A paper presented at the 2nd ICSIFT, Bangkok. Yours could be on that screen next.
+        </figcaption>
+      </figure>
     </div>
   );
 }
@@ -149,7 +181,7 @@ export default function PaperSubmissionPage() {
 
   return (
     <main className="herb min-h-screen">
-      <section aria-labelledby="submission-title" className="px-3 pt-3 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
+      <section aria-labelledby="submission-title" className="px-4 pt-4 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8">
         <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
           <TitleRow />
           <StepStrip current={step} />
@@ -166,6 +198,16 @@ export default function PaperSubmissionPage() {
                   <span>Sign in or create an account</span>
                   <ArrowUpRight aria-hidden="true" className="h-[18px] w-[18px] shrink-0" strokeWidth={1.6} />
                 </button>
+
+                <h3 className="mt-14 text-[22px] leading-tight tracking-[-0.01em]">What the form asks for</h3>
+                <ul className="mt-6 grid gap-6 sm:grid-cols-2">
+                  {ASKS.map(([title, body]) => (
+                    <li key={title} className="border-l-[3px] border-[var(--green)] pl-5">
+                      <p className="text-[20px] leading-snug">{title}</p>
+                      <p className="herb-muted mt-1 text-[16px]">{body}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
               <SubmissionRail />
             </div>
@@ -176,7 +218,7 @@ export default function PaperSubmissionPage() {
 
                 <Honeypot />
 
-                <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">About you</h2>
+                <h2 className="text-[22px] leading-tight tracking-[-0.01em]">About you</h2>
                 <div className="grid gap-6 md:grid-cols-2">
                   <Field id="author" label="Author name" error={err("author")}>
                     <input id="author" name="author" type="text" autoComplete="name" required maxLength={MAX.author} defaultValue={user?.name || ""} aria-invalid={Boolean(err("author"))} aria-describedby={describedBy("author", err("author"))} className="herb-input" />
@@ -198,7 +240,7 @@ export default function PaperSubmissionPage() {
                   </Field>
                 </div>
 
-                <h2 className="mt-4 border-t border-[var(--ink)] pt-6 text-[13px] font-semibold tracking-[0.08em] uppercase">Your paper</h2>
+                <h2 className="mt-8 text-[22px] leading-tight tracking-[-0.01em]">Your paper</h2>
                 <Field id="paper_title" label="Paper title" error={err("paper_title")}>
                   <input id="paper_title" name="paper_title" type="text" required maxLength={MAX.paper_title} aria-invalid={Boolean(err("paper_title"))} aria-describedby={describedBy("paper_title", err("paper_title"))} className="herb-input" />
                 </Field>
@@ -227,7 +269,7 @@ export default function PaperSubmissionPage() {
                     onChange={onFileChange}
                     aria-invalid={Boolean(err("file"))}
                     aria-describedby={describedBy("file", err("file"), true)}
-                    className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border file:border-[var(--ink)] file:bg-[var(--sheet)] file:px-3 file:py-1.5 file:text-[15px] hover:file:bg-[var(--ink)] hover:file:text-white"
+                    className="herb-input cursor-pointer file:mr-4 file:cursor-pointer file:border-0 file:bg-[var(--mount)] file:px-3 file:py-1.5 file:text-[15px] file:transition-colors hover:file:bg-[var(--green)] hover:file:text-white"
                   />
                 </Field>
 
@@ -235,7 +277,7 @@ export default function PaperSubmissionPage() {
                   <textarea id="message" name="message" rows={5} required maxLength={MAX.message} aria-invalid={Boolean(err("message"))} aria-describedby={describedBy("message", err("message"), true)} className="herb-input resize-y" />
                 </Field>
 
-                <div className="border-t border-[var(--ink)] pt-6">
+                <div className="mt-4 sm:bg-[var(--mount)] sm:p-6">
                   {isLocalDev ? (
                     <p className="herb-italic text-[14.5px] text-[var(--ink-2)]">reCAPTCHA is skipped on localhost.</p>
                   ) : (
@@ -264,29 +306,40 @@ export default function PaperSubmissionPage() {
   );
 }
 
+const BEFORE = [
+  ["File", "Word, .doc or .docx, up to 10 MB"],
+  ["Abstract", "250 to 300 words"],
+  ["Presenting", "In person, online or as a poster"],
+  ["Conference", `${CONFERENCE.shortForm}, ${CONFERENCE.date}`],
+];
+
 function SubmissionRail() {
   return (
     <aside className="flex flex-col gap-8 lg:sticky lg:top-24 lg:self-start">
-      <AccessionLabel
-        title="Before you submit"
-        rows={[
-          ["File", "Word, .doc or .docx, up to 10 MB"],
-          ["Abstract", "250 to 300 words"],
-          ["Presenting", "In person, online or as a poster"],
-          ["Conference", `${CONFERENCE.shortForm}, ${CONFERENCE.date}`],
-          [
-            "Help",
-            <a key="help" href="mailto:info@icsift.com" className="herb-link">
-              info@icsift.com
-            </a>,
-          ],
-        ]}
-      />
+      <div className="bg-[var(--mount)] p-5 sm:p-6">
+        <h2 className="text-[22px] leading-tight tracking-[-0.01em]">Before you submit</h2>
+        <dl className="mt-5 grid gap-4">
+          {BEFORE.map(([term, value]) => (
+            <div key={term}>
+              <dt className="herb-italic text-[14px] text-[var(--ink-2)]">{term}</dt>
+              <dd className="mt-0.5 text-[17px] leading-snug">{value}</dd>
+            </div>
+          ))}
+          <div>
+            <dt className="herb-italic text-[14px] text-[var(--ink-2)]">Help</dt>
+            <dd className="mt-0.5 text-[17px] leading-snug">
+              <a href="mailto:info@icsift.com" className="herb-link">
+                info@icsift.com
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </div>
       <div className="grid gap-3">
         <ActionLink href="/papers-format">Templates and format</ActionLink>
         <ActionLink href="/mode-of-presentation">Modes of presentation</ActionLink>
       </div>
-      <p className="herb-muted text-[14.5px]">
+      <p className="text-[16px]">
         Already submitted? Track it at{" "}
         <Link href="https://publication.zepresearch.com/" target="_blank" rel="noopener noreferrer" className="herb-link">
           publication.zepresearch.com

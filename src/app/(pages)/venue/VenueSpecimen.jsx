@@ -20,7 +20,7 @@ function Layer({ isMain, place, label, onExpand, children }) {
   return (
     <div
       className={`absolute transition-[top,left,width,height] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
-        isMain ? "z-0" : "z-10 border border-[var(--ink)] bg-[var(--sheet)] p-1"
+        isMain ? "z-0" : "z-10 bg-[var(--sheet)] p-1"
       }`}
       style={isMain ? FULL : thumbAt(place)}
     >
