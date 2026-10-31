@@ -8,15 +8,14 @@ import { ActionPair, CallBand, FactCells, Field, LEAD, PageHero, SPLIT, StickyIn
 import { Field as FormField } from "@/components/forms/herb-fields";
 import CheckoutPanel from "@/components/payments/checkout-panel";
 import {
+  AUDIENCES,
   EARLY_BIRD_ACTIVE,
-  PARTICIPANTS,
-  PLANS,
-  PRICE_TYPES,
-  REGISTRATION,
+  MODES,
   TAX_RATE,
   customAmountProblem,
   money,
   resolveTicket,
+  rowsFor,
   ticketKey,
   withTax,
 } from "@/lib/pricing";
@@ -24,7 +23,7 @@ import {
 const TAX_LABEL = `Tax (${TAX_RATE * 100}%)`;
 
 const STEPS = [
-  ["Choose your fee", "Pick your category, how you will take part, and whether you need accommodation."],
+  ["Choose your fee", "Pick physical or virtual, then your registration type and your rate."],
   ["Sign in", "Registration is tied to your Zep Research account, so you can find it again later."],
   ["Enter billing details", "Your name, organisation and address, as they should appear on the receipt."],
   ["Pay through CCAvenue", "You are taken to CCAvenue's secure page to complete the payment."],
@@ -42,22 +41,23 @@ const BENEFITS = [
   ["Digital certificates", "Official participation and presentation certificates."],
 ];
 
-// A two-way choice set as two large toggle panels; the selected one turns yellow. Native radios keep it accessible.
-function Choice({ legend, name, options, value, onChange }) {
+// Physical or virtual, as two large toggle panels above the fee table; the selected one turns forest.
+// Native radios keep it keyboard- and screen-reader-friendly.
+function ModeSwitch({ value, onChange }) {
   return (
     <fieldset>
-      <legend className="text-[16px] text-[var(--muted)]">{legend}</legend>
-      <div className="mt-2 grid grid-cols-2 gap-2">
-        {options.map(([optionValue, label]) => {
+      <legend className="text-[16px] font-semibold">How will you attend?</legend>
+      <div className="mt-3 grid max-w-[34rem] grid-cols-2 gap-2">
+        {MODES.map(([optionValue, label]) => {
           const checked = value === optionValue;
           return (
             <label
               key={optionValue}
-              className={`sig-display flex min-h-[64px] cursor-pointer items-center px-5 text-[clamp(1.2rem,1rem+0.6vw,1.55rem)] leading-[1.05] transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--signal)] ${
-                checked ? "bg-[var(--signal)] text-[var(--forest)]" : "bg-[var(--panel)] hover:bg-black/20"
+              className={`sig-display flex min-h-[64px] cursor-pointer items-center justify-center px-5 text-[clamp(1.4rem,1.15rem+0.7vw,1.85rem)] transition-colors duration-200 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--forest)] ${
+                checked ? "bg-[var(--forest)] text-[var(--signal)]" : "bg-white hover:bg-[var(--panel)]"
               }`}
             >
-              <input type="radio" name={name} value={optionValue} checked={checked} onChange={() => onChange(optionValue)} className="sr-only" />
+              <input type="radio" name="mode" value={optionValue} checked={checked} onChange={() => onChange(optionValue)} className="sr-only" />
               {label}
             </label>
           );
@@ -67,27 +67,25 @@ function Choice({ legend, name, options, value, onChange }) {
   );
 }
 
+// The lowest price on sale in a mode, for the hero.
+const fromPrice = (mode) => Math.min(...rowsFor(mode).flatMap((row) => Object.values(row.prices)));
+
 export default function RegistrationPage() {
-  const [plan, setPlan] = useState("noAccommodation");
-  const [participant, setParticipant] = useState("local");
+  const [mode, setMode] = useState("physical");
   const [customAmount, setCustomAmount] = useState("");
   const [customError, setCustomError] = useState(null);
   const [checkout, setCheckout] = useState(null);
 
-  const rows = REGISTRATION[plan][participant];
-  const priceTypes = PRICE_TYPES.filter(
-    ([type]) => (type !== "earlyBird" || EARLY_BIRD_ACTIVE) && rows.some((row) => row.prices[type]),
-  );
-  const planName = PLANS.find(([v]) => v === plan)[1].toLowerCase();
-  const participantName = PARTICIPANTS.find(([v]) => v === participant)[1].toLowerCase();
+  const rows = rowsFor(mode);
+  const modeName = MODES.find(([v]) => v === mode)[1];
 
-  const chooseTicket = (category, priceType) => {
-    const ticket = resolveTicket(ticketKey(plan, participant, category, priceType));
+  const chooseTicket = (rowId, audience) => {
+    const ticket = resolveTicket(ticketKey(mode, rowId, audience));
     if (!ticket) return;
     setCheckout({
       title: ticket.name,
       lines: [
-        ["Accommodation", plan === "withAccommodation" ? "Included" : "Not included"],
+        ["Attending", modeName],
         ["Fee", money(ticket.price)],
         [TAX_LABEL, money(ticket.taxAmount)],
       ],
@@ -118,7 +116,7 @@ export default function RegistrationPage() {
 
   return (
     <main className="sig min-h-screen">
-      {/* Hero: title and lead left; the two fee choices right as toggle panels, which drive the fee table below. */}
+      {/* Hero: title and lead left; the starting prices right. The physical / virtual switch sits above the fee table. */}
       <PageHero
         id="registration-title"
         tag="Registration"
@@ -126,36 +124,40 @@ export default function RegistrationPage() {
         lead={`Presenting a paper or attending to listen, every registration includes the keynotes, panel discussions and networking. ${CONFERENCE.date}, ${CONFERENCE.venue.location.trim()} and online.`}
         actions={<ActionPair tone="forest" primary={["#fees", "See the fees"]} secondary={["/submission", "Submit a paper"]} />}
         aside={
-          <div className="grid gap-5">
-            <Choice legend="Accommodation" name="plan" options={PLANS} value={plan} onChange={setPlan} />
-            <Choice legend="You are" name="participant" options={PARTICIPANTS} value={participant} onChange={setParticipant} />
-            <p className="text-[15.5px] text-[var(--muted)]">
-              {EARLY_BIRD_ACTIVE ? "Early Bird prices are open. " : ""}Fees are in US dollars; {TAX_RATE * 100}% tax is added at checkout.
-            </p>
+          <div className="grid gap-3">
+            <FactCells
+              size="text-[clamp(1.6rem,1.2rem+1.2vw,2.3rem)]"
+              facts={[
+                ["Physical, from", money(fromPrice("physical"))],
+                ["Virtual, from", money(fromPrice("virtual"))],
+                ["Early Bird", EARLY_BIRD_ACTIVE ? "Open now" : "Closed"],
+                ["Tax", `${TAX_RATE * 100}% at checkout`],
+              ]}
+            />
+            <p className="text-[15.5px] text-[var(--muted)]">All fees are in US dollars, before tax.</p>
           </div>
         }
       />
 
-      {/* Fee table: one row per category; each price is a button that opens checkout. */}
+      {/* Fee table: the mode switch, then one row per category with an Academician and a Student price; each opens checkout. Early Bird rows are tinted yellow. */}
       <Field tone="cream" id="fees" labelledBy="fees-title" reveal={false}>
-        <div className="flex flex-wrap items-end justify-between gap-6">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <h2 id="fees-title" className="sig-h2">
             Choose your fee
           </h2>
-          <p className="bg-[var(--forest)] px-4 py-2 text-[16px] font-semibold text-[var(--signal)]" aria-live="polite">
-            {participantName.charAt(0).toUpperCase() + participantName.slice(1)} participants, {planName}
-          </p>
+          <ModeSwitch value={mode} onChange={setMode} />
         </div>
 
         <div className="mt-10 overflow-x-auto">
-          <table className="w-full min-w-[640px] border-separate border-spacing-y-2 text-left">
+          <table className="w-full min-w-[560px] border-separate border-spacing-y-2 text-left">
+            <caption className="sr-only">{modeName} registration fees, in US dollars before tax</caption>
             <thead>
               <tr className="text-[16px]">
                 <th scope="col" className="pb-2 pl-6 font-semibold text-[var(--muted)]">
                   Category
                 </th>
-                {priceTypes.map(([type, label]) => (
-                  <th key={type} scope="col" className="w-[12rem] px-2 pb-2 font-semibold text-[var(--muted)]">
+                {AUDIENCES.map(([audience, label]) => (
+                  <th key={audience} scope="col" className="w-[12rem] px-2 pb-2 font-semibold text-[var(--muted)]">
                     {label}
                   </th>
                 ))}
@@ -163,7 +165,7 @@ export default function RegistrationPage() {
             </thead>
             <tbody>
               {rows.map((row) => (
-                <tr key={row.category} className="bg-[var(--panel)] align-top">
+                <tr key={row.id} className={`align-top ${row.earlyBird ? "bg-[var(--signal)]/45" : "bg-[var(--panel)]"}`}>
                   <th scope="row" className="py-5 pr-6 pl-6 text-left font-normal">
                     <span className="sig-display block text-[clamp(1.4rem,1.15rem+0.7vw,1.85rem)] leading-[1.04]">{row.category}</span>
                     <details className="mt-3">
@@ -175,24 +177,20 @@ export default function RegistrationPage() {
                       </ul>
                     </details>
                   </th>
-                  {priceTypes.map(([type, label]) => (
-                    <td key={type} className="px-2 py-5 pr-4">
-                      {row.prices[type] ? (
-                        <button
-                          type="button"
-                          onClick={() => chooseTicket(row.category, type)}
-                          className="group flex w-full flex-col items-start bg-white px-4 py-3 text-left transition-colors duration-200 hover:bg-[var(--forest)] hover:text-[var(--signal)]"
-                          aria-label={`Choose ${row.category}, ${label}, ${money(row.prices[type])}`}
-                        >
-                          <span className="sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)] leading-none">{money(row.prices[type])}</span>
-                          <span className="mt-2 flex items-center gap-1.5 text-[14.5px] font-semibold">
-                            Choose
-                            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.4} />
-                          </span>
-                        </button>
-                      ) : (
-                        <span className="text-[15px] text-[var(--muted)]">Not offered</span>
-                      )}
+                  {AUDIENCES.map(([audience, label]) => (
+                    <td key={audience} className="px-2 py-5 pr-4">
+                      <button
+                        type="button"
+                        onClick={() => chooseTicket(row.id, audience)}
+                        className="group flex w-full flex-col items-start bg-white px-4 py-3 text-left transition-colors duration-200 hover:bg-[var(--forest)] hover:text-[var(--signal)]"
+                        aria-label={`Choose ${row.category}, ${label}, ${modeName}, ${money(row.prices[audience])}`}
+                      >
+                        <span className="sig-display text-[clamp(1.6rem,1.3rem+0.8vw,2.1rem)] leading-none">{money(row.prices[audience])}</span>
+                        <span className="mt-2 flex items-center gap-1.5 text-[14.5px] font-semibold">
+                          Choose
+                          <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.4} />
+                        </span>
+                      </button>
                     </td>
                   ))}
                 </tr>

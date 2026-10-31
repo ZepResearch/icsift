@@ -5,7 +5,7 @@ export const PAPER_TYPES = ["Abstract", "Full Paper"];
 export const PRESENTATION_TYPES = [
   ["Oral", "Oral presentation (in person)"],
   ["Virtual", "Virtual presentation (online)"],
-  ["Poster", "Poster presentation"],
+  // ["Poster", "Poster presentation"],
 ];
 export const HEARD_FROM = [
   ["Conference Alerts", "Conference Alerts"],

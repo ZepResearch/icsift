@@ -7,6 +7,8 @@ const HIGHLIGHTS = [
   ["Sustainable innovation", "Green technologies and sustainable solutions for global challenges."],
   ["Global collaboration", "Experts, researchers and industry leaders from around the world in one programme."],
   ["Future technologies", "The tools that will shape a more sustainable world, and the people building them."],
+  ["Free pre-conference webinar", "Free tickets to the pre-conference webinar, ahead of the main event."],
+  ["Conference workshop", "A hands-on workshop as part of the conference programme."],
 ];
 
 const REASONS = [
@@ -100,16 +102,17 @@ export default function AboutConferencePage() {
                 Theme and topics
               </Link>
             </div>
-          </StickyIntro>
-
-          <div className="grid gap-10">
-            <figure data-enter style={{ "--i": 2 }} className="bg-[var(--forest)] p-7 text-[var(--signal)] sm:p-10">
+               <figure data-enter style={{ "--i": 2 }} className="bg-[var(--forest)] p-7 mt-3 text-[var(--signal)] sm:p-10">
               <h3 className="sig-tag">Our mission</h3>
               <blockquote className="mt-4 text-[clamp(1.3rem,1.05rem+0.8vw,1.75rem)] leading-[1.3] font-medium text-balance">
                 To bring together leading researchers, policymakers and industry experts to share knowledge, discuss challenges
                 and forge the partnerships that move the global sustainability agenda forward.
               </blockquote>
             </figure>
+          </StickyIntro>
+
+          <div className="grid gap-10">
+         
             <div data-enter style={{ "--i": 3 }}>
               <h3 className="sig-display text-[clamp(1.8rem,1.4rem+1.2vw,2.6rem)]">Conference highlights</h3>
               <BarList items={HIGHLIGHTS} className="mt-6" />

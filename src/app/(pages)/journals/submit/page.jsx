@@ -1,5 +1,10 @@
 import { Field, LEAD, PageHero } from '@/components/signal/page'
 import PaperSubmissionForm from './components/Form'
+import { journalSubmitMetadata } from "@/components/metadata";
+
+export const metadata = journalSubmitMetadata;
+
+
 
 function page() {
   return (

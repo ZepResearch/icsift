@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CONFERENCE } from "@/constants/conference";
 import { ActionPair, BarList, CallBand, FactCells, Field, PageHero, SPLIT } from "@/components/signal/page";
+import CoOrganizerForm from "./CoOrganizerForm";
 
 // Current co-organisers. Each entry renders as its own field; past partners are kept below, commented out.
 const CO_ORGANIZERS = [
@@ -229,7 +230,7 @@ export default function AboutCoOrganizersPage() {
         title="The institutions that host the work with us"
         titleClass="text-[clamp(2.8rem,1.4rem+4.6vw,6rem)]"
         lead="Each edition of ICSIFT is co-organised with universities and academic bodies that share its work on sustainability, innovation and future technologies."
-        actions={<ActionPair tone="forest" primary={["#partner", "Become a co-organiser"]} secondary={null} />}
+        actions={<ActionPair tone="forest" primary={["#apply", "Become a co-organiser"]} secondary={null} />}
         aside={
           <div className="grid gap-2">
             <FactCells
@@ -265,11 +266,13 @@ export default function AboutCoOrganizersPage() {
       <div id="partner" className="scroll-mt-28">
         <CallBand
           title={`Co-organise the ${CONFERENCE.shortForm}`}
-          text="Interested in partnering with us? Get in touch to explore how your institution can join the conference."
-          primary={["/contact", "Contact the organisers"]}
-          secondary={["/submission", "Submit a paper"]}
+          text="Interested in partnering with us? Send an application, and the team will reply within a few working days."
+          primary={["#apply", "Become a co-organiser"]}
+          secondary={["/contact", "Contact the organisers"]}
         />
       </div>
+
+      <CoOrganizerForm />
     </main>
   );
 }

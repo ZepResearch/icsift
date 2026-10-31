@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { GOALS } from "@/constants/sdg";
 import Reveal from "@/components/home/Reveal";
-import SdgWheel from "@/components/home/SdgWheel";
+import SdgWheel from "../home/SdgWheel";
 
 const FOCUS = [
   [4, "Teaching, training and access to learning that lasts."],

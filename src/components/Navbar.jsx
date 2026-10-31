@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 import { CONFERENCE } from "@/constants/conference"
+import { SPEAKER_CATEGORIES } from "@/lib/speakers"
 
 const NAV = [
   {
@@ -29,7 +30,13 @@ const NAV = [
     ],
   },
   { title: "Submission", href: "/submission" },
+  {
+    title: "Key People",
+    dropdown: [
       { href: "/committee", title: "Committee" },
+      ...SPEAKER_CATEGORIES.map(({ slug, title }) => ({ href: `/speakers/${slug}`, title })),
+    ],
+  },
 
   { title: "Venue", href: "/venue" },
   {

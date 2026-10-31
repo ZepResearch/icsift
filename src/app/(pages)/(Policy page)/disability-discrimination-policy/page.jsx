@@ -1,10 +1,9 @@
 import { CONFERENCE } from "@/constants/conference";
 import PolicyDocument from "@/components/policy/PolicyDocument";
+import { disabilityMetadata } from "@/components/metadata";
 
-export const metadata = {
-  title: "Disability Discrimination Policy | ICSIFT",
-  description: "How ICSIFT keeps the conference accessible, inclusive and free of disability discrimination, on site and online.",
-};
+
+export const metadata = disabilityMetadata;
 
 export default function DisabilityPolicy() {
   return (

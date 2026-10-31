@@ -1,6 +1,6 @@
 import { CONFERENCE } from "@/constants/conference";
 import Reveal from "@/components/home/Reveal";
-import VenueMedia from "@/components/home/VenueMedia";
+import VenueMedia from "../home/VenueMedia";
 import SigButton from "./SigButton";
 
 // Forest field: the city as the display heading with the venue facts in large type left; the city footage right.

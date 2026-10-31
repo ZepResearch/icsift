@@ -1,10 +1,9 @@
 import { CONFERENCE } from "@/constants/conference";
 import PolicyDocument from "@/components/policy/PolicyDocument";
+import { equalTreatmentMetadata } from "@/components/metadata";
 
-export const metadata = {
-  title: "Equal Treatment Policy | ICSIFT",
-  description: "How ICSIFT ensures every participant is treated fairly and without discrimination across all conference activities.",
-};
+
+export const metadata = equalTreatmentMetadata;
 
 export default function EqualTreatmentPolicy() {
   return (

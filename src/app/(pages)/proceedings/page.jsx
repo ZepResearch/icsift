@@ -1,10 +1,9 @@
 import React from 'react'
 import ProceedingsContent from './Content'
+import { proceedingsMetadata } from "@/components/metadata";
 
-export const metadata = {
-    title: 'Proceedings | ICSIFT',
-    description: 'Browse published conference proceedings from ICSIFT featuring cutting-edge research and scholarly contributions.',
-}
+
+export const metadata = proceedingsMetadata;
 
 function ProceedingsPage() {
     return <ProceedingsContent />

@@ -10,64 +10,52 @@ export const CURRENCY = "USD";
 export const CUSTOM_MIN = 1;
 export const CUSTOM_MAX = 10000;
 
-export const PLANS = [
-  ["noAccommodation", "Without accommodation"],
-  ["withAccommodation", "With accommodation"],
-];
-export const PARTICIPANTS = [
-  ["local", "Local"],
-  ["international", "International"],
-];
-export const PRICE_TYPES = [
-  ["earlyBird", "Early Bird"],
+// The one switch on the registration page, and the two price columns.
+export const MODES = [
   ["physical", "Physical"],
   ["virtual", "Virtual"],
 ];
+export const AUDIENCES = [
+  ["academician", "Academician"],
+  ["student", "Student"],
+];
 
-const ACADEMIC = ["Full conference access", "Workshop materials", "Lunch and refreshments", "Certificate of participation"];
+const PHYSICAL = ["Full conference access", "Networking opportunities", "Workshop materials", "Lunch and refreshments", "Certificate of participation", "Access to presentation materials"];
+const VIRTUAL = ["Online access to all sessions", "Workshop materials", "Certificate of participation", "Access to presentation materials"];
+const SCOPUS = (band) => [`Scopus ${band} publication`, "Priority presentation slot"];
 
-// [category, physical, virtual|null, earlyBird, features]
+// [id, category, early bird?, academician price, student price, features]
 const rows = (data) =>
-  data.map(([category, physical, virtual, earlyBird, features]) => ({
+  data.map(([id, category, earlyBird, academician, student, features]) => ({
+    id,
     category,
-    prices: { physical, ...(virtual ? { virtual } : {}), earlyBird },
+    earlyBird,
+    prices: { academician, student },
     features,
   }));
 
+// Prices in US dollars, before tax. Rows marked early bird are hidden, and refused at checkout, when EARLY_BIRD_ACTIVE is false.
 export const REGISTRATION = {
-  noAccommodation: {
-    local: rows([
-      ["Academician", 249, 169, 199, ["Full conference access", "Networking opportunities", "Workshop materials", "Lunch and refreshments", "Certificate of participation", "Access to presentation materials"]],
-      ["Student", 199, 129, 159, ["Conference access", "Networking opportunities", "Workshop materials", "Lunch and refreshments", "Certificate of participation", "Student discount applied"]],
-      ["Delegate", 169, 79, 159, ["Conference access", "Networking opportunities", "Lunch and refreshments", "Certificate of attendance", "Access to presentation materials"]],
-      ["With Scopus Q3 & Q4", 1049, 949, 999, ["Full conference access", "Scopus Q3 & Q4 publication", "Premium networking opportunities", "Workshop materials", "Certificate of participation", "Priority presentation slot"]],
-      ["With Scopus Q1 & Q2", 1749, 1649, 1699, ["Full conference access", "Scopus Q1 & Q2 publication", "Premium networking opportunities", "Workshop materials", "Certificate of participation", "Priority presentation slot"]],
-    ]),
-    international: rows([
-      ["Academician", 299, 229, 249, ["Full conference access", "International networking", "Workshop materials", "Lunch and refreshments", "Certificate of participation", "Access to presentation materials"]],
-      ["Student", 249, 169, 219, ["Conference access", "International networking", "Workshop materials", "Lunch and refreshments", "Certificate of participation", "Student discount applied"]],
-      ["Delegate", 219, 129, 199, ["Conference access", "International networking", "Lunch and refreshments", "Certificate of attendance", "Access to presentation materials"]],
-      ["With Scopus Q3 & Q4", 1099, 999, 1049, ["Full conference access", "Scopus Q3 & Q4 publication", "Premium international networking", "Workshop materials", "Certificate of participation", "Priority presentation slot"]],
-      ["With Scopus Q1 & Q2", 1799, 1699, 1749, ["Full conference access", "Scopus Q1 & Q2 publication", "Premium international networking", "Workshop materials", "Certificate of participation", "Priority presentation slot"]],
-    ]),
-  },
-  withAccommodation: {
-    local: rows([
-      ["Academician", 399, null, 349, ["Full conference access", "Accommodation included", "Networking opportunities", ...ACADEMIC.slice(1)]],
-      ["Student", 349, null, 299, ["Conference access", "Accommodation included", "Networking opportunities", ...ACADEMIC.slice(1)]],
-      ["Delegate", 319, null, 279, ["Conference access", "Accommodation included", "Networking opportunities", "Lunch and refreshments", "Certificate of attendance"]],
-      ["With Scopus Q3 & Q4", 1199, null, 1149, ["Full conference access", "Accommodation included", "Scopus Q3 & Q4 publication", "Premium networking opportunities", "Workshop materials", "Priority presentation slot"]],
-      ["With Scopus Q1 & Q2", 1899, null, 1849, ["Full conference access", "Accommodation included", "Scopus Q1 & Q2 publication", "Premium networking opportunities", "Workshop materials", "Priority presentation slot"]],
-    ]),
-    international: rows([
-      ["Academician", 449, null, 399, ["Full conference access", "Accommodation included", "International networking", ...ACADEMIC.slice(1)]],
-      ["Student", 399, null, 349, ["Conference access", "Accommodation included", "International networking", ...ACADEMIC.slice(1)]],
-      ["Delegate", 349, null, 299, ["Conference access", "Accommodation included", "International networking", "Lunch and refreshments", "Certificate of attendance"]],
-      ["With Scopus Q3 & Q4", 1299, null, 1249, ["Full conference access", "Accommodation included", "Scopus Q3 & Q4 publication", "Premium international networking", "Workshop materials", "Priority presentation slot"]],
-      ["With Scopus Q1 & Q2", 1949, null, 1899, ["Full conference access", "Accommodation included", "Scopus Q1 & Q2 publication", "Premium international networking", "Workshop materials", "Priority presentation slot"]],
-    ]),
-  },
+  physical: rows([
+    ["regular", "Regular Registration", false, 299, 249, PHYSICAL],
+    ["early-bird", "Early Bird", true, 249, 219, PHYSICAL],
+    ["scopus-q1-q2", "Scopus Q1/Q2", false, 1799, 1699, [...PHYSICAL, ...SCOPUS("Q1/Q2")]],
+    ["scopus-q1-q2-early-bird", "Scopus Q1/Q2 Early Bird", true, 1749, 1649, [...PHYSICAL, ...SCOPUS("Q1/Q2")]],
+    ["scopus-q3-q4", "Scopus Q3/Q4", false, 1099, 999, [...PHYSICAL, ...SCOPUS("Q3/Q4")]],
+    ["scopus-q3-q4-early-bird", "Scopus Q3/Q4 Early Bird", true, 1049, 949, [...PHYSICAL, ...SCOPUS("Q3/Q4")]],
+  ]),
+  virtual: rows([
+    ["regular", "Regular Registration", false, 199, 169, VIRTUAL],
+    ["early-bird", "Early Bird", true, 169, 149, VIRTUAL],
+    ["scopus-q1-q2", "Scopus Q1/Q2", false, 1749, 1649, [...VIRTUAL, ...SCOPUS("Q1/Q2")]],
+    ["scopus-q1-q2-early-bird", "Scopus Q1/Q2 Early Bird", true, 1699, 1599, [...VIRTUAL, ...SCOPUS("Q1/Q2")]],
+    ["scopus-q3-q4", "Scopus Q3/Q4", false, 1049, 949, [...VIRTUAL, ...SCOPUS("Q3/Q4")]],
+    ["scopus-q3-q4-early-bird", "Scopus Q3/Q4 Early Bird", true, 999, 899, [...VIRTUAL, ...SCOPUS("Q3/Q4")]],
+  ]),
 };
+
+// The rows on sale for a mode right now.
+export const rowsFor = (mode) => (REGISTRATION[mode] || []).filter((row) => EARLY_BIRD_ACTIVE || !row.earlyBird);
 
 export const SPONSOR_PACKAGES = [
   {
@@ -127,7 +115,6 @@ export const SPONSOR_PACKAGES = [
   },
 ];
 
-const slug = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 const round2 = (n) => Math.round(n * 100) / 100;
 
 export const withTax = (price) => {
@@ -135,24 +122,24 @@ export const withTax = (price) => {
   return { price, taxAmount, totalAmount: round2(price + taxAmount) };
 };
 
-export const ticketKey = (plan, participant, category, priceType) => [plan, participant, slug(category), priceType].join(":");
+export const ticketKey = (mode, rowId, audience) => [mode, rowId, audience].join(":");
 
-// Resolves a ticket key to its name and price, or null if it does not exist or is not on sale.
+// Resolves a ticket key ("physical:scopus-q1-q2:student") to its name and price, or null if it does not exist or is
+// not on sale. The payment route charges only what this returns, never a price sent by the browser.
 export function resolveTicket(key) {
-  const [plan, participant, categorySlug, priceType] = String(key || "").split(":");
-  const row = REGISTRATION[plan]?.[participant]?.find((r) => slug(r.category) === categorySlug);
-  const price = row?.prices[priceType];
-  if (!row || !price || (priceType === "earlyBird" && !EARLY_BIRD_ACTIVE)) return null;
-  const priceName = PRICE_TYPES.find(([value]) => value === priceType)[1];
-  const participantName = PARTICIPANTS.find(([value]) => value === participant)[1];
+  const [mode, rowId, audience] = String(key || "").split(":");
+  const row = rowsFor(mode).find((r) => r.id === rowId);
+  const price = row?.prices[audience];
+  if (!row || !price) return null;
+  const modeName = MODES.find(([value]) => value === mode)[1];
+  const audienceName = AUDIENCES.find(([value]) => value === audience)[1];
   return {
     key,
-    name: `${row.category} - ${participantName} (${priceName})`,
+    name: `${row.category} - ${audienceName} (${modeName})`,
     category: row.category,
-    type: row.category,
-    plan,
-    participant,
-    priceType,
+    type: audienceName,
+    mode,
+    audience,
     currency: CURRENCY,
     ...withTax(price),
   };

@@ -6,17 +6,23 @@ import { getJournalById } from "@/lib/pocketbase";
 import { coverOf, indexName } from "@/lib/journals";
 import { FactCells, Field, PageHero } from "@/components/signal/page";
 import PaperSubmissionForm from "./components/Form";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
   const journal = await getJournalById(id);
-  if (!journal || journal.not_visible) return { title: "Journal not found | ICSIFT" };
-  return {
-    title: `Submit to ${journal.title} | ICSIFT`,
-    description: `Submit your paper to ${journal.title}${journal.issncode ? ` (ISSN ${journal.issncode.trim()})` : ""} through Zep Research.`,
-  };
+  if (!journal || journal.not_visible) return { title: "Journal not found", robots: { index: false, follow: true } };
+  const issn = journal.issncode ? ` (ISSN ${journal.issncode.trim()})` : "";
+  const index = indexName(journal.indexType);
+  return pageMetadata({
+    path: `/journals/${id}`,
+    title: `Submit to ${journal.title}`,
+    description: `Submit your paper to ${journal.title}${issn}${index ? `, a ${index} indexed journal,` : ""} through Zep Research. Upload your manuscript and get a confirmation by email.`,
+    keywords: [journal.title, index ? `${index} indexed journal` : "indexed journal", "journal submission"],
+  });
 }
 
 export default async function JournalDetailPage({ params }) {
@@ -30,6 +36,7 @@ export default async function JournalDetailPage({ params }) {
 
   return (
     <main className="sig min-h-screen">
+      <JsonLd data={breadcrumbSchema([["Journals", "/journals"], [title, `/journals/${id}`]])} />
       {/* Hero: the journal title as the h1 with an "All journals" link; the cover on a panel and its facts right. */}
       <PageHero
         id="journal-title"

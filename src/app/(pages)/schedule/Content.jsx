@@ -312,13 +312,13 @@ export default function ConferenceSchedule() {
                       <p className={isBreak ? "text-[17px] text-[var(--muted)]" : "sig-display text-[clamp(1.35rem,1.1rem+0.6vw,1.75rem)] leading-[1.05]"}>
                         {item.title}
                       </p>
-                      {item.speakers?.length ? (
+                      {/* {item.speakers?.length ? (
                         <ul className="mt-4 grid gap-4 md:grid-cols-2">
                           {item.speakers.map((speaker) => (
                             <Speaker key={speaker.name} speaker={speaker} match={speakerMap.get(speaker.name)} />
                           ))}
                         </ul>
-                      ) : null}
+                      ) : null} */}
                     </div>
                   </li>
                 );

@@ -1,10 +1,8 @@
 import AboutCoOrganizersPage from "./Content";
-import { CONFERENCE } from "@/constants/conference";
+import { coOrganizersMetadata } from "@/components/metadata";
 
-export const metadata = {
-  title: `Co-organisers | ${CONFERENCE.shortForm}`,
-  description: `The universities and academic bodies that co-organise the ${CONFERENCE.name.trim()}, and how your institution can join them.`,
-};
+
+export const metadata = coOrganizersMetadata;
 
 export default function Page() {
   return <AboutCoOrganizersPage />;

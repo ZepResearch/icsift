@@ -1,11 +1,9 @@
 import { CONFERENCE } from "@/constants/conference";
 import PolicyDocument from "@/components/policy/PolicyDocument";
+import { healthSafetyMetadata } from "@/components/metadata";
 
-export const metadata = {
-  title: "ICSIFT | Health and Safety Policy",
-  description:
-    "Join global experts at ICSIFT, a premier conference dedicated to exploring cutting-edge scientific innovations and emerging technologies shaping our future.",
-};
+
+export const metadata = healthSafetyMetadata;
 
 export default function HealthSafetyPolicy() {
   return (

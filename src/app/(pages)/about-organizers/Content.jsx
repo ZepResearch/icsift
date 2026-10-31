@@ -26,7 +26,7 @@ export default function AboutOrganizersPage() {
         tag="Organisers"
         title="The people who put the room together"
         lead={`The ${CONFERENCE.shortForm} is organised by Zep Research with its co-organisers. Here is who we are, why we do it, and how to work with us.`}
-        actions={<ActionPair tone="forest" primary={["/contact", "Contact the organisers"]} secondary={["/about-co-organizers", "Become a co-organiser"]} />}
+        actions={<ActionPair tone="forest" primary={["/contact", "Contact the organisers"]} secondary={["/about-co-organizers", "Look at co-organisers"]} />}
         aside={
           <nav aria-label="On this page">
             <p className="text-[16px] text-[var(--muted)]">On this page</p>
@@ -139,7 +139,7 @@ export default function AboutOrganizersPage() {
           title="Partner with Zep Research"
           text="Want to collaborate on a future conference or research initiative? Get in touch and we will talk through how."
           primary={["/contact", "Contact the organisers"]}
-          secondary={["/about-co-organizers", "Become a co-organiser"]}
+          secondary={["/about-co-organizers#apply", "Become a co-organiser"]}
         />
       </div>
     </main>

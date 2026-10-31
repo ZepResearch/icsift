@@ -131,6 +131,7 @@ A forest bar under a `--forest-deep` translate strip: the logo with ICSIFT in An
 - The full link row shows from **1360px** (`min-[1360px]:`); below that the menu button takes over. Nine links, the account control and the button do not fit at 1280px.
 - Signed in, the bar shows only a compact **account button** (the user's initial in a yellow square and a chevron). Its menu holds "Signed in as" with the full name and a Log out button. Never put the name or a text "Log out" in the bar itself; a long name overflows the row.
 - Adding a top-level link costs width: check the bar at 1360px signed in before adding one.
+- **Key People** is a dropdown: Committee, then one link per speaker category from `SPEAKER_CATEGORIES` in `src/lib/speakers.js`. To add a category page, add an entry there (its `category` must match the PocketBase value exactly); the menu, the page and its 404 handling follow automatically.
 
 ### Footer
 `--forest-deep` ground: the logo (`/singleLogo.svg`, 64px) with ICSIFT in Anton and the edition line, then the conference name, facts and the Submit/Register pair left; four link columns with yellow Anton heads right; policies on a forest strip; then **ICSIFT** at full width in yellow Anton as the close.
@@ -191,7 +192,7 @@ Each inner page's hero differs by what fills its right side, never by colour or 
 | About the organisers | "On this page" as four large jump panels |
 | About the co-organisers | Two fact panels and a logo jump card per co-organiser |
 | Mode of presentation | The two modes as large icon cards that jump to each mode |
-| Papers format | The six-part specification as fact panels |
+| Papers format | The specification as fact panels |
 | Theme and topics | The six tracks as numbered jump panels |
 | Schedule | The day switch (`role="tablist"`): two large Day panels, the selected one yellow |
 | Awards | A 4:5 photograph; the awards index sits under the lead |
@@ -204,9 +205,10 @@ Each inner page's hero differs by what fills its right side, never by colour or 
 | Submission success | The four review stages as numbered panels, "Received" yellow |
 | Journals | The search field with the live "N of M journals showing" count set large |
 | Journal detail | The journal's cover on a panel with ISSN, index and file type as fact panels; "All journals" link under the title |
-| Registration | The two fee choices (accommodation; local or international) as toggle panels, the selected one yellow; they drive the fee table below |
+| Registration | The starting prices (physical from, virtual from), Early Bird status and tax as fact panels; the Physical / Virtual switch sits above the fee table, which lists Academician and Student prices with Early Bird rows tinted yellow |
 | Exhibit and sponsor | The tier ladder: each tier on a panel with its price and a yellow bar scaled to that price |
 | Policy pages (`components/policy/PolicyDocument.jsx`) | The document's contents as numbered jump panels |
+| Speaker category pages (`/speakers/[category]`) | Every Key People page (Committee and the four speaker categories) as jump panels, the current one yellow; the speakers sit on the cream field below, as wide cards when there are one or two |
 
 ### Herbarium parts inside Signal pages (the bridge)
 Forms, fetched archives and dialogs written for Herbarium keep working inside `.sig`: `signal.css` restyles them under `.sig`, so they need no rewrite.

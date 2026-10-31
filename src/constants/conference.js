@@ -1,4 +1,4 @@
-export const CONFERENCE = {   name: "4th International Conference on Sustainability, Innovation, and Future Technologies ",
+export const CONFERENCE = {   name: "4th International Conference on Sustainability, Innovation and Future Technologies ",
   shortForm: "4th ICSIFT",
 
 scheduleDates: {
@@ -13,6 +13,11 @@ scheduleDates: {
     location: " Bangkok, Thailand",
     name: "Radisson Suites Bangkok Sukhumvit ",
     address: "23/2-3 Sukhumvit Road, Soi 13, Klongtoey Nua, Wattana, Bangkok, TH",
+    // Used for search engines (event schema). Update all four when the venue moves.
+    city: "Bangkok",
+    country: "TH",
+    utcOffset: "+07:00",
+    hours: ["09:00", "18:00"],
   },
 coOrganizers: [
  

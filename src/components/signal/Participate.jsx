@@ -41,7 +41,7 @@ export default function Participate() {
   const facts = [
     [CalendarDays, "When?", conferenceDates(), CONFERENCE.date],
     [MapPin, "Where?", CONFERENCE.venue.name.trim(), `${CONFERENCE.venue.address.trim()} · and online`],
-    [Users, "Who can join?", "Researchers, students and industry", "Present a paper, or attend in person or online"],
+    [Users, "Who can join?", "Researchers, students and Academicians", "Present a paper, or attend in person or online"],
   ];
 
   return (

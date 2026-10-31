@@ -158,12 +158,12 @@ export default function ConferenceFooter() {
         </div>
       </div>
 
-      <p
+      {/* <p
         aria-hidden="true"
         className="sig-display mt-10 -mb-[0.12em] px-2 text-center text-[clamp(6rem,30vw,28rem)] leading-[0.8] text-[var(--signal)] select-none"
       >
         ICSIFT
-      </p>
+      </p> */}
     </footer>
   )
 }

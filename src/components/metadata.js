@@ -1,1637 +1,230 @@
-// 1. about-conference
-
-export const aboutConferenceMetadata = {
-  title: "About Conference | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Learn about ICSIFT 2025, the premier international conference connecting researchers, professionals, and innovators focused on sustainability, innovation, and future technologies in Bangkok, Thailand.",
-  keywords: [
-    "ICSIFT 2025",
-    "sustainability conference",
-    "innovation forum",
-    "future technologies",
-    "Bangkok conference",
-    "academic conference",
-    "professional networking",
-    "knowledge exchange",
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/about-conference",
-    title: "About Conference | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Learn about ICSIFT 2025, the premier international conference connecting researchers, professionals, and innovators focused on sustainability, innovation, and future technologies in Bangkok, Thailand.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Conference Overview",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "About Conference | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Learn about ICSIFT 2025, the premier international conference connecting researchers, professionals, and innovators focused on sustainability, innovation, and future technologies in Bangkok, Thailand.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/about-conference",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "About Conference | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Learn about ICSIFT 2025, the premier international conference connecting researchers, professionals, and innovators focused on sustainability, innovation, and future technologies in Bangkok, Thailand.",
-      url: "https://www.icsift.com/about-conference",
-      mainEntity: {
-        "@type": "Event",
-        name: "ICSIFT 2025 Conference",
-        description: "International Conference on Sustainability, Innovation and Future Technologies",
-        startDate: "2025-12-26T09:00:00+07:00",
-        endDate: "2025-12-27T18:00:00+07:00",
-        eventStatus: "https://schema.org/EventScheduled",
-        eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        location: {
-          "@type": "Place",
-          name: "Bangkok, Thailand",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Bangkok",
-            addressCountry: "Thailand"
-          }
-        },
-        organizer: {
-          "@type": "Organization",
-          name: "ICSIFT 2025",
-          url: "https://www.icsift.com",
-        },
-      },
-    }),
-  },
-};
-
-// 2. about-organizers
-
-export const aboutOrganizersMetadata = {
-  title: "About Organizers | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Meet the team behind ICSIFT 2025. Learn about our organizing committee, their expertise, vision, and commitment to fostering sustainability, innovation, and future technologies.",
-  keywords: [
-    "ICSIFT 2025 organizers",
-    "sustainability experts",
-    "innovation leaders",
-    "conference committee",
-    "event leadership",
-    "Bangkok conference team",
-    "academic organizers",
-    "technology conference team"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/about-organizers",
-    title: "About Organizers | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Meet the team behind ICSIFT 2025. Learn about our organizing committee, their expertise, vision, and commitment to fostering sustainability, innovation, and future technologies.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Conference Organizers",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "About Organizers | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Meet the team behind ICSIFT 2025. Learn about our organizing committee, their expertise, vision, and commitment to fostering sustainability, innovation, and future technologies.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/about-organizers",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "About Organizers | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Meet the team behind ICSIFT 2025. Learn about our organizing committee, their expertise, vision, and commitment to fostering sustainability, innovation, and future technologies.",
-      url: "https://www.icsift.com/about-organizers",
-      mainEntity: {
-        "@type": "Organization",
-        name: "ICSIFT 2025 Conference Organizers",
-        description: "The organizing committee of the International Conference on Sustainability, Innovation and Future Technologies",
-        url: "https://www.icsift.com/about-organizers",
-      },
-    }),
-  },
-};
-
-// 3. awards
-
-export const awardsMetadata = {
-  title: "Conference Awards | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Discover the prestigious awards and recognition opportunities at ICSIFT 2025. Learn about award categories, eligibility criteria, evaluation process, and previous winners.",
-  keywords: [
-    "ICSIFT 2025 awards",
-    "sustainability awards",
-    "innovation recognition",
-    "technology awards",
-    "conference recognition",
-    "academic awards",
-    "research excellence",
-    "best presentation",
-    "outstanding paper"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/awards",
-    title: "Conference Awards | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Discover the prestigious awards and recognition opportunities at ICSIFT 2025. Learn about award categories, eligibility criteria, evaluation process, and previous winners.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Conference Awards",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Conference Awards | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Discover the prestigious awards and recognition opportunities at ICSIFT 2025. Learn about award categories, eligibility criteria, evaluation process, and previous winners.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/awards",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Conference Awards | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Discover the prestigious awards and recognition opportunities at ICSIFT 2025. Learn about award categories, eligibility criteria, evaluation process, and previous winners.",
-      url: "https://www.icsift.com/awards",
-      mainEntity: {
-        "@type": "ItemList",
-        name: "ICSIFT 2025 Conference Awards",
-        description: "Awards and recognition at the International Conference on Sustainability, Innovation and Future Technologies",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Best Sustainable Innovation Award"
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Outstanding Future Technology Research"
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Emerging Green Technology Recognition"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// 4. committee
-
-export const committeeMetadata = {
-  title: "Program Committee | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Meet our distinguished program committee members who review submissions, chair sessions, and ensure the highest quality content at ICSIFT 2025. Learn about their expertise in sustainability, innovation, and future technologies.",
-  keywords: [
-    "ICSIFT 2025 committee",
-    "sustainability experts",
-    "innovation specialists",
-    "technology researchers",
-    "program committee",
-    "scientific committee",
-    "peer reviewers",
-    "session chairs",
-    "Bangkok conference committee"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/committee",
-    title: "Program Committee | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Meet our distinguished program committee members who review submissions, chair sessions, and ensure the highest quality content at ICSIFT 2025. Learn about their expertise in sustainability, innovation, and future technologies.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Program Committee",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Program Committee | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Meet our distinguished program committee members who review submissions, chair sessions, and ensure the highest quality content at ICSIFT 2025. Learn about their expertise in sustainability, innovation, and future technologies.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/committee",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Program Committee | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Meet our distinguished program committee members who review submissions, chair sessions, and ensure the highest quality content at ICSIFT 2025. Learn about their expertise in sustainability, innovation, and future technologies.",
-      url: "https://www.icsift.com/committee",
-      mainEntity: {
-        "@type": "Organization",
-        name: "ICSIFT 2025 Program Committee",
-        description: "The scientific and program committee of the International Conference on Sustainability, Innovation and Future Technologies",
-        url: "https://www.icsift.com/committee",
-      },
-    }),
-  },
-};
-
-// 5. contact
-
-export const contactMetadata = {
-  title: "Contact Us | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Get in touch with the ICSIFT 2025 team. Find contact information for general inquiries, submission questions, technical support, and sponsorship opportunities for our Bangkok conference.",
-  keywords: [
-    "ICSIFT 2025 contact",
-    "Bangkok conference contact",
-    "sustainability conference inquiries",
-    "innovation forum support",
-    "technology event contact",
-    "contact organizers",
-    "conference questions",
-    "help center"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/contact",
-    title: "Contact Us | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Get in touch with the ICSIFT 2025 team. Find contact information for general inquiries, submission questions, technical support, and sponsorship opportunities for our Bangkok conference.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Contact Information",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Contact Us | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Get in touch with the ICSIFT 2025 team. Find contact information for general inquiries, submission questions, technical support, and sponsorship opportunities for our Bangkok conference.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/contact",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "ContactPage",
-      name: "Contact Us | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Get in touch with the ICSIFT 2025 team. Find contact information for general inquiries, submission questions, technical support, and sponsorship opportunities for our Bangkok conference.",
-      url: "https://www.icsift.com/contact",
-      mainEntity: {
-        "@type": "Organization",
-        name: "ICSIFT 2025",
-        url: "https://www.icsift.com",
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: "+66-2-123-4567",
-          email: "info@icsift.com",
-          contactType: "customer service"
-        }
-      },
-    }),
-  },
-};
-
-// 6. exhibit-and-sponsor
-
-export const exhibitSponsorMetadata = {
-  title: "Exhibit & Sponsorship | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Discover sponsorship and exhibition opportunities at ICSIFT 2025 in Bangkok. Learn about packages, benefits, visibility options, and how to showcase your organization to our diverse audience focused on sustainability and innovation.",
-  keywords: [
-    "ICSIFT 2025 sponsors",
-    "Bangkok conference exhibition",
-    "sustainability sponsorship",
-    "innovation forum partners",
-    "technology event sponsors",
-    "exhibition packages",
-    "conference partners",
-    "Thailand event sponsorship"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/exhibit-and-sponsor",
-    title: "Exhibit & Sponsorship | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Discover sponsorship and exhibition opportunities at ICSIFT 2025 in Bangkok. Learn about packages, benefits, visibility options, and how to showcase your organization to our diverse audience focused on sustainability and innovation.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Sponsorship Opportunities",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Exhibit & Sponsorship | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Discover sponsorship and exhibition opportunities at ICSIFT 2025 in Bangkok. Learn about packages, benefits, visibility options, and how to showcase your organization to our diverse audience focused on sustainability and innovation.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/exhibit-and-sponsor",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Exhibit & Sponsorship | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Discover sponsorship and exhibition opportunities at ICSIFT 2025 in Bangkok. Learn about packages, benefits, visibility options, and how to showcase your organization to our diverse audience focused on sustainability and innovation.",
-      url: "https://www.icsift.com/exhibit-and-sponsor",
-      mainEntity: {
-        "@type": "Service",
-        name: "ICSIFT 2025 Sponsorship Program",
-        description: "Exhibition and sponsorship opportunities at the International Conference on Sustainability, Innovation and Future Technologies in Bangkok",
-        provider: {
-          "@type": "Organization",
-          name: "ICSIFT 2025",
-          url: "https://www.icsift.com"
-        },
-        offers: {
-          "@type": "AggregateOffer",
-          highPrice: "5000",
-          lowPrice: "500",
-          priceCurrency: "USD",
-          offerCount: "4"
-        }
-      },
-    }),
-  },
-};
-
-// 7. journals
-
-export const journalsMetadata = {
-  title: "Associated Journals | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Explore journal publication opportunities associated with ICSIFT 2025. Learn about special issues in sustainability, innovation, and future technologies journals, submission guidelines, and how to publish your conference paper.",
-  keywords: [
-    "ICSIFT 2025 journals",
-    "sustainability publications",
-    "innovation research journals",
-    "technology publications",
-    "special issues",
-    "research publication",
-    "academic journals",
-    "proceedings publication"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/journals",
-    title: "Associated Journals | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Explore journal publication opportunities associated with ICSIFT 2025. Learn about special issues in sustainability, innovation, and future technologies journals, submission guidelines, and how to publish your conference paper.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Associated Journals",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Associated Journals | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Explore journal publication opportunities associated with ICSIFT 2025. Learn about special issues in sustainability, innovation, and future technologies journals, submission guidelines, and how to publish your conference paper.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/journals",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Associated Journals | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Explore journal publication opportunities associated with ICSIFT 2025. Learn about special issues in sustainability, innovation, and future technologies journals, submission guidelines, and how to publish your conference paper.",
-      url: "https://www.icsift.com/journals",
-      mainEntity: {
-        "@type": "ItemList",
-        name: "ICSIFT 2025 Associated Journals",
-        description: "Partner journals for publishing ICSIFT 2025 conference papers",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Journal of Sustainable Innovation"
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "International Journal of Future Technologies"
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Sustainability Science & Practice"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// 8. mode-of-presentation
-
-export const presentationModeMetadata = {
-  title: "Presentation Modes | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Understand the different presentation formats available at ICSIFT 2025 in Bangkok. Learn about oral presentations, poster sessions, workshops, panel discussions, and technical requirements.",
-  keywords: [
-    "ICSIFT 2025 presentations",
-    "Bangkok conference presentations",
-    "sustainability research presentation",
-    "innovation forum talks",
-    "oral presentation",
-    "poster session",
-    "workshop format",
-    "panel discussion"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/mode-of-presentation",
-    title: "Presentation Modes | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Understand the different presentation formats available at ICSIFT 2025 in Bangkok. Learn about oral presentations, poster sessions, workshops, panel discussions, and technical requirements.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Presentation Formats",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Presentation Modes | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Understand the different presentation formats available at ICSIFT 2025 in Bangkok. Learn about oral presentations, poster sessions, workshops, panel discussions, and technical requirements.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/mode-of-presentation",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Presentation Modes | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Understand the different presentation formats available at ICSIFT 2025 in Bangkok. Learn about oral presentations, poster sessions, workshops, panel discussions, and technical requirements.",
-      url: "https://www.icsift.com/mode-of-presentation",
-      mainEntity: {
-        "@type": "ItemList",
-        name: "ICSIFT 2025 Presentation Formats",
-        description: "Available presentation modes at the International Conference on Sustainability, Innovation and Future Technologies",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Oral Presentations"
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Poster Sessions"
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Interactive Workshops"
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: "Panel Discussions"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// 9. papers-format
-
-export const papersFormatMetadata = {
-  title: "Paper Format Guidelines | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Access detailed formatting guidelines for ICSIFT 2025 submissions. Learn about paper structure, length requirements, citation style, figure formatting, and submission process for sustainability and innovation research.",
-  keywords: [
-    "ICSIFT 2025 paper format",
-    "sustainability research format",
-    "innovation paper guidelines",
-    "technology paper template",
-    "Bangkok conference submissions",
-    "academic formatting",
-    "citation style",
-    "manuscript preparation"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/papers-format",
-    title: "Paper Format Guidelines | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Access detailed formatting guidelines for ICSIFT 2025 submissions. Learn about paper structure, length requirements, citation style, figure formatting, and submission process for sustainability and innovation research.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Paper Format Guidelines",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Paper Format Guidelines | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Access detailed formatting guidelines for ICSIFT 2025 submissions. Learn about paper structure, length requirements, citation style, figure formatting, and submission process for sustainability and innovation research.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/papers-format",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Paper Format Guidelines | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Access detailed formatting guidelines for ICSIFT 2025 submissions. Learn about paper structure, length requirements, citation style, figure formatting, and submission process for sustainability and innovation research.",
-      url: "https://www.icsift.com/papers-format",
-      mainEntity: {
-        "@type": "HowTo",
-        name: "ICSIFT 2025 Paper Formatting Guidelines",
-        description: "Step-by-step instructions for formatting your paper submission",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Document Setup",
-            text: "Set up your document with appropriate margins, font, and spacing"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Paper Structure",
-            text: "Organize your paper with the required sections focused on sustainability, innovation, or future technologies"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Citations and References",
-            text: "Format citations and references according to the required style"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Submit Document",
-            text: "Convert to PDF and submit through the conference system"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// 10. payment
-
-export const paymentMetadataSuccess = {
-  title: "Payment Successful | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Your payment for ICSIFT 2025 in Bangkok was successful. Find details about your registration, payment confirmation, receipts, and next steps for conference participation.",
-  keywords: [
-    "ICSIFT 2025 payment",
-    "Bangkok conference registration",
-    "successful payment",
-    "conference fees",
-    "registration confirmation",
-    "payment receipt",
-    "Thailand conference payment",
-    "sustainability conference registration"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/success",
-    title: "Payment Successful | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Your payment for ICSIFT 2025 in Bangkok was successful. Find details about your registration, payment confirmation, receipts, and next steps for conference participation.",
-    siteName: "ICSIFT 2025",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT 2025 Payment Confirmation",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Payment Successful | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Your payment for ICSIFT 2025 in Bangkok was successful. Find details about your registration, payment confirmation, receipts, and next steps for conference participation.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/success",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Payment Successful | ICSIFT 2025: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Your payment for ICSIFT 2025 in Bangkok was successful. Find details about your registration, payment confirmation, receipts, and next steps for conference participation.",
-      url: "https://www.icsift.com/success",
-      mainEntity: {
-        "@type": "Service",
-        name: "ICSIFT 2025 Registration Payment",
-        description: "Payment processing for conference registration",
-        provider: {
-          "@type": "Organization",
-          name: "ICSIFT 2025",
-          url: "https://www.icsift.com"
-        },
-        offers: {
-          "@type": "AggregateOffer",
-          highPrice: "599",
-          lowPrice: "199",
-          priceCurrency: "USD",
-          offerCount: "4"
-        }
-      },
-    }),
-  },
-};
-
-// Failed Payment Metadata
-export const paymentMetadataFailed = {
-  title: "Failed Payment | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Find detailed Failed payment information for ICSIFT registration. Learn about payment methods, invoicing, receipts, taxes, group discounts, and financial assistance options.",
-  keywords: [
-    "ICSIFT payment",
-    "conference fees",
-    "registration payment",
-    "payment methods",
-    "online payment",
-    "invoice request",
-    "payment receipt",
-    "financial assistance"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/failed",
-    title: "Payment Information | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Find detailed payment information for ICSIFT registration. Learn about payment methods, invoicing, receipts, taxes, group discounts, and financial assistance options.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Payment Information",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Payment Information | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Find detailed payment information for ICSIFT registration. Learn about payment methods, invoicing, receipts, taxes, group discounts, and financial assistance options.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/failed",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Payment Information | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Find detailed payment information for ICSIFT registration. Learn about payment methods, invoicing, receipts, taxes, group discounts, and financial assistance options.",
-      url: "https://www.icsift.com/failed",
-      mainEntity: {
-        "@type": "Service",
-        name: "ICSIFT Registration Payment",
-        description: "Payment processing for conference registration",
-        provider: {
-          "@type": "Organization",
-          name: "ICSIFT",
-          url: "https://www.icsift.com"
-        },
-        offers: {
-          "@type": "AggregateOffer",
-          highPrice: "599",
-          lowPrice: "199",
-          priceCurrency: "USD",
-          offerCount: "4"
-        }
-      },
-    }),
-  },
-};
-
-// Registration Metadata
-export const registrationMetadata = {
-  title: "Registration | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Register for ICSIFT 2025 in Bangkok, Thailand. Learn about registration categories, early bird rates, included benefits, and the registration process for this conference on sustainability and innovation.",
-  keywords: [
-    "ICSIFT registration",
-    "Bangkok conference",
-    "sustainability conference",
-    "innovation conference",
-    "early bird rates",
-    "attendee registration",
-    "presenter registration",
-    "conference benefits"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/registration",
-    title: "Registration | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Register for ICSIFT 2025 in Bangkok, Thailand. Learn about registration categories, early bird rates, included benefits, and the registration process.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Registration",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Registration | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Register for ICSIFT 2025 in Bangkok, Thailand. Learn about registration categories, early bird rates, included benefits, and the registration process.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/registration",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Registration | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Register for ICSIFT 2025 in Bangkok, Thailand. Learn about registration categories, early bird rates, included benefits, and the registration process.",
-      url: "https://www.icsift.com/registration",
-      mainEntity: {
-        "@type": "Service",
-        name: "ICSIFT Registration",
-        description: "Registration for the International Conference on Sustainability, Innovation and Future Technologies",
-        provider: {
-          "@type": "Organization",
-          name: "ICSIFT",
-          url: "https://www.icsift.com"
-        },
-        offers: {
-          "@type": "AggregateOffer",
-          highPrice: "599",
-          lowPrice: "199",
-          priceCurrency: "USD",
-          offerCount: "4"
-        }
-      },
-    }),
-  },
-};
-
-// Schedule Metadata
-export const scheduleMetadata = {
-  title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
-  keywords: [
-    "ICSIFT schedule",
-    "Bangkok conference program",
-    "sustainability conference agenda",
-    "keynote sessions",
-    "presentation schedule",
-    "workshop times",
-    "session planner",
-    "Thailand conference agenda"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/schedule",
-    title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Conference Schedule",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/schedule",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Conference Schedule | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "View the complete schedule for ICSIFT 2025 in Bangkok, Thailand. Explore keynote sessions, presentations, workshops, networking events on December 27-28, 2025.",
-      url: "https://www.icsift.com/schedule",
-      mainEntity: {
-        "@type": "Schedule",
-        name: "ICSIFT Conference Program",
-        description: "Complete schedule of events for the International Conference on Sustainability, Innovation and Future Technologies",
-        eventSchedule: [
-          {
-            "@type": "Event",
-            name: "Opening Ceremony",
-            startDate: "2025-12-26T09:00:00+07:00",
-            endDate: "2025-12-26T10:00:00+07:00",
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            location: {
-              "@type": "Place",
-              name: "Bangkok Convention Center",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Bangkok",
-                addressCountry: "Thailand"
-              }
-            }
-          },
-          {
-            "@type": "Event",
-            name: "Keynote Address",
-            startDate: "2025-12-26T10:15:00+07:00",
-            endDate: "2025-12-26T11:15:00+07:00",
-            eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-            location: {
-              "@type": "Place",
-              name: "Bangkok Convention Center",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Bangkok",
-                addressCountry: "Thailand"
-              }
-            }
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// Submission Success Metadata
-export const submissionSuccessMetadata = {
-  title: "Success Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Successfully submitted your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-  keywords: [
-    "ICSIFT submission",
-    "Bangkok conference paper",
-    "sustainability research",
-    "innovation research",
-    "future technologies paper",
-    "submission guidelines",
-    "submission deadline",
-    "conference proposal"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/submission/success",
-    title: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Submission Information",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/submission/success",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-      url: "https://www.icsift.com/submission/success",
-      mainEntity: {
-        "@type": "HowTo",
-        name: "ICSIFT Submission Process",
-        description: "Step-by-step guide to submitting your research to ICSIFT",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Prepare Manuscript",
-            text: "Format your paper according to the conference guidelines"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Create Account",
-            text: "Register on the submission portal"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Submit Abstract",
-            text: "Upload your abstract and author information"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Upload Full Paper",
-            text: "Submit your complete manuscript before the deadline"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// Submission Metadata
-export const submissionMetadata = {
-  title: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-  keywords: [
-    "ICSIFT submission",
-    "Bangkok conference paper",
-    "sustainability research",
-    "innovation research",
-    "future technologies paper",
-    "submission guidelines",
-    "submission deadline",
-    "conference proposal"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/submission",
-    title: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Submission Information",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/submission",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Paper Submission | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Submit your research to ICSIFT 2025 in Bangkok, Thailand. Access submission guidelines, important dates, topics of interest, review process details, and submission portal instructions.",
-      url: "https://www.icsift.com/submission",
-      mainEntity: {
-        "@type": "HowTo",
-        name: "ICSIFT Submission Process",
-        description: "Step-by-step guide to submitting your research to ICSIFT",
-        step: [
-          {
-            "@type": "HowToStep",
-            name: "Prepare Manuscript",
-            text: "Format your paper according to the conference guidelines"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Create Account",
-            text: "Register on the submission portal"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Submit Abstract",
-            text: "Upload your abstract and author information"
-          },
-          {
-            "@type": "HowToStep",
-            name: "Upload Full Paper",
-            text: "Submit your complete manuscript before the deadline"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// Themes and Topics Metadata
-export const themesTopicsMetadata = {
-  title: "Themes and Topics | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Explore the diverse themes and topics covered at ICSIFT 2025 in Bangkok, Thailand. Discover research areas in sustainability, innovation, and future technologies, special tracks, and emerging topics.",
-  keywords: [
-    "ICSIFT themes",
-    "sustainability research",
-    "innovation topics",
-    "future technologies",
-    "green technologies",
-    "renewable energy",
-    "circular economy",
-    "smart cities",
-    "sustainable development"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/theme-and-topics",
-    title: "Themes and Topics | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Explore the diverse themes and topics covered at ICSIFT 2025 in Bangkok, Thailand. Discover research areas in sustainability, innovation, and future technologies, special tracks, and emerging topics.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Themes and Topics",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Themes and Topics | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Explore the diverse themes and topics covered at ICSIFT 2025 in Bangkok, Thailand. Discover research areas in sustainability, innovation, and future technologies, special tracks, and emerging topics.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/theme-and-topics",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Themes and Topics | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-      description:
-        "Explore the diverse themes and topics covered at ICSIFT 2025 in Bangkok, Thailand. Discover research areas in sustainability, innovation, and future technologies, special tracks, and emerging topics.",
-      url: "https://www.icsift.com/theme-and-topics",
-      mainEntity: {
-        "@type": "ItemList",
-        name: "ICSIFT Conference Themes",
-        description: "Research themes and topics covered at ICSIFT 2025 in Bangkok, Thailand",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Sustainable Development and Climate Solutions"
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Renewable Energy and Clean Technologies"
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Circular Economy and Waste Management"
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: "Smart Cities and Sustainable Urban Planning"
-          },
-          {
-            "@type": "ListItem",
-            position: 5,
-            name: "Green Innovation and Eco-Entrepreneurship"
-          }
-        ]
-      },
-    }),
-  },
-};
-
-// Venue Metadata
-export const galleryMetadata = {
-  title: "Photo Gallery | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Browse our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, networking events, exhibitions, and memorable moments from past International Conference on Sustainability, Innovation and Future Technologies.",
-  keywords: [
-    "ICSIFT gallery",
-    "conference photos",
-    "sustainability conference images",
-    "innovation technology conference",
-    "keynote presentations",
-    "networking events",
-    "conference highlights",
-    "ICSIFT memories",
-    "conference exhibitions",
-    "academic conference photos"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/gallery",
-    title: "Photo Gallery | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Browse our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, networking events, exhibitions, and memorable moments from past conferences.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/gallery-preview.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Conference Photo Gallery",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Photo Gallery | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Browse our photo gallery showcasing highlights from ICSIFT conferences. View images from keynote presentations, networking events, exhibitions, and memorable moments from past conferences.",
-    images: ["https://www.icsift.com/gallery-preview.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/gallery",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "ImageGallery",
-      name: "ICSIFT Conference Photo Gallery",
-      description:
-        "Photo gallery showcasing highlights from the International Conference on Sustainability, Innovation and Future Technologies including keynote presentations, networking events, and exhibitions.",
-      url: "https://www.icsift.com/gallery",
-      mainEntity: {
-        "@type": "Event",
-        name: "International Conference on Sustainability, Innovation and Future Technologies",
-        description: "Academic conference focusing on sustainability, innovation, and future technologies",
-        organizer: {
-          "@type": "Organization",
-          name: "ICSIFT"
-        }
-      },
-      about: [
-        {
-          "@type": "Thing",
-          name: "Conference Photography",
-          description: "Professional photos capturing key moments from ICSIFT conferences"
-        },
-        {
-          "@type": "Thing",
-          name: "Keynote Presentations",
-          description: "Images from expert keynote sessions on sustainability and innovation"
-        },
-        {
-          "@type": "Thing",
-          name: "Networking Events",
-          description: "Photos from networking sessions and social events"
-        },
-        {
-          "@type": "Thing",
-          name: "Exhibitions",
-          description: "Images showcasing innovative technologies and research displays"
-        }
-      ],
-      additionalProperty: [
-        {
-          "@type": "PropertyValue",
-          "name": "Gallery Categories",
-          value: "Keynote Sessions, Networking Events, Exhibitions, Awards Ceremony, Workshop Sessions"
-        },
-        {
-          "@type": "PropertyValue",
-          name: "Image Quality",
-          value: "High-resolution professional conference photography"
-        }
-      ]
-    }),
-  },
-};
-// Terms and Conditions Metadata
-export const termsMetadata = {
-  title: "Terms and Conditions | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Read the terms and conditions for ICSIFT conference registration, participation, and attendance. Understand your rights, responsibilities, and legal obligations for the International Conference on Sustainability, Innovation and Future Technologies.",
-  keywords: [
-    "ICSIFT terms and conditions",
-    "conference terms of service",
-    "registration terms",
-    "conference legal terms",
-    "participation agreement",
-    "conference policies",
-    "user agreement",
-    "conference rules"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/terms-and-conditions",
-    title: "Terms and Conditions | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Read the terms and conditions for ICSIFT conference registration, participation, and attendance. Understand your rights, responsibilities, and legal obligations.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Terms and Conditions",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Terms and Conditions | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Read the terms and conditions for ICSIFT conference registration, participation, and attendance. Understand your rights, responsibilities, and legal obligations.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/terms-and-conditions",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Terms and Conditions | ICSIFT",
-      description:
-        "Terms and conditions governing conference registration, participation, and attendance for the International Conference on Sustainability, Innovation and Future Technologies.",
-      url: "https://www.icsift.com/terms-and-conditions",
-      about: {
-        "@type": "Event",
-        name: "International Conference on Sustainability, Innovation and Future Technologies",
-        organizer: {
-          "@type": "Organization",
-          name: "ICSIFT"
-        }
-      },
-      mainEntity: {
-        "@type": "DigitalDocument",
-        name: "Terms and Conditions",
-        description: "Legal terms governing conference participation and registration",
-        about: "Conference registration and participation terms"
-      }
-    }),
-  },
-};
-
-// Privacy Policy Metadata
-export const privacyMetadata = {
-  title: "Privacy Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Learn how ICSIFT protects your personal information and privacy. Read our comprehensive privacy policy covering data collection, usage, storage, and your privacy rights for conference registration and participation.",
-  keywords: [
-    "ICSIFT privacy policy",
-    "data protection",
-    "personal information",
-    "conference privacy",
-    "data security",
-    "GDPR compliance",
-    "privacy rights",
-    "data usage policy"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/privacy-policy",
-    title: "Privacy Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Learn how ICSIFT protects your personal information and privacy. Read our comprehensive privacy policy covering data collection, usage, storage, and your privacy rights.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Privacy Policy",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Privacy Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Learn how ICSIFT protects your personal information and privacy. Read our comprehensive privacy policy covering data collection, usage, storage, and your privacy rights.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/privacy-policy",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Privacy Policy | ICSIFT",
-      description:
-        "Privacy policy explaining how personal information is collected, used, and protected for the International Conference on Sustainability, Innovation and Future Technologies.",
-      url: "https://www.icsift.com/privacy-policy",
-      about: {
-        "@type": "Organization",
-        name: "ICSIFT",
-        description: "International Conference on Sustainability, Innovation and Future Technologies"
-      },
-      mainEntity: {
-        "@type": "DigitalDocument",
-        name: "Privacy Policy",
-        description: "Document outlining data protection and privacy practices",
-        about: "Personal data protection and privacy rights"
-      }
-    }),
-  },
-};
-
-// Cancellation Policy Metadata
-export const cancellationMetadata = {
-  title: "Cancellation Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-  description:
-    "Review ICSIFT's cancellation and refund policy for conference registration. Learn about cancellation deadlines, refund procedures, terms for registration changes, and refund eligibility criteria.",
-  keywords: [
-    "ICSIFT cancellation policy",
-    "conference refund policy",
-    "registration cancellation",
-    "refund terms",
-    "cancellation deadlines",
-    "conference refunds",
-    "registration changes",
-    "refund procedures"
-  ],
-
-  // Open Graph / Facebook
-  openGraph: {
-    type: "website",
-    url: "https://www.icsift.com/cancellation-policy",
-    title: "Cancellation Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Review ICSIFT's cancellation and refund policy for conference registration. Learn about cancellation deadlines, refund procedures, and refund eligibility criteria.",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://www.icsift.com/opengraph.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Cancellation Policy",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "Cancellation Policy | ICSIFT: International Conference on Sustainability, Innovation and Future Technologies",
-    description:
-      "Review ICSIFT's cancellation and refund policy for conference registration. Learn about cancellation deadlines, refund procedures, and refund eligibility criteria.",
-    images: ["https://www.icsift.com/opengraph.png"],
-  },
-
-  // Canonical URL
-  alternates: {
-    canonical: "https://www.icsift.com/cancellation-policy",
-  },
-
-  // Structured data
-  other: {
-    "application/ld+json": JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      name: "Cancellation Policy | ICSIFT",
-      description:
-        "Cancellation and refund policy for the International Conference on Sustainability, Innovation and Future Technologies registration and participation.",
-      url: "https://www.icsift.com/cancellation-policy",
-      about: {
-        "@type": "Event",
-        name: "International Conference on Sustainability, Innovation and Future Technologies",
-        organizer: {
-          "@type": "Organization",
-          name: "ICSIFT"
-        }
-      },
-      mainEntity: {
-        "@type": "DigitalDocument",
-        name: "Cancellation Policy",
-        description: "Policy governing conference registration cancellations and refunds",
-        about: "Conference cancellation terms and refund procedures"
-      }
-    }),
-  },
-};
-export const venueMetadata = {
-  title: "Venue and Travel | ICSIFT",
-  description:
-    "Where the International Conference on Sustainability, Innovation and Future Technologies takes place, how to get there, and what to see nearby.",
-}
+import { CONFERENCE } from "@/constants/conference";
+import { SHORT_WHEN, pageMetadata } from "@/lib/seo";
+
+// Page metadata for every route. Built on pageMetadata() in src/lib/seo.js, so the edition, year, city and dates all
+// come from src/constants/conference.js. Titles are short: the layout appends " | ICSIFT <year>".
+// Descriptions stay near 150–160 characters and lead with what the page offers.
+
+const short = CONFERENCE.shortForm;
+const year = CONFERENCE.year;
+const city = CONFERENCE.venue.city || CONFERENCE.venue.location.split(",")[0].trim();
+
+// Home
+export const homeMetadata = pageMetadata({
+  path: "/",
+  absoluteTitle: `${short} ${year}: Sustainability & Innovation Conference, ${city}`,
+  description: `International Conference on Sustainability, Innovation and Future Technologies, ${SHORT_WHEN}. Call for papers: Scopus and WoS publication.`,
+  keywords: ["sustainability conference", "green technology conference", "SDG conference", "research conference Thailand", "academic conference 2027"],
+});
+
+// About
+export const aboutConferenceMetadata = pageMetadata({
+  path: "/about-conference",
+  title: "About the Conference",
+  description: `What ${short} is and who it is for: research, keynotes and workshops on sustainability, innovation and future technologies, ${SHORT_WHEN}.`,
+  keywords: ["about ICSIFT", "conference objectives", "who should attend"],
+});
+
+export const aboutOrganizersMetadata = pageMetadata({
+  path: "/about-organizers",
+  title: "About the Organisers: Zep Research",
+  description: `${short} is organised by Zep Research, which runs international research conferences and collaboration programmes. Meet the organisers and partner with us.`,
+  keywords: ["Zep Research", "conference organiser", "research conferences"],
+});
+
+export const coOrganizersMetadata = pageMetadata({
+  path: "/about-co-organizers",
+  title: "Co-organisers",
+  description: `The universities and academic bodies that co-organise ${short}, ${SHORT_WHEN}. Apply to co-organise the conference with your institution.`,
+  keywords: ["co-organiser", "university partner", "academic partnership", "co-host a conference"],
+});
+
+// Programme
+export const themesTopicsMetadata = pageMetadata({
+  path: "/theme-and-topics",
+  title: "Theme, Tracks and Topics",
+  description: `The ${short} theme, Sustainable Innovation: Bridging Technology and Environmental Stewardship, and six tracks from renewable energy and AI to smart cities.`,
+  keywords: ["conference tracks", "conference topics", "renewable energy", "artificial intelligence", "smart cities", "circular economy", "sustainable development"],
+});
+
+export const papersFormatMetadata = pageMetadata({
+  path: "/papers-format",
+  title: "Paper Format and Templates",
+  description: `Download the ${short} abstract and full-paper templates and check the format: 300-word abstracts, 8 to 12 page papers, IEEE citations, Word files.`,
+  keywords: ["paper template", "abstract template", "paper format", "IEEE citation style", "submission guidelines"],
+});
+
+export const presentationModeMetadata = pageMetadata({
+  path: "/mode-of-presentation",
+  title: "Modes of Presentation: In Person or Online",
+  description: `Present your paper at ${short} in person in ${city} or online. A 15-minute talk with Q&A, what to prepare, and guidelines for every presenter.`,
+  keywords: ["oral presentation", "virtual presentation", "hybrid conference", "presentation guidelines"],
+});
+
+export const scheduleMetadata = pageMetadata({
+  path: "/schedule",
+  title: "Schedule and Programme",
+  description: `The ${short} programme hour by hour for ${CONFERENCE.date}: keynotes, technical sessions, panels and breaks, in ${city} and online.`,
+  keywords: ["conference schedule", "conference programme", "keynote speeches", "technical sessions"],
+});
+
+export const awardsMetadata = pageMetadata({
+  path: "/awards",
+  title: "Awards and Scholarships",
+  description: `Best paper, best presentation and outstanding contributor awards at ${short}, plus scholarships and up to 20% off your next registration. Criteria and judging.`,
+  keywords: ["best paper award", "conference awards", "research scholarship", "student scholarship"],
+});
+
+export const galleryMetadata = pageMetadata({
+  path: "/gallery",
+  title: "Gallery: Photos and Films from Past Editions",
+  description: "Photographs and films from every ICSIFT edition: sessions, keynotes, certificates and delegates from the conferences in Bangkok and the Philippines.",
+  keywords: ["conference photos", "conference gallery", "past conference", "ICSIFT highlights"],
+});
+
+// Key people
+export const committeeMetadata = pageMetadata({
+  path: "/committee",
+  title: "Committee",
+  description: `Meet the ${short} committee: researchers and academics who review submissions, chair sessions and shape the programme on sustainability and technology.`,
+  keywords: ["conference committee", "reviewers", "program committee", "scientific committee"],
+});
+
+// Taking part
+export const submissionMetadata = pageMetadata({
+  path: "/submission",
+  title: "Call for Papers: Submit Your Paper",
+  description: `Submit your abstract or full paper to ${short}, ${SHORT_WHEN}. Accepted papers go to Scopus and Web of Science indexed journals.`,
+  keywords: ["call for papers 2027", "submit paper", "abstract submission", "paper submission", "Scopus publication"],
+});
+
+export const submissionSuccessMetadata = pageMetadata({
+  path: "/submission/success",
+  title: "Paper Received",
+  description: `Your paper has reached the ${short} team. What happens next: review, decision and the final paper.`,
+  noindex: true,
+});
+
+export const registrationMetadata = pageMetadata({
+  path: "/registration",
+  title: "Registration and Fees",
+  description: `Register for ${short}, ${SHORT_WHEN}. Physical and virtual fees for academicians and students, Early Bird rates and Scopus packages.`,
+  keywords: ["conference registration", "registration fees", "early bird registration", "student registration", "virtual registration"],
+});
+
+export const exhibitSponsorMetadata = pageMetadata({
+  path: "/exhibit-and-sponsor",
+  title: "Exhibit and Sponsor",
+  description: `Sponsor ${short} and reach researchers, academics and industry leaders in sustainability and technology. Platinum, Diamond, Gold and Silver packages.`,
+  keywords: ["conference sponsorship", "sponsor packages", "exhibitor", "brand visibility"],
+});
+
+export const paymentMetadataSuccess = pageMetadata({
+  path: "/payment/success",
+  title: "Payment Successful",
+  description: `Your payment for ${short} is confirmed. Check your email for the receipt.`,
+  noindex: true,
+});
+
+export const paymentMetadataFailed = pageMetadata({
+  path: "/payment/failed",
+  title: "Payment Not Completed",
+  description: `Your payment for ${short} did not go through. Try again, or contact info@icsift.com.`,
+  noindex: true,
+});
+
+// Event information
+export const venueMetadata = pageMetadata({
+  path: "/venue",
+  title: `Venue: ${CONFERENCE.venue.name.trim()}, ${city}`,
+  description: `${short} meets at ${CONFERENCE.venue.name.trim()}, ${CONFERENCE.venue.location.trim()}, on ${CONFERENCE.date}. Getting there, getting around and what to see.`,
+  keywords: [`${city} venue`, "conference venue", "travel to Bangkok", "Suvarnabhumi airport", "Sukhumvit"],
+});
+
+export const contactMetadata = pageMetadata({
+  path: "/contact",
+  title: "Contact the Team",
+  description: `Questions about ${short} submissions, registration, sponsorship or travel? Email info@icsift.com, call +91 82600 80050, or send a message.`,
+  keywords: ["contact ICSIFT", "conference contact"],
+});
+
+// Publications
+export const journalsMetadata = pageMetadata({
+  path: "/journals",
+  title: "Indexed Journals: Find a Journal for Your Paper",
+  description: "Search Scopus, Web of Science, ABDC and Google Scholar indexed journals that accept submissions through Zep Research, by title or ISSN, and submit your paper.",
+  keywords: ["Scopus indexed journals", "Web of Science journals", "ABDC journals", "journal publication", "submit to journal"],
+});
+
+export const journalSubmitMetadata = pageMetadata({
+  path: "/journals/submit",
+  title: "Submit to a Journal",
+  description: "Send your paper to an indexed journal through Zep Research. Upload your manuscript and the team confirms by email.",
+  keywords: ["journal submission", "submit manuscript"],
+});
+
+export const journalSuccessMetadata = pageMetadata({
+  path: "/journals/success",
+  title: "Journal Submission Received",
+  description: "Your journal submission has reached the Zep Research team. Check your email for the confirmation.",
+  noindex: true,
+});
+
+export const proceedingsMetadata = pageMetadata({
+  path: "/proceedings",
+  title: "Conference Proceedings",
+  description: "Download the published ICSIFT conference proceedings: research papers on sustainability, innovation and future technologies from past editions.",
+  keywords: ["conference proceedings", "proceedings PDF", "published papers", "ISBN proceedings"],
+});
+
+export const previousReportMetadata = pageMetadata({
+  path: "/previous-conference-report",
+  title: "Previous Conference Report",
+  description: "Reports from past ICSIFT editions.",
+  noindex: true, // The page has no content yet; keep it out of search until it does.
+});
+
+// Policies
+const policy = (path, title, about) =>
+  pageMetadata({
+    path,
+    title,
+    description: `The ${short} ${about}`,
+    keywords: ["conference policy"],
+  });
+
+export const termsMetadata = policy(
+  "/terms-and-conditions",
+  "Terms and Conditions",
+  "terms and conditions: registration and payment, cancellations, intellectual property, liability and the code of conduct.",
+);
+export const privacyMetadata = policy(
+  "/privacy-policy",
+  "Privacy Policy",
+  "privacy policy: what personal information we collect, how we use and protect it, cookies, and your rights.",
+);
+export const cancellationMetadata = policy(
+  "/cancellation-policy",
+  "Cancellation and Refund Policy",
+  "cancellation and refund policy: full refunds more than 60 days out, transfers to another person, and how to cancel.",
+);
+export const complaintsMetadata = policy(
+  "/complaints-policy",
+  "Complaints Policy",
+  "complaints policy: how to raise a concern, how it is handled and the response times you can expect.",
+);
+export const equalTreatmentMetadata = policy(
+  "/equal-treatment-policy",
+  "Equal Treatment Policy",
+  "equal treatment policy: our commitment to a fair, inclusive conference free of discrimination.",
+);
+export const disabilityMetadata = policy(
+  "/disability-discrimination-policy",
+  "Disability Discrimination Policy",
+  "disability discrimination policy: accessibility, reasonable adjustments and support for participants with disabilities.",
+);
+export const healthSafetyMetadata = policy(
+  "/health-and-safety-policy",
+  "Health and Safety Policy",
+  "health and safety policy: keeping every participant safe at the venue and during the conference.",
+);

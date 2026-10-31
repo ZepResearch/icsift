@@ -10,6 +10,9 @@ import FloatingWhatsApp from "@/components/FloatingWhatsapp";
 import GoogleTranslateMenu from "@/components/GoogleTranslate";
 import { AuthProvider } from '@/context/AuthContext'
 import AuthModal from '@/components/auth/AuthModal'
+import JsonLd from "@/components/seo/JsonLd";
+import { CONFERENCE } from "@/constants/conference";
+import { BASE_KEYWORDS, BRAND, OG_IMAGE, SHORT_WHEN, SITE_NAME, SITE_URL, organizationSchema, websiteSchema } from "@/lib/seo";
 
 
 
@@ -22,56 +25,58 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+// Site-wide SEO defaults. Each page adds its own title, description and canonical URL through
+// src/components/metadata.js (built on src/lib/seo.js); everything here derives from src/constants/conference.js.
 export const metadata = {
-  title: "ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies",
-  description:
-    "Join global experts at ICSIFT, a premier conference dedicated to exploring cutting-edge scientific innovations and emerging technologies shaping our future.",
-  keywords: [
-    "ICSIFT",
-    "sustainability",
-    "innovation",
-    "future technologies",
-    "research conference",
-    "interdisciplinary science",
-    "technology innovation",
-    "scientific collaboration",
-    "emerging technologies",
-  ],
-  authors: [{ name: "ICSIFT Organizing Committee", url: "https://icsift.com" }],
-  creator: "ICSIFT",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${CONFERENCE.shortForm} ${CONFERENCE.year} | ${CONFERENCE.name.trim()}`,
+    template: `%s | ${BRAND}`,
+  },
+  description: `${CONFERENCE.name.trim()}, ${SHORT_WHEN}. Papers, keynotes and panels, with Scopus and Web of Science indexed publication.`,
+  applicationName: SITE_NAME,
+  keywords: BASE_KEYWORDS,
+  authors: [{ name: "Zep Research", url: "https://www.zepresearch.com/" }],
+  creator: "Zep Research",
+  publisher: "Zep Research",
+  category: "education",
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   openGraph: {
-    title: "ICSIFT: International Conference on Sustainability, Innovation, and Future Technologies",
-    description:
-      "Discover groundbreaking research and technological advancements at ICSIFT — where science meets innovation to shape tomorrow's world.",
-    url: "https://icsift.com",
-    siteName: "ICSIFT",
-    images: [
-      {
-        url: "https://icsift.com/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ICSIFT Conference Banner",
-      },
-    ],
-    locale: "en_US",
     type: "website",
+    siteName: `${SITE_NAME}: ${CONFERENCE.name.trim()}`,
+    locale: "en_US",
+    url: "/",
+    images: [OG_IMAGE],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "ICSIFT",
-    description:
-      "The premier International Conference on Sustainability, Innovation, and Future Technologies.",
-    creator: "@icsift", // Update to your actual handle
-    images: ["https://icsift.com/og-image.png"],
+  twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/singleLogo.svg", type: "image/svg+xml" }],
   },
-  metadataBase: new URL("https://icsift.com"),
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION / NEXT_PUBLIC_BING_SITE_VERIFICATION to verify ownership in Search Console
+  // and Bing Webmaster Tools; nothing is emitted until they are set.
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } } : {}),
+  },
+};
+
+export const viewport = {
+  themeColor: "#213629",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        
+        {/* Speaker photos, proceedings and journal covers load from PocketBase: connect early. */}
+        <link rel="preconnect" href="https://conference.pockethost.io" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://conference.pockethost.io" />
         <script
           async
           src="https://analytics.zepresearch.com/script.js"
@@ -79,6 +84,7 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} ${label.variable} ${display.variable} ${body.variable} antialiased`}>
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <AuthProvider>
           <div className="sticky top-0 z-50">
             <GoogleTranslateMenu />

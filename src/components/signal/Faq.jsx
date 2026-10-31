@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
 import Reveal from "@/components/home/Reveal";
 
-const FAQS = [
+export const FAQS = [
   {
     q: "How do I register?",
     a: `Register online for the ${CONFERENCE.shortForm}, in person or virtually. Organisations sending five or more attendees can ask about group rates.`,

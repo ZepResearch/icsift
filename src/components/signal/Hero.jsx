@@ -11,7 +11,7 @@ export function conferenceDates() {
 }
 
 // Full-bleed room photograph in green duotone. Place and date above a giant signal-yellow headline bottom-left;
-// the supporting line and the two actions bottom-right.
+// bottom-right, the SDG wheel, the venue and the two actions.
 export default function Hero() {
   const city = CONFERENCE.venue.location.trim().split(",")[0];
 
@@ -33,7 +33,7 @@ export default function Hero() {
           <ul className="sig-rise flex flex-wrap gap-x-8 gap-y-2 text-[17px] font-semibold">
             <li className="flex items-center gap-2.5">
               <MapPin aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
-              {city} and Hybrid
+              {city} | Hybrid 
             </li>
             <li className="flex items-center gap-2.5">
               <CalendarDays aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
@@ -43,9 +43,27 @@ export default function Hero() {
           <h1 id="hero-title" className="sig-display sig-rise mt-5 text-[clamp(2.6rem,1rem+5vw,6rem)]" style={{ "--i": 1 }}>
             {CONFERENCE.name.trim()}
           </h1>
+           <p data-enter style={{ "--i": 3 }} className="mt-5 max-w-[44rem] text-[17px]">
+              This edition&rsquo;s theme:{" "}
+              <span className="font-semibold text-white">
+                Sustainable Innovation, Bridging Technology and Environmental Stewardship.
+              </span>
+            </p> 
         </div>
 
         <div className="sig-rise lg:pb-3" style={{ "--i": 2 }}>
+          {/* The UN SDG wheel above the venue, on a cream disc so the blue wordmark in its centre stays legible on the
+              green; it leads to the goals section. */}
+          <a
+            href="#sdgs"
+            className="group mb-7 flex w-fit items-center gap-4"
+            aria-label="Aligned with the UN Sustainable Development Goals: see the four ICSIFT works on"
+          >
+            <span className="relative block h-[88px] w-[88px] shrink-0 overflow-hidden rounded-full bg-[var(--cream)] transition-transform duration-500 ease-[var(--ease-out)] group-hover:rotate-[20deg] sm:h-[104px] sm:w-[104px]">
+              <Image src="/assets/sdg.png" alt="" fill sizes="104px" className="scale-[1.42] object-contain" />
+            </span>
+            <span className="max-w-[12rem] text-[15px] leading-snug font-semibold">Aligned with the UN Sustainable Development Goals</span>
+          </a>
           <dl className="grid max-w-[34rem] gap-5">
             <div>
               <dt className="text-[16px] text-[var(--signal)]/75">Venue</dt>
@@ -60,7 +78,7 @@ export default function Hero() {
                 <dt className="text-[16px] text-[var(--signal)]/75">Edition</dt>
                 <dd className="mt-1 text-[17px] leading-snug font-medium">
                   {CONFERENCE.shortForm}, {CONFERENCE.date}
-                  <span className="block">{CONFERENCE.venue.location.trim()}, in person and online</span>
+                  <span className="block">{CONFERENCE.venue.location.trim()} | Hybrid</span>
                 </dd>
               </div>
             </div>

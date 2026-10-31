@@ -10,12 +10,12 @@ const MODES = [
     name: "Speak at the event",
     where: `In person, ${CONFERENCE.venue.location.trim()}`,
     icon: MapPin,
-    summary: "A 15-minute oral presentation followed by a 5-minute Q&A. Ideal for detailed findings and direct discussion.",
+    summary: "A 8-minute oral presentation followed by a 2-minute Q&A. Ideal for detailed findings and direct discussion.",
     prepare: [
       "PowerPoint or PDF slides in 16:9 format",
       "A concise overview of your research methodology",
       "A clear presentation of key findings and implications",
-      "A brief bio for the session chair's introduction",
+      // "A brief bio for the session chair's introduction",
     ],
   },
   {

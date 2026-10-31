@@ -6,7 +6,6 @@ import { CallBand, FactCells, Field, LEAD, PageHero, SPLIT, StickyIntro, Steps }
 const SPECIFICATION = [
   ["Abstract", "Up to 300 words"],
   ["Full paper", "8 to 12 pages"],
-  ["Poster", "A0, portrait"],
   ["File type", "Microsoft Word"],
   ["Citations", "IEEE style"],
   ["Language", "English"],
@@ -27,40 +26,32 @@ const TEMPLATES = [
     description:
       "3,000 to 5,000 words, excluding references and appendices. Times New Roman, 12 point, double-spaced. Include an abstract, keywords, introduction, methodology, results, discussion, conclusion and references. Follow APA 7th edition for citations and references.",
   },
-  {
-    title: "Poster",
-    file: "/templates/poster.jpg",
-    type: "Image (.jpg)",
-    description:
-      "A0 size (841 × 1189 mm) in portrait orientation. Use a clear, readable font, at least 24 point for body text and larger for headings. Include a title, authors, affiliation, introduction, methods, results, conclusions and key references, and use graphics and charts to show your research.",
-  },
 ];
 
 const REQUIREMENTS = [
   ["Use the templates as they are", "Do not modify margins, font sizes or styles."],
   ["Keep the abstract short", "Abstract submissions should not exceed 300 words."],
   ["Mind the page count", "Full papers should be 8 to 12 pages, including figures, tables and references."],
-  ["Posters are A0", "Poster presentations follow the A0 format (841 × 1189 mm) in portrait orientation."],
   ["Send Word files", "All submissions must be Word files."],
 ];
 
 export default function PapersFormatPage() {
   return (
     <main className="sig min-h-screen">
-      {/* Hero: title and lead left; the specification as six panels right. */}
+      {/* Hero: title and lead left; the specification as panels right. */}
       <PageHero
         id="format-title"
         tag="Paper format"
         title="Format your paper, then send it"
         lead={`Every submission to the ${CONFERENCE.shortForm} follows the same templates. Papers that do not may be returned for revision before review.`}
-        aside={<FactCells facts={SPECIFICATION} size="text-[clamp(1.3rem,1.1rem+0.6vw,1.7rem)]" />}
+        aside={<FactCells facts={SPECIFICATION} columns="sm:grid-cols-2 sm:[&>*:last-child:nth-child(odd)]:col-span-2" size="text-[clamp(1.3rem,1.1rem+0.6vw,1.7rem)]" />}
       />
 
       {/* Templates: sticky intro left; each template as a large download panel with its description right. */}
       <Field tone="cream" id="templates" labelledBy="templates-title">
         <div className={SPLIT}>
           <StickyIntro tag="Templates" id="templates-title" title="Download the templates">
-            <p className={LEAD}>Three templates, one for each kind of submission. Download the one you need and write into it.</p>
+            <p className={LEAD}>Two templates, one for each kind of submission. Download the one you need and write into it.</p>
           </StickyIntro>
           <ul className="grid gap-2">
             {TEMPLATES.map((template, index) => (

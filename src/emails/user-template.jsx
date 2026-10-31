@@ -118,12 +118,12 @@ const UserEmailTemplate = ({ name }) => {
 
                   <div className="mb-3 p-3 bg-white rounded-lg border-l-4 border-[#4d724d]">
                     <Text className="text-sm text-[#4d724d] uppercase tracking-wider mb-1">Date:</Text>
-                    <Text className="text-[#1a2e1a]">December 27th - 28th, 2025</Text>
+                    <Text className="text-[#1a2e1a]">{CONFERENCE.date}</Text>
                   </div>
 
                   <div className="mb-3 p-3 bg-white rounded-lg border-l-4 border-[#b9d4a3]">
                     <Text className="text-sm text-[#4d724d] uppercase tracking-wider mb-1">Location:</Text>
-                    <Text className="text-[#1a2e1a]">Bangkok, Thailand</Text>
+                    <Text className="text-[#1a2e1a]">{CONFERENCE.venue.location.trim()}, and online</Text>
                   </div>
 
                   <div className="p-3 bg-white rounded-lg border-l-4 border-[#d3e4c5]">

@@ -1,12 +1,10 @@
 import { ExternalLink, Mail } from "lucide-react"
 import { Field, PageHero } from "@/components/signal/page"
 import SigButton from "@/components/signal/SigButton"
+import { journalSuccessMetadata } from "@/components/metadata";
 
-export const metadata = {
-  title: "Submission Successful - International Conference on Sustainable Tourism & Hospitality Management",
-  description:
-    "Your paper has been successfully submitted to the International Conference on Sustainable Tourism & Hospitality Management",
-}
+
+export const metadata = journalSuccessMetadata;
 
 // A receipt: the confirmation as the hero, then what happens next as two panels.
 export default function SuccessPage() {
