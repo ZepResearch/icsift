@@ -104,8 +104,12 @@ export default function Participate() {
               ))}
             </ul>
             <div className="mt-3 flex flex-wrap items-center gap-8 bg-[var(--cream)] px-6 py-5">
-              <Image src="/assets/scopus.png" alt="Scopus" width={120} height={40} className="h-8 w-auto object-contain" />
-              <Image src="/assets/clarivate.png" alt="Clarivate" width={140} height={42} className="h-10 w-auto object-contain" />
+              <Image src="/assets/scopus.png" alt="Scopus" width={120} height={40} className="h-12 w-auto object-contain" />
+              <Image src="/assets/clarivate.png" alt="Clarivate" width={140} height={42} className="h-16 w-auto object-contain" />
+              <Image src="/assets/Crossref_Logo_Stacked_RGB_SMALL.png" alt="Clarivate" width={190} height={42} className="h-16 w-auto object-contain" />
+              <Image src="/assets/DOI_logo.svg.png" alt="Clarivate" width={140} height={42} className="h-16 w-auto object-contain" />
+              <Image src="/assets/google-scholar-logo (2).png" alt="Clarivate" width={140} height={42} className="h-10 w-auto object-contain" />
+
             </div>
           </div>
         </div>

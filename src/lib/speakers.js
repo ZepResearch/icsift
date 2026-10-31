@@ -1,6 +1,7 @@
 // Speaker categories that get their own page at /speakers/[slug]. `category` is the exact value stored in the
 // PocketBase ICSIFT_speakers collection; the navbar's Key People menu and the pages both read this list.
 export const SPEAKER_CATEGORIES = [
+
   {
     slug: "conference-chair",
     category: "Conference Chair",
@@ -13,7 +14,7 @@ export const SPEAKER_CATEGORIES = [
     title: "Conference co-chairs",
     lead: "The co-chairs who lead the conference alongside the chair.",
   },
-  {
+    {
     slug: "keynote-speaker",
     category: "Keynote Speaker",
     title: "Keynote speakers",

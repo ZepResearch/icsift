@@ -8,7 +8,7 @@ export default function Partners() {
   const tiles = [
     { logo: "/assets/zepresearch.png", name: "Zep Research", role: "Organiser" },
     ...(CONFERENCE.coOrganizers ?? []).map((org) => ({ logo: org.logo, name: org.name, role: "Co-organiser" })),
-    { logo: "/assets/cl.jpeg", name: "Conference Locate", role: "Media partner", href: "https://www.clocate.com/" },
+    // { logo: "/assets/cl.jpeg", name: "Conference Locate", role: "Media partner", href: "https://www.clocate.com/" },
   ];
 
   return (

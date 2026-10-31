@@ -33,8 +33,8 @@ const NAV = [
   {
     title: "Key People",
     dropdown: [
-      { href: "/committee", title: "Committee" },
       ...SPEAKER_CATEGORIES.map(({ slug, title }) => ({ href: `/speakers/${slug}`, title })),
+      { href: "/committee", title: "Committee" },
     ],
   },
 

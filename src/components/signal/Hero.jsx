@@ -60,7 +60,7 @@ export default function Hero() {
             aria-label="Aligned with the UN Sustainable Development Goals: see the four ICSIFT works on"
           >
             <span className="relative block h-[88px] w-[88px] shrink-0 overflow-hidden rounded-full bg-[var(--cream)] transition-transform duration-500 ease-[var(--ease-out)] group-hover:rotate-[20deg] sm:h-[104px] sm:w-[104px]">
-              <Image src="/assets/sdg.png" alt="" fill sizes="104px" className="scale-[1.42] object-contain" />
+              <Image src="/sdgs.png" alt="" fill sizes="104px" className="scale-[1.42] object-contain" />
             </span>
             <span className="max-w-[12rem] text-[15px] leading-snug font-semibold">Aligned with the UN Sustainable Development Goals</span>
           </a>
