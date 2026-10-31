@@ -11,9 +11,6 @@ const nextConfig = {
     // Keep optimised images for 30 days instead of re-encoding them on every visit.
     minimumCacheTTL: 2592000,
   },
-  experimental: {
-    serverActions: true,
-  },
   async headers() {
     return [
       {

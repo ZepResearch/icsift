@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink, AccessionLabel } from "@/components/home/primitives";
+import { ActionPair, FactCells, Field, LEAD, PageHero, SPLIT, StickyIntro } from "@/components/signal/page";
 
 const NEXT = [
   ["Keep your order number", "It is in the “Payment initiated” email we sent to your billing address. Quote it in any question about your payment.", null],
@@ -9,72 +10,72 @@ const NEXT = [
   ["See the programme", "Sessions, keynotes and timings for both days.", "/schedule"],
 ];
 
+// A receipt: the confirmation and your conference facts in the hero, then what to do next as numbered panels.
 export default function RegistrationSuccessPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* One sheet, split: title and the confirmation label left; a ruled "what next" list right. */}
-      <section aria-labelledby="paid-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
-        <div className="herb-sheet herb-settle mx-auto grid max-w-[1400px] gap-12 p-5 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-16 lg:p-12">
-          <div className="flex flex-col">
-            <h1 id="paid-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              Payment received. See you there.
-            </h1>
-            <p className="herb-muted mt-6 max-w-[34rem] text-[17.5px] leading-relaxed">
-              Thank you. Your payment for the {CONFERENCE.shortForm} has gone through. Keep your order number handy, and use the
-              links on this page to get ready.
-            </p>
-            <AccessionLabel
-              className="mt-10"
-              title="Your conference"
-              rows={[
-                ["Conference", CONFERENCE.shortForm],
-                ["Dates", CONFERENCE.date],
-                ["Locality", `${CONFERENCE.venue.location.trim()} · and online`],
-                [
-                  "Questions",
-                  <a key="mail" href="mailto:info@icsift.com" className="herb-link">
-                    info@icsift.com
-                  </a>,
-                ],
-              ]}
-            />
-          </div>
+    <main className="sig min-h-screen">
+      <PageHero
+        id="paid-title"
+        tag="Payment received"
+        title="Payment received. See you there."
+        lead={`Thank you. Your payment for the ${CONFERENCE.shortForm} has gone through. Keep your order number handy, and use the links below to get ready.`}
+        actions={<ActionPair tone="forest" primary={["/schedule", "See the schedule"]} secondary={["/", "Back to the home page"]} />}
+        aside={
+          <FactCells
+            size="text-[clamp(1.2rem,1.05rem+0.5vw,1.5rem)]"
+            facts={[
+              ["Conference", CONFERENCE.shortForm],
+              ["Dates", CONFERENCE.date],
+              ["Where", `${CONFERENCE.venue.location.trim()}, and online`],
+              ["Questions", "info@icsift.com"],
+            ]}
+          />
+        }
+      />
 
-          <div>
-            <h2 className="text-[13px] font-semibold tracking-[0.08em] uppercase">What to do next</h2>
-            <ol className="mt-4 border-t border-[var(--ink)]">
-              {NEXT.map(([title, body, href], index) => {
-                const inner = (
-                  <>
-                    <span className="herb-italic text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
-                    <span>
-                      <span className={`block text-[19px] ${href ? "group-hover:text-[var(--green)]" : ""}`}>{title}</span>
-                      <span className="herb-muted mt-1 block text-[15.5px]">{body}</span>
+      <Field tone="cream" labelledBy="next-title">
+        <div className={SPLIT}>
+          <StickyIntro tag="Next steps" id="next-title" title="What to do next">
+            <p className={`${LEAD} text-[var(--muted)]`}>
+              Questions about your payment? Write to{" "}
+              <a href="mailto:info@icsift.com" className="sig-link font-semibold text-[var(--bark)]">
+                info@icsift.com
+              </a>
+              .
+            </p>
+          </StickyIntro>
+          <ol className="grid gap-2">
+            {NEXT.map(([title, body, href], index) => {
+              const inner = (
+                <>
+                  <span aria-hidden="true" className="sig-display text-[clamp(2.6rem,2rem+1.6vw,3.6rem)] leading-[0.85]">
+                    {index + 1}
+                  </span>
+                  <span>
+                    <span className="sig-display flex items-center gap-2 text-[clamp(1.4rem,1.1rem+0.8vw,1.9rem)] leading-[1.04]">
+                      {title}
+                      {href ? <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={2.2} /> : null}
                     </span>
-                  </>
-                );
-                return (
-                  <li key={title} className="border-b border-[var(--rule)]">
-                    {href ? (
-                      <Link href={href} className="group grid grid-cols-[2.5rem_1fr] items-baseline py-5">
-                        {inner}
-                      </Link>
-                    ) : (
-                      <div className="grid grid-cols-[2.5rem_1fr] items-baseline py-5">{inner}</div>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              <ActionLink href="/schedule" primary>
-                See the schedule
-              </ActionLink>
-              <ActionLink href="/">Back to the home page</ActionLink>
-            </div>
-          </div>
+                    <span className="mt-2 block text-[17px] text-[var(--muted)]">{body}</span>
+                  </span>
+                </>
+              );
+              const box = "grid grid-cols-[3.5rem_1fr] gap-x-5 bg-[var(--panel)] p-6 sm:grid-cols-[4.5rem_1fr] sm:p-7";
+              return (
+                <li key={title} data-enter style={{ "--i": 2 + index }}>
+                  {href ? (
+                    <Link href={href} className={`group ${box} transition-colors duration-200 hover:bg-[var(--forest)] hover:text-[var(--signal)]`}>
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div className={box}>{inner}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
         </div>
-      </section>
+      </Field>
     </main>
   );
 }

@@ -1,5 +1,5 @@
 import { CONFERENCE } from "@/constants/conference";
-import { ActionLink } from "@/components/home/primitives";
+import { ActionPair, Field, PageHero } from "@/components/signal/page";
 
 const REASONS = [
   ["The card was declined", "Your bank may have declined the transaction. Check with them, or try another card or payment method."],
@@ -7,50 +7,39 @@ const REASONS = [
   ["The connection dropped", "The connection was interrupted during payment. Make sure it is stable, then try again."],
 ];
 
+// The failure in the hero with the two recovery actions; the likely causes as panels; then the money-left-your-account note.
 export default function PaymentFailedPage() {
   return (
-    <main className="herb min-h-screen">
-      {/* One sheet: title, then a three-column hairline row of likely causes, then the recovery actions. */}
-      <section aria-labelledby="failed-title" className="px-3 pt-3 pb-16 sm:px-6 sm:pt-6 lg:px-10 lg:pt-8 lg:pb-24">
-        <div className="herb-sheet herb-settle mx-auto max-w-[1400px] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <h1 id="failed-title" className="herb-display text-[clamp(2.75rem,1.4rem+3.6vw,5rem)]">
-              The payment did not go through.
-            </h1>
-            <p className="herb-muted max-w-[32rem] text-[17.5px] leading-relaxed">
-              Your payment for the {CONFERENCE.shortForm} was not completed, so your place is not confirmed yet. You can try
-              again now.
-            </p>
-          </div>
+    <main className="sig min-h-screen">
+      <PageHero
+        id="failed-title"
+        tag="Payment not completed"
+        title="The payment did not go through"
+        lead={`Your payment for the ${CONFERENCE.shortForm} was not completed, so your place is not confirmed yet. You can try again now.`}
+        actions={<ActionPair tone="forest" primary={["/registration", "Try the payment again"]} secondary={["/contact", "Contact support"]} />}
+      />
 
-          <h2 className="mt-12 text-[13px] font-semibold tracking-[0.08em] uppercase">What may have happened</h2>
-          <ol className="mt-4 grid gap-px border-y border-[var(--ink)] bg-[var(--rule)] md:grid-cols-3">
-            {REASONS.map(([title, body], index) => (
-              <li key={title} className="bg-[var(--sheet)] py-6 md:px-6 md:first:pl-0 md:last:pr-0">
-                <span className="herb-italic block text-[14px] text-[var(--ink-2)]">{String(index + 1).padStart(2, "0")}</span>
-                <span className="mt-1 block text-[19px] leading-snug">{title}</span>
-                <span className="herb-muted mt-2 block text-[15.5px]">{body}</span>
-              </li>
-            ))}
-          </ol>
+      <Field tone="cream" labelledBy="reasons-title">
+        <h2 id="reasons-title" data-enter className="sig-h2">
+          What may have happened
+        </h2>
+        <ul className="mt-12 grid gap-2 md:grid-cols-3">
+          {REASONS.map(([title, body], index) => (
+            <li key={title} data-enter style={{ "--i": 1 + index }} className="bg-[var(--panel)] p-6 sm:p-7">
+              <h3 className="sig-display text-[clamp(1.5rem,1.2rem+0.8vw,2rem)] leading-[1.04]">{title}</h3>
+              <p className="mt-3 text-[17px] text-[var(--muted)]">{body}</p>
+            </li>
+          ))}
+        </ul>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-            <p className="max-w-[38rem] text-[16.5px]">
-              If money left your account but you landed here, do not pay again. Write to{" "}
-              <a href="mailto:info@icsift.com" className="herb-link">
-                info@icsift.com
-              </a>{" "}
-              with the order number from your &ldquo;Payment initiated&rdquo; email, and we will sort it out.
-            </p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <ActionLink href="/registration" primary>
-                Try the payment again
-              </ActionLink>
-              <ActionLink href="/contact">Contact support</ActionLink>
-            </div>
-          </div>
-        </div>
-      </section>
+        <p data-enter style={{ "--i": 4 }} className="mt-10 max-w-[46rem] bg-[var(--signal)] px-6 py-5 text-[18px] text-[var(--forest)]">
+          <strong className="font-semibold">If money left your account but you landed here, do not pay again.</strong> Write to{" "}
+          <a href="mailto:info@icsift.com" className="sig-link font-semibold">
+            info@icsift.com
+          </a>{" "}
+          with the order number from your &ldquo;Payment initiated&rdquo; email, and we will sort it out.
+        </p>
+      </Field>
     </main>
   );
 }
