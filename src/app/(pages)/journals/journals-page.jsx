@@ -146,7 +146,7 @@ export default function JournalsPageClient({ journals }) {
       <CallBand
         id="journals-closing-title"
         title="Presenting at the conference first?"
-        text="Papers accepted at the conference are recommended to indexed journals and proceedings."
+        text="Eligible papers presented at the conference will undergo a comprehensive final peer-review process and, subject to acceptance, will be considered for publication in selected Scopus-indexed journals."
       />
     </main>
   );

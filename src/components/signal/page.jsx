@@ -136,7 +136,7 @@ export function CallBand({ id = "page-closing-title", title, text, primary, seco
         {title}
       </h2>
       <div data-enter style={{ "--i": 1 }} className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        {text ? <p className="max-w-[38rem] text-[clamp(1.1rem,1rem+0.5vw,1.4rem)] leading-snug font-medium">{text}</p> : <span />}
+        {text ? <p className="max-w-[48rem] text-[clamp(1.1rem,1rem+0.5vw,1.4rem)] leading-snug font-medium">{text}</p> : <span />}
         <ActionPair tone="yellow" primary={primary} secondary={secondary} />
       </div>
     </Field>
