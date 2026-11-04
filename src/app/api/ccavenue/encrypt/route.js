@@ -34,9 +34,11 @@ export async function POST(request) {
 
   // Work out what is being bought, and its price, from the server-side price list.
   let item
+  let userId = ""
   if (body.kind === "ticket" || body.kind === "custom") {
     const { user } = await verifyZepUser(String(body.auth_token || ""))
     if (!user) return fail(401, "Your session has expired. Sign in again, then continue to payment.")
+    userId = user.id
 
     if (body.kind === "ticket") {
       const ticket = resolveTicket(body.ticket_key)
@@ -76,8 +78,9 @@ export async function POST(request) {
     ...item.fields,
   }
 
-  // Order details ride along in the return URL, signed so /api/ccavenue/handle can trust them.
-  const payload = JSON.stringify(paymentData)
+  // Order details ride along in the return URL, signed so /api/ccavenue/handle can trust them. The account id
+  // travels only here (not to CCAvenue), so the saved registration shows on the user's dashboard.
+  const payload = JSON.stringify(userId ? { ...paymentData, user: userId } : paymentData)
   const returnUrl = `${request.nextUrl.origin}/api/ccavenue/handle?paymentData=${encodeURIComponent(payload)}&sig=${signPayload(payload)}`
 
   let encRequest

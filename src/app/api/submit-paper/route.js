@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import PocketBase from "pocketbase"
 import { resend } from "@/lib/resend"
+import { CONFERENCE } from "@/constants/conference"
 import { getUserEmailTemplate, getAdminEmailTemplate } from "@/emails/email-templates"
 import { validateSubmission, fileProblem, MAX_FILE_BYTES } from "@/lib/paper-submission"
 import {
@@ -77,7 +78,7 @@ export async function POST(request) {
   const zepStatus = { attempted: true, success: false }
   try {
     const zepFormData = new FormData()
-    Object.entries({ ...values, conference: "9cj5n4788ilx2ms", conf_name: "ICSIFT", user: zepUser.id, status: "pending" }).forEach(
+    Object.entries({ ...values, conference: CONFERENCE.zepConferenceId, conf_name: "ICSIFT", user: zepUser.id, status: "pending" }).forEach(
       ([key, value]) => zepFormData.append(key, value),
     )
     zepFormData.append("file", file)

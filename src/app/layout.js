@@ -10,6 +10,7 @@ import FloatingWhatsApp from "@/components/FloatingWhatsapp";
 import GoogleTranslateMenu from "@/components/GoogleTranslate";
 import { AuthProvider } from '@/context/AuthContext'
 import AuthModal from '@/components/auth/AuthModal'
+import SiteChrome from '@/components/SiteChrome'
 import JsonLd from "@/components/seo/JsonLd";
 import { CONFERENCE } from "@/constants/conference";
 import { BASE_KEYWORDS, BRAND, OG_IMAGE, SHORT_WHEN, SITE_NAME, SITE_URL, organizationSchema, websiteSchema } from "@/lib/seo";
@@ -86,14 +87,20 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} ${grotesk.variable} ${label.variable} ${display.variable} ${body.variable} antialiased`}>
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <AuthProvider>
-          <div className="sticky top-0 z-50">
-            <GoogleTranslateMenu />
-            <ConferenceNavbar />
-          </div>
+          <SiteChrome>
+            <div className="sticky top-0 z-50">
+              <GoogleTranslateMenu />
+              <ConferenceNavbar />
+            </div>
+          </SiteChrome>
           {children}
-          <ConferenceFooter />
+          <SiteChrome>
+            <ConferenceFooter />
+          </SiteChrome>
           <TawkToChat />
-          <FloatingWhatsApp />
+          <SiteChrome>
+            <FloatingWhatsApp />
+          </SiteChrome>
           <AuthModal />
         </AuthProvider>
       </body>

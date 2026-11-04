@@ -26,6 +26,12 @@ export const SPEAKER_CATEGORIES = [
     title: "Session chairs",
     lead: "The chairs who run the paper sessions.",
   },
+  {
+    slug: "panel-speaker",
+    category: "Panel Speaker",
+    title: "Panel speakers",
+    lead: "The speakers who participate in panel discussions.",
+  },
 ];
 
 export const speakerCategory = (slug) => SPEAKER_CATEGORIES.find((entry) => entry.slug === slug) || null;

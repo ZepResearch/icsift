@@ -379,13 +379,14 @@ button:focus-visible .sig-portrait img {
 
 /* Field tones for inner pages (components/signal/page.jsx). Each sets the ground, the text, and four helpers that
    components read, so one component works on any field: --muted (secondary text), --panel (a block one step off the
-   ground), --line (accent rules and list bars), --on-panel (text on --panel). */
+   ground), --line (accent rules and list bars), --on-line (text on a --line fill, such as a solid status tag). */
 .sig-forest {
   background: var(--forest);
   color: var(--signal);
   --muted: rgb(244 241 236 / 0.86);
   --panel: var(--forest-deep);
   --line: var(--signal);
+  --on-line: var(--forest);
 }
 
 .sig-deep {
@@ -394,6 +395,7 @@ button:focus-visible .sig-portrait img {
   --muted: rgb(244 241 236 / 0.86);
   --panel: var(--forest);
   --line: var(--signal);
+  --on-line: var(--forest);
 }
 
 .sig-cream {
@@ -402,6 +404,7 @@ button:focus-visible .sig-portrait img {
   --muted: var(--bark-2);
   --panel: var(--cream-deep);
   --line: var(--forest);
+  --on-line: var(--cream);
 }
 
 .sig-yellow {
@@ -410,6 +413,7 @@ button:focus-visible .sig-portrait img {
   --muted: rgb(33 54 41 / 0.82);
   --panel: rgb(33 54 41 / 0.08);
   --line: var(--forest);
+  --on-line: var(--signal);
 }
 
 .sig .sig-cream :focus-visible,

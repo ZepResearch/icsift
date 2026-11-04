@@ -16,8 +16,8 @@ const speakerCategories = [
   { id: "Conference Chair", title: "Conference Chair" },
   { id: "Conference Co-Chair", title: "Conference Co-Chair" },
   { id: "Keynote Speaker", title: "Keynote Speaker" },
-  { id: "Session Chair", title: "Session Chair" },
   { id: "Panel Speaker", title: "Panel Speaker" },
+  { id: "Session Chair", title: "Session Chair" },
 
 ];
 

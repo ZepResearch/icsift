@@ -167,13 +167,17 @@ function AccountMenu({ name, onLogout }) {
           <div className="sig-nav-menu w-[16rem] bg-[var(--forest-deep)] p-4">
             <p className="text-[13px] text-[var(--cream)]/70">Signed in as</p>
             <p className="mt-0.5 truncate text-[16px] font-semibold text-[var(--cream)]">{name}</p>
+            <Link href="/dashboard" className="sig-btn mt-4 w-full !min-h-[44px] !text-[17px]" data-fill="">
+              <span>Dashboard</span>
+              <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
+            </Link>
             <button
               type="button"
               onClick={() => {
                 setOpen(false)
                 onLogout()
               }}
-              className="sig-btn mt-4 w-full !min-h-[44px] !text-[17px]"
+              className="sig-btn mt-2 w-full !min-h-[44px] !text-[17px]"
               data-outline=""
             >
               Log out
@@ -341,6 +345,12 @@ export default function ConferenceNavbar() {
                 <span>Submit a paper</span>
                 <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
               </Link>
+              {isAuthed ? (
+                <Link href="/dashboard" className="sig-btn" data-outline="">
+                  <span>Your dashboard</span>
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
+                </Link>
+              ) : null}
               {isAuthed ? (
                 <div className="flex items-center justify-between pt-4 text-[15.5px]">
                   <span className="truncate text-[var(--cream)]/80">Signed in as {displayName}</span>

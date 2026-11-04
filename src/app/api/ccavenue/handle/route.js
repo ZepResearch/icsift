@@ -1,6 +1,7 @@
 import PocketBase from "pocketbase"
 import CCAvenue from "@/utils/CCAvenue"
 import { verifyPayload } from "@/lib/payment-signature"
+import { CONFERENCE } from "@/constants/conference"
 
 // CCAvenue posts the encrypted result here after payment. Only CCAvenue holds the working key, so the
 // decrypted status and amount are trustworthy; the registration details come from the signed return URL.
@@ -12,6 +13,19 @@ const redirectTo = (req, path) => {
   const host = req.headers.get("host") || "localhost:3000"
   const protocol = process.env.NODE_ENV === "development" ? "http" : "https"
   return Response.redirect(`${protocol}://${host}${path}`)
+}
+
+// conf_registration only accepts a create from its own user or an admin, and this callback arrives without the
+// user's session. With ZEP_PB_ADMIN_EMAIL / ZEP_PB_ADMIN_PASSWORD set (a PocketBase superuser), it writes as admin.
+async function signInAsAdmin() {
+  const email = process.env.ZEP_PB_ADMIN_EMAIL
+  const password = process.env.ZEP_PB_ADMIN_PASSWORD
+  if (!email || !password || pb.authStore.isValid) return
+  try {
+    await pb.collection("_superusers").authWithPassword(email, password)
+  } catch (error) {
+    console.error("[ccavenue/handle] Admin sign-in failed:", error?.message)
+  }
 }
 
 // Returns true if a registration with this order id already exists (CCAvenue can call back more than once).
@@ -58,7 +72,13 @@ export async function POST(req) {
 
     if (!(await alreadyRecorded(result.order_id))) {
       try {
+        await signInAsAdmin()
         await pb.collection("conf_registration").create({
+          // Links the registration to the account and to ICSIFT, so it shows on the user's dashboard.
+          user: details.user || "",
+          conference: details.user ? CONFERENCE.zepConferenceId : "",
+          amount: Number(result.amount) || Number(details.amount) || 0,
+          currency: details.currency || result.currency || "",
           fullname: details.billing_name || "",
           email: details.billing_email || result.billing_email || "",
           organization: details.billing_organization || "",
