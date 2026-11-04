@@ -6,16 +6,20 @@ import Link from "next/link";
 import {
   ArrowRight,
   Award,
+  BookMarked,
   BookOpen,
   CalendarCheck,
+  CalendarClock,
   CalendarDays,
   Download,
   FileText,
   Home,
+  Images,
   Layers,
   LayoutDashboard,
   LogOut,
   MapPin,
+  Mic,
   Receipt,
 } from "lucide-react";
 import pb from "@/lib/zep-pocketbase";
@@ -39,8 +43,10 @@ import { downloadInvoice } from "@/lib/invoice";
 import CertificateDialog from "./CertificateDialog";
 
 // The signed-in user's dashboard, laid out as an app: a forest sidebar, a top bar, a greeting with the four counts,
-// then the user's ICSIFT registrations (invoice, certificate), ICSIFT papers, journal submissions and the conferences
-// coming up as cards on a cream board. The site header and footer are hidden here (components/SiteChrome.jsx).
+// quick links into the conference site, then the user's ICSIFT registrations (invoice, certificate), ICSIFT papers,
+// journal submissions and the conferences coming up as cards on a cream board. Choosing a section in the sidebar (or a
+// count) shows that section alone; the choice lives in the URL hash, so Back and shared links work. The site header and
+// footer are hidden here (components/SiteChrome.jsx).
 // Protected on the client: signed-out visitors get the sign-in prompt.
 
 const SECTIONS = [
@@ -68,28 +74,34 @@ function useCollection(load, userId) {
   return [state, reload, setState];
 }
 
-// Which section is in view, for the sidebar's current item.
-function useActiveSection(ids, enabled) {
-  const [active, setActive] = useState("overview");
-  useEffect(() => {
-    if (!enabled) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: "-20% 0px -60% 0px" },
-    );
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [ids, enabled]);
-  return active;
-}
+// Pages of the conference site a delegate needs most, as tiles on the overview and links in the sidebar.
+const QUICK = [
+  ["/proceedings", "Proceedings", "Published papers from every edition", BookMarked],
+  ["/speakers/keynote-speaker", "Speakers", "Keynote and invited speakers", Mic],
+  ["/schedule", "Agenda", "Sessions, day by day", CalendarClock],
+  ["/gallery", "Gallery", "Photos from past editions", Images],
+];
 
-const SECTION_IDS = ["overview", ...SECTIONS.map(([id]) => id)];
+const VIEWS = new Set(SECTIONS.map(([id]) => id));
+const viewFromHash = () => {
+  const id = typeof window === "undefined" ? "" : window.location.hash.slice(1);
+  return VIEWS.has(id) ? id : "overview";
+};
+
+// The open view: "overview" (everything) or one section's id, read from the URL hash.
+function useView() {
+  const [view, setView] = useState("overview");
+  useEffect(() => {
+    const sync = () => {
+      setView(viewFromHash());
+      window.scrollTo({ top: 0 });
+    };
+    setView(viewFromHash());
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+  return view;
+}
 
 export default function DashboardContent() {
   const { user, openAuthModal, logout } = useAuth();
@@ -105,7 +117,7 @@ export default function DashboardContent() {
   const [certificates, reloadCertificates, setCertificates] = useCollection(fetchCertificates, userId);
   const [upcoming, reloadUpcoming] = useCollection(fetchUpcomingConferences, userId);
   const [certFor, setCertFor] = useState(null);
-  const active = useActiveSection(SECTION_IDS, signedIn);
+  const view = useView();
 
   if (!mounted) return <main className="sig min-h-screen bg-[var(--forest)]" aria-busy="true" />;
   if (!signedIn) return <SignedOut onSignIn={openAuthModal} />;
@@ -113,96 +125,122 @@ export default function DashboardContent() {
   const displayName = tidy(user.name || user.username || user.email);
   const firstName = displayName.split(" ")[0] || "there";
   const states = { registrations, papers, journals, upcoming };
+  const fileOf = (record) => record.file && fileUrl(record, Array.isArray(record.file) ? record.file[0] : record.file, { download: 1 });
+
+  // Each section's card. `focused` is the single-section view: every item, laid out wider.
+  const cards = {
+    registrations: ({ focused } = {}) => (
+      <Card key="registrations" id="registrations" icon={CalendarCheck} title="Your registrations" focused={focused} columns="xl:grid-cols-2"
+        lead="Download the invoice for any paid registration. Once the conference is over, generate your certificate here."
+        state={registrations} retry={reloadRegistrations} limit={3}
+        empty={<>No {CONFERENCE.shortForm} registration on this account yet. <Link href="/registration" className="sig-link font-semibold">Register</Link></>}
+        render={(registration) => (
+          <RegistrationCard
+            key={registration.id}
+            registration={registration}
+            certificates={certificates.items.filter((c) => c.registration === registration.id)}
+            certificatesLoading={certificates.status === "loading"}
+            onCertificate={() => setCertFor(registration)}
+          />
+        )}
+      />
+    ),
+    upcoming: ({ focused } = {}) => (
+      <Card key="upcoming" id="upcoming" icon={Layers} title="Upcoming conferences" focused={focused}
+        columns={focused ? "sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" : "sm:grid-cols-2 2xl:grid-cols-3"}
+        lead="More Zep Research conferences you can submit to or attend." state={upcoming} retry={reloadUpcoming} limit={4}
+        empty="No other conferences are open just now. New ones appear here as they are announced."
+        render={(conference) => <ConferenceCard key={conference.id} conference={conference} />}
+      />
+    ),
+    papers: ({ focused } = {}) => (
+      <Card key="papers" id="papers" icon={FileText} title="Paper submissions" focused={focused} columns="xl:grid-cols-2"
+        lead={`Every paper you have sent to ${CONFERENCE.shortForm} from this account, with the file you uploaded.`}
+        state={papers} retry={reloadPapers} limit={4}
+        empty={<>You have not submitted a paper to this conference yet. <Link href="/submission" className="sig-link font-semibold">Submit a paper</Link></>}
+        render={(paper) => (
+          <SubmissionRow
+            key={paper.id}
+            title={paper.paper_title}
+            meta={[paper.paper_type, paper.presentation_type && `${paper.presentation_type} presentation`, paper.created && `Sent ${shortDate(paper.created)}`]}
+            status={paper.status}
+            file={fileOf(paper)}
+          />
+        )}
+      />
+    ),
+    journals: ({ focused } = {}) => (
+      <Card key="journals" id="journals" icon={BookOpen} title="Journal submissions" focused={focused} columns="xl:grid-cols-2"
+        lead="Papers you have sent to partner journals through Zep Research." state={journals} retry={reloadJournals} limit={4}
+        empty={<>You have not submitted to a journal yet. <Link href="/journals" className="sig-link font-semibold">Browse journals</Link></>}
+        render={(paper) => (
+          <SubmissionRow key={paper.id} kicker={tidy(paper.journal_name)} title={paper.paper_title} meta={[paper.created && `Sent ${shortDate(paper.created)}`]} status={paper.status} file={fileOf(paper)} />
+        )}
+      />
+    ),
+  };
 
   return (
     <main className="sig min-h-screen bg-[var(--forest)] lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
-      <Sidebar active={active} onLogout={logout} />
+      <Sidebar active={view} onLogout={logout} />
 
       <div className="min-w-0">
-        <TopBar name={displayName} email={user.email} />
+        <TopBar name={displayName} email={user.email} title={view === "overview" ? "Dashboard" : SECTIONS.find(([id]) => id === view)[1]} />
 
         <div className="grid gap-5 p-4 sm:p-6 lg:gap-6 lg:p-8">
-          {/* Greeting and the four counts. */}
-          <section id="overview" aria-labelledby="dashboard-title" className="sig-deep scroll-mt-24 grid gap-8 p-6 sm:p-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] xl:items-center lg:p-10">
-            <div>
-              <p className="sig-tag sig-rise">Dashboard</p>
-              <h1 id="dashboard-title" className="sig-display sig-rise mt-3 text-[clamp(2.6rem,1.6rem+3vw,4.6rem)] leading-[0.95]" style={{ "--i": 1 }}>
-                Hello, {firstName}
-              </h1>
-              <p className="sig-rise mt-5 max-w-[34rem] text-[clamp(1.05rem,1rem+0.3vw,1.2rem)] leading-snug text-[var(--muted)]" style={{ "--i": 2 }}>
-                Your {CONFERENCE.shortForm} registrations, papers and certificates, signed in as {user.email}.
-              </p>
-              <ActionPair tone="forest" className="sig-rise mt-8" />
-            </div>
-            <ul className="sig-rise grid gap-2 sm:grid-cols-2" style={{ "--i": 2 }}>
-              {SECTIONS.map(([id, label, Icon]) => {
-                const state = states[id];
-                const value = state.status === "ok" ? state.items.length : state.status === "loading" ? "…" : "–";
-                return (
-                  <li key={id}>
-                    <a href={`#${id}`} className="group grid h-full grid-cols-[auto_1fr_auto] items-end gap-x-4 bg-[var(--panel)] p-5 transition-colors hover:bg-black/20">
-                      <Icon aria-hidden="true" className="mb-2 h-7 w-7 self-center text-[var(--cream)]" strokeWidth={1.5} />
-                      <span>
-                        <span className="block text-[15px] text-[var(--muted)]">{label}</span>
-                        <span className="sig-display mt-1 block text-[clamp(2.2rem,1.8rem+1.2vw,3rem)] leading-none">{value}</span>
-                      </span>
-                      <ArrowRight aria-hidden="true" className="mb-1 h-5 w-5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
+          {view === "overview" ? (
+            <>
+              {/* Greeting and the four counts. */}
+              <section id="overview" aria-labelledby="dashboard-title" className="sig-deep scroll-mt-24 grid gap-8 p-6 sm:p-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] xl:items-center lg:p-10">
+                <div>
+                  <p className="sig-tag sig-rise">Dashboard</p>
+                  <h1 id="dashboard-title" className="sig-display sig-rise mt-3 text-[clamp(2.6rem,1.6rem+3vw,4.6rem)] leading-[0.95]" style={{ "--i": 1 }}>
+                    Hello, {firstName}
+                  </h1>
+                  <p className="sig-rise mt-5 max-w-[34rem] text-[clamp(1.05rem,1rem+0.3vw,1.2rem)] leading-snug text-[var(--muted)]" style={{ "--i": 2 }}>
+                    Your {CONFERENCE.shortForm} registrations, papers and certificates, signed in as {user.email}.
+                  </p>
+                  <ActionPair tone="forest" className="sig-rise mt-8" />
+                </div>
+                <ul className="sig-rise grid gap-2 sm:grid-cols-2" style={{ "--i": 2 }}>
+                  {SECTIONS.map(([id, label, Icon]) => {
+                    const state = states[id];
+                    const value = state.status === "ok" ? state.items.length : state.status === "loading" ? "…" : "–";
+                    return (
+                      <li key={id}>
+                        <a href={`#${id}`} className="group grid h-full grid-cols-[auto_1fr_auto] items-end gap-x-4 bg-[var(--panel)] p-5 transition-colors hover:bg-black/20">
+                          <Icon aria-hidden="true" className="mb-2 h-7 w-7 self-center text-[var(--cream)]" strokeWidth={1.5} />
+                          <span>
+                            <span className="block text-[15px] text-[var(--muted)]">{label}</span>
+                            <span className="sig-display mt-1 block text-[clamp(2.2rem,1.8rem+1.2vw,3rem)] leading-none">{value}</span>
+                          </span>
+                          <ArrowRight aria-hidden="true" className="mb-1 h-5 w-5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
 
-          {/* The board: registrations and conferences left, papers and journals right. */}
-          {/* .sig-cream sets its own ground, so the darker board colour goes inline. */}
-          <div style={{ background: "var(--cream-deep)" }} className="sig-cream grid gap-5 p-3 sm:p-5 xl:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] xl:items-start">
-            <div className="grid gap-5">
-              <Card id="registrations" icon={CalendarCheck} title="Your registrations" lead="Download the invoice for any paid registration. Once the conference is over, generate your certificate here." state={registrations} retry={reloadRegistrations} limit={3}
-                empty={<>No {CONFERENCE.shortForm} registration on this account yet. <Link href="/registration" className="sig-link font-semibold">Register</Link></>}
-                render={(registration) => (
-                  <RegistrationCard
-                    key={registration.id}
-                    registration={registration}
-                    certificates={certificates.items.filter((c) => c.registration === registration.id)}
-                    certificatesLoading={certificates.status === "loading"}
-                    onCertificate={() => setCertFor(registration)}
-                  />
-                )}
-              />
-              <Card id="upcoming" icon={Layers} title="Upcoming conferences" lead="More Zep Research conferences you can submit to or attend." state={upcoming} retry={reloadUpcoming} limit={4} grid
-                empty="No other conferences are open just now. New ones appear here as they are announced."
-                render={(conference) => <ConferenceCard key={conference.id} conference={conference} />}
-              />
+              {/* The board. .sig-cream sets its own ground, so the darker board colour goes inline. */}
+              <div style={{ background: "var(--cream-deep)" }} className="sig-cream grid gap-5 p-3 sm:p-5 xl:grid-cols-[minmax(0,1.12fr)_minmax(0,1fr)] xl:items-start">
+                <QuickAccess className="xl:col-span-2" />
+                <div className="grid gap-5">
+                  {cards.registrations()}
+                  {cards.upcoming()}
+                </div>
+                <div className="grid gap-5">
+                  {cards.papers()}
+                  {cards.journals()}
+                </div>
+              </div>
+            </>
+          ) : (
+            // One section on its own, every item shown, wider grids.
+            <div style={{ background: "var(--cream-deep)" }} className="sig-cream p-3 sm:p-5">
+              {cards[view]({ focused: true })}
             </div>
-            <div className="grid gap-5">
-              <Card id="papers" icon={FileText} title="Paper submissions" lead={`Every paper you have sent to ${CONFERENCE.shortForm} from this account, with the file you uploaded.`} state={papers} retry={reloadPapers} limit={4}
-                empty={<>You have not submitted a paper to this conference yet. <Link href="/submission" className="sig-link font-semibold">Submit a paper</Link></>}
-                render={(paper) => (
-                  <SubmissionRow
-                    key={paper.id}
-                    title={paper.paper_title}
-                    meta={[paper.paper_type, paper.presentation_type && `${paper.presentation_type} presentation`, paper.created && `Sent ${shortDate(paper.created)}`]}
-                    status={paper.status}
-                    file={paper.file && fileUrl(paper, Array.isArray(paper.file) ? paper.file[0] : paper.file, { download: 1 })}
-                  />
-                )}
-              />
-              <Card id="journals" icon={BookOpen} title="Journal submissions" lead="Papers you have sent to partner journals through Zep Research." state={journals} retry={reloadJournals} limit={4}
-                empty={<>You have not submitted to a journal yet. <Link href="/journals" className="sig-link font-semibold">Browse journals</Link></>}
-                render={(paper) => (
-                  <SubmissionRow
-                    key={paper.id}
-                    kicker={tidy(paper.journal_name)}
-                    title={paper.paper_title}
-                    meta={[paper.created && `Sent ${shortDate(paper.created)}`]}
-                    status={paper.status}
-                    file={paper.file && fileUrl(paper, Array.isArray(paper.file) ? paper.file[0] : paper.file, { download: 1 })}
-                  />
-                )}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -236,14 +274,16 @@ function Logo() {
   );
 }
 
+const SIDE_LINK = "text-[var(--cream)]/85 hover:bg-[var(--forest)]/60 hover:text-[var(--signal)]";
 const NAV_ITEM =
   "flex min-h-[48px] shrink-0 items-center gap-3 px-4 text-[16px] font-semibold whitespace-nowrap transition-colors lg:min-h-[50px]";
 
-// Vertical on wide screens (sticky, full height); a logo row and a scrolling row of links on phones.
+// Vertical on wide screens (sticky, full height): the dashboard views, the conference pages, then the account.
+// On phones, a logo row and one scrolling row of links.
 function Sidebar({ active, onLogout }) {
   const items = [["overview", "Dashboard", LayoutDashboard], ...SECTIONS];
   return (
-    <aside className="sig-deep border-b border-[var(--forest-line)] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r lg:border-b-0">
+    <aside className="sig-deep border-b border-[var(--forest-line)] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
       <div className="flex items-center justify-between gap-4 px-4 pt-4 sm:px-6 lg:px-5 lg:pt-6">
         <Logo />
         <button type="button" onClick={onLogout} className="sig-link text-[15px] font-semibold text-[var(--cream)] lg:hidden">
@@ -251,7 +291,7 @@ function Sidebar({ active, onLogout }) {
         </button>
       </div>
 
-      <nav aria-label="Dashboard" className="mt-4 lg:mt-10 lg:flex-1">
+      <nav aria-label="Dashboard" className="mt-4 lg:mt-8 lg:flex-1">
         <ul className="flex gap-1 overflow-x-auto px-4 pb-3 sm:px-6 lg:flex-col lg:px-4 lg:pb-0">
           {items.map(([id, label, Icon]) => {
             const current = active === id;
@@ -259,8 +299,8 @@ function Sidebar({ active, onLogout }) {
               <li key={id}>
                 <a
                   href={`#${id}`}
-                  aria-current={current ? "location" : undefined}
-                  className={`${NAV_ITEM} ${current ? "bg-[var(--forest)] text-[var(--signal)]" : "text-[var(--cream)]/85 hover:bg-[var(--forest)]/60 hover:text-[var(--signal)]"}`}
+                  aria-current={current ? "page" : undefined}
+                  className={`${NAV_ITEM} ${current ? "bg-[var(--forest)] text-[var(--signal)]" : SIDE_LINK}`}
                 >
                   <Icon aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.7} />
                   {label}
@@ -268,20 +308,40 @@ function Sidebar({ active, onLogout }) {
               </li>
             );
           })}
+          {QUICK.map(([href, label, , Icon]) => (
+            <li key={href} className="lg:hidden">
+              <Link href={href} className={`${NAV_ITEM} ${SIDE_LINK}`}>
+                <Icon aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.7} />
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <p className="mx-4 mt-6 hidden border-t border-[var(--forest-line)] px-4 pt-5 text-[14px] font-semibold text-[var(--cream)]/70 lg:block">Conference</p>
+        <ul className="mt-2 hidden gap-1 px-4 lg:grid">
+          {QUICK.map(([href, label, , Icon]) => (
+            <li key={href}>
+              <Link href={href} className={`${NAV_ITEM} ${SIDE_LINK}`}>
+                <Icon aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.7} />
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
 
-      <div className="hidden px-4 pb-6 lg:block">
+      <div className="hidden px-4 pt-6 pb-6 lg:block">
         <p className="border-t border-[var(--forest-line)] px-4 pt-5 text-[14px] font-semibold text-[var(--cream)]/70">Account</p>
         <ul className="mt-2 grid gap-1">
           <li>
-            <Link href="/" className={`${NAV_ITEM} text-[var(--cream)]/85 hover:bg-[var(--forest)]/60 hover:text-[var(--signal)]`}>
+            <Link href="/" className={`${NAV_ITEM} ${SIDE_LINK}`}>
               <Home aria-hidden="true" className="h-5 w-5" strokeWidth={1.7} />
               Back to the website
             </Link>
           </li>
           <li>
-            <button type="button" onClick={onLogout} className={`${NAV_ITEM} w-full text-left text-[var(--cream)]/85 hover:bg-[var(--forest)]/60 hover:text-[var(--signal)]`}>
+            <button type="button" onClick={onLogout} className={`${NAV_ITEM} ${SIDE_LINK} w-full text-left`}>
               <LogOut aria-hidden="true" className="h-5 w-5" strokeWidth={1.7} />
               Log out
             </button>
@@ -292,11 +352,11 @@ function Sidebar({ active, onLogout }) {
   );
 }
 
-function TopBar({ name, email }) {
+function TopBar({ name, email, title }) {
   const initial = (name || "?").charAt(0).toUpperCase();
   return (
     <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between gap-4 border-b border-[var(--forest-line)] bg-[var(--forest)] px-4 sm:px-6 lg:px-8">
-      <p className="sig-display text-[24px] leading-none text-[var(--signal)]">Dashboard</p>
+      <p className="sig-display truncate text-[24px] leading-none text-[var(--signal)]">{title}</p>
       <div className="flex min-w-0 items-center gap-3">
         <span aria-hidden="true" className="sig-display grid h-[42px] w-[42px] shrink-0 place-items-center bg-[var(--signal)] text-[20px] text-[var(--forest)]">
           {initial}
@@ -334,31 +394,62 @@ function SignedOut({ onSignIn }) {
   );
 }
 
-// A board card: icon and title, a sentence, then the list in its loading, error, empty or filled state. Lists longer
-// than `limit` show the first few with a "Show all" toggle.
-function Card({ id, icon: Icon, title, lead, state, retry, empty, render, limit, grid = false }) {
-  const [open, setOpen] = useState(false);
-  const items = open ? state.items : state.items.slice(0, limit);
-  const more = state.items.length > limit;
-  const layout = grid ? "grid gap-2 sm:grid-cols-2 2xl:grid-cols-3" : "grid gap-2";
+// Four tiles into the conference site, across the top of the board.
+function QuickAccess({ className = "" }) {
+  return (
+    <nav aria-labelledby="quick-title" className={`bg-[var(--cream)] p-5 sm:p-6 ${className}`}>
+      <h2 id="quick-title" className="sig-display text-[clamp(1.6rem,1.4rem+0.6vw,2rem)] leading-none text-[var(--forest)]">
+        Quick access
+      </h2>
+      <ul className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
+        {QUICK.map(([href, label, note, Icon]) => (
+          <li key={href}>
+            <Link href={href} className="group flex h-full items-center gap-4 bg-[var(--forest)] p-5 text-[var(--signal)] transition-colors hover:bg-[var(--forest-deep)]">
+              <Icon aria-hidden="true" className="h-8 w-8 shrink-0" strokeWidth={1.5} />
+              <span className="min-w-0 flex-1">
+                <span className="sig-display block text-[24px] leading-none">{label}</span>
+                <span className="mt-1.5 block text-[15px] leading-snug text-[var(--cream)]/85">{note}</span>
+              </span>
+              <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+// A board card: icon and title, a sentence, then the list in its loading, error, empty or filled state. On the
+// overview, lists longer than `limit` show the first few and a "View all" link to the section's own view; `focused`
+// (that view) shows every item, laid out in `columns`. Upcoming conferences use their columns on the overview too.
+function Card({ id, icon: Icon, title, lead, state, retry, empty, render, limit, focused = false, columns = "" }) {
+  const items = focused ? state.items : state.items.slice(0, limit);
+  const more = !focused && state.items.length > limit;
+  const layout = `grid gap-2 ${focused || id === "upcoming" ? columns : ""}`;
+  const Heading = focused ? "h1" : "h2";
 
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24 bg-[var(--cream)] p-5 sm:p-6">
+    <section id={focused ? undefined : id} aria-labelledby={`${id}-title`} className="scroll-mt-24 bg-[var(--cream)] p-5 sm:p-6">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3">
           <Icon aria-hidden="true" className="mt-0.5 h-7 w-7 shrink-0 text-[var(--forest)]" strokeWidth={1.6} />
           <div>
-            <h2 id={`${id}-title`} className="sig-display text-[clamp(1.6rem,1.4rem+0.6vw,2rem)] leading-none text-[var(--forest)]">
+            <Heading id={`${id}-title`} className="sig-display text-[clamp(1.6rem,1.4rem+0.6vw,2rem)] leading-none text-[var(--forest)]">
               {title}
-            </h2>
+            </Heading>
             <p className="mt-2 max-w-[32rem] text-[16px] leading-snug text-[var(--muted)]">{lead}</p>
           </div>
         </div>
         {more ? (
-          <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className="inline-flex shrink-0 items-center gap-1.5 text-[15px] font-semibold text-[var(--forest)] hover:underline">
-            {open ? "Show fewer" : `Show all ${state.items.length}`}
-            <ArrowRight aria-hidden="true" className={`h-4 w-4 transition-transform ${open ? "-rotate-90" : "rotate-90"}`} strokeWidth={2} />
-          </button>
+          <a href={`#${id}`} className="inline-flex shrink-0 items-center gap-1.5 text-[15px] font-semibold text-[var(--forest)] hover:underline">
+            View all {state.items.length}
+            <ArrowRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+          </a>
+        ) : focused ? (
+          <a href="#overview" className="inline-flex shrink-0 items-center gap-1.5 text-[15px] font-semibold text-[var(--forest)] hover:underline">
+            <ArrowRight aria-hidden="true" className="h-4 w-4 rotate-180" strokeWidth={2} />
+            Overview
+          </a>
         ) : null}
       </div>
 
