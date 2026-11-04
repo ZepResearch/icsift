@@ -1,8 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@/styles/herbarium.css";
 import "@/styles/signal.css";
-import { body, display, grotesk, label } from "@/components/home/fonts";
+import { body, display, geistMono, geistSans, grotesk, label } from "@/components/home/fonts";
 import ConferenceNavbar from "@/components/Navbar";
 import ConferenceFooter from "@/components/Footer";
  import TawkToChat from "@/components/TawkToChat";
@@ -15,17 +14,6 @@ import JsonLd from "@/components/seo/JsonLd";
 import { CONFERENCE } from "@/constants/conference";
 import { BASE_KEYWORDS, BRAND, OG_IMAGE, SHORT_WHEN, SITE_NAME, SITE_URL, organizationSchema, websiteSchema } from "@/lib/seo";
 
-
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 // Site-wide SEO defaults. Each page adds its own title, description and canonical URL through
 // src/components/metadata.js (built on src/lib/seo.js); everything here derives from src/constants/conference.js.
 export const metadata = {
