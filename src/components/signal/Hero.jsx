@@ -3,12 +3,18 @@ import { CalendarDays, MapPin } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
 import SigButton from "./SigButton";
 
-// "21–22 February 2027", from the schedule in the constants.
+// "26–27 February 2027", from the schedule in the constants.
 export function conferenceDates() {
   const { month, year, days } = CONFERENCE.scheduleDates;
   const name = new Date(year, month, 1).toLocaleString("en-GB", { month: "long" });
   return `${days[0]}–${days[days.length - 1]} ${name} ${year}`;
 }
+
+// "2027-02-26" for <time dateTime>.
+const isoDay = (day) => {
+  const { month, year } = CONFERENCE.scheduleDates;
+  return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+};
 
 // Full-bleed room photograph in green duotone. Place and date above a giant signal-yellow headline bottom-left;
 // bottom-right, the SDG wheel, the venue and the two actions.
@@ -30,16 +36,18 @@ export default function Hero() {
 
       <div className="mx-auto mt-auto grid w-full max-w-[1400px] gap-10 px-4 pt-32 pb-12 sm:px-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:items-end lg:gap-14 lg:px-10 lg:pb-16">
         <div>
-          <ul className="sig-rise flex flex-wrap gap-x-8 gap-y-2 text-[17px] font-semibold">
-            <li className="flex items-center gap-2.5">
-              <MapPin aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
-              {city} | Hybrid 
-            </li>
-            <li className="flex items-center gap-2.5">
-              <CalendarDays aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
-              {conferenceDates()}
-            </li>
-          </ul>
+          {/* When and where as a pair of blocks, like the Submit / Register buttons: the dates filled yellow so they read
+              first, the place outlined beside them. */}
+          <div className="sig-rise flex flex-wrap items-stretch gap-2 text-[clamp(1.35rem,1.05rem+1vw,2rem)] leading-none">
+            <p className="sig-display inline-flex items-center gap-3 bg-[var(--signal)] px-4 py-2.5 text-[var(--forest)]">
+              <CalendarDays aria-hidden="true" className="h-[1em] w-[1em] shrink-0" strokeWidth={2} />
+              <time dateTime={isoDay(CONFERENCE.scheduleDates.days[0])}>{conferenceDates()}</time>
+            </p>
+            <p className="sig-display inline-flex items-center gap-3 border-2 border-[var(--signal)] px-4 py-2.5">
+              <MapPin aria-hidden="true" className="h-[1em] w-[1em] shrink-0" strokeWidth={2} />
+              {city} | Hybrid
+            </p>
+          </div>
           <h1 id="hero-title" className="sig-display sig-rise mt-5 text-[clamp(2.6rem,1rem+5vw,6rem)]" style={{ "--i": 1 }}>
             {CONFERENCE.name.trim()}
           </h1>

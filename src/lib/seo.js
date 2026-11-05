@@ -16,7 +16,7 @@ const pad = (n) => String(n).padStart(2, "0");
 // "ICSIFT 2027", the short brand used at the end of every title.
 export const BRAND = `${SITE_NAME} ${year}`;
 
-// ISO dates with the venue's offset, e.g. 2027-02-21T09:00:00+07:00.
+// ISO dates with the venue's offset, e.g. 2027-02-26T09:00:00+07:00.
 const { month, days } = CONFERENCE.scheduleDates;
 const [opens, closes] = CONFERENCE.venue.hours || ["09:00", "18:00"];
 const isoDay = (day) => `${CONFERENCE.scheduleDates.year}-${pad(month + 1)}-${pad(day)}`;
@@ -25,7 +25,7 @@ export const END_DATE = `${isoDay(days[days.length - 1])}T${closes}:00${CONFEREN
 
 // Short phrases reused across descriptions so every page carries the edition, place and date.
 export const WHEN_WHERE = `${CONFERENCE.date}, ${location} and online`;
-// The compact form for search snippets, which Google cuts at about 155 characters: "21–22 Feb 2027, Bangkok & online".
+// The compact form for search snippets, which Google cuts at about 155 characters: "26–27 Feb 2027, Bangkok & online".
 const monthShort = new Date(CONFERENCE.scheduleDates.year, month, 1).toLocaleString("en-GB", { month: "short" });
 export const SHORT_WHEN = `${days[0]}–${days[days.length - 1]} ${monthShort} ${CONFERENCE.scheduleDates.year}, ${city} & online`;
 
@@ -46,8 +46,11 @@ export const BASE_KEYWORDS = [
   "hybrid conference",
 ];
 
+// The share image's URL carries the edition and dates, so WhatsApp, Facebook and LinkedIn (which cache previews by
+// URL) fetch a fresh image whenever the dates in the constants change.
+const OG_VERSION = `${CONFERENCE.scheduleDates.year}${pad(month + 1)}${days.map(pad).join("")}`;
 export const OG_IMAGE = {
-  url: "/opengraph-image",
+  url: `/opengraph-image?v=${OG_VERSION}`,
   width: 1200,
   height: 630,
   alt: `${CONFERENCE.shortForm}: ${name}, ${WHEN_WHERE}`,
@@ -140,7 +143,7 @@ export function eventSchema() {
     eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
     inLanguage: "en",
     url: SITE_URL,
-    image: [abs("/opengraph-image"), abs("/gallery/3rd-icsift  (58).jpeg")],
+    image: [abs(OG_IMAGE.url), abs("/gallery/3rd-icsift  (58).jpeg")],
     location: [
       {
         "@type": "Place",
