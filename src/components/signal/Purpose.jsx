@@ -5,7 +5,7 @@ import Reveal from "@/components/home/Reveal";
 // Figures already published elsewhere on the site (past editions and the about page).
 const FIGURES = [
   ["3", "Editions since 2024"],
-  ["250+", "Academics"],
+  ["250+", "Academicians"],
   ["500+", "Research scholars"],
   ["15+", "Countries"],
   ["94%", "Rated it excellent or very good"],

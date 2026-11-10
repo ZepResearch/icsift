@@ -65,10 +65,10 @@ export default function Hero() {
           <a
             href="#sdgs"
             className="group mb-7 flex w-fit items-center gap-4"
-            aria-label="Aligned with the UN Sustainable Development Goals: see the four ICSIFT works on"
+            aria-label="Aligned with the UN Sustainable Development Goals: see the goals ICSIFT works on"
           >
-            <span className="relative  block h-[88px] w-[88px] shrink-0 overflow-hidden rounded-full bg-[var(--cream)] transition-transform duration-500 ease-[var(--ease-out)] group-hover:rotate-[20deg] sm:h-[104px] sm:w-[104px]">
-              <Image src="/sdgs.png" alt="" fill sizes="104px" className="translate-x-[2.3%] translate-y-[2.3%] scale-[1.42] object-center" />
+            <span className="relative  block h-[98px] w-[98px] shrink-0 overflow-hidden rounded-full bg-[var(--cream)] transition-transform duration-500 ease-[var(--ease-out)] group-hover:rotate-[20deg] sm:h-[144px] sm:w-[144px]">
+              <Image src="/sdgs.png" alt="" fill sizes="114px" className="translate-x-[2.3%] translate-y-[2.3%] scale-[1.42] object-center" />
             </span>
             <span className="max-w-[12rem] text-[15px] leading-snug font-semibold">Aligned with the UN Sustainable Development Goals</span>
           </a>

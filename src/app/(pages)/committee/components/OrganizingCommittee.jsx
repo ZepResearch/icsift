@@ -87,7 +87,7 @@ export default function OrganizingCommittee() {
         tag="Committee"
         title="The committee behind the programme"
         lead={`Experts from environmental science, renewable energy, green technology and sustainable development, who shape and review the ${CONFERENCE.shortForm}.`}
-        actions={<ActionPair tone="forest" primary={["#members", "Meet the committee"]} secondary={["/contact", "Join as a reviewer"]} />}
+        actions={<ActionPair tone="forest" primary={["#members", "Meet the committee"]}  />}
         aside={
           <dl className="grid grid-cols-2 gap-2" aria-busy={loading}>
             {[
@@ -112,7 +112,7 @@ export default function OrganizingCommittee() {
       />
 
       {/* Roll call: every member's name as running text, each a jump to their portrait. */}
-      <Field tone="cream" labelledBy="rollcall-title">
+      {/* <Field tone="cream" labelledBy="rollcall-title">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,2fr)] lg:gap-16">
           <div className="lg:sticky lg:top-40 lg:self-start">
             <h2 id="rollcall-title" data-enter className="sig-h2 !text-[clamp(2.4rem,1.6rem+2.4vw,4.2rem)]">
@@ -151,10 +151,10 @@ export default function OrganizingCommittee() {
             )}
           </div>
         </div>
-      </Field>
+      </Field> */}
 
       {/* Members: portraits in arches on forest. */}
-      <Field tone="forest" id="members" labelledBy="members-title">
+      <Field tone="yellow" id="members" labelledBy="members-title">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
           <h2 id="members-title" data-enter className="sig-h2">
             Meet the committee

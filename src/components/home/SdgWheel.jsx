@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FOCUS_GOALS, GOALS } from "@/constants/sdg";
+import { FOCUS_COUNT, FOCUS_COUNT_CAP, FOCUS_GOALS, GOALS } from "@/constants/sdg";
 
 // Dial geometry, in viewBox units. Each wedge is drawn once pointing up, then rotated into place,
 // so a translate along -y inside its group moves it radially outward.
@@ -28,7 +28,7 @@ const WEDGE = (() => {
 
 const FOCUS = new Set(FOCUS_GOALS);
 
-// All 17 goals as a dial. Wedges bloom in from the centre, the four focus goals lift clear of the
+// All 17 goals as a dial. Wedges bloom in from the centre, the focus goals lift clear of the
 // ring, and the dial turns slowly with its numbers kept upright. Hovering a wedge (or a row in the
 // list beside it) brightens the goal, swings the index to it and names it in the centre.
 export default function SdgWheel({ active, onActive }) {
@@ -44,7 +44,7 @@ export default function SdgWheel({ active, onActive }) {
       <div className="flex items-baseline justify-between gap-4">
         <span className="herb-sheet-no">Fig. 1 &middot; The seventeen goals</span>
         <span className="herb-italic text-right text-[14px]" aria-live="polite">
-          {goal ? `Goal ${goal.n} of 17` : "Four of 17 in focus"}
+          {goal ? `Goal ${goal.n} of 17` : `${FOCUS_COUNT_CAP} of 17 in focus`}
         </span>
       </div>
 
@@ -132,7 +132,7 @@ export default function SdgWheel({ active, onActive }) {
             ) : (
               <>
                 <span className="herb-display block text-[17cqw] leading-none">17</span>
-                <span className="herb-italic mt-1 block text-[3cqw] text-[var(--ink-2)]">goals, four in focus</span>
+                <span className="herb-italic mt-1 block text-[3cqw] text-[var(--ink-2)]">goals, {FOCUS_COUNT} in focus</span>
               </>
             )}
           </div>
@@ -140,7 +140,7 @@ export default function SdgWheel({ active, onActive }) {
       </div>
 
       <figcaption className="herb-italic mt-3 text-[13.5px] text-[var(--ink-2)]">
-        Rest on a wedge, or on one of the four at left, to read the goal. ICSIFT&rsquo;s four stand proud of the ring.
+        Rest on a wedge, or on one of the {FOCUS_COUNT} at left, to read the goal. ICSIFT&rsquo;s {FOCUS_COUNT} stand proud of the ring.
       </figcaption>
     </figure>
   );

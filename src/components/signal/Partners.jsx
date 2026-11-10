@@ -16,7 +16,7 @@ export default function Partners() {
       <div className="mx-auto grid max-w-[1400px] gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[minmax(0,0.6fr)_minmax(0,2fr)] lg:items-center lg:gap-12 lg:px-10 lg:py-16">
         <div>
           <h2 id="partners-title" className="sig-display text-[clamp(2rem,1.5rem+1.6vw,3rem)]">
-            Organised with
+            Co-organized with
           </h2>
           <Link href="/about-co-organizers" className="sig-link mt-3 inline-block text-[16px] font-semibold">
             Co-host the next edition
