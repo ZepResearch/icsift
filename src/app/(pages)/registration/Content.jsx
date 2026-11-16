@@ -128,8 +128,8 @@ export default function RegistrationPage() {
             <FactCells
               size="text-[clamp(1.6rem,1.2rem+1.2vw,2.3rem)]"
               facts={[
-                ["Physical, from", money(fromPrice("physical"))],
-                ["Virtual, from", money(fromPrice("virtual"))],
+                ["Physical starting from", money(fromPrice("physical"))],
+                ["Virtual starting from", money(fromPrice("virtual"))],
                 ["Early Bird", EARLY_BIRD_ACTIVE ? "Open now" : "Closed"],
                 ["Tax", `${TAX_RATE * 100}% at checkout`],
               ]}
