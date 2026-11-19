@@ -33,16 +33,16 @@ export default function BangkokClock() {
   const [count, countLabel] = now ? reading(now) : ["—", "days until the desk opens"];
 
   return (
-    <dl className="grid grid-cols-2 gap-2">
-      <div className="flex flex-col-reverse justify-end bg-[var(--signal)] px-5 py-5 text-[var(--forest)]">
+    <dl className="grid grid-cols-1 gap-2 mx-auto">
+      {/* <div className="flex flex-col-reverse justify-end bg-[var(--signal)] px-5 py-5 text-[var(--forest)]">
         <dt className="mt-1 text-[15.5px] text-[var(--forest)]/80">
           {now ? `${dayFormat.format(now)} in Bangkok` : "Time in Bangkok"}
         </dt>
         <dd className="sig-display text-[clamp(2.6rem,1.8rem+2.4vw,4rem)] leading-none tabular-nums" suppressHydrationWarning>
           {now ? timeFormat.format(now) : "--:--"}
         </dd>
-      </div>
-      <div className="flex flex-col-reverse justify-end bg-[var(--panel)] px-5 py-5">
+      </div> */}
+      <div className="flex items-center flex-col-reverse justify-end bg-[var(--panel)] px-5 py-5">
         <dt className="mt-1 text-[15.5px] text-[var(--muted)]">{countLabel}</dt>
         <dd className="sig-display text-[clamp(2.6rem,1.8rem+2.4vw,4rem)] leading-none tabular-nums">{count}</dd>
       </div>
