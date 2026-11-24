@@ -8,7 +8,8 @@ const TRACKS = [
     topics: [
       "Renewable energy systems and green technologies",
       "Climate change mitigation and adaptation",
-      "Sustainable agriculture and food security",
+      "Sustainable Agriculture, Agricultural Innovation, and Smart Farming Technologies",
+      "Sustainable Food Production, Nutrition, and Food Security",
       "Environmental management and policy",
       "Circular economy and waste management",
     ],
