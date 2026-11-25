@@ -123,8 +123,8 @@ export default function ConferenceFooter() {
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+918260080050" className="sig-footer-link">
-                    +91 82600 80050
+                  <a href="tel:+919237388326" className="sig-footer-link">
+                    +91 92373 88326
                   </a>
                 </li>
               </ul>

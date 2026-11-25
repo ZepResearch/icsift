@@ -23,7 +23,7 @@ const TOPICS = [
 
 const DIRECT = [
   ["Email", "mailto:info@icsift.com", "info@icsift.com"],
-  ["Phone", "tel:+918260080050", "+91 82600 80050"],
+  ["Phone", "tel:+919237388326", "+91 92373 88326"],
 ];
 
 const PAST = [

@@ -1,7 +1,7 @@
 import PocketBase from "pocketbase"
 
 // Initialize PocketBase
-export const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL_ZEP)
+export const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL)
 
 
 export function getPocketBaseClient() {
