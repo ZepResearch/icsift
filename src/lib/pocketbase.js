@@ -1,13 +1,13 @@
 import PocketBase from "pocketbase"
 
 // Initialize PocketBase
-export const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL)
+export const pb = new PocketBase(process.env.NEXT_PUBLIC_PB_URL_ZEP)
 
 
 export function getPocketBaseClient() {
   // For server-side rendering, always create a fresh instance
   if (typeof window === "undefined") {
-    const pb = new PocketBase("https://zep-research.pockethost.io")
+    const pb = new PocketBase("https://admin.zepresearch.com")
     pb.autoCancellation(false)
     return pb
   }

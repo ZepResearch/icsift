@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       'res.cloudinary.com',
       'images.unsplash.com',
+      'admin.zepresearch.com',
       'plus.unsplash.com',
       'conference.pockethost.io',
       'zep-research.pockethost.io',

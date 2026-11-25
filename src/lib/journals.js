@@ -13,4 +13,4 @@ const INDEX_NAME = Object.fromEntries(INDEX_TABS.slice(1));
 export const indexName = (type) => INDEX_NAME[type] || null;
 
 export const coverOf = (journal) =>
-  journal.imgs ? `https://zep-research.pockethost.io/api/files/Journals/${journal.id}/${journal.imgs}` : journal.img || null;
+  journal.imgs ? `https://admin.zepresearch.com/api/files/Journals/${journal.id}/${journal.imgs}` : journal.img || null;
