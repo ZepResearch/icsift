@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CONFERENCE } from "@/constants/conference";
 import { ActionPair, FactCells, Field, LEAD, PageHero, SPLIT, StickyIntro } from "@/components/signal/page";
+import RevenueEvent from "./RevenueEvent";
 
 const NEXT = [
   ["Keep your order number", "It is in the “Payment initiated” email we sent to your billing address. Quote it in any question about your payment.", null],
@@ -14,6 +15,7 @@ const NEXT = [
 export default function RegistrationSuccessPage() {
   return (
     <main className="sig min-h-screen">
+      <RevenueEvent />
       <PageHero
         id="paid-title"
         tag="Payment received"

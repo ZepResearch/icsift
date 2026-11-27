@@ -5,7 +5,6 @@ import { resend } from "@/lib/resend"
 import PaymentInitiatedEmail from "@/emails/PaymentInitiatedEmail"
 import { validateBilling } from "@/lib/billing"
 import { CURRENCY, customAmountProblem, resolveSponsor, resolveTicket, withTax } from "@/lib/pricing"
-import { signPayload } from "@/lib/payment-signature"
 import { clientIp, createRateLimiter, escapeAll, verifyZepUser } from "@/lib/submission-guard"
 
 // Builds and encrypts the CCAvenue order. The browser says what it wants to buy (a ticket key, a sponsor
@@ -13,6 +12,16 @@ import { clientIp, createRateLimiter, escapeAll, verifyZepUser } from "@/lib/sub
 
 const rateLimited = createRateLimiter({ windowMs: 15 * 60 * 1000, max: 10 })
 const fail = (status, message, errors) => NextResponse.json({ error: message, ...(errors ? { errors } : {}) }, { status })
+
+// The site's public address, for CCAvenue's return URL. Behind a proxy or load balancer `request.nextUrl.origin`
+// can be the internal address (http://localhost:3000), which CCAvenue cannot reach, so the forwarded host wins.
+function publicOrigin(request) {
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host")
+  if (!host) return request.nextUrl.origin
+  const local = /^((www\.)?localhost|127\.0\.0\.1)(:\d+)?$/.test(host)
+  const proto = request.headers.get("x-forwarded-proto")?.split(",")[0].trim() || (local ? "http" : "https")
+  return `${local ? proto : "https"}://${host.split(",")[0].trim()}`
+}
 
 const orderId = (prefix) => `${prefix}-${Date.now()}-${randomBytes(2).toString("hex").toUpperCase()}`
 
@@ -72,20 +81,33 @@ export async function POST(request) {
   const paymentData = {
     ...billing,
     order_id: orderId(item.prefix),
-    currency: CURRENCY,
+    // CCAVENUE_CURRENCY is for staging only: the test merchant account takes INR alone ("Payment option is not
+    // allocated", error 10003, for USD). Leave it unset in production.
+    currency: process.env.CCAVENUE_CURRENCY || CURRENCY,
     amount: item.amount.toFixed(2),
     language: "EN",
     ...item.fields,
   }
 
-  // Order details ride along in the return URL, signed so /api/ccavenue/handle can trust them. The account id
-  // travels only here (not to CCAvenue), so the saved registration shows on the user's dashboard.
-  const payload = JSON.stringify(userId ? { ...paymentData, user: userId } : paymentData)
-  const returnUrl = `${request.nextUrl.origin}/api/ccavenue/handle?paymentData=${encodeURIComponent(payload)}&sig=${signPayload(payload)}`
+  // What /api/ccavenue/handle needs to save the registration travels inside the encrypted order as CCAvenue's
+  // merchant_param1-5 (100 characters each), which the gateway hands back, encrypted, with the result. Only this
+  // server and CCAvenue hold the working key, so they cannot be forged, and the return URL stays short (a long
+  // query string on redirect_url can be cut off by the gateway, which used to lose the whole order).
+  const cap = (value) => String(value ?? "").slice(0, 100)
+  const returnUrl = `${publicOrigin(request)}/api/ccavenue/handle`
 
   let encRequest
   try {
-    encRequest = CCAvenue.getEncryptedOrder({ ...paymentData, redirect_url: returnUrl, cancel_url: returnUrl })
+    encRequest = CCAvenue.getEncryptedOrder({
+      ...paymentData,
+      merchant_param1: cap(userId),
+      merchant_param2: cap(paymentData.ticket_name),
+      merchant_param3: cap(`${paymentData.ticket_type}|${paymentData.ticket_category}`),
+      merchant_param4: cap(billing.billing_organization),
+      merchant_param5: cap(billing.billing_designation),
+      redirect_url: returnUrl,
+      cancel_url: returnUrl,
+    })
   } catch (error) {
     console.error("[ccavenue/encrypt] Encryption failed:", error?.message)
     return fail(500, "Payment could not be started just now. Please try again, or contact info@icsift.com.")

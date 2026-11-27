@@ -57,14 +57,13 @@ return initOptions && initOptions[key]? true : false;
 
     redirectResponseToJson(response) {
         if (response) {
-            let ccavResponse = this.decrypt(response);
-            const responseArray = ccavResponse.split('&');
-            const stringify = JSON.stringify(responseArray);
-            const removeQ = stringify.replace(/['"]+/g, '');
-            const removeS = removeQ.replace(/[[\]]/g, '');
-            return removeS.split(',').reduce((o, pair) => {
-                pair = pair.split('=');
-                return o[pair[0]] = pair[1], o;
+            // "key=value&key=value". Split each pair on its first "=" only, so values holding commas, quotes or
+            // "=" (addresses, failure messages) arrive intact. The old comma-based split corrupted them.
+            const ccavResponse = this.decrypt(response);
+            return ccavResponse.split('&').reduce((o, pair) => {
+                const at = pair.indexOf('=');
+                if (at > 0) o[pair.slice(0, at).trim()] = pair.slice(at + 1).trim();
+                return o;
             }, {});
         } else {
             this.throwError('CCAvenue encrypted response');

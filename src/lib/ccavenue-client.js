@@ -16,7 +16,8 @@ export async function startCcavenueCheckout(body) {
 
   const form = document.createElement("form")
   form.method = "post"
-  form.action = "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
+  // Live gateway unless NEXT_PUBLIC_CCAVENUE_URL points at staging (set in .env.development.local for local tests).
+  form.action = process.env.NEXT_PUBLIC_CCAVENUE_URL || "https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"
   form.style.display = "none"
   for (const [name, value] of [
     ["encRequest", data.encRequest],

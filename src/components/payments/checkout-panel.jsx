@@ -55,6 +55,10 @@ export default function CheckoutPanel({ item, onClose, requireAuth = false }) {
     setFormError(null);
     try {
       const website = new FormData(event.currentTarget).get("website") || "";
+      // Funnel step for Umami. Revenue itself is sent from /payment/success, once CCAvenue confirms the charge.
+      try {
+        window.umami?.track("checkout-start", { item: item.title, kind: item.request?.kind || "" });
+      } catch {}
       await startCcavenueCheckout({ ...item.request, ...form, website, auth_token: requireAuth ? pb.authStore.token : undefined });
       // The browser is now leaving for CCAvenue; keep the button busy.
     } catch (error) {
